@@ -31,7 +31,7 @@ function sizeLabel(bytes) {
 function renderList(items) {
   listBox.innerHTML = "";
   if (!items.length) {
-    listBox.innerHTML = `<p class="anime-status">还没有上传视频。</p>`;
+    listBox.innerHTML = `<p class="anime-status">片库还是空的，先放进第一部。</p>`;
     return;
   }
 
@@ -43,7 +43,7 @@ function renderList(items) {
       <span>${item.isPublished ? "已发布" : "未发布"} / ${sizeLabel(item.sizeBytes)}</span>
       <code>${item.mediaUrl}</code>
       <div class="video-admin-actions">
-        <a class="copy-button" href="/anime/" target="_blank" rel="noreferrer">打开播放页</a>
+        <a class="copy-button" href="/anime/" target="_blank" rel="noreferrer">去放映室</a>
         <button class="copy-button" type="button" data-delete="${item.id}">删除</button>
       </div>
     `;
@@ -52,7 +52,7 @@ function renderList(items) {
 
   listBox.querySelectorAll("[data-delete]").forEach((button) => {
     button.addEventListener("click", async () => {
-      const ok = confirm("确定删除这个视频吗？服务器文件也会删除。");
+      const ok = confirm("确定把这部片子从片库移走吗？服务器文件也会删除。");
       if (!ok) {
         return;
       }
@@ -66,20 +66,20 @@ async function loadVideos() {
   const health = await api("/api/admin/anime/health");
   const data = await api("/api/admin/anime/videos");
   renderList(data.items || []);
-  setStatus("ok", `视频服务已连接。最大上传 ${(health.maxUploadBytes / 1024 / 1024 / 1024).toFixed(1)} GB。`);
+  setStatus("ok", `片库在线。单次最多 ${(health.maxUploadBytes / 1024 / 1024 / 1024).toFixed(1)} GB。`);
 }
 
 uploadForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const formData = new FormData(uploadForm);
-  setStatus("", "正在上传视频...");
+  setStatus("", "正在把片子放进片库...");
   await api("/api/admin/anime/videos", {
     method: "POST",
     body: formData
   });
   uploadForm.reset();
   await loadVideos();
-  setStatus("ok", "视频已上传并发布。");
+  setStatus("ok", "片子已经放进放映室。");
 });
 
 refreshButton.addEventListener("click", () => {

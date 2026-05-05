@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Berlin2003 / 视频上传后台</title>
+  <title>Berlin2003 / 片库后台</title>
   <meta name="theme-color" content="#f4efe6">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
-  <link rel="stylesheet" href="/assets/section-lab.css?v=20260505">
+  <link rel="stylesheet" href="/assets/section-lab.css?v=20260505-polish">
 </head>
 <body class="section-lab-body anime-lab-body">
   <div class="site-shell section-lab-shell">
@@ -24,34 +24,37 @@
     <main class="section-lab-main">
       <section class="section-lab-hero">
         <div class="section-lab-copy">
-          <p class="section-lab-kicker">Video Admin</p>
-          <h1>上传已压字幕的 MP4。</h1>
-          <p class="section-lab-lead">先在本地把字幕压进 MP4，再上传到这里。服务器只做存储、列表和播放，不做种子下载、自动字幕或转码。</p>
+          <p class="section-lab-kicker">Screening Admin</p>
+          <h1>把片子放进放映室。</h1>
+          <p class="section-lab-lead">先在本地把字幕压进 MP4，再上传到这里。服务器只保存片源、片单和播放地址，不接管字幕制作，也不做转码。</p>
           <div class="section-lab-actions">
-            <a class="section-lab-primary" href="/anime/">打开视频库</a>
+            <a class="section-lab-primary" href="/anime/">打开放映室</a>
             <a href="/studio/">返回工作台</a>
           </div>
         </div>
-        <div class="section-lab-visual">
+        <div class="section-lab-visual anime-screen-visual">
+          <div class="anime-screen-mark">
+            <span></span><span></span><span></span><span></span>
+          </div>
           <div class="section-lab-visual-note">
-            <strong>Upload pipeline</strong>
-            <span>本地处理字幕，服务器保存成可播放资源。</span>
+            <strong>Local subtitle, server shelf</strong>
+            <span>本地处理字幕，服务器只把成片收进片库。</span>
           </div>
         </div>
       </section>
 
       <section class="anime-admin-status studio-status">
         <span class="status-dot" id="anime-admin-dot"></span>
-        <span id="anime-admin-status">正在检查视频服务...</span>
+        <span id="anime-admin-status">正在确认片库是否在线...</span>
       </section>
 
       <div class="anime-admin-grid video-admin-grid">
         <section class="studio-panel">
-          <h2>上传视频</h2>
+          <h2>添一部片子</h2>
           <form class="studio-form" id="video-upload-form">
             <label>
               标题
-              <input name="title" placeholder="例如：Psych2Go 中文字幕版" required>
+              <input name="title" placeholder="例如：某一集 中文字幕版" required>
             </label>
             <label>
               Slug
@@ -59,24 +62,24 @@
             </label>
             <label>
               简介
-              <textarea name="description" placeholder="可选，写来源、版本或备注。"></textarea>
+              <textarea name="description" placeholder="可选，写来源、版本、字幕或观看备注。"></textarea>
             </label>
             <label>
               封面 URL
               <input name="posterUrl" placeholder="可选">
             </label>
             <label>
-              已压字幕 MP4
+              已压好字幕的 MP4
               <input name="file" type="file" accept="video/mp4" required>
             </label>
-            <button class="submit-button" type="submit">上传并发布</button>
+            <button class="submit-button" type="submit">放进片库</button>
           </form>
         </section>
 
         <section class="studio-result">
           <div class="studio-result-head">
-            <h2>已上传</h2>
-            <button class="copy-button" id="video-refresh" type="button">刷新</button>
+            <h2>片库里已有</h2>
+            <button class="copy-button" id="video-refresh" type="button">重新整理</button>
           </div>
           <div class="anime-admin-list" id="video-admin-list"></div>
         </section>
@@ -84,11 +87,11 @@
     </main>
 
     <footer class="section-lab-footer">
-      <span>视频后台</span>
+      <span>片库后台</span>
       <span>Basic Auth</span>
     </footer>
   </div>
 
-  <script src="/assets/anime-admin.js"></script>
+  <script src="/assets/anime-admin.js?v=20260505-polish"></script>
 </body>
 </html>

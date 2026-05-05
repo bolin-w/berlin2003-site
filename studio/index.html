@@ -7,15 +7,15 @@
   <meta name="theme-color" content="#f4efe6">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
-  <link rel="stylesheet" href="/assets/section-lab.css?v=20260505">
+  <link rel="stylesheet" href="/assets/section-lab.css?v=20260505-polish">
 </head>
 <body class="section-lab-body anime-lab-body">
   <div class="site-shell section-lab-shell">
     <header class="section-lab-topbar">
       <a class="section-lab-brand" href="/" aria-label="Berlin2003 首页"><span>Berlin</span><strong>2003</strong></a>
       <nav class="section-lab-nav" aria-label="工作台导航">
-        <a href="/studio/anime/">视频后台</a>
-        <a href="/life/">生活</a>
+        <a href="/studio/anime/">片库后台</a>
+        <a href="/life/">日记</a>
         <a href="/notes/">笔记</a>
         <a href="/studio-logout/">退出</a>
       </nav>
@@ -25,39 +25,39 @@
       <section class="section-lab-hero">
         <div class="section-lab-copy">
           <p class="section-lab-kicker">Private Studio</p>
-          <h1>站点内容处理工作台。</h1>
-          <p class="section-lab-lead">把原文、论文笔记或页面想法贴进来，选择处理模式，让后端模型返回可以继续编辑的结构化结果。这个入口受访问控制保护。</p>
+          <h1>把零散文字先放到这里。</h1>
+          <p class="section-lab-lead">论文摘记、页面想法、临时段落都可以先丢进工作台。它会帮你把原文压短、理顺或拆成模块，之后再慢慢改到页面里。</p>
           <div class="section-lab-actions">
-            <a class="section-lab-primary" href="/studio/anime/">动漫资源库后台</a>
-            <a href="/studio-logout/">退出工作台</a>
+            <a class="section-lab-primary" href="/studio/anime/">整理片库</a>
+            <a href="/studio-logout/">离开工作台</a>
           </div>
         </div>
         <div class="section-lab-visual">
           <div class="section-lab-visual-note">
-            <strong>Content operations</strong>
-            <span>适合整理 research 文案、项目描述、阶段笔记和长文本摘要。</span>
+            <strong>Draft bench</strong>
+            <span>适合放还没成型的 research 文案、阶段笔记和长文本摘要。</span>
           </div>
         </div>
       </section>
 
       <div class="meta-row">
-        <a class="meta-chip studio-link-chip" href="/studio/anime/">动漫资源库后台</a>
-        <a class="meta-chip studio-link-chip" href="/studio-logout/">退出工作台</a>
+        <a class="meta-chip studio-link-chip" href="/studio/anime/">片库后台</a>
+        <a class="meta-chip studio-link-chip" href="/studio-logout/">离开工作台</a>
       </div>
 
       <div class="studio-shell">
         <section class="studio-panel">
-          <h2>输入</h2>
+          <h2>草稿</h2>
           <div class="studio-status">
             <span class="status-dot" id="status-dot"></span>
-            <span id="status-text">正在检查后端状态...</span>
+            <span id="status-text">正在看看工作台醒了没有...</span>
           </div>
 
           <div class="preset-row">
-            <button class="preset-button" type="button" data-preset="homepage">首页文案</button>
-            <button class="preset-button" type="button" data-preset="module">模块结构</button>
-            <button class="preset-button" type="button" data-preset="notes">工作笔记</button>
-            <button class="preset-button" type="button" data-preset="refine">自然润色</button>
+            <button class="preset-button" type="button" data-preset="homepage">首页片段</button>
+            <button class="preset-button" type="button" data-preset="module">拆成模块</button>
+            <button class="preset-button" type="button" data-preset="notes">整理笔记</button>
+            <button class="preset-button" type="button" data-preset="refine">顺一遍</button>
           </div>
 
           <form class="studio-form" id="studio-form">
@@ -71,36 +71,36 @@
                 </select>
               </label>
               <label>
-                额外要求
-                <input id="instruction" name="instruction" placeholder="例如：改成更像真实个人站，不要太满，不要 AI 味。">
+                想怎么处理
+                <input id="instruction" name="instruction" placeholder="例如：写得更像自己说的话，短一点，别太满。">
               </label>
             </div>
 
             <label>
-              原始内容
-              <textarea id="content" name="content" placeholder="把你要处理的原文粘贴到这里。"></textarea>
+              原文
+              <textarea id="content" name="content" placeholder="把还没整理好的文字先放在这里。"></textarea>
             </label>
 
-            <button class="submit-button" type="submit">生成结果</button>
+            <button class="submit-button" type="submit">整理这段</button>
           </form>
         </section>
 
         <section class="studio-result">
           <div class="studio-result-head">
-            <h2>输出</h2>
-            <button class="copy-button" id="copy-output" type="button">复制结果</button>
+            <h2>整理后</h2>
+            <button class="copy-button" id="copy-output" type="button">复制这段</button>
           </div>
-          <pre id="result" class="result-placeholder">输出会显示在这里。</pre>
+          <pre id="result" class="result-placeholder">整理后的文字会留在这里。</pre>
         </section>
       </div>
     </main>
 
     <footer class="section-lab-footer">
       <span>工作台</span>
-      <span>已授权</span>
+      <span>private draft bench</span>
     </footer>
   </div>
 
-  <script src="/assets/studio.js"></script>
+  <script src="/assets/studio.js?v=20260505-polish"></script>
 </body>
 </html>

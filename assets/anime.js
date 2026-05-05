@@ -33,13 +33,13 @@ function renderDetail(item) {
         <div>
           <span>Now Playing</span>
           <h2>${item.title}</h2>
-          <p>${item.description || "已上传的视频。"}</p>
+          <p>${item.description || "这部片子还没有写备注。"}</p>
         </div>
       </div>
       <video class="storage-video-player" controls playsinline preload="metadata" ${item.posterUrl ? `poster="${item.posterUrl}"` : ""}>
         <source src="${item.mediaUrl}" type="video/mp4">
       </video>
-      <p class="anime-status">${sizeLabel(item.sizeBytes)}</p>
+      <p class="anime-status">片源大小 ${sizeLabel(item.sizeBytes)}</p>
     </div>
   `;
 }
@@ -52,14 +52,14 @@ function renderVideos(items) {
     listBox.innerHTML = `
       <article class="anime-card anime-card-pending">
         <span>Empty</span>
-        <strong>还没有视频</strong>
-        <p>在工作台上传本地压好字幕的 MP4 后会出现在这里。</p>
+        <strong>片库还空着</strong>
+        <p>去后台放进第一部压好字幕的 MP4，片单就会亮起来。</p>
       </article>
     `;
     detailBox.innerHTML = `
       <div class="anime-empty">
         <span>Storage</span>
-        <p>等待第一个视频上传。</p>
+        <p>还没有片源。等第一部片子入库后，这里会变成播放屏。</p>
       </div>
     `;
     return;
@@ -72,7 +72,7 @@ function renderVideos(items) {
     button.innerHTML = `
       <span>${sizeLabel(item.sizeBytes)}</span>
       <strong>${item.title}</strong>
-      <p>${item.description || "已上传视频。"}</p>
+      <p>${item.description || "还没有备注，点开直接看。"}</p>
       <small>${new Date(item.updatedAt).toLocaleString()}</small>
     `;
     button.addEventListener("click", () => renderDetail(item));
@@ -83,10 +83,10 @@ function renderVideos(items) {
 }
 
 async function loadVideos() {
-  setStatus("正在读取视频库...");
+  setStatus("正在整理片单...");
   const data = await api("/api/anime/videos");
   renderVideos(data.items || []);
-  setStatus("视频库已加载。");
+  setStatus("片单已经摆好。");
 }
 
 loadVideos().catch((error) => {
