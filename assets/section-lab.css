@@ -819,6 +819,132 @@ body.anime-lab-body {
   justify-content: flex-start;
 }
 
+.life-diary-emoji {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid var(--section-line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.life-diary-emoji span {
+  margin-right: 4px;
+  color: var(--section-muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.life-diary-emoji button {
+  display: inline-grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 1px solid rgba(7, 22, 47, 0.1);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.life-diary-emoji button:hover {
+  transform: translateY(-2px);
+  border-color: rgba(35, 111, 229, 0.32);
+  box-shadow: 0 10px 22px rgba(29, 89, 143, 0.1);
+}
+
+.life-photo-drop {
+  display: grid;
+  place-items: center;
+  min-height: 128px;
+  padding: 18px;
+  text-align: center;
+  border: 1px dashed rgba(35, 111, 229, 0.42);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(35, 111, 229, 0.08), rgba(24, 167, 168, 0.08)),
+    rgba(255, 255, 255, 0.68);
+  cursor: pointer;
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.life-photo-drop.is-dragging {
+  transform: translateY(-2px);
+  border-color: var(--section-coral);
+  background:
+    linear-gradient(135deg, rgba(255, 114, 77, 0.12), rgba(35, 111, 229, 0.1)),
+    rgba(255, 255, 255, 0.86);
+}
+
+.life-photo-drop input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.life-photo-drop strong {
+  display: block;
+  color: var(--section-ink);
+  font-size: 1.16rem;
+}
+
+.life-photo-drop span {
+  display: block;
+  margin-top: 8px;
+  color: var(--section-muted);
+  line-height: 1.6;
+}
+
+.life-photo-preview {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.life-photo-preview[hidden] {
+  display: none;
+}
+
+.life-photo-item {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--section-line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.life-photo-item img,
+.life-diary-card-photos img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.life-photo-item button {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  min-height: 30px;
+  padding: 6px 9px;
+  color: var(--section-coral);
+  border: 1px solid rgba(255, 114, 77, 0.3);
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.9);
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 750;
+  cursor: pointer;
+}
+
 .life-diary-actions button,
 .life-diary-card-actions button {
   min-height: 40px;
@@ -875,6 +1001,25 @@ body.anime-lab-body {
   color: var(--section-muted);
   line-height: 1.78;
   white-space: pre-wrap;
+}
+
+.life-diary-card-photos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.life-diary-card-photos img {
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--section-line);
+  border-radius: 7px;
+  background: #fff;
+}
+
+.life-diary-card-photos img:first-child:nth-last-child(1) {
+  grid-column: 1 / -1;
+  aspect-ratio: 16 / 10;
 }
 
 .life-diary-card-tags {
@@ -990,6 +1135,7 @@ body.anime-lab-body {
   .section-lab-stats,
   .life-diary-row,
   .life-diary-list,
+  .life-photo-preview,
   .anime-lab-body .studio-row,
   .anime-lab-body .preset-row {
     grid-template-columns: 1fr;

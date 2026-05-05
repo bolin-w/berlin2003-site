@@ -66,7 +66,7 @@ function readBody(req) {
     let body = "";
     req.on("data", (chunk) => {
       body += chunk;
-      if (body.length > 200_000) {
+      if (body.length > 15_000_000) {
         reject(new Error("请求体过大"));
         req.destroy();
       }
@@ -310,6 +310,16 @@ function diaryItemFromBody(body, existing = {}) {
   const title = String(body.title || "").trim();
   const content = String(body.content || "").trim();
   const mood = String(body.mood || "").trim();
+  const photos = Array.isArray(body.photos)
+    ? body.photos
+      .map((photo) => ({
+        id: String(photo?.id || `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`),
+        name: String(photo?.name || "photo").trim().slice(0, 120),
+        dataUrl: String(photo?.dataUrl || "")
+      }))
+      .filter((photo) => /^data:image\/(jpeg|jpg|png|webp);base64,/i.test(photo.dataUrl))
+      .slice(0, 6)
+    : [];
   const tags = Array.isArray(body.tags)
     ? body.tags.map((tag) => String(tag).trim()).filter(Boolean).slice(0, 8)
     : String(body.tags || "")
@@ -326,12 +336,18 @@ function diaryItemFromBody(body, existing = {}) {
     throw new Error("单篇日记太长，请控制在 8000 字以内。");
   }
 
+  const photoBytes = photos.reduce((sum, photo) => sum + photo.dataUrl.length, 0);
+  if (photoBytes > 8_000_000) {
+    throw new Error("照片总大小太大，请减少照片数量或压缩后再上传。");
+  }
+
   return {
     id: existing.id || `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`,
     title: title || "未命名记录",
     content,
     mood,
     tags,
+    photos,
     createdAt: existing.createdAt || now,
     updatedAt: now
   };

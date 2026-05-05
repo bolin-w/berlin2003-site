@@ -8,9 +8,14 @@ const diaryStatus = document.querySelector("#diary-status");
 const diaryCount = document.querySelector("#diary-count");
 const diaryReset = document.querySelector("#diary-reset");
 const diarySubmit = document.querySelector("#diary-submit");
+const diaryPhotos = document.querySelector("#diary-photos");
+const photoDrop = document.querySelector("#life-photo-drop");
+const photoPreview = document.querySelector("#life-photo-preview");
+const emojiButtons = document.querySelectorAll("[data-emoji]");
 
 let diaryItems = [];
 let editingId = "";
+let currentPhotos = [];
 
 function setDiaryStatus(text, kind = "") {
   diaryStatus.textContent = text;
@@ -54,12 +59,113 @@ function tagsFromInput(value) {
     .slice(0, 8);
 }
 
+function insertAtCursor(textarea, value) {
+  const start = textarea.selectionStart || 0;
+  const end = textarea.selectionEnd || 0;
+  const before = textarea.value.slice(0, start);
+  const after = textarea.value.slice(end);
+  textarea.value = `${before}${value}${after}`;
+  textarea.focus();
+  const next = start + value.length;
+  textarea.setSelectionRange(next, next);
+}
+
+function renderPhotoPreview() {
+  photoPreview.innerHTML = "";
+  if (!currentPhotos.length) {
+    photoPreview.hidden = true;
+    return;
+  }
+
+  photoPreview.hidden = false;
+  currentPhotos.forEach((photo) => {
+    const item = document.createElement("figure");
+    item.className = "life-photo-item";
+
+    const image = document.createElement("img");
+    image.src = photo.dataUrl;
+    image.alt = photo.name || "日记照片";
+
+    const remove = document.createElement("button");
+    remove.type = "button";
+    remove.textContent = "移除";
+    remove.addEventListener("click", () => {
+      currentPhotos = currentPhotos.filter((entry) => entry.id !== photo.id);
+      renderPhotoPreview();
+    });
+
+    item.append(image, remove);
+    photoPreview.appendChild(item);
+  });
+}
+
+function canvasToDataUrl(canvas) {
+  return canvas.toDataURL("image/webp", 0.82);
+}
+
+async function compressImage(file) {
+  const dataUrl = await new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result || ""));
+    reader.onerror = () => reject(new Error("读取图片失败。"));
+    reader.readAsDataURL(file);
+  });
+
+  const image = await new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = () => reject(new Error("图片格式无法识别。"));
+    img.src = dataUrl;
+  });
+
+  const maxSide = 1400;
+  const scale = Math.min(1, maxSide / Math.max(image.width, image.height));
+  const width = Math.max(1, Math.round(image.width * scale));
+  const height = Math.max(1, Math.round(image.height * scale));
+  const canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = height;
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(image, 0, 0, width, height);
+
+  return {
+    id: `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`,
+    name: file.name || "photo.webp",
+    dataUrl: canvasToDataUrl(canvas)
+  };
+}
+
+async function addPhotos(files) {
+  const imageFiles = Array.from(files || []).filter((file) => file.type.startsWith("image/"));
+  if (!imageFiles.length) {
+    return;
+  }
+
+  const slots = Math.max(0, 6 - currentPhotos.length);
+  if (!slots) {
+    setDiaryStatus("每篇最多 6 张照片。", "warn");
+    return;
+  }
+
+  setDiaryStatus("正在压缩照片...");
+  const nextPhotos = [];
+  for (const file of imageFiles.slice(0, slots)) {
+    nextPhotos.push(await compressImage(file));
+  }
+  currentPhotos = [...currentPhotos, ...nextPhotos];
+  diaryPhotos.value = "";
+  renderPhotoPreview();
+  setDiaryStatus(`已添加 ${nextPhotos.length} 张照片。`, "ok");
+}
+
 function fillForm(item) {
   editingId = item.id;
   diaryTitle.value = item.title || "";
   diaryMood.value = item.mood || "";
   diaryTags.value = (item.tags || []).join(", ");
   diaryContent.value = item.content || "";
+  currentPhotos = Array.isArray(item.photos) ? [...item.photos] : [];
+  renderPhotoPreview();
   diarySubmit.textContent = "保存修改";
   diaryReset.hidden = false;
   diaryContent.focus();
@@ -69,6 +175,8 @@ function fillForm(item) {
 function resetForm() {
   editingId = "";
   diaryForm.reset();
+  currentPhotos = [];
+  renderPhotoPreview();
   diarySubmit.textContent = "记下这一篇";
   diaryReset.hidden = true;
 }
@@ -112,6 +220,15 @@ function renderDiary() {
     content.className = "life-diary-card-content";
     content.textContent = item.content || "";
 
+    const photos = document.createElement("div");
+    photos.className = "life-diary-card-photos";
+    (item.photos || []).forEach((photo) => {
+      const image = document.createElement("img");
+      image.src = photo.dataUrl;
+      image.alt = photo.name || "日记照片";
+      photos.appendChild(image);
+    });
+
     const tags = document.createElement("div");
     tags.className = "life-diary-card-tags";
     (item.tags || []).forEach((tag) => {
@@ -146,6 +263,9 @@ function renderDiary() {
 
     actions.append(edit, remove);
     card.append(meta, title, content);
+    if (item.photos?.length) {
+      card.appendChild(photos);
+    }
     if (item.tags?.length) {
       card.appendChild(tags);
     }
@@ -168,7 +288,8 @@ diaryForm.addEventListener("submit", async (event) => {
     title: diaryTitle.value,
     mood: diaryMood.value,
     tags: tagsFromInput(diaryTags.value),
-    content: diaryContent.value
+    content: diaryContent.value,
+    photos: currentPhotos
   };
 
   setDiaryStatus(editingId ? "正在保存修改..." : "正在保存新日记...");
@@ -193,6 +314,30 @@ diaryReset.addEventListener("click", () => {
   resetForm();
   setDiaryStatus("已退出编辑模式。");
 });
+
+diaryPhotos.addEventListener("change", () => {
+  addPhotos(diaryPhotos.files).catch((error) => setDiaryStatus(error.message, "warn"));
+});
+
+photoDrop.addEventListener("click", () => diaryPhotos.click());
+photoDrop.addEventListener("dragover", (event) => {
+  event.preventDefault();
+  photoDrop.classList.add("is-dragging");
+});
+photoDrop.addEventListener("dragleave", () => {
+  photoDrop.classList.remove("is-dragging");
+});
+photoDrop.addEventListener("drop", (event) => {
+  event.preventDefault();
+  photoDrop.classList.remove("is-dragging");
+  addPhotos(event.dataTransfer.files).catch((error) => setDiaryStatus(error.message, "warn"));
+});
+
+emojiButtons.forEach((button) => {
+  button.addEventListener("click", () => insertAtCursor(diaryContent, button.dataset.emoji || ""));
+});
+
+renderPhotoPreview();
 
 loadDiary().catch((error) => {
   setDiaryStatus(error.message, "warn");

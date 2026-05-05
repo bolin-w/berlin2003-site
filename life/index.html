@@ -27,7 +27,7 @@
         <div class="section-lab-copy">
           <p class="section-lab-kicker">Private Diary</p>
           <h1 id="life-title">写一次，留下一张卡片。</h1>
-          <p class="section-lab-lead">这里改成真正可用的私密日记。每次写完保存，页面会按时间生成卡片；旧记录可以再编辑，也可以删除。数据保存在服务器的受保护目录里。</p>
+          <p class="section-lab-lead">这里是真正可用的私密日记。每次写完保存，页面会按时间生成卡片；可以拖拽照片、点表情、编辑旧记录，也可以删除。</p>
           <div class="section-lab-chips">
             <span class="section-lab-chip">Basic Auth</span>
             <span class="section-lab-chip">Server saved</span>
@@ -65,6 +65,28 @@
               内容
               <textarea id="diary-content" name="content" required placeholder="写下今天发生了什么、想了什么、完成了什么。"></textarea>
             </label>
+
+            <div class="life-diary-emoji" aria-label="添加表情">
+              <span>表情</span>
+              <button type="button" data-emoji="🙂">🙂</button>
+              <button type="button" data-emoji="😄">😄</button>
+              <button type="button" data-emoji="🥲">🥲</button>
+              <button type="button" data-emoji="😴">😴</button>
+              <button type="button" data-emoji="🍜">🍜</button>
+              <button type="button" data-emoji="📚">📚</button>
+              <button type="button" data-emoji="💻">💻</button>
+              <button type="button" data-emoji="✨">✨</button>
+            </div>
+
+            <section class="life-photo-drop" id="life-photo-drop" aria-label="上传照片">
+              <input id="diary-photos" type="file" accept="image/*" multiple>
+              <div>
+                <strong>拖拽照片到这里</strong>
+                <span>也可以点击选择图片。每篇最多 6 张，保存前会自动压缩。</span>
+              </div>
+            </section>
+
+            <div class="life-photo-preview" id="life-photo-preview" aria-label="照片预览"></div>
 
             <div class="life-diary-actions">
               <button id="diary-submit" type="submit">记下这一篇</button>
