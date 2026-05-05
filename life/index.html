@@ -4,53 +4,79 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Berlin2003 / 生活</title>
-  <meta name="theme-color" content="#0b100f">
+  <meta name="description" content="Berlin2003 的私密生活入口，用于照片、记录、收藏和个人页面。">
+  <meta name="theme-color" content="#f7fbff">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
+  <link rel="stylesheet" href="/assets/section-lab.css?v=20260505">
 </head>
-<body>
-  <div class="site-shell">
-    <header class="module-top">
-      <a class="backlink" href="/">← Home</a>
-      <span>Life / Private</span>
+<body class="section-lab-body">
+  <div class="site-shell section-lab-shell">
+    <header class="section-lab-topbar">
+      <a class="section-lab-brand" href="/" aria-label="Berlin2003 首页"><span>Berlin</span><strong>2003</strong></a>
+      <nav class="section-lab-nav" aria-label="私密区导航">
+        <a href="/studio/">工作台</a>
+        <a href="/notes/">笔记</a>
+        <a href="/contact/">联系</a>
+        <a href="/studio-logout/">退出</a>
+      </nav>
     </header>
 
-    <main class="module-main">
-      <h1>生活</h1>
-      <p class="module-intro">这里留给你放生活相关的东西，比如照片、记录、想法、私人书签和只想给少数人看的页面。这个区域现在已经加了访问控制，未授权的人进不来。</p>
+    <main class="section-lab-main">
+      <section class="section-lab-hero" aria-labelledby="life-title">
+        <div class="section-lab-copy">
+          <p class="section-lab-kicker">Private Life</p>
+          <h1 id="life-title">只给自己和少数人看的空间。</h1>
+          <p class="section-lab-lead">这个区域已经通过访问控制隔离，不承担公开展示任务。它更适合放照片、私人记录、旅行片段、收藏链接和不适合出现在公开研究页里的内容。</p>
+          <div class="section-lab-actions">
+            <a class="section-lab-primary" href="/studio/">进入工作台</a>
+            <a href="/studio-logout/">退出私密区</a>
+          </div>
+        </div>
+        <figure class="section-lab-visual">
+          <img src="/assets/home-contact.png" alt="Private life page calm visual">
+          <figcaption class="section-lab-visual-note">
+            <strong>Restricted area</strong>
+            <span>公开站点负责研究表达，私密区域负责生活和临时内容。</span>
+          </figcaption>
+        </figure>
+      </section>
 
-      <div class="meta-row">
-        <span class="meta-chip">Private</span>
-        <span class="meta-chip">Photos</span>
-        <span class="meta-chip">Notes</span>
-        <span class="meta-chip">Personal</span>
-      </div>
-
-      <section class="module-grid">
-        <article class="module-card">
-          <span>区块 01</span>
+      <section class="section-lab-grid" aria-label="私密内容规划">
+        <article class="section-lab-card">
+          <span>Zone 01</span>
           <strong>生活记录</strong>
-          <p>可以放时间线、近况、想保存但不想公开的内容。</p>
+          <p>按时间线保存近况、片段和想法。这里不需要写得像文章，重点是方便以后找回。</p>
         </article>
-        <article class="module-card">
-          <span>区块 02</span>
-          <strong>图片与收藏</strong>
-          <p>后面可以接照片、截图、片段或你自己的分类收藏页。</p>
+        <article class="section-lab-card">
+          <span>Zone 02</span>
+          <strong>照片与截图</strong>
+          <p>后续可以接照片墙、截图夹或按主题整理的图集，保留真实生活里的视觉材料。</p>
         </article>
-        <article class="module-card">
-          <span>区块 03</span>
-          <strong>只给特定人看</strong>
-          <p>把账号密码发给允许访问的人，他们才能进入这个模块。</p>
+        <article class="section-lab-card">
+          <span>Zone 03</span>
+          <strong>私人书签</strong>
+          <p>放只对自己有用的链接、资料、工具入口和临时页面，不污染公开导航。</p>
         </article>
+      </section>
+
+      <section class="section-lab-panel">
+        <p class="section-lab-label">Access note</p>
+        <h2>这个模块的设计原则是安静、低维护。</h2>
+        <ul class="section-lab-list">
+          <li>内容不需要公开 SEO，也不需要做成作品集。</li>
+          <li>优先保证入口清楚、权限可靠、移动端可读。</li>
+          <li>需要长期保存的内容再整理成页面，临时内容先放工作台。</li>
+        </ul>
       </section>
     </main>
 
-    <footer class="footer">
+    <footer class="section-lab-footer">
       <span>Life / Private</span>
-      <span>Restricted</span>
+      <span>restricted</span>
     </footer>
   </div>
 
-  <script src="/assets/site-ai.js"></script>
+  <script src="/assets/site-chat.js"></script>
 </body>
 </html>

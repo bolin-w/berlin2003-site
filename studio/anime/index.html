@@ -7,21 +7,38 @@
   <meta name="theme-color" content="#f4efe6">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
+  <link rel="stylesheet" href="/assets/section-lab.css?v=20260505">
 </head>
-<body>
-  <div class="site-shell">
-    <header class="module-top">
-      <nav class="module-nav" aria-label="后台导航">
-        <a class="backlink" href="/">← 首页</a>
-        <a class="backlink" href="/anime/">视频库</a>
-        <a class="backlink" href="/studio/">工作台</a>
+<body class="section-lab-body anime-lab-body">
+  <div class="site-shell section-lab-shell">
+    <header class="section-lab-topbar">
+      <a class="section-lab-brand" href="/" aria-label="Berlin2003 首页"><span>Berlin</span><strong>2003</strong></a>
+      <nav class="section-lab-nav" aria-label="后台导航">
+        <a href="/anime/">视频库</a>
+        <a href="/studio/">工作台</a>
+        <a href="/life/">生活</a>
+        <a href="/studio-logout/">退出</a>
       </nav>
-      <span>video admin / private</span>
     </header>
 
-    <main class="module-main">
-      <h1>视频上传</h1>
-      <p class="module-intro">先在本地把字幕压进 MP4，再上传到这里。服务器只做存储和播放，不做种子下载、自动字幕或转码。</p>
+    <main class="section-lab-main">
+      <section class="section-lab-hero">
+        <div class="section-lab-copy">
+          <p class="section-lab-kicker">Video Admin</p>
+          <h1>上传已压字幕的 MP4。</h1>
+          <p class="section-lab-lead">先在本地把字幕压进 MP4，再上传到这里。服务器只做存储、列表和播放，不做种子下载、自动字幕或转码。</p>
+          <div class="section-lab-actions">
+            <a class="section-lab-primary" href="/anime/">打开视频库</a>
+            <a href="/studio/">返回工作台</a>
+          </div>
+        </div>
+        <div class="section-lab-visual">
+          <div class="section-lab-visual-note">
+            <strong>Upload pipeline</strong>
+            <span>本地处理字幕，服务器保存成可播放资源。</span>
+          </div>
+        </div>
+      </section>
 
       <section class="anime-admin-status studio-status">
         <span class="status-dot" id="anime-admin-dot"></span>
@@ -66,7 +83,7 @@
       </div>
     </main>
 
-    <footer class="footer">
+    <footer class="section-lab-footer">
       <span>视频后台</span>
       <span>Basic Auth</span>
     </footer>

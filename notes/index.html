@@ -4,53 +4,103 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Berlin2003 / 笔记</title>
-  <meta name="theme-color" content="#0b100f">
+  <meta name="description" content="Berlin2003 的阶段笔记页：记录论文阅读、训练判断、部署问题和后续任务。">
+  <meta name="theme-color" content="#f7fbff">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
+  <link rel="stylesheet" href="/assets/section-lab.css?v=20260505">
 </head>
-<body>
-  <div class="site-shell">
-    <header class="module-top">
-      <a class="backlink" href="/">← Home</a>
-      <span>Notes</span>
+<body class="section-lab-body">
+  <div class="site-shell section-lab-shell">
+    <header class="section-lab-topbar">
+      <a class="section-lab-brand" href="/" aria-label="Berlin2003 首页"><span>Berlin</span><strong>2003</strong></a>
+      <nav class="section-lab-nav" aria-label="主导航">
+        <a href="/research/">研究</a>
+        <a href="/projects/">项目</a>
+        <a href="/anime/">视频库</a>
+        <a href="/contact/">联系</a>
+      </nav>
     </header>
 
-    <main class="module-main">
-      <h1>笔记</h1>
-      <p class="module-intro">这里用来放训练、评估和部署过程中的短记录。比起长篇自我介绍，这部分会更像真实工作痕迹。</p>
+    <main class="section-lab-main">
+      <section class="section-lab-hero" aria-labelledby="notes-title">
+        <div class="section-lab-copy">
+          <p class="section-lab-kicker">Working Notes</p>
+          <h1 id="notes-title">记录判断，而不是只保存结论。</h1>
+          <p class="section-lab-lead">笔记页是 research 和 project 中间的工作台：记录读论文时的判断、训练和部署里的坑、页面改版时的取舍，以及下一次应该优先处理什么。</p>
+          <div class="section-lab-actions">
+            <a class="section-lab-primary" href="/research/">进入论文主线</a>
+            <a href="/projects/">查看项目面板</a>
+          </div>
+        </div>
+        <figure class="section-lab-visual">
+          <img src="/assets/home-notes.png" alt="Berlin2003 working notes visual">
+          <figcaption class="section-lab-visual-note">
+            <strong>Decision log</strong>
+            <span>把“为什么这样做”留下来，后续复盘才不会只剩下页面成品。</span>
+          </figcaption>
+        </figure>
+      </section>
 
-      <section class="module-grid">
-        <article class="module-card">
-          <span>笔记 01</span>
-          <strong>模型结构</strong>
-          <p>编码器、量化器、解码器拆开记录，避免只留下抽象结论。</p>
+      <section class="section-lab-grid four" aria-label="笔记分类">
+        <article class="section-lab-card">
+          <span>Track 01</span>
+          <strong>论文阅读</strong>
+          <p>记录每篇论文真正改变了什么：模型结构、训练目标、量化方式、实验设置和适用边界。</p>
         </article>
-        <article class="module-card">
-          <span>笔记 02</span>
-          <strong>训练细节</strong>
-          <p>记录损失设计、数据处理、稳定性问题和关键超参数取舍。</p>
+        <article class="section-lab-card">
+          <span>Track 02</span>
+          <strong>模型判断</strong>
+          <p>把 semantic token 和 acoustic token 的分工写清楚，避免只凭“音质好不好”做判断。</p>
         </article>
-        <article class="module-card">
-          <span>笔记 03</span>
-          <strong>部署问题</strong>
-          <p>记录延迟、资源消耗、链路限制和真实环境中的工程问题。</p>
+        <article class="section-lab-card">
+          <span>Track 03</span>
+          <strong>部署记录</strong>
+          <p>记录服务器、Caddy、Basic Auth、静态资源、GitHub 同步和线上回滚路径。</p>
+        </article>
+        <article class="section-lab-card">
+          <span>Track 04</span>
+          <strong>页面改版</strong>
+          <p>每次改页面都保留目的：强化导航、补内容深度、修可视化问题或统一视觉系统。</p>
         </article>
       </section>
 
-      <div class="link-list">
-        <a href="/contact/">
-          <strong>继续看联系</strong>
-          <small>后续补 GitHub 和其他公开入口。</small>
-        </a>
-      </div>
+      <section class="section-lab-grid two" aria-label="最近记录">
+        <article class="section-lab-panel">
+          <p class="section-lab-label">Recent</p>
+          <h2>研究页已经进入完整结构。</h2>
+          <p>semantic 与 acoustic 两条线已经拆成论文精讲，并补了模型解析、创新点、损失函数、训练策略和结果分析。下一步更适合补真实实验表、音频样例和复现状态。</p>
+          <ul class="section-lab-list">
+            <li>声学页替换为论文结构图图片，降低装饰性 SVG 的干扰。</li>
+            <li>语义页补齐 HuBERT、WavLM、BEST-RQ、SpeechTokenizer 的上下游关系。</li>
+            <li>研究首页负责地图，详情页负责拆解，不把所有信息堆在一屏。</li>
+          </ul>
+        </article>
+        <article class="section-lab-panel">
+          <p class="section-lab-label">Next</p>
+          <h2>非研究栏目开始补齐。</h2>
+          <p>项目、笔记、联系、视频库和工作台需要像 research 一样有明确角色。它们不需要同样复杂，但要有真实内容、清楚入口和一致视觉。</p>
+          <ul class="section-lab-list">
+            <li>项目页负责公开进度。</li>
+            <li>笔记页负责过程和判断。</li>
+            <li>联系页负责公开身份与协作入口。</li>
+          </ul>
+        </article>
+      </section>
+
+      <nav class="section-lab-links" aria-label="继续浏览">
+        <a class="section-lab-link" href="/research/semantic/"><small>Semantic</small><strong>语义主线</strong><p>先看“说了什么”如何被保留。</p></a>
+        <a class="section-lab-link" href="/research/acoustic/"><small>Acoustic</small><strong>声学主线</strong><p>再看音质、音色和细节如何恢复。</p></a>
+        <a class="section-lab-link" href="/studio/"><small>Private</small><strong>工作台</strong><p>进入私密内容处理入口。</p></a>
+      </nav>
     </main>
 
-    <footer class="footer">
+    <footer class="section-lab-footer">
       <span>Notes</span>
-      <span>berlin2003.ccwu.cc</span>
+      <span>decision log / deployment log</span>
     </footer>
   </div>
 
-  <script src="/assets/site-ai.js"></script>
+  <script src="/assets/site-chat.js"></script>
 </body>
 </html>

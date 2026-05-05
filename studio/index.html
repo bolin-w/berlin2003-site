@@ -7,20 +7,38 @@
   <meta name="theme-color" content="#f4efe6">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
+  <link rel="stylesheet" href="/assets/section-lab.css?v=20260505">
 </head>
-<body>
-  <div class="site-shell">
-    <header class="module-top">
-      <nav class="module-nav" aria-label="工作台导航">
-        <a class="backlink" href="/">← 首页</a>
-        <a class="backlink" href="/studio-logout/">退出工作台</a>
+<body class="section-lab-body anime-lab-body">
+  <div class="site-shell section-lab-shell">
+    <header class="section-lab-topbar">
+      <a class="section-lab-brand" href="/" aria-label="Berlin2003 首页"><span>Berlin</span><strong>2003</strong></a>
+      <nav class="section-lab-nav" aria-label="工作台导航">
+        <a href="/studio/anime/">视频后台</a>
+        <a href="/life/">生活</a>
+        <a href="/notes/">笔记</a>
+        <a href="/studio-logout/">退出</a>
       </nav>
-      <span>工作台 / 私密</span>
     </header>
 
-    <main class="module-main">
-      <h1>工作台</h1>
-      <p class="module-intro">这个页面是给你自己处理网站内容的。把原文贴进来，选一个模式，或者直接写要求，模型会返回可以直接改到页面里的结果。</p>
+    <main class="section-lab-main">
+      <section class="section-lab-hero">
+        <div class="section-lab-copy">
+          <p class="section-lab-kicker">Private Studio</p>
+          <h1>站点内容处理工作台。</h1>
+          <p class="section-lab-lead">把原文、论文笔记或页面想法贴进来，选择处理模式，让后端模型返回可以继续编辑的结构化结果。这个入口受访问控制保护。</p>
+          <div class="section-lab-actions">
+            <a class="section-lab-primary" href="/studio/anime/">动漫资源库后台</a>
+            <a href="/studio-logout/">退出工作台</a>
+          </div>
+        </div>
+        <div class="section-lab-visual">
+          <div class="section-lab-visual-note">
+            <strong>Content operations</strong>
+            <span>适合整理 research 文案、项目描述、阶段笔记和长文本摘要。</span>
+          </div>
+        </div>
+      </section>
 
       <div class="meta-row">
         <a class="meta-chip studio-link-chip" href="/studio/anime/">动漫资源库后台</a>
@@ -77,7 +95,7 @@
       </div>
     </main>
 
-    <footer class="footer">
+    <footer class="section-lab-footer">
       <span>工作台</span>
       <span>已授权</span>
     </footer>

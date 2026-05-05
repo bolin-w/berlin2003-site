@@ -8,20 +8,37 @@
   <meta name="theme-color" content="#17120c">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
+  <link rel="stylesheet" href="/assets/section-lab.css?v=20260505">
 </head>
-<body class="anime-page">
-  <div class="site-shell">
-    <header class="module-top">
-      <a class="backlink" href="/">← 首页</a>
-      <span>video storage / subtitled locally</span>
+<body class="anime-page section-lab-body anime-lab-body">
+  <div class="site-shell section-lab-shell">
+    <header class="section-lab-topbar">
+      <a class="section-lab-brand" href="/" aria-label="Berlin2003 首页"><span>Berlin</span><strong>2003</strong></a>
+      <nav class="section-lab-nav" aria-label="视频库导航">
+        <a href="/projects/">项目</a>
+        <a href="/notes/">笔记</a>
+        <a href="/studio/anime/">上传后台</a>
+        <a href="/contact/">联系</a>
+      </nav>
     </header>
 
-    <main class="anime-main">
-      <section class="anime-hero">
-        <p class="eyebrow">Video Library</p>
-        <h1>本地加字幕，网站只负责播放。</h1>
-        <p class="module-intro">视频在本地完成字幕压制后上传到服务器。这里是存储和播放入口，不做搜索、下载、转码或自动翻译。</p>
-        <p class="anime-status" id="anime-status">正在读取视频库...</p>
+    <main class="section-lab-main anime-main">
+      <section class="section-lab-hero">
+        <div class="section-lab-copy">
+          <p class="section-lab-kicker">Video Library</p>
+          <h1>本地加字幕，网站只负责播放。</h1>
+          <p class="section-lab-lead">视频在本地完成字幕压制后上传到服务器。这个页面只做私有资源的索引和播放，不做下载站、自动翻译或转码服务。</p>
+          <div class="section-lab-actions">
+            <a class="section-lab-primary" href="/studio/anime/">上传视频</a>
+            <a href="/projects/">查看项目说明</a>
+          </div>
+        </div>
+        <div class="section-lab-visual">
+          <div class="section-lab-visual-note">
+            <strong>Storage player</strong>
+            <span id="anime-status">正在读取视频库...</span>
+          </div>
+        </div>
       </section>
 
       <section class="anime-layout video-layout">
@@ -42,7 +59,7 @@
       </section>
     </main>
 
-    <footer class="footer">
+    <footer class="section-lab-footer">
       <span>视频库</span>
       <span>local subtitles / server storage</span>
     </footer>

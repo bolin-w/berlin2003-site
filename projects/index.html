@@ -4,53 +4,107 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Berlin2003 / 项目</title>
-  <meta name="theme-color" content="#0b100f">
+  <meta name="description" content="Berlin2003 的公开项目页：把语音 tokenizer 研究、网站工程和评估链路整理成可继续推进的工作面板。">
+  <meta name="theme-color" content="#f7fbff">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
+  <link rel="stylesheet" href="/assets/section-lab.css?v=20260505">
 </head>
-<body>
-  <div class="site-shell">
-    <header class="module-top">
-      <a class="backlink" href="/">← Home</a>
-      <span>Projects</span>
+<body class="section-lab-body">
+  <div class="site-shell section-lab-shell">
+    <header class="section-lab-topbar">
+      <a class="section-lab-brand" href="/" aria-label="Berlin2003 首页"><span>Berlin</span><strong>2003</strong></a>
+      <nav class="section-lab-nav" aria-label="主导航">
+        <a href="/research/">研究</a>
+        <a href="/notes/">笔记</a>
+        <a href="/anime/">视频库</a>
+        <a href="/contact/">联系</a>
+      </nav>
     </header>
 
-    <main class="module-main">
-      <h1>项目</h1>
-      <p class="module-intro">这里放公开项目和实验落地。当前先保留结构，后续补 GitHub 仓库、Demo 和更具体的结果。</p>
+    <main class="section-lab-main">
+      <section class="section-lab-hero" aria-labelledby="projects-title">
+        <div class="section-lab-copy">
+          <p class="section-lab-kicker">Project Board</p>
+          <h1 id="projects-title">把研究推进成能运行的东西。</h1>
+          <p class="section-lab-lead">这一页不堆空泛项目名，只记录正在形成的公开工作：语音 tokenizer 研究站、低码率评估链路、视频资源库和个人站点部署。每个项目都需要有目标、当前状态、可验证结果和下一步。</p>
+          <div class="section-lab-actions">
+            <a class="section-lab-primary" href="https://github.com/bolin-w/berlin2003-site" target="_blank" rel="noreferrer">GitHub 仓库</a>
+            <a href="/research/">回到研究主线</a>
+          </div>
+        </div>
+        <figure class="section-lab-visual">
+          <img src="/assets/home-public.png" alt="Berlin2003 public project board visual">
+          <figcaption class="section-lab-visual-note">
+            <strong>Public execution board</strong>
+            <span>公开项目只保留能继续推进的任务面板，避免把页面写成装饰性的作品集。</span>
+          </figcaption>
+        </figure>
+      </section>
 
-      <section class="module-grid">
-        <article class="module-card">
-          <span>项目 01</span>
-          <strong>语音压缩定制实验</strong>
-          <p>围绕神经编码、量化与重建策略展开，后续会补公开仓库和实验说明。</p>
+      <section class="section-lab-stats" aria-label="项目状态">
+        <div class="section-lab-stat"><strong>04</strong><span>active tracks</span></div>
+        <div class="section-lab-stat"><strong>74</strong><span>site files versioned</span></div>
+        <div class="section-lab-stat"><strong>01</strong><span>github repo</span></div>
+        <div class="section-lab-stat"><strong>main</strong><span>deployment branch</span></div>
+      </section>
+
+      <section class="section-lab-grid" aria-label="项目列表">
+        <article class="section-lab-card">
+          <span>Project 01</span>
+          <strong>Speech Frontend Research Site</strong>
+          <p>把 semantic token、acoustic codec 和桥接方案整理成可导航的论文精讲库。当前 research 已经是主内容区，后续继续补实验复现和对比表。</p>
         </article>
-        <article class="module-card">
-          <span>项目 02</span>
-          <strong>实时推理链路</strong>
-          <p>关注模型压缩、推理时延和端侧资源占用，偏部署和工程化。</p>
+        <article class="section-lab-card">
+          <span>Project 02</span>
+          <strong>Low Bitrate Codec Evaluation</strong>
+          <p>建立一套更稳定的评估口径：码率、token rate、听感、说话人保持、延迟和训练成本分开看，不把单一指标当最终结论。</p>
         </article>
-        <article class="module-card">
-          <span>项目 03</span>
-          <strong>评估与对比</strong>
-          <p>后续会单独整理听感、码率、说话人保持和延迟相关结果。</p>
+        <article class="section-lab-card">
+          <span>Project 03</span>
+          <strong>Personal Site Deployment</strong>
+          <p>静态页面、Caddy 配置、私密工作台和 AI 服务都进入版本管理。下一步适合补 README、部署说明和自动同步脚本。</p>
+        </article>
+        <article class="section-lab-card">
+          <span>Project 04</span>
+          <strong>Local Subtitle Video Library</strong>
+          <p>本地完成字幕压制，服务器只负责存储、列表和播放。这个项目偏工具化，重点是上传流程、权限和播放器体验。</p>
+        </article>
+        <article class="section-lab-card">
+          <span>Project 05</span>
+          <strong>Research Writing System</strong>
+          <p>把论文阅读拆成固定栏目：模型解析、创新点、损失函数、训练策略、结果分析和局限。这样每篇文章都有可比较的结构。</p>
+        </article>
+        <article class="section-lab-card">
+          <span>Project 06</span>
+          <strong>Future Demo Slots</strong>
+          <p>后续可以接入音频样例、AB 对比、码率滑条和模型结构图交互，让研究页从“阅读”变成“可检查”。</p>
         </article>
       </section>
 
-      <div class="link-list">
-        <a href="/notes/">
-          <strong>继续看笔记</strong>
-          <small>过程记录会比项目描述更早更新。</small>
-        </a>
-      </div>
+      <section class="section-lab-panel">
+        <p class="section-lab-label">Current rule</p>
+        <h2>项目页只收敛真实进度。</h2>
+        <ul class="section-lab-list">
+          <li>有公开仓库或线上页面的项目优先展示。</li>
+          <li>没有实验结果的内容标成下一步，不伪装成已完成成果。</li>
+          <li>每个项目都要能回到 research、notes 或 studio 的实际工作流。</li>
+        </ul>
+      </section>
+
+      <nav class="section-lab-links" aria-label="继续浏览">
+        <a class="section-lab-link" href="/notes/"><small>Next</small><strong>阶段笔记</strong><p>看决策、部署和阅读过程。</p></a>
+        <a class="section-lab-link" href="/anime/"><small>Tool</small><strong>视频库</strong><p>进入本地字幕视频播放页。</p></a>
+        <a class="section-lab-link" href="/contact/"><small>Contact</small><strong>公开入口</strong><p>GitHub、邮箱和站点地址。</p></a>
+      </nav>
     </main>
 
-    <footer class="footer">
+    <footer class="section-lab-footer">
       <span>Projects</span>
       <span>berlin2003.ccwu.cc</span>
     </footer>
   </div>
 
-  <script src="/assets/site-ai.js"></script>
+  <script src="/assets/site-chat.js"></script>
 </body>
 </html>

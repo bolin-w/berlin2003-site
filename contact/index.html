@@ -4,43 +4,93 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Berlin2003 / 联系</title>
-  <meta name="theme-color" content="#0b100f">
+  <meta name="description" content="Berlin2003 的公开联系入口：GitHub、邮箱、站点地址和适合交流的研究方向。">
+  <meta name="theme-color" content="#f7fbff">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
+  <link rel="stylesheet" href="/assets/section-lab.css?v=20260505">
 </head>
-<body>
-  <div class="site-shell">
-    <header class="module-top">
-      <a class="backlink" href="/">← Home</a>
-      <span>Contact</span>
+<body class="section-lab-body">
+  <div class="site-shell section-lab-shell">
+    <header class="section-lab-topbar">
+      <a class="section-lab-brand" href="/" aria-label="Berlin2003 首页"><span>Berlin</span><strong>2003</strong></a>
+      <nav class="section-lab-nav" aria-label="主导航">
+        <a href="/research/">研究</a>
+        <a href="/projects/">项目</a>
+        <a href="/notes/">笔记</a>
+        <a href="/anime/">视频库</a>
+      </nav>
     </header>
 
-    <main class="module-main">
-      <h1>联系</h1>
-      <p class="module-intro">这一页只放入口，不写长文。邮箱已经补上，GitHub 还差你的公开用户名，因为 GitHub 主页链接必须用用户名，不是邮箱。</p>
+    <main class="section-lab-main">
+      <section class="section-lab-hero" aria-labelledby="contact-title">
+        <div class="section-lab-copy">
+          <p class="section-lab-kicker">Contact</p>
+          <h1 id="contact-title">研究交流和公开入口。</h1>
+          <p class="section-lab-lead">如果你关注语音 tokenizer、神经音频压缩、低码率 codec、论文精读或个人站点工程，可以从这里找到公开入口。页面只放清楚的联系方式，不写无意义的长介绍。</p>
+          <div class="section-lab-actions">
+            <a class="section-lab-primary" href="mailto:2632660684@qq.com">发邮件</a>
+            <a href="https://github.com/bolin-w" target="_blank" rel="noreferrer">GitHub 主页</a>
+          </div>
+        </div>
+        <figure class="section-lab-visual">
+          <img src="/assets/home-contact.png" alt="Berlin2003 contact visual">
+          <figcaption class="section-lab-visual-note">
+            <strong>Open channels</strong>
+            <span>站点、仓库、邮箱三条公开入口保持一致，方便继续协作。</span>
+          </figcaption>
+        </figure>
+      </section>
 
-      <div class="link-list">
-        <a href="/">
-          <strong>GitHub</strong>
-          <small>待补充公开用户名后替换成真实主页链接。</small>
+      <section class="section-lab-links" aria-label="联系方式">
+        <a class="section-lab-link" href="https://github.com/bolin-w" target="_blank" rel="noreferrer">
+          <small>GitHub</small>
+          <strong>bolin-w</strong>
+          <p>公开代码、站点仓库和后续实验项目。</p>
         </a>
-        <a href="mailto:2632660684@qq.com">
-          <strong>Email</strong>
-          <small>2632660684@qq.com</small>
+        <a class="section-lab-link" href="mailto:2632660684@qq.com">
+          <small>Email</small>
+          <strong>2632660684@qq.com</strong>
+          <p>研究交流、页面反馈或项目协作。</p>
         </a>
-        <a href="https://berlin2003.ccwu.cc/">
-          <strong>Website</strong>
-          <small>当前站点入口：berlin2003.ccwu.cc</small>
+        <a class="section-lab-link" href="https://berlin2003.ccwu.cc/">
+          <small>Website</small>
+          <strong>berlin2003.ccwu.cc</strong>
+          <p>当前线上站点入口。</p>
         </a>
-      </div>
+      </section>
+
+      <section class="section-lab-grid two" aria-label="交流范围">
+        <article class="section-lab-panel">
+          <p class="section-lab-label">Topics</p>
+          <h2>适合交流的问题</h2>
+          <ul class="section-lab-list">
+            <li>semantic token 与 acoustic token 的分工。</li>
+            <li>SoundStream、EnCodec、SNAC、DAC 等 codec 的结构差异。</li>
+            <li>低码率下音质、可懂度、token rate 和推理成本的权衡。</li>
+            <li>个人研究站点、静态部署、私密工作台和内容管理。</li>
+          </ul>
+        </article>
+        <article class="section-lab-panel">
+          <p class="section-lab-label">Current repository</p>
+          <h2>站点已经进入版本管理。</h2>
+          <p>当前网站仓库已经上传到 GitHub，后续页面优化、部署配置和研究内容都可以通过 Git 追踪。公开仓库适合放站点源码，不放真实密钥和服务器私有配置。</p>
+          <div class="section-lab-chips">
+            <span class="section-lab-chip">main branch</span>
+            <span class="section-lab-chip">static pages</span>
+            <span class="section-lab-chip">Caddy config</span>
+            <span class="section-lab-chip">research assets</span>
+          </div>
+        </article>
+      </section>
     </main>
 
-    <footer class="footer">
+    <footer class="section-lab-footer">
       <span>Contact</span>
-      <span>berlin2003.ccwu.cc</span>
+      <span>github / email / website</span>
     </footer>
   </div>
 
-  <script src="/assets/site-ai.js"></script>
+  <script src="/assets/site-chat.js"></script>
 </body>
 </html>
