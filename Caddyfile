@@ -1,0 +1,144 @@
+(site_headers) {
+	encode zstd gzip
+	header {
+		X-Content-Type-Options nosniff
+		X-Frame-Options SAMEORIGIN
+		Referrer-Policy strict-origin-when-cross-origin
+	}
+}
+
+(site_public) {
+	@research path /research /research/
+	handle @research {
+		root * /var/www/personal-site
+		rewrite * /research/index.html
+		file_server
+	}
+
+	@projects path /projects /projects/
+	handle @projects {
+		root * /var/www/personal-site
+		rewrite * /projects/index.html
+		file_server
+	}
+
+	@notes path /notes /notes/
+	handle @notes {
+		root * /var/www/personal-site
+		rewrite * /notes/index.html
+		file_server
+	}
+
+	@contact path /contact /contact/
+	handle @contact {
+		root * /var/www/personal-site
+		rewrite * /contact/index.html
+		file_server
+	}
+
+	@anime path /anime /anime/
+	handle @anime {
+		root * /var/www/personal-site
+		rewrite * /anime/index.html
+		file_server
+	}
+
+	@studio_logout path /studio-logout /studio-logout/
+	handle @studio_logout {
+		root * /var/www/personal-site
+		rewrite * /studio-logout/index.html
+		file_server
+	}
+
+	@life_index path /life /life/
+	handle @life_index {
+		basicauth {
+			berlin2003 $2a$14$97EEL.qDfGDDt9q5VCKwnO.M07a5FLldWyJ5sFSVk1./xV1VGRtkq
+		}
+		root * /var/www/personal-site
+		rewrite * /life/index.html
+		file_server
+	}
+
+	handle /life* {
+		basicauth {
+			berlin2003 $2a$14$97EEL.qDfGDDt9q5VCKwnO.M07a5FLldWyJ5sFSVk1./xV1VGRtkq
+		}
+		root * /var/www/personal-site
+		file_server
+	}
+
+	@studio_index path /studio /studio/
+	handle @studio_index {
+		basicauth {
+			berlin2003 $2a$14$97EEL.qDfGDDt9q5VCKwnO.M07a5FLldWyJ5sFSVk1./xV1VGRtkq
+		}
+		root * /var/www/personal-site
+		rewrite * /studio/index.html
+		file_server
+	}
+
+	handle /studio* {
+		basicauth {
+			berlin2003 $2a$14$97EEL.qDfGDDt9q5VCKwnO.M07a5FLldWyJ5sFSVk1./xV1VGRtkq
+		}
+		root * /var/www/personal-site
+		file_server
+	}
+
+	handle /api/ai/* {
+		basicauth {
+			berlin2003 $2a$14$97EEL.qDfGDDt9q5VCKwnO.M07a5FLldWyJ5sFSVk1./xV1VGRtkq
+		}
+		reverse_proxy 127.0.0.1:8787
+	}
+
+	handle /api/public/* {
+		reverse_proxy 127.0.0.1:8787
+	}
+
+	handle /api/editor/* {
+		basicauth {
+			berlin2003 $2a$14$97EEL.qDfGDDt9q5VCKwnO.M07a5FLldWyJ5sFSVk1./xV1VGRtkq
+		}
+		reverse_proxy 127.0.0.1:8787
+	}
+
+	handle /api/admin/anime/* {
+		basicauth {
+			berlin2003 $2a$14$97EEL.qDfGDDt9q5VCKwnO.M07a5FLldWyJ5sFSVk1./xV1VGRtkq
+		}
+		reverse_proxy 127.0.0.1:8788
+	}
+
+	handle /api/anime/* {
+		reverse_proxy 127.0.0.1:8788
+	}
+
+	handle /media/anime/* {
+		root * /var/lib/berlin2003-anime/videos
+		uri strip_prefix /media/anime
+		file_server
+	}
+
+	handle {
+		root * /var/www/personal-site
+		file_server
+	}
+}
+
+https://berlin2003.ccwu.cc {
+	bind 127.0.0.1
+	import site_headers
+	import site_public
+}
+
+http://berlin2003.ccwu.cc {
+	import site_headers
+	redir https://berlin2003.ccwu.cc{uri} 308
+}
+
+http://163.192.5.251 {
+	import site_headers
+	import site_public
+}

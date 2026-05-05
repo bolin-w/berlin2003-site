@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">EnCodec model structure</title>
+  <desc id="desc">Redrawn architecture diagram based on the paper structure.</desc>
+  <defs>
+    <linearGradient id="paperBg" x1="0" y1="0" x2="1280" y2="720" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FBFEFF"/>
+      <stop offset="0.62" stop-color="#F0FAFA"/>
+      <stop offset="1" stop-color="#FFF8F3"/>
+    </linearGradient>
+    <filter id="softShadow" x="-15%" y="-25%" width="130%" height="160%">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#0B3C5D" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrowInk" markerWidth="16" markerHeight="16" refX="10" refY="8" orient="auto">
+      <path d="M2 2L12 8L2 14" fill="none" stroke="#07162F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrowTeal" markerWidth="16" markerHeight="16" refX="10" refY="8" orient="auto">
+      <path d="M2 2L12 8L2 14" fill="none" stroke="#0D999D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="16" markerHeight="16" refX="10" refY="8" orient="auto">
+      <path d="M2 2L12 8L2 14" fill="none" stroke="#F26419" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+  <style>
+    .bg{fill:url(#paperBg)}
+    .grid{stroke:#D9EDF7;stroke-width:1;opacity:.75}
+    .title{font:850 34px "Aptos Display","Segoe UI",sans-serif;fill:#07162F}
+    .kicker{font:800 15px "Aptos","Segoe UI",sans-serif;fill:#0D999D;text-transform:uppercase}
+    .footer{font:750 13px "Aptos","Segoe UI",sans-serif;fill:#5A6C84}
+    .node,.mini,.token{fill:#FFFFFF;stroke-width:2;filter:url(#softShadow)}
+    .node.blue,.mini.blue,.token.blue{stroke:#1264E8}
+    .node.teal,.mini.teal,.token.teal{stroke:#0D999D}
+    .node.orange,.mini.orange,.token.orange{stroke:#F26419}
+    .node.ink,.mini.ink,.token.ink{stroke:#07162F}
+    .node-label{font:850 21px "Aptos Display","Segoe UI",sans-serif;fill:#07162F}
+    .node-sub{font:700 14px "Aptos","Segoe UI",sans-serif;fill:#53647D}
+    .mini-label{font:800 13px "Aptos","Segoe UI",sans-serif;fill:#07162F}
+    .token-label{font:850 13px "Aptos","Segoe UI",sans-serif;fill:#07162F}
+    .group{fill:rgba(255,255,255,.62);stroke:#9DB9D3;stroke-width:1.7;stroke-dasharray:8 8}
+    .group-label{font:850 15px "Aptos","Segoe UI",sans-serif;fill:#53647D}
+    .label{font:850 18px "Aptos","Segoe UI",sans-serif;fill:#07162F}
+    .sub{font:700 14px "Aptos","Segoe UI",sans-serif;fill:#53647D}
+    .arrow{fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+    .arrow.ink{stroke:#07162F;marker-end:url(#arrowInk)}
+    .arrow.teal{stroke:#0D999D;marker-end:url(#arrowTeal)}
+    .arrow.orange{stroke:#F26419;marker-end:url(#arrowOrange)}
+    .line{fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+    .line.muted{stroke:#9DB0C5;stroke-dasharray:6 7}
+    .line.orange{stroke:#F26419;stroke-dasharray:7 7}
+    .wave path{fill:none;stroke-width:4;stroke-linecap:round}
+    .wave.teal path{stroke:#0D999D}
+    .wave.blue path{stroke:#1264E8}
+    .wave.orange path{stroke:#F26419}
+  </style>
+  <rect width="1280" height="720" rx="0" class="bg"/>
+  <path d="M80 0V720" class="grid"/><path d="M160 0V720" class="grid"/><path d="M240 0V720" class="grid"/><path d="M320 0V720" class="grid"/><path d="M400 0V720" class="grid"/><path d="M480 0V720" class="grid"/><path d="M560 0V720" class="grid"/><path d="M640 0V720" class="grid"/><path d="M720 0V720" class="grid"/><path d="M800 0V720" class="grid"/><path d="M880 0V720" class="grid"/><path d="M960 0V720" class="grid"/><path d="M1040 0V720" class="grid"/><path d="M1120 0V720" class="grid"/><path d="M1200 0V720" class="grid"/>
+  <path d="M0 80H1280" class="grid"/><path d="M0 160H1280" class="grid"/><path d="M0 240H1280" class="grid"/><path d="M0 320H1280" class="grid"/><path d="M0 400H1280" class="grid"/><path d="M0 480H1280" class="grid"/><path d="M0 560H1280" class="grid"/><path d="M0 640H1280" class="grid"/>
+  <text x="54" y="62" class="title" text-anchor="start">EnCodec</text>
+  <text x="54" y="94" class="kicker" text-anchor="start">SEANet codec / RVQ / MS-STFT discriminator</text>
+  
+      <g class="wave blue" transform="translate(56 318)">
+    <path d="M0 28 C12 -8 24 64 36 28 C48 -8 60 64 72 28 C84 -8 96 64 108 28"/>
+  </g>
+      <path d="M174 346 L218 346" class="arrow ink"/>
+      <g>
+    <rect x="222" y="296" width="170" height="96" rx="18" class="node blue"/>
+    <text x="307" y="332" class="node-label" text-anchor="middle">SEANet Encoder</text>
+    <text x="307" y="354" class="node-sub"><tspan x="307" dy="0">causal / non-causal</tspan><tspan x="307" dy="20">audio features</tspan></text>
+  </g>
+      <path d="M392 346 L450 346" class="arrow ink"/>
+      <g>
+    <rect x="454" y="284" width="188" height="120" rx="18" class="node teal"/>
+    <text x="548" y="320" class="node-label" text-anchor="middle">RVQ Bottleneck</text>
+    <text x="548" y="342" class="node-sub"><tspan x="548" dy="0">bandwidth control</tspan><tspan x="548" dy="20">codebook dropout</tspan></text>
+  </g>
+      <path d="M642 346 L704 346" class="arrow ink"/>
+      <g>
+    <rect x="708" y="296" width="170" height="96" rx="18" class="node blue"/>
+    <text x="793" y="332" class="node-label" text-anchor="middle">SEANet Decoder</text>
+    <text x="793" y="354" class="node-sub"><tspan x="793" dy="0">waveform</tspan><tspan x="793" dy="20">reconstruction</tspan></text>
+  </g>
+      <path d="M878 346 L1014 346" class="arrow ink"/>
+      <g class="wave teal" transform="translate(1032 318)">
+    <path d="M0 28 C12 -8 24 64 36 28 C48 -8 60 64 72 28 C84 -8 96 64 108 28"/>
+  </g>
+      <g>
+    <rect x="472" y="452" width="154" height="34" rx="12" class="mini orange"/>
+    <text x="549" y="475" class="mini-label" text-anchor="middle">entropy coder</text>
+  </g>
+      <path d="M548 404 C548 430 548 432 548 452" class="arrow teal"/>
+      <g>
+    <rect x="700" y="126" width="218" height="76" rx="18" class="node orange"/>
+    <text x="809" y="162" class="node-label" text-anchor="middle">MS-STFT Discriminator</text>
+    <text x="809" y="184" class="node-sub"><tspan x="809" dy="0">multi-scale spectral</tspan><tspan x="809" dy="20">adversarial feedback</tspan></text>
+  </g>
+      <path d="M794 296 C794 246 812 232 808 202" class="arrow orange"/>
+      <g><g>
+    <rect x="962" y="124" width="170" height="30" rx="12" class="mini blue"/>
+    <text x="1047" y="145" class="mini-label" text-anchor="middle">reconstruction</text>
+  </g><g>
+    <rect x="962" y="170" width="170" height="30" rx="12" class="mini orange"/>
+    <text x="1047" y="191" class="mini-label" text-anchor="middle">adversarial</text>
+  </g><g>
+    <rect x="962" y="216" width="170" height="30" rx="12" class="mini blue"/>
+    <text x="1047" y="237" class="mini-label" text-anchor="middle">loss balancer</text>
+  </g></g>
+      <path d="M918 164 L962 164" class="arrow orange"/>
+      <g>
+    <rect x="60" y="486" width="150" height="34" rx="12" class="mini blue"/>
+    <text x="135" y="509" class="mini-label" text-anchor="middle">24 kHz / 48 kHz</text>
+  </g>
+      <g>
+    <rect x="232" y="486" width="150" height="34" rx="12" class="mini teal"/>
+    <text x="307" y="509" class="mini-label" text-anchor="middle">1.5 - 24 kbps</text>
+  </g>
+      <g>
+    <rect x="404" y="486" width="150" height="34" rx="12" class="mini orange"/>
+    <text x="479" y="509" class="mini-label" text-anchor="middle">single model</text>
+  </g>
+    
+  <text x="54" y="676" class="footer" text-anchor="start">REDRAWN MODEL STRUCTURE</text>
+  <text x="1226" y="676" class="footer" text-anchor="end">stable training and entropy coding</text>
+</svg>

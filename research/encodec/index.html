@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Berlin2003 / EnCodec</title>
+  <meta name="description" content="EnCodec：把 neural audio codec 推成稳定工程基线的声学编码器。">
+  <meta name="theme-color" content="#f7fbff">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="stylesheet" href="/assets/paper-lab.css?v=20260502-acoustic-deep">
+</head>
+<body class="edition-body paper-lab-body acoustic-paper-page">
+  <div class="site-shell paper-lab-shell">
+    <header class="paper-lab-topbar">
+      <a class="paper-lab-brand" href="/"><span>Berlin</span><strong>2003</strong></a>
+      <nav class="paper-lab-nav" aria-label="研究导航">
+        <a href="/research/soundstream/">上一篇</a>
+        <a href="/research/dac/">下一篇</a>
+        <a href="/research/acoustic/">声学层</a>
+      </nav>
+    </header>
+
+    <main class="paper-lab-main">
+      <section class="paper-lab-hero">
+        <div class="paper-lab-copy">
+          <p class="paper-lab-kicker">2022 / Engineering Baseline</p>
+          <h1>EnCodec</h1>
+          <p class="paper-lab-lead">EnCodec 不是推翻 SoundStream，而是把 neural codec 做成更稳的工程基线：更成熟的训练配方、MS-STFT 判别器、熵模型，以及语音和音乐都可用的公开实现。</p>
+          <div class="paper-lab-actions">
+            <a class="paper-lab-primary" href="https://arxiv.org/abs/2210.13438" target="_blank" rel="noreferrer">论文原文</a>
+            <a href="https://github.com/facebookresearch/encodec" target="_blank" rel="noreferrer">官方代码</a>
+          </div>
+        </div>
+
+        <figure class="paper-lab-figure">
+          <img src="/assets/architecture-encodec.png" alt="EnCodec architecture diagram">
+          <figcaption>技术结构图：EnCodec 使用 streaming SEANet-style encoder / decoder 与 RVQ bottleneck，并可接入 Transformer LM entropy coding 进一步降低码率。</figcaption>
+          <div class="paper-lab-source">
+            <a href="https://arxiv.org/abs/2210.13438" target="_blank" rel="noreferrer">arXiv</a>
+            <a href="https://github.com/facebookresearch/encodec" target="_blank" rel="noreferrer">GitHub</a>
+          </div>
+        </figure>
+      </section>
+
+      <section class="paper-lab-metrics">
+        <article><span>Training</span><strong>MS-STFT 判别器</strong><p>让频谱结构和听感优化更稳定。</p></article>
+        <article><span>Compression</span><strong>熵模型</strong><p>在离散码之后进一步提升实际压缩效率。</p></article>
+        <article><span>Role</span><strong>公开工程基线</strong><p>后续大量 audio token 工作都会拿它作为比较对象。</p></article>
+      </section>
+
+      <section class="paper-lab-deep">
+        <div class="paper-lab-section-head"><span>Paper Deep Dive</span><h2>论文精讲：EnCodec 如何把 SoundStream 路线工程化</h2></div>
+        <div class="paper-lab-deep-grid">
+          <article class="paper-lab-deep-card paper-lab-deep-card-wide"><span>模型解析</span><strong>SEANet + RVQ + streaming decoder</strong><ul><li>encoder 把 waveform 压成 latent，RVQ 按层输出离散 code，decoder 再恢复时域音频。</li><li>模型可做 causal / streaming，也可做更高质量的非因果版本，覆盖实时与离线场景。</li><li>可选 Transformer language model 对离散码做 entropy coding，进一步减少传输 bit。</li></ul></article>
+          <article class="paper-lab-deep-card paper-lab-deep-card-wide"><span>创新点</span><strong>稳定训练和工程可复用性是重点</strong><ul><li>MS-STFT discriminator 比单一 waveform 判别器更贴近音频频谱结构。</li><li>loss balancer 动态调节不同损失项，减少 GAN 训练时某一项支配全局的问题。</li><li>RVQ 层数控制带宽，配合 entropy coding，让 codec 从模型论文变成可部署系统。</li></ul></article>
+          <article class="paper-lab-deep-card"><span>损失函数</span><strong>多尺度频谱、对抗和重建共同工作</strong><ul><li>reconstruction loss 约束时域或频域重建，保证内容和基础音色不丢。</li><li>MS-STFT adversarial loss 关注不同时间频率尺度下的真实感和瞬态纹理。</li><li>loss balancer 不是额外指标，而是训练机制：让重建、对抗、量化目标保持可控权重。</li></ul></article>
+          <article class="paper-lab-deep-card"><span>训练策略</span><strong>先训练 codec，再训练熵模型</strong><ul><li>codec 主体用多码率目标训练，使不同 RVQ 层数都能正常解码。</li><li>entropy model 在离散 token 上建模概率分布，部署时用于 arithmetic coding。</li><li>训练覆盖 24 kHz 单声道和更高规格版本，目标是让同一设计跨音频设置复用。</li></ul></article>
+          <article class="paper-lab-deep-card"><span>结果分析</span><strong>它的贡献是质量、码率和部署性的平衡</strong><ul><li>低码率下相对传统 codec 和早期 neural codec 保持更稳的主观质量。</li><li>entropy coding 可以在不改音频重建器的情况下继续压缩 token。</li><li>它也暴露出后续问题：token 主要仍是声学码，未天然适配 speech / audio LM。</li></ul></article>
+        </div>
+      </section>
+
+      <section class="paper-lab-section">
+        <div class="paper-lab-section-head"><span>Core Route</span><h2>EnCodec 把什么变稳定了</h2></div>
+        <div class="paper-lab-grid">
+          <article class="paper-lab-card"><span>01</span><strong>训练配方更稳</strong><p>对抗损失、重建损失和频谱约束更系统化。</p></article>
+          <article class="paper-lab-card"><span>02</span><strong>覆盖语音和音乐</strong><p>它把 neural codec 从语音任务推向更通用的音频基线。</p></article>
+          <article class="paper-lab-card"><span>03</span><strong>熵编码进入实际链路</strong><p>离散码本身之外，还要考虑真实传输码率。</p></article>
+          <article class="paper-lab-card"><span>04</span><strong>代码成为接口</strong><p>公开实现让后续研究能直接复用 acoustic token 前端。</p></article>
+        </div>
+      </section>
+
+      <section class="paper-lab-section">
+        <div class="paper-lab-section-head"><span>Reading Cut</span><h2>读这页时抓三个判断</h2></div>
+        <div class="paper-lab-cuts">
+          <article class="paper-lab-cut"><span>Cut 01</span><strong>基线价值高</strong><p>它让后续模型能在同一条工程链路里比较。</p></article>
+          <article class="paper-lab-cut"><span>Cut 02</span><strong>判别器影响质感</strong><p>声学层的自然度很大程度来自训练目标设计。</p></article>
+          <article class="paper-lab-cut"><span>Cut 03</span><strong>压缩不是只看 token</strong><p>熵模型提醒我们，真实传输还要看码流统计。</p></article>
+        </div>
+      </section>
+
+      <nav class="paper-lab-next">
+        <a href="/research/soundstream/"><span>Prev</span><strong>SoundStream</strong><p>回到系统起点。</p></a>
+        <a href="/research/dac/"><span>Next</span><strong>DAC</strong><p>看统一高保真前端。</p></a>
+        <a href="/research/snac/"><span>Next</span><strong>SNAC</strong><p>看多时间尺度 token。</p></a>
+      </nav>
+    </main>
+
+    <footer class="paper-lab-footer"><span>EnCodec</span><span>high fidelity neural audio compression</span></footer>
+  </div>
+  <script src="/assets/site-chat.js"></script>
+</body>
+</html>

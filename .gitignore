@@ -1,0 +1,30 @@
+.DS_Store
+Thumbs.db
+
+# Runtime config and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Dependencies and build output
+node_modules/
+dist/
+build/
+.cache/
+.next/
+.vite/
+
+# Logs and local runtime files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.pid
+*.sock
+
+# Local editor and OS state
+.idea/
+.vscode/

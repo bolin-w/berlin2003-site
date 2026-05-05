@@ -1,0 +1,35 @@
+[Unit]
+Description=Berlin2003 AI Studio Service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=berlinai
+Group=berlinai
+WorkingDirectory=/opt/berlin2003-ai
+EnvironmentFile=/etc/berlin2003-ai.env
+ExecStart=/usr/bin/node /opt/berlin2003-ai/server.mjs
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectControlGroups=true
+ProtectKernelLogs=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ProtectProc=invisible
+ProcSubset=pid
+RestrictRealtime=true
+RestrictSUIDSGID=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+LockPersonality=true
+SystemCallArchitectures=native
+ReadOnlyPaths=/opt/berlin2003-ai
+ReadWritePaths=/var/www/personal-site
+
+[Install]
+WantedBy=multi-user.target

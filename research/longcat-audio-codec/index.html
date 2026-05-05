@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Berlin2003 / LongCat-Audio-Codec</title>
+  <meta name="description" content="LongCat-Audio-Codec：为 speech large language models 设计的 tokenizer / detokenizer 方案。">
+  <meta name="theme-color" content="#f7fbff">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="stylesheet" href="/assets/paper-lab.css?v=20260502-acoustic-deep">
+</head>
+<body class="edition-body paper-lab-body acoustic-paper-page">
+  <div class="site-shell paper-lab-shell">
+    <header class="paper-lab-topbar">
+      <a class="paper-lab-brand" href="/"><span>Berlin</span><strong>2003</strong></a>
+      <nav class="paper-lab-nav" aria-label="研究导航">
+        <a href="/research/hh-codec/">上一篇</a>
+        <a href="/research/semantic/">语义层</a>
+        <a href="/research/acoustic/">声学层</a>
+      </nav>
+    </header>
+
+    <main class="paper-lab-main">
+      <section class="paper-lab-hero">
+        <div class="paper-lab-copy">
+          <p class="paper-lab-kicker">2025 / Speech Large Language Models</p>
+          <h1>LongCat-Audio-Codec</h1>
+          <p class="paper-lab-lead">LongCat-Audio-Codec 直接按 speech LLM 的链路设计 tokenizer / detokenizer：semantic tokens 和 acoustic tokens 并行组织，再交给 streaming detokenizer 恢复音频。</p>
+          <div class="paper-lab-actions">
+            <a class="paper-lab-primary" href="https://arxiv.org/abs/2510.15227" target="_blank" rel="noreferrer">论文原文</a>
+            <a href="https://github.com/meituan-longcat/LongCat-Audio-Codec" target="_blank" rel="noreferrer">官方代码</a>
+          </div>
+        </div>
+
+        <figure class="paper-lab-figure">
+          <img src="/assets/architecture-longcat-audio-codec.png" alt="LongCat Audio Codec architecture diagram">
+          <figcaption>技术结构图：LongCat Audio Codec 采用解耦 tokenizer / detokenizer，并行语义 token 与声学 token 接入 speech LLM，再用低延迟流式解码恢复语音。</figcaption>
+          <div class="paper-lab-source">
+            <a href="https://raw.githubusercontent.com/meituan-longcat/LongCat-Audio-Codec/main/images/codec-Frame.png" target="_blank" rel="noreferrer">原图</a>
+            <a href="https://arxiv.org/abs/2510.15227" target="_blank" rel="noreferrer">arXiv</a>
+          </div>
+        </figure>
+      </section>
+
+      <section class="paper-lab-metrics">
+        <article><span>Token</span><strong>semantic + acoustic</strong><p>并行组织内容 token 与声学 token，结构上承认两类信息的分工。</p></article>
+        <article><span>Rate</span><strong>16.67 Hz</strong><p>超低帧率降低 speech LLM 的序列压力，利于长上下文语音建模。</p></article>
+        <article><span>Decode</span><strong>streaming detokenizer</strong><p>不仅做 tokenizer，也把低延迟恢复音频的后半段一起纳入设计。</p></article>
+      </section>
+
+      <section class="paper-lab-deep">
+        <div class="paper-lab-section-head"><span>Paper Deep Dive</span><h2>论文精讲：LongCat Audio Codec 如何为 speech LLM 设计接口</h2></div>
+        <div class="paper-lab-deep-grid">
+          <article class="paper-lab-deep-card paper-lab-deep-card-wide"><span>模型解析</span><strong>Tokenizer、Speech LLM、Detokenizer 三段式链路</strong><ul><li>tokenizer 内部解耦语义建模分支和声学特征分支，分别产出 semantic token 与 acoustic token。</li><li>两类 token 并行送入 speech LLM / backend，使模型可以同时读取内容和声学条件。</li><li>detokenizer 再用 semantic decoder 与 acoustic decoder 流式恢复 waveform。</li></ul></article>
+          <article class="paper-lab-deep-card paper-lab-deep-card-wide"><span>创新点</span><strong>从 codec 论文转向系统接口论文</strong><ul><li>它明确把 tokenizer / detokenizer 设计成 speech LLM 的标准接口。</li><li>parallel semantic + acoustic tokens 避免一条 token 流同时承受所有信息。</li><li>多阶段训练和低延迟流式合成让它更接近真实语音交互系统。</li></ul></article>
+          <article class="paper-lab-deep-card"><span>损失函数</span><strong>语义、声学和联合恢复共同约束</strong><ul><li>semantic alignment 让内容 token 更适合理解、推理和生成。</li><li>acoustic reconstruction loss 约束音色、韵律和声学细节恢复。</li><li>joint optimization 平衡语义完整性和声学保真，避免两类 token 互相脱节。</li></ul></article>
+          <article class="paper-lab-deep-card"><span>训练策略</span><strong>五阶段把接口逐步打通</strong><ul><li>pretraining 先获得大规模自监督语音表示。</li><li>semantic alignment 和 acoustic optimization 分别强化内容分支与声学分支。</li><li>joint optimization 与 streaming fine-tuning 最后把 tokenizer、LLM 接口和 detokenizer 接成闭环。</li></ul></article>
+          <article class="paper-lab-deep-card"><span>结果分析</span><strong>关键指标是低帧率、低码率和可集成性</strong><ul><li>约 16.67 Hz 的超低帧率让 speech LLM 长上下文更可行。</li><li>0.43-0.87 kbps 的码率说明它从一开始面向工业部署预算。</li><li>最大价值不是单页音质指标，而是 semantic / acoustic token 接口更清晰、可替换、可扩展。</li></ul></article>
+        </div>
+      </section>
+
+      <section class="paper-lab-section">
+        <div class="paper-lab-section-head"><span>Core Route</span><h2>LongCat 的并行 token 结构</h2></div>
+        <div class="paper-lab-grid">
+          <article class="paper-lab-card"><span>01</span><strong>内容与声学拆开</strong><p>semantic token 面向高层内容，acoustic token 面向音色和细节恢复。</p></article>
+          <article class="paper-lab-card"><span>02</span><strong>超低帧率服务长序列</strong><p>16.67 Hz 让语音 LLM 用更少 token 覆盖更长时间范围。</p></article>
+          <article class="paper-lab-card"><span>03</span><strong>acoustic 容量可调</strong><p>不同场景可以在质量、码率和延迟之间做更细的平衡。</p></article>
+          <article class="paper-lab-card"><span>04</span><strong>detokenizer 参与闭环</strong><p>流式解码端被纳入主设计，而不是论文最后才补上的工程附件。</p></article>
+        </div>
+      </section>
+
+      <section class="paper-lab-section">
+        <div class="paper-lab-section-head"><span>Reading Cut</span><h2>读这页时抓三个判断</h2></div>
+        <div class="paper-lab-cuts">
+          <article class="paper-lab-cut"><span>Cut 01</span><strong>它已经越过传统 codec 边界</strong><p>这页真正讨论的是 speech LLM 的音频接口，而不只是压缩性能。</p></article>
+          <article class="paper-lab-cut"><span>Cut 02</span><strong>并行 token 是明确分层</strong><p>内容和声学不再强行塞进同一条离散序列。</p></article>
+          <article class="paper-lab-cut"><span>Cut 03</span><strong>流式恢复决定可部署性</strong><p>只有 detokenizer 低延迟成立，整条语音交互链路才真正闭合。</p></article>
+        </div>
+      </section>
+
+      <nav class="paper-lab-next">
+        <a href="/research/hh-codec/"><span>Prev</span><strong>HH-Codec</strong><p>回到 spoken LM 极低速率前端。</p></a>
+        <a href="/research/semantic/"><span>Bridge</span><strong>语义编码器</strong><p>连接到内容 token 的另一条主线。</p></a>
+        <a href="/research/acoustic/"><span>Index</span><strong>声学编码器</strong><p>回到方向 02 的总览。</p></a>
+      </nav>
+    </main>
+
+    <footer class="paper-lab-footer"><span>LongCat-Audio-Codec</span><span>speech LLM tokenizer / detokenizer</span></footer>
+  </div>
+  <script src="/assets/site-chat.js"></script>
+</body>
+</html>

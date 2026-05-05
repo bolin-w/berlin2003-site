@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Berlin2003 / vq-wav2vec</title>
+  <meta name="description" content="vq-wav2vec：离散 speech units 与语音语义编码器路线的早期起点。">
+  <meta name="theme-color" content="#f7fbff">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="stylesheet" href="/assets/paper-lab.css?v=20260505-semantic-deep">
+</head>
+<body class="edition-body paper-lab-body">
+  <div class="site-shell paper-lab-shell">
+    <header class="paper-lab-topbar">
+      <a class="paper-lab-brand" href="/"><span>Berlin</span><strong>2003</strong></a>
+      <nav class="paper-lab-nav" aria-label="研究导航">
+        <a href="/research/semantic/">语义层</a>
+        <a href="/research/hubert/">下一篇</a>
+        <a href="/research/">研究地图</a>
+      </nav>
+    </header>
+
+    <main class="paper-lab-main">
+      <section class="paper-lab-hero">
+        <div class="paper-lab-copy">
+          <p class="paper-lab-kicker">2019 / Discrete Speech Units</p>
+          <h1>vq-wav2vec</h1>
+          <p class="paper-lab-lead">这页是语义编码器路线的起点：先把连续语音表示量化成离散 units，再把这些 units 接给 BERT 这类离散序列模型。它还不是成熟语义接口，但第一次把“语音也能先离散化再建模”这件事讲清楚。</p>
+          <div class="paper-lab-actions">
+            <a class="paper-lab-primary" href="https://arxiv.org/abs/1910.05453" target="_blank" rel="noreferrer">论文原文</a>
+            <a href="https://github.com/facebookresearch/fairseq/tree/main/examples/wav2vec" target="_blank" rel="noreferrer">官方代码</a>
+          </div>
+        </div>
+
+        <figure class="paper-lab-figure">
+          <img src="/assets/official-vq-wav2vec.png" alt="vq-wav2vec paper diagram">
+          <figcaption>关键关系：左侧把原始波形编码成连续表示，再量化为离散 units；右侧展示这些 units 如何继续喂给 BERT 和声学模型。</figcaption>
+          <div class="paper-lab-source">
+            <a href="https://arxiv.org/abs/1910.05453" target="_blank" rel="noreferrer">arXiv</a>
+            <a href="https://github.com/facebookresearch/fairseq/tree/main/examples/wav2vec" target="_blank" rel="noreferrer">fairseq</a>
+          </div>
+        </figure>
+      </section>
+
+      <section class="paper-lab-metrics" aria-label="核心定位">
+        <article><span>Quantizer</span><strong>Gumbel / k-means</strong><p>把连续表示投到有限 codebook，形成可索引、可统计的 speech units。</p></article>
+        <article><span>Interface</span><strong>NLP 接口起点</strong><p>离散化之后，BERT 这类文本式预训练模型可以自然接入语音。</p></article>
+        <article><span>Limit</span><strong>仍偏局部声学</strong><p>这些 units 还不够上下文化，后续 HuBERT 才把 masked prediction 变成主线。</p></article>
+      </section>
+
+      <section class="paper-lab-deep">
+        <div class="paper-lab-section-head"><span>Paper Deep Dive</span><h2>论文精讲：vq-wav2vec 如何把语音接入离散序列建模</h2></div>
+        <div class="paper-lab-deep-grid">
+          <article class="paper-lab-deep-card paper-lab-deep-card-wide"><span>模型解析</span><strong>连续语音表示先量化，再交给 BERT 类模型</strong><ul><li>原始 waveform 先经过 convolutional feature encoder 变成连续 latent representation。</li><li>量化模块用 Gumbel-Softmax 或 k-means 把连续向量映射成离散 speech units。</li><li>离散 units 后续可以接 BERT / acoustic model，证明语音能绕开文本转写进入离散序列建模。</li></ul></article>
+          <article class="paper-lab-deep-card paper-lab-deep-card-wide"><span>创新点</span><strong>把 NLP 的离散建模范式引入 speech representation</strong><ul><li>它的关键不是 codebook 本身多复杂，而是把语音表示变成可索引、可统计、可被语言模型读取的 token。</li><li>离散化让 self-supervised speech representation 和 NLP 预训练范式之间出现接口。</li><li>这为后续 HuBERT、BEST-RQ、SpeechTokenizer 的 hidden units / semantic token 路线打了底。</li></ul></article>
+          <article class="paper-lab-deep-card"><span>损失函数</span><strong>对比预测目标驱动量化表示有信息量</strong><ul><li>模型通过预测未来或被选中的 latent target，使离散 units 必须保留可预测的语音结构。</li><li>contrastive objective 让正确 target 和 distractors 拉开距离，避免表示只记局部能量。</li><li>量化器需要保持 codebook 使用，避免所有语音塌缩到少数无意义 code。</li></ul></article>
+          <article class="paper-lab-deep-card"><span>训练策略</span><strong>先学离散 units，再验证它们能不能被 BERT 使用</strong><ul><li>第一阶段在未标注语音上训练 feature encoder 和 quantizer。</li><li>第二阶段把离散 units 当作 token 序列，接入 BERT 式建模或下游 ASR 管线。</li><li>关键实验不是追求最完美 tokenizer，而是证明 speech units 可以成为后续模型的统一输入。</li></ul></article>
+          <article class="paper-lab-deep-card"><span>结果分析</span><strong>它打开方向，但语义稳定性还不够</strong><ul><li>离散 units 对 ASR 等任务有帮助，说明无监督语音单元是可行的。</li><li>但这些 units 仍偏局部声学，缺少 HuBERT 式 masked prediction 带来的上下文稳定性。</li><li>因此它更像语义层的起点，而不是最终可直接服务 speech LM 的接口。</li></ul></article>
+        </div>
+      </section>
+
+      <section class="paper-lab-section">
+        <div class="paper-lab-section-head"><span>Core Route</span><h2>这篇论文真正打开的门</h2></div>
+        <div class="paper-lab-grid">
+          <article class="paper-lab-card"><span>01</span><strong>离散化改变工具箱</strong><p>语音一旦变成离散 units，就能借用 NLP 中成熟的离散序列建模方法。</p></article>
+          <article class="paper-lab-card"><span>02</span><strong>量化器只是手段</strong><p>Gumbel-Softmax 和 online k-means 的共同目标，是把语音表征变成可继续预训练的对象。</p></article>
+          <article class="paper-lab-card"><span>03</span><strong>BERT 接入是核心信号</strong><p>论文直接接 BERT，是在证明语音可以不经文本转写进入文本式预训练范式。</p></article>
+          <article class="paper-lab-card"><span>04</span><strong>还不是最终语义层</strong><p>units 更像局部声学单位，内容稳定性和上下文表示还需要下一阶段补足。</p></article>
+        </div>
+      </section>
+
+      <section class="paper-lab-section">
+        <div class="paper-lab-section-head"><span>Reading Cut</span><h2>读这页时抓三个判断</h2></div>
+        <div class="paper-lab-cuts">
+          <article class="paper-lab-cut"><span>Cut 01</span><strong>unit 不等于音素</strong><p>它只要能稳定承载内容，就有工程价值，不必和人工音素表一一对应。</p></article>
+          <article class="paper-lab-cut"><span>Cut 02</span><strong>离散接口先于完美标签</strong><p>这条路线先证明接口可行，随后再由 HuBERT 等模型提高表示稳定性。</p></article>
+          <article class="paper-lab-cut"><span>Cut 03</span><strong>语义层从这里开始成形</strong><p>真正的后续问题变成：怎样让离散 units 更稳、更粗、更能代表内容。</p></article>
+        </div>
+      </section>
+
+      <nav class="paper-lab-next" aria-label="下一步阅读">
+        <a href="/research/semantic/"><span>Index</span><strong>语义编码器</strong><p>回到方向 01 的总览。</p></a>
+        <a href="/research/hubert/"><span>Next</span><strong>HuBERT</strong><p>看这条路线如何转向 hidden-unit masked prediction。</p></a>
+        <a href="/research/acoustic/"><span>Bridge</span><strong>声学编码器</strong><p>回到另一层，看细节残差如何继续接上。</p></a>
+      </nav>
+    </main>
+
+    <footer class="paper-lab-footer"><span>vq-wav2vec</span><span>discrete speech representations</span></footer>
+  </div>
+  <script src="/assets/site-chat.js"></script>
+</body>
+</html>

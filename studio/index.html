@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Berlin2003 / 工作台</title>
+  <meta name="theme-color" content="#f4efe6">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="module-top">
+      <nav class="module-nav" aria-label="工作台导航">
+        <a class="backlink" href="/">← 首页</a>
+        <a class="backlink" href="/studio-logout/">退出工作台</a>
+      </nav>
+      <span>工作台 / 私密</span>
+    </header>
+
+    <main class="module-main">
+      <h1>工作台</h1>
+      <p class="module-intro">这个页面是给你自己处理网站内容的。把原文贴进来，选一个模式，或者直接写要求，模型会返回可以直接改到页面里的结果。</p>
+
+      <div class="meta-row">
+        <a class="meta-chip studio-link-chip" href="/studio/anime/">动漫资源库后台</a>
+        <a class="meta-chip studio-link-chip" href="/studio-logout/">退出工作台</a>
+      </div>
+
+      <div class="studio-shell">
+        <section class="studio-panel">
+          <h2>输入</h2>
+          <div class="studio-status">
+            <span class="status-dot" id="status-dot"></span>
+            <span id="status-text">正在检查后端状态...</span>
+          </div>
+
+          <div class="preset-row">
+            <button class="preset-button" type="button" data-preset="homepage">首页文案</button>
+            <button class="preset-button" type="button" data-preset="module">模块结构</button>
+            <button class="preset-button" type="button" data-preset="notes">工作笔记</button>
+            <button class="preset-button" type="button" data-preset="refine">自然润色</button>
+          </div>
+
+          <form class="studio-form" id="studio-form">
+            <div class="studio-row">
+              <label>
+                处理模式
+                <select id="mode" name="mode">
+                  <option value="rewrite">改写</option>
+                  <option value="structure">整理结构</option>
+                  <option value="summarize">压缩摘要</option>
+                </select>
+              </label>
+              <label>
+                额外要求
+                <input id="instruction" name="instruction" placeholder="例如：改成更像真实个人站，不要太满，不要 AI 味。">
+              </label>
+            </div>
+
+            <label>
+              原始内容
+              <textarea id="content" name="content" placeholder="把你要处理的原文粘贴到这里。"></textarea>
+            </label>
+
+            <button class="submit-button" type="submit">生成结果</button>
+          </form>
+        </section>
+
+        <section class="studio-result">
+          <div class="studio-result-head">
+            <h2>输出</h2>
+            <button class="copy-button" id="copy-output" type="button">复制结果</button>
+          </div>
+          <pre id="result" class="result-placeholder">输出会显示在这里。</pre>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <span>工作台</span>
+      <span>已授权</span>
+    </footer>
+  </div>
+
+  <script src="/assets/studio.js"></script>
+</body>
+</html>

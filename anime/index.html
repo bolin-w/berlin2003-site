@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Berlin2003 / 视频库</title>
+  <meta name="description" content="本地制作字幕后上传存储的视频播放页。">
+  <meta name="theme-color" content="#17120c">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body class="anime-page">
+  <div class="site-shell">
+    <header class="module-top">
+      <a class="backlink" href="/">← 首页</a>
+      <span>video storage / subtitled locally</span>
+    </header>
+
+    <main class="anime-main">
+      <section class="anime-hero">
+        <p class="eyebrow">Video Library</p>
+        <h1>本地加字幕，网站只负责播放。</h1>
+        <p class="module-intro">视频在本地完成字幕压制后上传到服务器。这里是存储和播放入口，不做搜索、下载、转码或自动翻译。</p>
+        <p class="anime-status" id="anime-status">正在读取视频库...</p>
+      </section>
+
+      <section class="anime-layout video-layout">
+        <div class="anime-panel">
+          <div class="anime-panel-head">
+            <h2>视频</h2>
+            <span id="anime-count">0 items</span>
+          </div>
+          <div class="anime-grid" id="video-list"></div>
+        </div>
+
+        <div class="anime-panel anime-detail" id="video-detail">
+          <div class="anime-empty">
+            <span>Storage</span>
+            <p>选择一个视频后在这里播放。</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>视频库</span>
+      <span>local subtitles / server storage</span>
+    </footer>
+  </div>
+
+  <script src="/assets/anime.js"></script>
+</body>
+</html>

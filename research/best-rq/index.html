@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Berlin2003 / BEST-RQ</title>
+  <meta name="description" content="BEST-RQ：固定 random-projection quantizer 的语音自监督预训练路线。">
+  <meta name="theme-color" content="#f7fbff">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="stylesheet" href="/assets/paper-lab.css?v=20260505-semantic-deep">
+</head>
+<body class="edition-body paper-lab-body">
+  <div class="site-shell paper-lab-shell">
+    <header class="paper-lab-topbar">
+      <a class="paper-lab-brand" href="/"><span>Berlin</span><strong>2003</strong></a>
+      <nav class="paper-lab-nav" aria-label="研究导航">
+        <a href="/research/wavlm/">上一篇</a>
+        <a href="/research/speechtokenizer/">下一篇</a>
+        <a href="/research/semantic/">语义层</a>
+      </nav>
+    </header>
+
+    <main class="paper-lab-main">
+      <section class="paper-lab-hero">
+        <div class="paper-lab-copy">
+          <p class="paper-lab-kicker">2022 / Fixed Quantizer</p>
+          <h1>BEST-RQ</h1>
+          <p class="paper-lab-lead">BEST-RQ 的判断很直接：量化器不一定要一起学。把 random-projection quantizer 固定住，反而能让模型把学习能力集中在 encoder 上，得到一种更简单、更稳定的 masked speech prediction 路线。</p>
+          <div class="paper-lab-actions">
+            <a class="paper-lab-primary" href="https://proceedings.mlr.press/v162/chiu22a.html" target="_blank" rel="noreferrer">论文页面</a>
+            <a href="https://arxiv.org/abs/2202.01855" target="_blank" rel="noreferrer">arXiv</a>
+          </div>
+        </div>
+
+        <figure class="paper-lab-figure">
+          <img src="/assets/official-best-rq.png" alt="BEST-RQ paper diagram">
+          <figcaption>关键关系：随机投影量化器固定不训练，模型围绕 masked prediction 学 encoder 表示。它把系统复杂度从 quantizer 转回 representation learning。</figcaption>
+          <div class="paper-lab-source">
+            <a href="https://proceedings.mlr.press/v162/chiu22a.html" target="_blank" rel="noreferrer">PMLR</a>
+            <a href="https://arxiv.org/abs/2202.01855" target="_blank" rel="noreferrer">arXiv</a>
+          </div>
+        </figure>
+      </section>
+
+      <section class="paper-lab-metrics" aria-label="核心定位">
+        <article><span>Quantizer</span><strong>固定码本</strong><p>random projection + fixed codebook，不把量化器训练成额外变量。</p></article>
+        <article><span>Training</span><strong>masked prediction</strong><p>目标仍是预测被遮掉的量化目标，让 encoder 学稳定表示。</p></article>
+        <article><span>Value</span><strong>简单路线</strong><p>它说明复杂可学习 quantizer 不是语义预训练的唯一入口。</p></article>
+      </section>
+
+      <section class="paper-lab-deep">
+        <div class="paper-lab-section-head"><span>Paper Deep Dive</span><h2>论文精讲：BEST-RQ 为什么用随机量化器也能训练强表示</h2></div>
+        <div class="paper-lab-deep-grid">
+          <article class="paper-lab-deep-card paper-lab-deep-card-wide"><span>模型解析</span><strong>固定随机投影 quantizer 生成 masked prediction 目标</strong><ul><li>输入语音先切成 acoustic features，再经过随机投影和固定 codebook 得到 discrete labels。</li><li>模型看到被 mask 的输入，需要预测这些固定 quantizer labels。</li><li>与 HuBERT 不同，teacher 不依赖离线聚类迭代，而是用随机但稳定的量化目标。</li></ul></article>
+          <article class="paper-lab-deep-card paper-lab-deep-card-wide"><span>创新点</span><strong>把 teacher 复杂度降到极低</strong><ul><li>不需要 k-means 聚类、不需要 teacher model，也不需要反复重新生成标签。</li><li>固定 random projection quantizer 提供稳定目标，让训练管线更简单。</li><li>它证明强 representation 不一定来自复杂 teacher，也可以来自足够好的 masked prediction 任务设计。</li></ul></article>
+          <article class="paper-lab-deep-card"><span>损失函数</span><strong>预测随机量化标签的分类目标</strong><ul><li>核心损失是对 masked frame 的 random quantizer target 做 cross-entropy。</li><li>由于 target 固定，训练更稳定，避免 HuBERT 迭代聚类的工程开销。</li><li>损失本身看似简单，但 mask + context 让模型必须学习语音结构而不是复制输入。</li></ul></article>
+          <article class="paper-lab-deep-card"><span>训练策略</span><strong>固定 teacher，重点训练 student 的上下文能力</strong><ul><li>随机投影和 codebook 在训练前确定，训练过程中不更新。</li><li>student 网络通过大规模 masked prediction 学会把上下文映射到离散目标。</li><li>这种策略降低预训练 pipeline 复杂度，适合大规模快速实验。</li></ul></article>
+          <article class="paper-lab-deep-card"><span>结果分析</span><strong>它的意义是“简单目标也能很强”</strong><ul><li>结果说明 teacher 质量不是唯一瓶颈，目标稳定性和上下文预测同样关键。</li><li>相比 HuBERT，它牺牲了一部分 teacher 可解释性，换来更简单可复现的训练流程。</li><li>它适合放在语义线里，因为它继续强化“离散目标 + masked prediction”这条主干。</li></ul></article>
+        </div>
+      </section>
+
+      <section class="paper-lab-section">
+        <div class="paper-lab-section-head"><span>Core Route</span><h2>BEST-RQ 为什么值得放进语义线</h2></div>
+        <div class="paper-lab-grid">
+          <article class="paper-lab-card"><span>01</span><strong>把 quantizer 固定住</strong><p>固定量化器减少可训练部件，让训练目标更清楚。</p></article>
+          <article class="paper-lab-card"><span>02</span><strong>学习重点回到 encoder</strong><p>模型不再花太多能力适配一个动态量化器，而是集中学 speech representation。</p></article>
+          <article class="paper-lab-card"><span>03</span><strong>仍然服务 hidden targets</strong><p>它与 HuBERT 一样依赖 masked prediction，只是 teacher 构造方式更简洁。</p></article>
+          <article class="paper-lab-card"><span>04</span><strong>适合做对照基线</strong><p>它能提醒我们：语义层不一定越复杂越好，稳定接口更重要。</p></article>
+        </div>
+      </section>
+
+      <section class="paper-lab-section">
+        <div class="paper-lab-section-head"><span>Reading Cut</span><h2>读这页时抓三个判断</h2></div>
+        <div class="paper-lab-cuts">
+          <article class="paper-lab-cut"><span>Cut 01</span><strong>可学习不等于更稳</strong><p>在语义层里，动态量化器可能带来额外不确定性。</p></article>
+          <article class="paper-lab-cut"><span>Cut 02</span><strong>简单 teacher 也能有效</strong><p>只要目标稳定，masked prediction 就能推动 encoder 学内容结构。</p></article>
+          <article class="paper-lab-cut"><span>Cut 03</span><strong>工程上更容易复查</strong><p>固定 quantizer 让分析更直接，也更容易定位表示问题来自哪里。</p></article>
+        </div>
+      </section>
+
+      <nav class="paper-lab-next" aria-label="下一步阅读">
+        <a href="/research/wavlm/"><span>Prev</span><strong>WavLM</strong><p>回到鲁棒 teacher 的路线。</p></a>
+        <a href="/research/speechtokenizer/"><span>Next</span><strong>SpeechTokenizer</strong><p>看语义层如何正式接入 acoustic token 层级。</p></a>
+        <a href="/research/acoustic/"><span>Bridge</span><strong>声学编码器</strong><p>切到质感恢复和 residual 建模。</p></a>
+      </nav>
+    </main>
+
+    <footer class="paper-lab-footer"><span>BEST-RQ</span><span>fixed random-projection quantizer</span></footer>
+  </div>
+  <script src="/assets/site-chat.js"></script>
+</body>
+</html>

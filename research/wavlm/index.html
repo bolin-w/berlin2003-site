@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Berlin2003 / WavLM</title>
+  <meta name="description" content="WavLM：更鲁棒的 speech teacher，把 denoising 和上下文建模带入语义表示。">
+  <meta name="theme-color" content="#f7fbff">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="stylesheet" href="/assets/paper-lab.css?v=20260505-semantic-deep">
+</head>
+<body class="edition-body paper-lab-body">
+  <div class="site-shell paper-lab-shell">
+    <header class="paper-lab-topbar">
+      <a class="paper-lab-brand" href="/"><span>Berlin</span><strong>2003</strong></a>
+      <nav class="paper-lab-nav" aria-label="研究导航">
+        <a href="/research/hubert/">上一篇</a>
+        <a href="/research/best-rq/">下一篇</a>
+        <a href="/research/semantic/">语义层</a>
+      </nav>
+    </header>
+
+    <main class="paper-lab-main">
+      <section class="paper-lab-hero">
+        <div class="paper-lab-copy">
+          <p class="paper-lab-kicker">2021 / Robust Speech Teacher</p>
+          <h1>WavLM</h1>
+          <p class="paper-lab-lead">WavLM 更像是把 HuBERT 这条 hidden-unit 主线工程化加强：加入 denoising、utterance mixing 和 gated relative position bias，让表示在说话人变化、噪声和副语言因素下更稳。</p>
+          <div class="paper-lab-actions">
+            <a class="paper-lab-primary" href="https://arxiv.org/abs/2110.13900" target="_blank" rel="noreferrer">论文原文</a>
+            <a href="https://github.com/microsoft/unilm/tree/master/wavlm" target="_blank" rel="noreferrer">官方代码</a>
+          </div>
+        </div>
+
+        <figure class="paper-lab-figure">
+          <img src="/assets/official-wavlm.png" alt="WavLM paper diagram">
+          <figcaption>关键关系：WavLM 延续 masked speech prediction，同时通过 denoising 和更强位置建模增强鲁棒性，因此常被当作更强的内容 teacher。</figcaption>
+          <div class="paper-lab-source">
+            <a href="https://arxiv.org/abs/2110.13900" target="_blank" rel="noreferrer">arXiv</a>
+            <a href="https://github.com/microsoft/unilm/tree/master/wavlm" target="_blank" rel="noreferrer">GitHub</a>
+          </div>
+        </figure>
+      </section>
+
+      <section class="paper-lab-metrics" aria-label="核心定位">
+        <article><span>Denoising</span><strong>更抗噪</strong><p>预训练时显式引入噪声和混合，让 teacher 不只适配干净语音。</p></article>
+        <article><span>Context</span><strong>更强上下文</strong><p>gated relative position bias 提升长距离结构建模能力。</p></article>
+        <article><span>Use</span><strong>全栈 speech teacher</strong><p>常用于 ASR、speaker 和其他下游任务的强表示基线。</p></article>
+      </section>
+
+      <section class="paper-lab-deep">
+        <div class="paper-lab-section-head"><span>Paper Deep Dive</span><h2>论文精讲：WavLM 如何把 HuBERT 扩展到 full-stack speech</h2></div>
+        <div class="paper-lab-deep-grid">
+          <article class="paper-lab-deep-card paper-lab-deep-card-wide"><span>模型解析</span><strong>HuBERT 式 masked prediction 加强为 denoising speech pretraining</strong><ul><li>WavLM 继承 masked speech prediction 的主线，但把 noisy / overlapped speech 也纳入预训练场景。</li><li>Transformer 主干加入 gated relative position bias，增强对长程时序和说话人关系的建模。</li><li>模型目标不只服务 ASR，还要覆盖说话人、分离、增强等 full-stack speech processing。</li></ul></article>
+          <article class="paper-lab-deep-card paper-lab-deep-card-wide"><span>创新点</span><strong>从内容识别扩展到说话人和噪声鲁棒表示</strong><ul><li>utterance mixing / denoising 让模型面对更真实的多说话人和噪声条件。</li><li>gated relative position bias 让模型更好地区分局部语音结构和长程依赖。</li><li>相比 HuBERT 更像通用 speech foundation model，而不是只为识别任务优化。</li></ul></article>
+          <article class="paper-lab-deep-card"><span>损失函数</span><strong>仍以 masked prediction 为核心，但输入扰动更强</strong><ul><li>主要目标是预测 masked frame 对应的 pseudo label / hidden unit。</li><li>denoising 设置让模型在混合或加噪输入下恢复目标语音表示。</li><li>这种目标迫使表示同时保留内容、说话人和鲁棒性信息。</li></ul></article>
+          <article class="paper-lab-deep-card"><span>训练策略</span><strong>用大规模语音和混合扰动逼出通用能力</strong><ul><li>预训练数据覆盖更多场景，任务不局限于干净单说话人语音。</li><li>输入端混入噪声或其他 utterance，让模型必须处理干扰和重叠。</li><li>模型规模和训练数据共同提升，使其成为后续 speech tokenizer 的强 teacher。</li></ul></article>
+          <article class="paper-lab-deep-card"><span>结果分析</span><strong>优势是任务覆盖面更广，代价是表示更重</strong><ul><li>WavLM 在识别、说话人、分离等任务上更均衡，适合作为 full-stack speech 表示。</li><li>作为 tokenizer teacher 时，它比只面向 ASR 的表示更稳健。</li><li>但模型较重，不适合直接作为每个实时 codec 的在线前端，通常用于蒸馏或离线监督。</li></ul></article>
+        </div>
+      </section>
+
+      <section class="paper-lab-section">
+        <div class="paper-lab-section-head"><span>Core Route</span><h2>WavLM 加强了哪一环</h2></div>
+        <div class="paper-lab-grid">
+          <article class="paper-lab-card"><span>01</span><strong>从内容 teacher 到鲁棒 teacher</strong><p>它不只要学内容，也要在噪声、混响和说话人变化下保持稳定。</p></article>
+          <article class="paper-lab-card"><span>02</span><strong>denoising 是接口需求</strong><p>真实压缩链路里输入不会总是干净，语义层必须能抗扰动。</p></article>
+          <article class="paper-lab-card"><span>03</span><strong>位置建模影响长结构</strong><p>语义层需要比局部声学更长的时间视野，否则 token 边界会变碎。</p></article>
+          <article class="paper-lab-card"><span>04</span><strong>更适合作为系统 teacher</strong><p>它提供的是更稳的上游表示，而不是一个单点下游任务模型。</p></article>
+        </div>
+      </section>
+
+      <section class="paper-lab-section">
+        <div class="paper-lab-section-head"><span>Reading Cut</span><h2>读这页时抓三个判断</h2></div>
+        <div class="paper-lab-cuts">
+          <article class="paper-lab-cut"><span>Cut 01</span><strong>鲁棒性是语义层硬指标</strong><p>低码率语义层如果对噪声敏感，就很难成为稳定接口。</p></article>
+          <article class="paper-lab-cut"><span>Cut 02</span><strong>teacher 质量会传导到 tokenizer</strong><p>后续 token 的稳定性，很大程度取决于上游 hidden representation。</p></article>
+          <article class="paper-lab-cut"><span>Cut 03</span><strong>全栈能力有助于接口选择</strong><p>它在多任务上的表现说明表示更通用，适合当作语义层候选。</p></article>
+        </div>
+      </section>
+
+      <nav class="paper-lab-next" aria-label="下一步阅读">
+        <a href="/research/hubert/"><span>Prev</span><strong>HuBERT</strong><p>回到 hidden-unit masked prediction 主线。</p></a>
+        <a href="/research/best-rq/"><span>Next</span><strong>BEST-RQ</strong><p>看固定 quantizer 的另一条解法。</p></a>
+        <a href="/research/speechtokenizer/"><span>Bridge</span><strong>SpeechTokenizer</strong><p>继续看分层 tokenizer 如何接语义 teacher。</p></a>
+      </nav>
+    </main>
+
+    <footer class="paper-lab-footer"><span>WavLM</span><span>robust high-level semantics</span></footer>
+  </div>
+  <script src="/assets/site-chat.js"></script>
+</body>
+</html>

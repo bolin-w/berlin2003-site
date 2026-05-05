@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Berlin2003 / Semantic Encoder</title>
+  <meta name="description" content="语义编码器研究页：低码率下先稳定高层内容，保留说了什么，并给声学层留下干净接口。">
+  <meta name="theme-color" content="#f7fbff">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="stylesheet" href="/assets/research-detail.css?v=20260501-inner">
+</head>
+<body class="edition-body research-detail-body semantic-detail-page">
+  <div class="site-shell research-detail-shell">
+    <header class="research-detail-topbar">
+      <a class="research-detail-brand" href="/" aria-label="Berlin2003 首页">
+        <span>Berlin</span><strong>2003</strong>
+      </a>
+      <nav class="research-detail-nav" aria-label="研究导航">
+        <a href="/research/">研究地图</a>
+        <a href="/research/acoustic/">声学层</a>
+        <a href="/notes/">笔记</a>
+      </nav>
+    </header>
+
+    <main class="research-detail-main">
+      <section class="research-detail-hero" aria-labelledby="semantic-title">
+        <div class="research-detail-copy">
+          <p class="research-detail-kicker">Direction 01 / Semantic First</p>
+          <h1 id="semantic-title">语义编码器 / Semantic Encoder</h1>
+          <p class="research-detail-lead">
+            语义层不负责重建波形，它先把“说了什么”压稳：内容、边界、节奏和长时间结构保留下来，音色和细碎纹理交给声学层继续恢复。
+          </p>
+          <div class="research-detail-actions">
+            <a class="research-detail-primary" href="#tracks">阅读公开路线</a>
+            <a href="/research/acoustic/">转到声学层</a>
+          </div>
+        </div>
+
+        <figure class="research-detail-poster">
+          <img src="/assets/research-semantic.png" alt="Semantic encoder visual explanation">
+          <figcaption>Preserve what is being said</figcaption>
+        </figure>
+      </section>
+
+      <section class="research-detail-metrics" aria-label="语义层指标">
+        <article>
+          <span>Layer Role</span>
+          <strong>先保内容</strong>
+          <p>在低码率下优先保住可懂度和高层信息。</p>
+        </article>
+        <article>
+          <span>Token Goal</span>
+          <strong>粗而稳定</strong>
+          <p>token 不追求复刻波形，而要能被后续模型继续读取。</p>
+        </article>
+        <article>
+          <span>Interface</span>
+          <strong>干净交接</strong>
+          <p>把音色、自然度和局部细节留给声学层处理。</p>
+        </article>
+      </section>
+
+      <section class="research-detail-board" aria-label="核心问题">
+        <div class="research-detail-section-head">
+          <span>Questions</span>
+          <h2>语义层先回答三件事</h2>
+        </div>
+        <div class="research-detail-questions">
+          <article>
+            <span>Q1</span>
+            <strong>如何从波形里得到内容单位？</strong>
+            <p>离散单元不必像人工音素表，但要在说话人、信道和噪声变化下仍能保持内容边界。</p>
+          </article>
+          <article>
+            <span>Q2</span>
+            <strong>如何让表示变得上下文化？</strong>
+            <p>masked prediction 和更强的上下文 teacher，让局部 unit 变成可以建模的稳定 hidden units。</p>
+          </article>
+          <article>
+            <span>Q3</span>
+            <strong>如何和声学层分工？</strong>
+            <p>语义层给出内容骨架，声学层补回自然度、音色和细节，避免两层互相兜底。</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="tracks" class="research-detail-tracks" aria-label="公开路线">
+        <div class="research-detail-section-head">
+          <span>Public Routes</span>
+          <h2>公开路线 / 2019-2023</h2>
+        </div>
+        <div class="research-detail-track-grid semantic-track-grid">
+          <a href="/research/vq-wav2vec/" class="research-detail-card">
+            <span>2019</span>
+            <strong>vq-wav2vec</strong>
+            <p>把连续 speech representation 量化为离散 units，是语音离散前端的早期起点。</p>
+          </a>
+          <a href="/research/hubert/" class="research-detail-card">
+            <span>2021</span>
+            <strong>HuBERT</strong>
+            <p>用 offline clustering 产生伪标签，再对 masked 区域预测，稳定学出 hidden units。</p>
+          </a>
+          <a href="/research/wavlm/" class="research-detail-card">
+            <span>2021</span>
+            <strong>WavLM</strong>
+            <p>加入 denoising 和更强上下文建模，常被用作更鲁棒的内容 teacher。</p>
+          </a>
+          <a href="/research/best-rq/" class="research-detail-card">
+            <span>2022</span>
+            <strong>BEST-RQ</strong>
+            <p>固定 random-projection quantizer，把学习能力留给 encoder 本身。</p>
+          </a>
+          <a href="/research/speechtokenizer/" class="research-detail-card research-detail-card-wide">
+            <span>2023</span>
+            <strong>SpeechTokenizer</strong>
+            <p>把 semantic token 和 acoustic token 放进分层 RVQ，开始显式形成两层接口。</p>
+          </a>
+        </div>
+      </section>
+
+      <section class="research-detail-cuts" aria-label="技术判断">
+        <div class="research-detail-section-head">
+          <span>Technical Cut</span>
+          <h2>我现在更关心的判断</h2>
+        </div>
+        <div class="research-detail-cut-grid">
+          <article>
+            <span>Cut 01</span>
+            <strong>unit discovery 不是音素字典</strong>
+            <p>只要离散单位能稳定承载内容，它就已经有工程意义，不需要和人工音素逐项对应。</p>
+          </article>
+          <article>
+            <span>Cut 02</span>
+            <strong>token rate 不能过密</strong>
+            <p>语义 token 太密会把音色和纹理一起背回去，反而压缩了声学层的发挥空间。</p>
+          </article>
+          <article>
+            <span>Cut 03</span>
+            <strong>接口比单点指标更重要</strong>
+            <p>真正好用的语义层，会让声学层知道自己该补什么，而不是重新猜完整语音。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="research-detail-next" aria-label="下一步阅读">
+        <a href="/research/acoustic/">
+          <span>Next</span>
+          <strong>声学编码器</strong>
+          <p>看完内容骨架后，继续看自然度、音色和细节怎么恢复。</p>
+        </a>
+        <a href="/research/mimi/">
+          <span>Bridge</span>
+          <strong>Mimi</strong>
+          <p>观察 semantic information 和 acoustic information 如何合流。</p>
+        </a>
+        <a href="/research/dualcodec/">
+          <span>Bridge</span>
+          <strong>DualCodec</strong>
+          <p>看 SSL representation 与 waveform stream 如何共同增强 token。</p>
+        </a>
+      </section>
+    </main>
+
+    <footer class="research-detail-footer">
+      <span>Semantic Encoder</span>
+      <span>preserve what is being said</span>
+    </footer>
+  </div>
+
+  <script src="/assets/site-chat.js"></script>
+</body>
+</html>
