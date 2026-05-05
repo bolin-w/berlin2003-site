@@ -40,7 +40,7 @@ async function diaryApi(path, options) {
 
 function formatDate(value) {
   if (!value) {
-    return "刚刚";
+    return "刚写下";
   }
   return new Intl.DateTimeFormat("zh-CN", {
     year: "numeric",
@@ -107,14 +107,14 @@ async function compressImage(file) {
   const dataUrl = await new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => resolve(String(reader.result || ""));
-    reader.onerror = () => reject(new Error("读取图片失败。"));
+    reader.onerror = () => reject(new Error("这张照片没有读出来，换一张试试。"));
     reader.readAsDataURL(file);
   });
 
   const image = await new Promise((resolve, reject) => {
     const img = new Image();
     img.onload = () => resolve(img);
-    img.onerror = () => reject(new Error("图片格式无法识别。"));
+    img.onerror = () => reject(new Error("这张图片暂时认不出来，换个格式试试。"));
     img.src = dataUrl;
   });
 
@@ -143,11 +143,11 @@ async function addPhotos(files) {
 
   const slots = Math.max(0, 6 - currentPhotos.length);
   if (!slots) {
-    setDiaryStatus("每篇最多 6 张照片。", "warn");
+    setDiaryStatus("这一篇已经放满 6 张照片。", "warn");
     return;
   }
 
-  setDiaryStatus("正在压缩照片...");
+  setDiaryStatus("正在把照片收小一点...");
   const nextPhotos = [];
   for (const file of imageFiles.slice(0, slots)) {
     nextPhotos.push(await compressImage(file));
@@ -155,7 +155,7 @@ async function addPhotos(files) {
   currentPhotos = [...currentPhotos, ...nextPhotos];
   diaryPhotos.value = "";
   renderPhotoPreview();
-  setDiaryStatus(`已添加 ${nextPhotos.length} 张照片。`, "ok");
+  setDiaryStatus(`${nextPhotos.length} 张照片已经放进这篇。`, "ok");
 }
 
 function fillForm(item) {
@@ -166,10 +166,10 @@ function fillForm(item) {
   diaryContent.value = item.content || "";
   currentPhotos = Array.isArray(item.photos) ? [...item.photos] : [];
   renderPhotoPreview();
-  diarySubmit.textContent = "保存修改";
+  diarySubmit.textContent = "更新这张卡片";
   diaryReset.hidden = false;
   diaryContent.focus();
-  setDiaryStatus("正在编辑一条旧记录。", "editing");
+  setDiaryStatus("这张旧卡片可以继续补几笔。", "editing");
 }
 
 function resetForm() {
@@ -177,7 +177,7 @@ function resetForm() {
   diaryForm.reset();
   currentPhotos = [];
   renderPhotoPreview();
-  diarySubmit.textContent = "记下这一篇";
+  diarySubmit.textContent = "收进时间线";
   diaryReset.hidden = true;
 }
 
@@ -189,8 +189,8 @@ function renderDiary() {
     diaryList.innerHTML = `
       <article class="life-diary-empty">
         <span>Empty diary</span>
-        <strong>还没有日记。</strong>
-        <p>在上面写下第一条记录，保存后会按时间生成卡片。</p>
+        <strong>时间线还空着。</strong>
+        <p>写下第一段，它会变成这里的第一张卡片。</p>
       </article>
     `;
     return;
@@ -214,7 +214,7 @@ function renderDiary() {
     }
 
     const title = document.createElement("h2");
-    title.textContent = item.title || "未命名记录";
+    title.textContent = item.title || "没有标题的一天";
 
     const content = document.createElement("p");
     content.className = "life-diary-card-content";
@@ -249,7 +249,7 @@ function renderDiary() {
     remove.type = "button";
     remove.textContent = "删除";
     remove.addEventListener("click", async () => {
-      const ok = confirm("确定删除这条日记吗？");
+      const ok = confirm("确定把这张日记卡片删掉吗？");
       if (!ok) {
         return;
       }
@@ -258,7 +258,7 @@ function renderDiary() {
       if (editingId === item.id) {
         resetForm();
       }
-      setDiaryStatus("已删除一条记录。", "ok");
+      setDiaryStatus("这张卡片已经从时间线移走。", "ok");
     });
 
     actions.append(edit, remove);
@@ -275,11 +275,11 @@ function renderDiary() {
 }
 
 async function loadDiary() {
-  setDiaryStatus("正在读取日记...");
+  setDiaryStatus("正在翻到最近的记录...");
   const data = await diaryApi("/api/editor/diary");
   diaryItems = data.items || [];
   renderDiary();
-  setDiaryStatus("日记已同步。", "ok");
+  setDiaryStatus("时间线已经打开。", "ok");
 }
 
 diaryForm.addEventListener("submit", async (event) => {
@@ -292,7 +292,7 @@ diaryForm.addEventListener("submit", async (event) => {
     photos: currentPhotos
   };
 
-  setDiaryStatus(editingId ? "正在保存修改..." : "正在保存新日记...");
+  setDiaryStatus(editingId ? "正在更新这张卡片..." : "正在收进时间线...");
   if (editingId) {
     await diaryApi(`/api/editor/diary/${encodeURIComponent(editingId)}`, {
       method: "PUT",
@@ -307,12 +307,12 @@ diaryForm.addEventListener("submit", async (event) => {
 
   resetForm();
   await loadDiary();
-  setDiaryStatus("已保存。", "ok");
+  setDiaryStatus("已经放好了。", "ok");
 });
 
 diaryReset.addEventListener("click", () => {
   resetForm();
-  setDiaryStatus("已退出编辑模式。");
+  setDiaryStatus("已经回到新日记。");
 });
 
 diaryPhotos.addEventListener("change", () => {

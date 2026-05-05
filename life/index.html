@@ -27,7 +27,7 @@
         <div class="section-lab-copy">
           <p class="section-lab-kicker">Private Diary</p>
           <h1 id="life-title">写一次，留下一张卡片。</h1>
-          <p class="section-lab-lead">这里是真正可用的私密日记。每次写完保存，页面会按时间生成卡片；可以拖拽照片、点表情、编辑旧记录，也可以删除。</p>
+          <p class="section-lab-lead">这里留给每天的片段：一句话、一组照片、一个心情，都会按时间收进卡片里。以后回来看，不需要整理成文章，也能看见当时的自己。</p>
           <div class="section-lab-chips">
             <span class="section-lab-chip">Basic Auth</span>
             <span class="section-lab-chip">Server saved</span>
@@ -39,31 +39,31 @@
           <div class="life-diary-editor-head">
             <div>
               <span>New entry</span>
-              <h2>今天记录什么？</h2>
+              <h2>今天留下些什么？</h2>
             </div>
-            <strong id="diary-status">正在准备日记...</strong>
+            <strong id="diary-status">日记本正在翻页...</strong>
           </div>
 
           <form id="life-diary-form" class="life-diary-form">
             <div class="life-diary-row">
               <label>
                 标题
-                <input id="diary-title" name="title" maxlength="80" placeholder="例如：今天把网站改顺了">
+                <input id="diary-title" name="title" maxlength="80" placeholder="给今天起一个小标题">
               </label>
               <label>
                 心情
-                <input id="diary-mood" name="mood" maxlength="40" placeholder="例如：平静 / 累 / 开心">
+                <input id="diary-mood" name="mood" maxlength="40" placeholder="今天的天气、心情或状态">
               </label>
             </div>
 
             <label>
               标签
-              <input id="diary-tags" name="tags" maxlength="120" placeholder="用逗号分隔，例如：生活, 学习, 网站">
+              <input id="diary-tags" name="tags" maxlength="120" placeholder="给这一天留几个索引，例如：生活, 学习, 网站">
             </label>
 
             <label>
               内容
-              <textarea id="diary-content" name="content" required placeholder="写下今天发生了什么、想了什么、完成了什么。"></textarea>
+              <textarea id="diary-content" name="content" required placeholder="不用写完整，留下你想记住的那一段就好。"></textarea>
             </label>
 
             <div class="life-diary-emoji" aria-label="添加表情">
@@ -81,16 +81,16 @@
             <section class="life-photo-drop" id="life-photo-drop" aria-label="上传照片">
               <input id="diary-photos" type="file" accept="image/*" multiple>
               <div>
-                <strong>拖拽照片到这里</strong>
-                <span>也可以点击选择图片。每篇最多 6 张，保存前会自动压缩。</span>
+                <strong>把今天的照片放进来</strong>
+                <span>拖到这里，或点一下选择图片。最多 6 张，会先压缩再收进日记。</span>
               </div>
             </section>
 
             <div class="life-photo-preview" id="life-photo-preview" aria-label="照片预览"></div>
 
             <div class="life-diary-actions">
-              <button id="diary-submit" type="submit">记下这一篇</button>
-              <button id="diary-reset" type="button" hidden>取消编辑</button>
+              <button id="diary-submit" type="submit">收进时间线</button>
+              <button id="diary-reset" type="button" hidden>不改了</button>
             </div>
           </form>
         </section>
