@@ -686,12 +686,254 @@ body.anime-lab-body {
   color: var(--section-muted);
 }
 
+.life-diary-body .section-lab-hero {
+  grid-template-columns: minmax(320px, 0.78fr) minmax(0, 1.22fr);
+  align-items: stretch;
+}
+
+.life-diary-editor,
+.life-diary-board,
+.life-diary-card,
+.life-diary-empty {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--section-line);
+  border-radius: 8px;
+  background: var(--section-panel);
+  box-shadow: var(--section-shadow);
+}
+
+.life-diary-editor {
+  display: grid;
+  gap: 18px;
+  padding: 24px;
+}
+
+.life-diary-editor::before,
+.life-diary-board::before,
+.life-diary-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(90deg, var(--section-coral), var(--section-blue), var(--section-teal));
+}
+
+.life-diary-editor-head,
+.life-diary-board-head,
+.life-diary-card-meta,
+.life-diary-actions,
+.life-diary-card-actions,
+.life-diary-card-tags {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.life-diary-editor-head,
+.life-diary-board-head {
+  justify-content: space-between;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--section-line);
+}
+
+.life-diary-editor-head span,
+.life-diary-board-head span,
+.life-diary-card-meta span,
+.life-diary-card-tags span,
+.life-diary-empty span,
+#diary-status,
+#diary-count {
+  font-family: "Bahnschrift", "DIN Alternate", "Aptos", sans-serif;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.life-diary-editor-head span,
+.life-diary-board-head span,
+.life-diary-card-meta span,
+#diary-count {
+  color: var(--section-blue);
+  font-size: 0.82rem;
+  font-weight: 850;
+}
+
+.life-diary-editor-head h2,
+.life-diary-board-head h2,
+.life-diary-card h2,
+.life-diary-empty strong {
+  margin: 8px 0 0;
+  color: var(--section-ink);
+  font-family: "Aptos Display", "Segoe UI Variable Display", "Noto Sans SC", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 790;
+  letter-spacing: 0;
+  line-height: 1.1;
+}
+
+#diary-status {
+  max-width: 220px;
+  color: var(--section-muted);
+  font-size: 0.78rem;
+  font-weight: 850;
+  text-align: right;
+}
+
+#diary-status[data-kind="ok"] {
+  color: var(--section-green);
+}
+
+#diary-status[data-kind="warn"] {
+  color: var(--section-coral);
+}
+
+#diary-status[data-kind="editing"] {
+  color: var(--section-blue);
+}
+
+.life-diary-form {
+  display: grid;
+  gap: 14px;
+}
+
+.life-diary-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.life-diary-form label {
+  display: grid;
+  gap: 8px;
+  color: var(--section-muted);
+  font-size: 0.94rem;
+  font-weight: 650;
+}
+
+.life-diary-form textarea {
+  min-height: 220px;
+}
+
+.life-diary-actions {
+  justify-content: flex-start;
+}
+
+.life-diary-actions button,
+.life-diary-card-actions button {
+  min-height: 40px;
+  padding: 10px 14px;
+  color: var(--section-ink);
+  border: 1px solid var(--section-line);
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.82);
+  font: inherit;
+  font-weight: 750;
+  cursor: pointer;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.life-diary-actions button:first-child {
+  color: #fff;
+  border-color: var(--section-blue);
+  background: var(--section-blue);
+  box-shadow: 0 14px 28px rgba(35, 111, 229, 0.2);
+}
+
+.life-diary-actions button:hover,
+.life-diary-card-actions button:hover {
+  transform: translateY(-2px);
+  border-color: rgba(35, 111, 229, 0.34);
+  box-shadow: 0 16px 34px rgba(29, 89, 143, 0.12);
+}
+
+.life-diary-board {
+  padding: 24px;
+}
+
+.life-diary-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.life-diary-card {
+  display: grid;
+  align-content: start;
+  min-height: 260px;
+  padding: 20px;
+}
+
+.life-diary-card h2 {
+  margin-top: 18px;
+  font-size: 1.45rem;
+}
+
+.life-diary-card-content {
+  margin: 14px 0 0;
+  color: var(--section-muted);
+  line-height: 1.78;
+  white-space: pre-wrap;
+}
+
+.life-diary-card-tags {
+  margin-top: 18px;
+}
+
+.life-diary-card-tags span {
+  padding: 6px 8px;
+  color: var(--section-muted);
+  font-size: 0.76rem;
+  font-weight: 800;
+  border: 1px solid var(--section-line);
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.life-diary-card-actions {
+  align-self: end;
+  margin-top: 20px;
+}
+
+.life-diary-card-actions button {
+  min-height: 34px;
+  padding: 7px 10px;
+  font-size: 0.88rem;
+}
+
+.life-diary-card-actions button:last-child {
+  color: var(--section-coral);
+}
+
+.life-diary-empty {
+  grid-column: 1 / -1;
+  display: grid;
+  place-items: start;
+  min-height: 220px;
+  padding: 24px;
+}
+
+.life-diary-empty span {
+  color: var(--section-blue);
+  font-size: 0.82rem;
+  font-weight: 850;
+}
+
+.life-diary-empty p {
+  max-width: 38em;
+  margin: 12px 0 0;
+  color: var(--section-muted);
+  line-height: 1.75;
+}
+
 @media (max-width: 980px) {
   .section-lab-shell {
     width: min(100% - 32px, 1220px) !important;
   }
 
   .section-lab-hero,
+  .life-diary-body .section-lab-hero,
   .anime-lab-body .anime-layout,
   .anime-lab-body .anime-admin-grid,
   .anime-lab-body .studio-shell {
@@ -707,7 +949,8 @@ body.anime-lab-body {
   .section-lab-grid,
   .section-lab-grid.four,
   .section-lab-links,
-  .section-lab-stats {
+  .section-lab-stats,
+  .life-diary-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -720,6 +963,8 @@ body.anime-lab-body {
 
   .section-lab-topbar,
   .section-lab-footer,
+  .life-diary-editor-head,
+  .life-diary-board-head,
   .anime-lab-body .anime-panel-head,
   .anime-lab-body .studio-result-head {
     align-items: flex-start !important;
@@ -743,6 +988,8 @@ body.anime-lab-body {
   .section-lab-grid.four,
   .section-lab-links,
   .section-lab-stats,
+  .life-diary-row,
+  .life-diary-list,
   .anime-lab-body .studio-row,
   .anime-lab-body .preset-row {
     grid-template-columns: 1fr;
@@ -750,6 +997,11 @@ body.anime-lab-body {
 
   .section-lab-card {
     min-height: 0;
+  }
+
+  #diary-status {
+    max-width: none;
+    text-align: left;
   }
 }
 

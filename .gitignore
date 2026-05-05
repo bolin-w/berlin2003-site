@@ -7,6 +7,7 @@ Thumbs.db
 !.env.example
 *.pem
 *.key
+life/diary.json
 
 # Dependencies and build output
 node_modules/

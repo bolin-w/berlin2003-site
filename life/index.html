@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Berlin2003 / 生活</title>
-  <meta name="description" content="Berlin2003 的私密生活入口，用于照片、记录、收藏和个人页面。">
+  <title>Berlin2003 / 日记</title>
+  <meta name="description" content="Berlin2003 的私密日记页，支持写入、编辑、删除，并按时间展示成卡片。">
   <meta name="theme-color" content="#f7fbff">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
-  <link rel="stylesheet" href="/assets/section-lab.css?v=20260505">
+  <link rel="stylesheet" href="/assets/section-lab.css?v=20260505-diary">
 </head>
-<body class="section-lab-body">
+<body class="section-lab-body life-diary-body">
   <div class="site-shell section-lab-shell">
     <header class="section-lab-topbar">
       <a class="section-lab-brand" href="/" aria-label="Berlin2003 首页"><span>Berlin</span><strong>2003</strong></a>
-      <nav class="section-lab-nav" aria-label="私密区导航">
+      <nav class="section-lab-nav" aria-label="日记导航">
         <a href="/studio/">工作台</a>
         <a href="/notes/">笔记</a>
         <a href="/contact/">联系</a>
@@ -23,60 +23,75 @@
     </header>
 
     <main class="section-lab-main">
-      <section class="section-lab-hero" aria-labelledby="life-title">
+      <section class="section-lab-hero life-diary-hero" aria-labelledby="life-title">
         <div class="section-lab-copy">
-          <p class="section-lab-kicker">Private Life</p>
-          <h1 id="life-title">只给自己和少数人看的空间。</h1>
-          <p class="section-lab-lead">这个区域已经通过访问控制隔离，不承担公开展示任务。它更适合放照片、私人记录、旅行片段、收藏链接和不适合出现在公开研究页里的内容。</p>
-          <div class="section-lab-actions">
-            <a class="section-lab-primary" href="/studio/">进入工作台</a>
-            <a href="/studio-logout/">退出私密区</a>
+          <p class="section-lab-kicker">Private Diary</p>
+          <h1 id="life-title">写一次，留下一张卡片。</h1>
+          <p class="section-lab-lead">这里改成真正可用的私密日记。每次写完保存，页面会按时间生成卡片；旧记录可以再编辑，也可以删除。数据保存在服务器的受保护目录里。</p>
+          <div class="section-lab-chips">
+            <span class="section-lab-chip">Basic Auth</span>
+            <span class="section-lab-chip">Server saved</span>
+            <span class="section-lab-chip">Editable cards</span>
           </div>
         </div>
-        <figure class="section-lab-visual">
-          <img src="/assets/home-contact.png" alt="Private life page calm visual">
-          <figcaption class="section-lab-visual-note">
-            <strong>Restricted area</strong>
-            <span>公开站点负责研究表达，私密区域负责生活和临时内容。</span>
-          </figcaption>
-        </figure>
+
+        <section class="life-diary-editor" aria-label="写日记">
+          <div class="life-diary-editor-head">
+            <div>
+              <span>New entry</span>
+              <h2>今天记录什么？</h2>
+            </div>
+            <strong id="diary-status">正在准备日记...</strong>
+          </div>
+
+          <form id="life-diary-form" class="life-diary-form">
+            <div class="life-diary-row">
+              <label>
+                标题
+                <input id="diary-title" name="title" maxlength="80" placeholder="例如：今天把网站改顺了">
+              </label>
+              <label>
+                心情
+                <input id="diary-mood" name="mood" maxlength="40" placeholder="例如：平静 / 累 / 开心">
+              </label>
+            </div>
+
+            <label>
+              标签
+              <input id="diary-tags" name="tags" maxlength="120" placeholder="用逗号分隔，例如：生活, 学习, 网站">
+            </label>
+
+            <label>
+              内容
+              <textarea id="diary-content" name="content" required placeholder="写下今天发生了什么、想了什么、完成了什么。"></textarea>
+            </label>
+
+            <div class="life-diary-actions">
+              <button id="diary-submit" type="submit">记下这一篇</button>
+              <button id="diary-reset" type="button" hidden>取消编辑</button>
+            </div>
+          </form>
+        </section>
       </section>
 
-      <section class="section-lab-grid" aria-label="私密内容规划">
-        <article class="section-lab-card">
-          <span>Zone 01</span>
-          <strong>生活记录</strong>
-          <p>按时间线保存近况、片段和想法。这里不需要写得像文章，重点是方便以后找回。</p>
-        </article>
-        <article class="section-lab-card">
-          <span>Zone 02</span>
-          <strong>照片与截图</strong>
-          <p>后续可以接照片墙、截图夹或按主题整理的图集，保留真实生活里的视觉材料。</p>
-        </article>
-        <article class="section-lab-card">
-          <span>Zone 03</span>
-          <strong>私人书签</strong>
-          <p>放只对自己有用的链接、资料、工具入口和临时页面，不污染公开导航。</p>
-        </article>
-      </section>
-
-      <section class="section-lab-panel">
-        <p class="section-lab-label">Access note</p>
-        <h2>这个模块的设计原则是安静、低维护。</h2>
-        <ul class="section-lab-list">
-          <li>内容不需要公开 SEO，也不需要做成作品集。</li>
-          <li>优先保证入口清楚、权限可靠、移动端可读。</li>
-          <li>需要长期保存的内容再整理成页面，临时内容先放工作台。</li>
-        </ul>
+      <section class="life-diary-board" aria-label="日记卡片">
+        <div class="life-diary-board-head">
+          <div>
+            <span>Diary cards</span>
+            <h2>时间线</h2>
+          </div>
+          <strong id="diary-count">0 entries</strong>
+        </div>
+        <div id="diary-list" class="life-diary-list"></div>
       </section>
     </main>
 
     <footer class="section-lab-footer">
-      <span>Life / Private</span>
-      <span>restricted</span>
+      <span>Life / Diary</span>
+      <span>restricted / editable</span>
     </footer>
   </div>
 
-  <script src="/assets/site-chat.js"></script>
+  <script src="/assets/life-diary.js?v=20260505"></script>
 </body>
 </html>

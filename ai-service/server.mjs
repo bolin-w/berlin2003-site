@@ -8,6 +8,7 @@ const OPENAI_API_KEY = process.env.OPENAI_API_KEY || "";
 const OPENAI_MODEL = process.env.OPENAI_MODEL || "gpt-5.4-mini";
 const OPENAI_BASE_URL = (process.env.OPENAI_BASE_URL || "https://api.openai.com/v1").replace(/\/+$/, "");
 const SITE_ROOT = "/var/www/personal-site";
+const DIARY_FILE = process.env.LIFE_DIARY_FILE || path.resolve(SITE_ROOT, "life", "diary.json");
 
 const baseInstruction = [
   "你是网站内容工作台助手。",
@@ -304,20 +305,182 @@ async function handleSave(req, res) {
   }
 }
 
+function diaryItemFromBody(body, existing = {}) {
+  const now = new Date().toISOString();
+  const title = String(body.title || "").trim();
+  const content = String(body.content || "").trim();
+  const mood = String(body.mood || "").trim();
+  const tags = Array.isArray(body.tags)
+    ? body.tags.map((tag) => String(tag).trim()).filter(Boolean).slice(0, 8)
+    : String(body.tags || "")
+      .split(/[，,]/)
+      .map((tag) => tag.trim())
+      .filter(Boolean)
+      .slice(0, 8);
+
+  if (!content) {
+    throw new Error("日记内容不能为空。");
+  }
+
+  if (content.length > 8000) {
+    throw new Error("单篇日记太长，请控制在 8000 字以内。");
+  }
+
+  return {
+    id: existing.id || `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`,
+    title: title || "未命名记录",
+    content,
+    mood,
+    tags,
+    createdAt: existing.createdAt || now,
+    updatedAt: now
+  };
+}
+
+async function readDiaryItems() {
+  try {
+    const raw = await fs.readFile(DIARY_FILE, "utf8");
+    if (!raw.trim()) {
+      return [];
+    }
+    const data = JSON.parse(raw);
+    if (!Array.isArray(data.items)) {
+      return [];
+    }
+    return data.items
+      .filter((item) => item && typeof item.id === "string")
+      .sort((a, b) => String(b.createdAt || "").localeCompare(String(a.createdAt || "")));
+  } catch (error) {
+    if (error.code === "ENOENT") {
+      return [];
+    }
+    throw error;
+  }
+}
+
+async function writeDiaryItems(items) {
+  await fs.mkdir(path.dirname(DIARY_FILE), { recursive: true });
+  const payload = {
+    updatedAt: new Date().toISOString(),
+    items
+  };
+  await fs.writeFile(DIARY_FILE, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
+}
+
+function diaryIdFromUrl(url) {
+  const match = String(url || "").match(/^\/api\/editor\/diary\/([^/?#]+)$/);
+  return match ? decodeURIComponent(match[1]) : "";
+}
+
+async function handleDiaryList(_req, res) {
+  const items = await readDiaryItems();
+  json(res, 200, { ok: true, items });
+}
+
+async function handleDiaryCreate(req, res) {
+  let body;
+  try {
+    body = JSON.parse(await readBody(req));
+  } catch {
+    json(res, 400, { error: "请求体不是合法 JSON。" });
+    return;
+  }
+
+  try {
+    const items = await readDiaryItems();
+    const item = diaryItemFromBody(body);
+    items.unshift(item);
+    await writeDiaryItems(items);
+    json(res, 201, { ok: true, item });
+  } catch (error) {
+    json(res, 400, { error: error.message });
+  }
+}
+
+async function handleDiaryUpdate(req, res) {
+  const id = diaryIdFromUrl(req.url);
+  if (!id) {
+    json(res, 400, { error: "缺少日记 id。" });
+    return;
+  }
+
+  let body;
+  try {
+    body = JSON.parse(await readBody(req));
+  } catch {
+    json(res, 400, { error: "请求体不是合法 JSON。" });
+    return;
+  }
+
+  try {
+    const items = await readDiaryItems();
+    const index = items.findIndex((item) => item.id === id);
+    if (index === -1) {
+      json(res, 404, { error: "没有找到这篇日记。" });
+      return;
+    }
+
+    const item = diaryItemFromBody(body, items[index]);
+    items[index] = item;
+    await writeDiaryItems(items);
+    json(res, 200, { ok: true, item });
+  } catch (error) {
+    json(res, 400, { error: error.message });
+  }
+}
+
+async function handleDiaryDelete(req, res) {
+  const id = diaryIdFromUrl(req.url);
+  if (!id) {
+    json(res, 400, { error: "缺少日记 id。" });
+    return;
+  }
+
+  const items = await readDiaryItems();
+  const nextItems = items.filter((item) => item.id !== id);
+  if (nextItems.length === items.length) {
+    json(res, 404, { error: "没有找到这篇日记。" });
+    return;
+  }
+
+  await writeDiaryItems(nextItems);
+  json(res, 200, { ok: true, deleted: id });
+}
+
 const server = http.createServer(async (req, res) => {
-  if (req.method === "GET" && req.url === "/api/ai/health") {
-    return handleHealth(req, res);
-  }
+  try {
+    if (req.method === "GET" && req.url === "/api/ai/health") {
+      return handleHealth(req, res);
+    }
 
-  if (req.method === "POST" && req.url === "/api/ai/process") {
-    return handleProcess(req, res);
-  }
+    if (req.method === "POST" && req.url === "/api/ai/process") {
+      return handleProcess(req, res);
+    }
 
-  if (req.method === "POST" && req.url === "/api/editor/save") {
-    return handleSave(req, res);
-  }
+    if (req.method === "POST" && req.url === "/api/editor/save") {
+      return handleSave(req, res);
+    }
 
-  json(res, 404, { error: "Not found" });
+    if (req.method === "GET" && req.url === "/api/editor/diary") {
+      return handleDiaryList(req, res);
+    }
+
+    if (req.method === "POST" && req.url === "/api/editor/diary") {
+      return handleDiaryCreate(req, res);
+    }
+
+    if (req.method === "PUT" && req.url.startsWith("/api/editor/diary/")) {
+      return handleDiaryUpdate(req, res);
+    }
+
+    if (req.method === "DELETE" && req.url.startsWith("/api/editor/diary/")) {
+      return handleDiaryDelete(req, res);
+    }
+
+    json(res, 404, { error: "Not found" });
+  } catch (error) {
+    json(res, 500, { error: `服务器处理失败：${error.message}` });
+  }
 });
 
 server.listen(PORT, HOST, () => {
