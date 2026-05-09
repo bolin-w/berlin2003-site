@@ -35,7 +35,7 @@ async function checkHealth() {
     }
     setStatus("warn", "工作台在，但模型钥匙还没放好。");
   } catch (error) {
-    setStatus("warn", "暂时叫不醒工作台后端。");
+    setStatus("warn", "后端连接失败。");
   }
 }
 
@@ -48,13 +48,13 @@ presetButtons.forEach((button) => {
 
 copyButton.addEventListener("click", async () => {
   const text = resultBox.textContent.trim();
-  if (!text || text === "整理后的文字会留在这里。") {
+  if (!text || text === "处理结果将在这里显示。") {
     return;
   }
   await navigator.clipboard.writeText(text);
-  copyButton.textContent = "已拿走";
+  copyButton.textContent = "已复制";
   setTimeout(() => {
-    copyButton.textContent = "复制这段";
+    copyButton.textContent = "复制结果";
   }, 1500);
 });
 
@@ -65,12 +65,12 @@ form.addEventListener("submit", async (event) => {
   const mode = modeInput.value;
 
   if (!content) {
-    setStatus("warn", "先放一段文字进来。");
+    setStatus("warn", "请输入原始文本。");
     return;
   }
 
-  resultBox.textContent = "正在整理这段文字...";
-  setStatus("", "正在慢慢整理...");
+  resultBox.textContent = "正在处理文本...";
+  setStatus("", "处理中...");
 
   try {
     const response = await fetch("/api/ai/process", {
@@ -89,16 +89,16 @@ form.addEventListener("submit", async (event) => {
     const data = await response.json();
 
     if (!response.ok) {
-      resultBox.textContent = data.error || "这次没有整理出来。";
-      setStatus("warn", "这次没整理好。");
+      resultBox.textContent = data.error || "处理失败。";
+      setStatus("warn", "处理失败。");
       return;
     }
 
-    resultBox.textContent = data.output || "没有留下可用内容。";
-    setStatus("ok", `已经整理好，模型：${data.model}`);
+    resultBox.textContent = data.output || "没有生成可用内容。";
+    setStatus("ok", `处理完成，模型：${data.model}`);
   } catch (error) {
-    resultBox.textContent = "这次没有连上后端，稍后再试。";
-    setStatus("warn", "工作台暂时没回应。");
+    resultBox.textContent = "后端连接失败，请稍后重试。";
+    setStatus("warn", "后端连接失败。");
   }
 });
 

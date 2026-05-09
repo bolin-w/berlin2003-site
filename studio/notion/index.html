@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Berlin2003 / Notion 导入</title>
+  <meta name="theme-color" content="#f4efe6">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="module-top">
+      <nav class="module-nav" aria-label="工作台导航">
+        <a class="backlink" href="/studio/">← 工作台</a>
+      </nav>
+      <span>Notion 导入</span>
+    </header>
+
+    <main class="module-main">
+      <h1>Notion 笔记导入</h1>
+      <p class="module-intro">粘贴 Notion 页面链接，选择分类，点导入。后端会自动拉取页面内容并转换为网站文章。</p>
+
+      <div class="notion-import-shell">
+        <section class="studio-panel">
+          <h2>导入新文章</h2>
+          <div class="studio-status">
+            <span class="status-dot" id="import-status-dot"></span>
+            <span id="import-status-text">检查后端状态...</span>
+          </div>
+
+          <form class="studio-form" id="notion-import-form">
+            <label>
+              Notion 页面链接
+              <input id="notion-url" type="url" placeholder="https://www.notion.so/your-page-id" required>
+            </label>
+
+            <div class="studio-row">
+              <label>
+                分类
+                <select id="notion-category">
+                  <option value="论文笔记">论文笔记</option>
+                  <option value="项目笔记">项目笔记</option>
+                  <option value="技术总结">技术总结</option>
+                </select>
+              </label>
+              <label>
+                是否公开
+                <select id="notion-public">
+                  <option value="false">否（仅后台可见）</option>
+                  <option value="true">是（笔记页展示）</option>
+                </select>
+              </label>
+            </div>
+
+            <button class="submit-button" type="submit" id="import-btn">导入到网站</button>
+          </form>
+        </section>
+
+        <section class="studio-result">
+          <div class="studio-result-head">
+            <h2>已导入文章</h2>
+            <button class="copy-button" id="refresh-articles" type="button">刷新列表</button>
+          </div>
+          <div id="articles-list" class="notion-articles-list">
+            <p class="result-placeholder">加载中...</p>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <span>Notion 导入</span>
+      <span>工作台</span>
+    </footer>
+  </div>
+
+  <script src="/assets/notion-import.js"></script>
+</body>
+</html>

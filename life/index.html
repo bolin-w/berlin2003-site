@@ -25,21 +25,24 @@
     <main class="section-lab-main">
       <section class="section-lab-hero life-diary-hero" aria-labelledby="life-title">
         <div class="section-lab-copy">
-          <p class="section-lab-kicker">Private Diary</p>
-          <h1 id="life-title">写一次，留下一张卡片。</h1>
-          <p class="section-lab-lead">这里留给每天的片段：一句话、一组照片、一个心情，都会按时间收进卡片里。以后回来看，不需要整理成文章，也能看见当时的自己。</p>
+          <p class="section-lab-kicker">私人日记</p>
+          <h1 id="life-title">浮生日笺</h1>
+          <p class="section-lab-lead">把一日的光影、天气与心绪收作短笺。来日重读，不求成篇，只为留住当时的声息。</p>
+          <figure class="life-diary-hero-image">
+            <img src="/assets/life-diary-room.png" alt="私人日记与生活片段的视觉插图">
+          </figure>
           <div class="section-lab-chips">
-            <span class="section-lab-chip">Basic Auth</span>
-            <span class="section-lab-chip">Server saved</span>
-            <span class="section-lab-chip">Editable cards</span>
+            <span class="section-lab-chip">私有访问</span>
+            <span class="section-lab-chip">服务器保存</span>
+            <span class="section-lab-chip">卡片可编辑</span>
           </div>
         </div>
 
         <section class="life-diary-editor" aria-label="写日记">
           <div class="life-diary-editor-head">
             <div>
-              <span>New entry</span>
-              <h2>今天留下些什么？</h2>
+              <span>写新日记</span>
+              <h2>记今日</h2>
             </div>
             <strong id="diary-status">日记本正在翻页...</strong>
           </div>
@@ -48,22 +51,22 @@
             <div class="life-diary-row">
               <label>
                 标题
-                <input id="diary-title" name="title" maxlength="80" placeholder="给今天起一个小标题">
+                <input id="diary-title" name="title" maxlength="80" placeholder="给这一日题名">
               </label>
               <label>
                 心情
-                <input id="diary-mood" name="mood" maxlength="40" placeholder="今天的天气、心情或状态">
+                <input id="diary-mood" name="mood" maxlength="40" placeholder="天气、心绪或一瞬状态">
               </label>
             </div>
 
             <label>
               标签
-              <input id="diary-tags" name="tags" maxlength="120" placeholder="给这一天留几个索引，例如：生活, 学习, 网站">
+              <input id="diary-tags" name="tags" maxlength="120" placeholder="索引词，例如：生活, 学习, 网站">
             </label>
 
             <label>
               内容
-              <textarea id="diary-content" name="content" required placeholder="不用写完整，留下你想记住的那一段就好。"></textarea>
+              <textarea id="diary-content" name="content" required placeholder="写下此刻仍值得留下的几行。"></textarea>
             </label>
 
             <div class="life-diary-emoji" aria-label="添加表情">
@@ -81,8 +84,8 @@
             <section class="life-photo-drop" id="life-photo-drop" aria-label="上传照片">
               <input id="diary-photos" type="file" accept="image/*" multiple>
               <div>
-                <strong>把今天的照片放进来</strong>
-                <span>拖到这里，或点一下选择图片。最多 6 张，会先压缩再收进日记。</span>
+                <strong>今日影像</strong>
+                <span>拖入图片，或点击选择。最多 6 张，会先压缩再归入日笺。</span>
               </div>
             </section>
 
@@ -99,18 +102,18 @@
       <section class="life-diary-board" aria-label="日记卡片">
         <div class="life-diary-board-head">
           <div>
-            <span>Diary cards</span>
-            <h2>时间线</h2>
+            <span>日记卡片</span>
+            <h2>旧日留痕</h2>
           </div>
-          <strong id="diary-count">0 entries</strong>
+          <strong id="diary-count">0 条记录</strong>
         </div>
         <div id="diary-list" class="life-diary-list"></div>
       </section>
     </main>
 
     <footer class="section-lab-footer">
-      <span>Life / Diary</span>
-      <span>restricted / editable</span>
+      <span>生活日记</span>
+      <span>私有访问 / 可编辑</span>
     </footer>
   </div>
 

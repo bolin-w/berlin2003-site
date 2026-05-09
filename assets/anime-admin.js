@@ -31,7 +31,7 @@ function sizeLabel(bytes) {
 function renderList(items) {
   listBox.innerHTML = "";
   if (!items.length) {
-    listBox.innerHTML = `<p class="anime-status">片库还是空的，先放进第一部。</p>`;
+    listBox.innerHTML = `<p class="anime-status">暂无入库视频。</p>`;
     return;
   }
 
@@ -72,14 +72,14 @@ async function loadVideos() {
 uploadForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const formData = new FormData(uploadForm);
-  setStatus("", "正在把片子放进片库...");
+  setStatus("", "正在上传视频...");
   await api("/api/admin/anime/videos", {
     method: "POST",
     body: formData
   });
   uploadForm.reset();
   await loadVideos();
-  setStatus("ok", "片子已经放进放映室。");
+  setStatus("ok", "视频已入库。");
 });
 
 refreshButton.addEventListener("click", () => {

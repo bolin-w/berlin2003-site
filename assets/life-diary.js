@@ -155,7 +155,7 @@ async function addPhotos(files) {
   currentPhotos = [...currentPhotos, ...nextPhotos];
   diaryPhotos.value = "";
   renderPhotoPreview();
-  setDiaryStatus(`${nextPhotos.length} 张照片已经放进这篇。`, "ok");
+  setDiaryStatus(`已添加 ${nextPhotos.length} 张照片。`, "ok");
 }
 
 function fillForm(item) {
@@ -182,15 +182,15 @@ function resetForm() {
 }
 
 function renderDiary() {
-  diaryCount.textContent = `${diaryItems.length} entries`;
+  diaryCount.textContent = `${diaryItems.length} 条记录`;
   diaryList.innerHTML = "";
 
   if (!diaryItems.length) {
     diaryList.innerHTML = `
       <article class="life-diary-empty">
-        <span>Empty diary</span>
-        <strong>时间线还空着。</strong>
-        <p>写下第一段，它会变成这里的第一张卡片。</p>
+        <span>还没有记录</span>
+        <strong>暂无记录。</strong>
+        <p>新建记录后，内容将按时间顺序归档在这里。</p>
       </article>
     `;
     return;

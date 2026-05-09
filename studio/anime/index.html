@@ -24,9 +24,9 @@
     <main class="section-lab-main">
       <section class="section-lab-hero">
         <div class="section-lab-copy">
-          <p class="section-lab-kicker">Screening Admin</p>
-          <h1>把片子放进放映室。</h1>
-          <p class="section-lab-lead">先在本地把字幕压进 MP4，再上传到这里。服务器只保存片源、片单和播放地址，不接管字幕制作，也不做转码。</p>
+          <p class="section-lab-kicker">片架后台</p>
+          <h1>为影像编目</h1>
+          <p class="section-lab-lead">本地完成字幕与压制，服务器只收藏成片、封面与播放地址。这里负责登记、归档与陈列。</p>
           <div class="section-lab-actions">
             <a class="section-lab-primary" href="/anime/">打开放映室</a>
             <a href="/studio/">返回工作台</a>
@@ -37,8 +37,8 @@
             <span></span><span></span><span></span><span></span>
           </div>
           <div class="section-lab-visual-note">
-            <strong>Local subtitle, server shelf</strong>
-            <span>本地处理字幕，服务器只把成片收进片库。</span>
+            <strong>本地成片 / 云端归档</strong>
+            <span>字幕、压制在本地完成；后台只收纳已经完成的放映版本。</span>
           </div>
         </div>
       </section>
@@ -50,11 +50,11 @@
 
       <div class="anime-admin-grid video-admin-grid">
         <section class="studio-panel">
-          <h2>添一部片子</h2>
+          <h2>新片入架</h2>
           <form class="studio-form" id="video-upload-form">
             <label>
               标题
-              <input name="title" placeholder="例如：某一集 中文字幕版" required>
+              <input name="title" placeholder="片名或集名" required>
             </label>
             <label>
               Slug
@@ -62,7 +62,7 @@
             </label>
             <label>
               简介
-              <textarea name="description" placeholder="可选，写来源、版本、字幕或观看备注。"></textarea>
+              <textarea name="description" placeholder="版本、字幕、来源或观看备注。"></textarea>
             </label>
             <label>
               封面 URL
@@ -72,14 +72,14 @@
               已压好字幕的 MP4
               <input name="file" type="file" accept="video/mp4" required>
             </label>
-            <button class="submit-button" type="submit">放进片库</button>
+            <button class="submit-button" type="submit">收入片架</button>
           </form>
         </section>
 
         <section class="studio-result">
           <div class="studio-result-head">
-            <h2>片库里已有</h2>
-            <button class="copy-button" id="video-refresh" type="button">重新整理</button>
+            <h2>架上存片</h2>
+            <button class="copy-button" id="video-refresh" type="button">重整片架</button>
           </div>
           <div class="anime-admin-list" id="video-admin-list"></div>
         </section>
@@ -88,7 +88,7 @@
 
     <footer class="section-lab-footer">
       <span>片库后台</span>
-      <span>Basic Auth</span>
+      <span>私有访问</span>
     </footer>
   </div>
 

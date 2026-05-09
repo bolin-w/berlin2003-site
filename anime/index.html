@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Berlin2003 / 放映室</title>
   <meta name="description" content="Berlin2003 的私密放映室：本地压好字幕后上传，网页负责整理和播放。">
-  <meta name="theme-color" content="#17120c">
+  <meta name="theme-color" content="#f7fbff">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
   <link rel="stylesheet" href="/assets/section-lab.css?v=20260505-polish">
@@ -25,21 +25,19 @@
     <main class="section-lab-main anime-main">
       <section class="section-lab-hero">
         <div class="section-lab-copy">
-          <p class="section-lab-kicker">Private Screening</p>
-          <h1>把压好字幕的片子放进小放映室。</h1>
-          <p class="section-lab-lead">视频在本地完成字幕压制后上传到服务器。网页只负责整理片单和播放，像一个安静的小片库，不做下载站，也不做自动翻译。</p>
+          <p class="section-lab-kicker">私人放映</p>
+          <h1>有字幕的夜场</h1>
+          <p class="section-lab-lead">那些已经配好中文字幕的影像，安静陈列于此。此页只负责收藏与放映，不涉搜索、下载或转码。</p>
           <div class="section-lab-actions">
-            <a class="section-lab-primary" href="/studio/anime/">添一部片子</a>
-            <a href="/projects/">看项目桌面</a>
+            <a class="section-lab-primary" href="/studio/anime/">整理片架</a>
+            <a href="/projects/">返回项目</a>
           </div>
         </div>
         <div class="section-lab-visual anime-screen-visual">
-          <div class="anime-screen-mark">
-            <span></span><span></span><span></span><span></span>
-          </div>
+          <img class="anime-screen-image" src="/assets/anime-screening-room.png" alt="带中文字幕的私人放映室">
           <div class="section-lab-visual-note">
-            <strong>Now loading the room</strong>
-            <span id="anime-status">正在拉开幕布...</span>
+            <strong>片架状态</strong>
+            <span id="anime-status">正在点亮片架...</span>
           </div>
         </div>
       </section>
@@ -47,16 +45,16 @@
       <section class="anime-layout video-layout">
         <div class="anime-panel">
           <div class="anime-panel-head">
-            <h2>片单</h2>
-            <span id="anime-count">0 items</span>
+            <h2>片架</h2>
+            <span id="anime-count">0 部片子</span>
           </div>
           <div class="anime-grid" id="video-list"></div>
         </div>
 
         <div class="anime-panel anime-detail" id="video-detail">
           <div class="anime-empty">
-            <span>Storage</span>
-            <p>从左侧挑一部，画面会在这里亮起来。</p>
+            <span>银幕</span>
+            <p>从片架取一部，银幕便在此处展开。</p>
           </div>
         </div>
       </section>
@@ -64,7 +62,7 @@
 
     <footer class="section-lab-footer">
       <span>放映室</span>
-      <span>local subtitles / quiet screening</span>
+      <span>中文字幕 / 私人放映</span>
     </footer>
   </div>
 

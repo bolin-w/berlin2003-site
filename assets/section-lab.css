@@ -454,23 +454,22 @@ body.section-lab-body::after {
 }
 
 body.anime-lab-body {
-  --section-ink: #f9fbff;
-  --section-muted: rgba(249, 251, 255, 0.72);
-  --section-line: rgba(249, 251, 255, 0.14);
-  --section-panel: rgba(7, 18, 33, 0.76);
-  --section-panel-strong: rgba(9, 23, 41, 0.94);
-  --section-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+  --section-ink: #07162f;
+  --section-muted: #53647d;
+  --section-line: rgba(7, 22, 47, 0.12);
+  --section-panel: rgba(255, 255, 255, 0.86);
+  --section-panel-strong: rgba(255, 255, 255, 0.96);
+  --section-shadow: 0 24px 70px rgba(29, 89, 143, 0.13);
   background:
-    linear-gradient(90deg, rgba(118, 197, 255, 0.07) 0 1px, transparent 1px 100%),
-    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 18px),
-    linear-gradient(180deg, #071221 0%, #101826 58%, #21170e 100%) !important;
-  background-size: 88px 100%, 100% 100%, auto !important;
+    linear-gradient(90deg, rgba(35, 111, 229, 0.07) 0 1px, transparent 1px 100%),
+    linear-gradient(180deg, #fcfeff 0%, #f2f9fb 48%, #fff7f2 100%) !important;
+  background-size: 88px 100%, auto !important;
 }
 
 .anime-lab-body .section-lab-visual::after {
   background:
-    linear-gradient(90deg, rgba(7, 18, 33, 0.72), transparent 24% 76%, rgba(7, 18, 33, 0.62)),
-    linear-gradient(180deg, transparent 50%, rgba(7, 18, 33, 0.94));
+    linear-gradient(90deg, rgba(255, 255, 255, 0.7), transparent 26% 74%, rgba(255, 255, 255, 0.62)),
+    linear-gradient(180deg, transparent 50%, rgba(255, 255, 255, 0.88));
 }
 
 .anime-lab-body .section-lab-visual-note,
@@ -480,62 +479,64 @@ body.anime-lab-body {
 .anime-lab-body .section-lab-meta a,
 .anime-lab-body .section-lab-button,
 .anime-lab-body .section-lab-tool {
-  background: rgba(9, 23, 41, 0.78);
+  background: rgba(255, 255, 255, 0.78);
 }
 
 .anime-lab-body .section-lab-primary {
-  background: var(--section-coral) !important;
-  border-color: var(--section-coral) !important;
+  color: #fff !important;
+  background: var(--section-blue) !important;
+  border-color: var(--section-blue) !important;
 }
 
 .anime-lab-body .section-lab-copy {
   background:
-    linear-gradient(135deg, rgba(9, 23, 41, 0.94), rgba(17, 31, 49, 0.78)),
-    rgba(9, 23, 41, 0.82);
+    linear-gradient(135deg, rgba(35, 111, 229, 0.08), rgba(24, 167, 168, 0.06)),
+    var(--section-panel);
 }
 
 .anime-lab-body .section-lab-copy h1 {
   max-width: 8.5em;
-  color: #fff9ef;
+  color: var(--section-ink);
 }
 
 .anime-lab-body .section-lab-lead {
-  color: rgba(249, 251, 255, 0.72);
+  color: var(--section-muted);
 }
 
 .anime-screen-visual {
+  display: grid;
+  align-content: end;
+  gap: 14px;
   min-height: 430px;
-  border-color: rgba(255, 220, 167, 0.2);
+  padding: 22px;
+  border-color: var(--section-line);
   background:
-    linear-gradient(180deg, rgba(255, 236, 194, 0.08), transparent 40%),
-    radial-gradient(ellipse at center, rgba(255, 198, 112, 0.22), transparent 58%),
-    linear-gradient(145deg, #060a10 0%, #121b2b 52%, #2a170c 100%) !important;
+    radial-gradient(ellipse at center, rgba(35, 111, 229, 0.16), transparent 58%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(232, 247, 249, 0.9) 52%, rgba(255, 246, 238, 0.92)) !important;
 }
 
 .anime-screen-visual::before {
-  content: "";
-  position: absolute;
-  inset: 28px;
-  border: 1px solid rgba(255, 236, 194, 0.18);
-  border-radius: 8px;
-  background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.1), transparent 20% 80%, rgba(255, 255, 255, 0.08)),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 24% 76%, rgba(0, 0, 0, 0.22));
+  display: none;
 }
 
-.anime-screen-mark {
-  position: absolute;
-  inset: 18px 18px auto;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
+.anime-screen-image {
+  position: relative;
   z-index: 1;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: center;
+  border: 1px solid rgba(7, 22, 47, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 24px 58px rgba(29, 89, 143, 0.16);
 }
 
-.anime-screen-mark span {
-  height: 8px;
-  border-radius: 2px;
-  background: rgba(255, 236, 194, 0.34);
+.anime-screen-visual .section-lab-visual-note {
+  position: relative;
+  left: auto;
+  right: auto;
+  bottom: auto;
 }
 
 .anime-lab-body .anime-layout,
@@ -554,7 +555,7 @@ body.anime-lab-body {
   border: 1px solid var(--section-line);
   border-radius: 8px;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 24%),
+    linear-gradient(180deg, rgba(35, 111, 229, 0.04), transparent 24%),
     var(--section-panel);
   box-shadow: var(--section-shadow);
 }
@@ -608,7 +609,7 @@ body.anime-lab-body {
   border-radius: 8px;
   background:
     linear-gradient(90deg, rgba(255, 114, 77, 0.12), transparent 4px),
-    rgba(255, 255, 255, 0.06);
+    rgba(255, 255, 255, 0.72);
   cursor: pointer;
   transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
 }
@@ -616,9 +617,10 @@ body.anime-lab-body {
 .anime-lab-body .anime-card:hover {
   transform: translateY(-2px);
   border-color: rgba(255, 220, 167, 0.3);
+  box-shadow: 0 14px 32px rgba(29, 89, 143, 0.1);
   background:
     linear-gradient(90deg, rgba(255, 114, 77, 0.18), transparent 4px),
-    rgba(255, 255, 255, 0.09);
+    rgba(255, 255, 255, 0.9);
 }
 
 .anime-lab-body .anime-card span,
@@ -632,7 +634,7 @@ body.anime-lab-body {
   display: block;
   margin-top: 10px;
   font-size: 1.2rem;
-  color: #fff9ef;
+  color: var(--section-ink);
 }
 
 .anime-lab-body .anime-card p {
@@ -665,7 +667,7 @@ body.anime-lab-body {
 
 .anime-lab-body .anime-detail-head h2 {
   margin: 0;
-  color: #fff9ef;
+  color: var(--section-ink);
   font-family: "Aptos Display", "Segoe UI Variable Display", "Noto Sans SC", sans-serif;
   font-size: 2rem;
 }
@@ -707,7 +709,7 @@ body.anime-lab-body {
   padding: 14px 16px;
   border: 1px solid var(--section-line);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.68);
 }
 
 .anime-lab-body .anime-admin-item {
@@ -716,11 +718,11 @@ body.anime-lab-body {
   padding: 16px;
   border: 1px solid var(--section-line);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.68);
 }
 
 .anime-lab-body .anime-admin-item strong {
-  color: #fff9ef;
+  color: var(--section-ink);
   font-size: 1.12rem;
 }
 
@@ -766,8 +768,8 @@ body.anime-lab-body {
 .anime-lab-body input,
 .anime-lab-body textarea,
 .anime-lab-body select {
-  color: #f9fbff;
-  background: rgba(255, 255, 255, 0.08);
+  color: var(--section-ink);
+  background: rgba(255, 255, 255, 0.78);
 }
 
 .anime-lab-body textarea,
@@ -794,7 +796,7 @@ body.anime-lab-body {
 .anime-lab-body .preset-button {
   color: var(--section-ink);
   border-color: var(--section-line);
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.82);
 }
 
 .anime-lab-body .studio-shell {
@@ -832,6 +834,53 @@ body.anime-lab-body {
 .life-diary-body .section-lab-hero {
   grid-template-columns: minmax(320px, 0.78fr) minmax(0, 1.22fr);
   align-items: stretch;
+}
+
+.life-diary-body .section-lab-copy {
+  align-content: start;
+  min-height: 0;
+  padding: 30px;
+}
+
+.life-diary-body .section-lab-copy h1 {
+  max-width: 7em;
+  font-size: clamp(3rem, 5vw, 4.5rem);
+}
+
+.life-diary-body .section-lab-lead {
+  max-width: 34em;
+}
+
+.life-diary-hero-image {
+  position: relative;
+  overflow: hidden;
+  margin: 2px 0 0;
+  border: 1px solid var(--section-line);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 22px 54px rgba(29, 89, 143, 0.12);
+}
+
+.life-diary-hero-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 45%, rgba(255, 255, 255, 0.18)),
+    linear-gradient(90deg, rgba(255, 114, 77, 0.12), transparent 24% 76%, rgba(35, 111, 229, 0.12));
+}
+
+.life-diary-hero-image img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: center;
+}
+
+.life-diary-body .section-lab-chips {
+  margin-top: 0;
 }
 
 .life-diary-editor,

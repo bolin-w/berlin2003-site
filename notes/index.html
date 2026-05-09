@@ -25,51 +25,51 @@
     <main class="section-lab-main">
       <section class="section-lab-hero" aria-labelledby="notes-title">
         <div class="section-lab-copy">
-          <p class="section-lab-kicker">Working Notes</p>
-          <h1 id="notes-title">把过程折起来，留给下一次展开。</h1>
-          <p class="section-lab-lead">这页不是正式论文，也不是项目汇报。它保存读论文时的边注、部署时踩到的坑、页面改版的取舍，以及下一次回来时最该先看的线索。</p>
+          <p class="section-lab-kicker">边注与札记</p>
+          <h1 id="notes-title">把来路写在纸边</h1>
+          <p class="section-lab-lead">这里不是正式论文，也不是项目汇报。它保存阅读时的旁批、部署时的折返、页面改版的取舍，以及下一次归来时应先拾起的线索。</p>
           <div class="section-lab-actions">
-            <a class="section-lab-primary" href="/research/">翻论文地图</a>
-            <a href="/projects/">看项目桌面</a>
+            <a class="section-lab-primary" href="/research/">翻研究案卷</a>
+            <a href="/projects/">看项目行事录</a>
           </div>
         </div>
         <figure class="section-lab-visual">
-          <img src="/assets/home-notes.png" alt="Berlin2003 working notes visual">
+          <img src="/assets/home-notes.png" alt="Berlin2003 边注与札记视觉图">
           <figcaption class="section-lab-visual-note">
-            <strong>Decision log</strong>
-            <span>留下“当时为什么这么想”，以后复盘才不只看到成品。</span>
+            <strong>旁批</strong>
+            <span>留下“当时为何如此判断”，日后重看才不只见成品。</span>
           </figcaption>
         </figure>
       </section>
 
       <section class="section-lab-grid four" aria-label="笔记分类">
         <article class="section-lab-card">
-          <span>Track 01</span>
+          <span>札记一</span>
           <strong>论文阅读</strong>
-          <p>每篇论文到底改变了什么：结构、目标、量化、实验设置和适用边界都单独记。</p>
+          <p>记录每篇论文真正改变的部分：结构、目标、量化、实验设置与适用边界。</p>
         </article>
         <article class="section-lab-card">
-          <span>Track 02</span>
+          <span>札记二</span>
           <strong>模型判断</strong>
-          <p>把 semantic token 和 acoustic token 的分工写清楚，不只凭“听起来好不好”做判断。</p>
+          <p>写清 semantic token 与 acoustic token 的分工，不让判断只停在“听起来好不好”。</p>
         </article>
         <article class="section-lab-card">
-          <span>Track 03</span>
+          <span>札记三</span>
           <strong>部署记录</strong>
-          <p>记录服务器、Caddy、Basic Auth、静态资源、GitHub 同步和线上回滚路径，免得下次重新摸索。</p>
+          <p>记下服务器、Caddy、鉴权、静态资源、同步与回滚路径，免得日后重新摸索。</p>
         </article>
         <article class="section-lab-card">
-          <span>Track 04</span>
+          <span>札记四</span>
           <strong>页面改版</strong>
-          <p>每次改页面都留下目的：导航、内容深度、可视化问题或视觉统一，别只留下“改过了”。</p>
+          <p>每次改版都留下缘由：导航、内容深度、可视化问题或整体气质，而非只写“改过”。</p>
         </article>
       </section>
 
       <section class="section-lab-grid two" aria-label="最近记录">
         <article class="section-lab-panel">
-          <p class="section-lab-label">Recent</p>
-          <h2>研究页已经有了骨架。</h2>
-          <p>semantic 与 acoustic 两条线已经拆成论文精讲，并补了模型解析、创新点、损失函数、训练策略和结果分析。接下来更适合补真实实验表、音频样例和复现状态。</p>
+          <p class="section-lab-label">近稿</p>
+          <h2>研究页已有骨架。</h2>
+          <p>semantic 与 acoustic 两条线已经拆成论文精讲，并补了模型解析、创新点、损失函数、训练策略和结果分析。接下来应补真实实验表、音频样例和复现状态。</p>
           <ul class="section-lab-list">
             <li>声学页替换为论文结构图图片，降低装饰性 SVG 的干扰。</li>
             <li>语义页补齐 HuBERT、WavLM、BEST-RQ、SpeechTokenizer 的上下游关系。</li>
@@ -77,9 +77,9 @@
           </ul>
         </article>
         <article class="section-lab-panel">
-          <p class="section-lab-label">Next</p>
-          <h2>其它栏目开始有自己的位置。</h2>
-          <p>项目、笔记、联系、放映室、日记和工作台不需要和 research 一样复杂，但每个页面都要知道自己负责什么。</p>
+          <p class="section-lab-label">续稿</p>
+          <h2>各栏目开始各安其位。</h2>
+          <p>项目、笔记、联系、放映室、日记和工作台不必同 research 一样繁复，但每一页都应知道自己承担什么。</p>
           <ul class="section-lab-list">
             <li>项目页负责公开进度。</li>
             <li>笔记页负责过程和判断。</li>
@@ -88,19 +88,22 @@
         </article>
       </section>
 
+      <section id="notion-articles" class="section-lab-grid two" aria-label="Notion 笔记"></section>
+
       <nav class="section-lab-links" aria-label="继续浏览">
-        <a class="section-lab-link" href="/research/semantic/"><small>Semantic</small><strong>语义主线</strong><p>先看“说了什么”怎样被保留下来。</p></a>
-        <a class="section-lab-link" href="/research/acoustic/"><small>Acoustic</small><strong>声学主线</strong><p>再看音色、自然度和细节怎样回来。</p></a>
-        <a class="section-lab-link" href="/life/"><small>Private</small><strong>日记</strong><p>把生活片段收进时间线。</p></a>
+        <a class="section-lab-link" href="/research/semantic/"><small>语义</small><strong>语义主线</strong><p>先看“说了什么”如何被保存。</p></a>
+        <a class="section-lab-link" href="/research/acoustic/"><small>声学</small><strong>声学主线</strong><p>再看音色、自然度与细节如何归来。</p></a>
+        <a class="section-lab-link" href="/life/"><small>私记</small><strong>日记</strong><p>把日常片段收进私人日笺。</p></a>
       </nav>
     </main>
 
     <footer class="section-lab-footer">
-      <span>Notes</span>
-      <span>decision log / deployment log</span>
+      <span>边注与札记</span>
+      <span>判断 / 部署 / 改版</span>
     </footer>
   </div>
 
+  <script src="/assets/notes-feed.js"></script>
   <script src="/assets/site-chat.js"></script>
 </body>
 </html>
