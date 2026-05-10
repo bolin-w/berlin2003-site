@@ -9,7 +9,7 @@ function formatProjectDate(iso) {
 
 function isProjectCategory(category) {
   const value = String(category || "").toLowerCase();
-  return ["项目", "项目记录", "project", "milestone", "roadmap"].some((key) => value.includes(key.toLowerCase()));
+  return ["项目", "项目记录", "项目笔记", "project", "milestone", "roadmap"].some((key) => value.includes(key.toLowerCase()));
 }
 
 function renderProjects(articles) {

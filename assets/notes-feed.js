@@ -1,10 +1,10 @@
 const container = document.querySelector("#notion-articles");
 const categoryMap = [
-  { id: "notes-category-reading", title: "札记一：论文阅读", key: "论文阅读", match: ["论文阅读", "paper", "research", "reading"] },
-  { id: "notes-category-model", title: "札记二：模型判断", key: "模型判断", match: ["模型判断", "judgement", "judgment", "model"] },
+  { id: "notes-category-reading", title: "札记一：论文阅读", key: "论文阅读", match: ["论文阅读", "论文笔记", "paper", "research", "reading"] },
+  { id: "notes-category-model", title: "札记二：模型判断", key: "模型判断", match: ["模型判断", "技术总结", "judgement", "judgment", "model"] },
   { id: "notes-category-deploy", title: "札记三：部署记录", key: "部署记录", match: ["部署记录", "deploy", "deployment", "ops"] },
   { id: "notes-category-design", title: "札记四：页面改版", key: "页面改版", match: ["页面改版", "ui", "页面", "design"] },
-  { id: "notes-category-projects", title: "项目：推进记录", key: "项目记录", match: ["项目", "项目记录", "project", "milestone", "roadmap"] },
+  { id: "notes-category-projects", title: "项目：推进记录", key: "项目记录", match: ["项目", "项目记录", "项目笔记", "project", "milestone", "roadmap"] },
   { id: "notes-category-others", title: "其余札记", key: "其余札记", match: [] }
 ];
 

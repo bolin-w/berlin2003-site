@@ -49,18 +49,30 @@ function renderArticles(articles) {
     return;
   }
 
-  const categoryOrder = ["论文笔记", "项目笔记", "技术总结"];
-  const grouped = {};
-  for (const cat of categoryOrder) {
-    grouped[cat] = articles.filter((a) => a.category === cat);
+  const categoryGroups = [
+    { title: "论文阅读", match: ["论文阅读", "论文笔记", "paper", "research", "reading"] },
+    { title: "模型判断", match: ["模型判断", "技术总结", "judgement", "judgment", "model"] },
+    { title: "部署记录", match: ["部署记录", "deploy", "deployment", "ops"] },
+    { title: "页面改版", match: ["页面改版", "ui", "页面", "design"] },
+    { title: "项目记录", match: ["项目", "项目记录", "项目笔记", "project", "milestone", "roadmap"] },
+    { title: "其余文章", match: [] }
+  ];
+
+  const grouped = categoryGroups.map((group) => ({ ...group, items: [] }));
+  for (const article of articles) {
+    const category = String(article.category || "").toLowerCase();
+    const target =
+      grouped.find((group) => group.match.some((key) => category.includes(key.toLowerCase()))) ||
+      grouped[grouped.length - 1];
+    target.items.push(article);
   }
 
   let html = "";
-  for (const cat of categoryOrder) {
-    const items = grouped[cat];
+  for (const group of grouped) {
+    const items = group.items;
     if (items.length === 0) continue;
 
-    html += `<div class="notion-article-group"><h3>${cat}</h3>`;
+    html += `<div class="notion-article-group"><h3>${group.title}</h3>`;
     for (const article of items) {
       const publicBadge = article.public
         ? '<span class="notion-badge notion-badge-public">公开</span>'

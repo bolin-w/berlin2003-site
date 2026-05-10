@@ -19,7 +19,7 @@
 
     <main class="module-main">
       <h1>Notion 笔记导入</h1>
-      <p class="module-intro">粘贴 Notion 页面链接，选择分类，点导入。后端会自动拉取页面内容并转换为网站文章。</p>
+      <p class="module-intro">粘贴 Notion 页面链接，选好要归入的栏目，再导入。公开文章会按分类自动进入论文阅读、模型判断、部署记录、页面改版或项目记录。</p>
 
       <div class="notion-import-shell">
         <section class="studio-panel">
@@ -39,9 +39,14 @@
               <label>
                 分类
                 <select id="notion-category">
-                  <option value="论文笔记">论文笔记</option>
-                  <option value="项目笔记">项目笔记</option>
-                  <option value="技术总结">技术总结</option>
+                  <option value="论文阅读">论文阅读</option>
+                  <option value="模型判断">模型判断</option>
+                  <option value="部署记录">部署记录</option>
+                  <option value="页面改版">页面改版</option>
+                  <option value="项目记录">项目记录</option>
+                  <option value="论文笔记">论文笔记（兼容旧分类）</option>
+                  <option value="项目笔记">项目笔记（兼容旧分类）</option>
+                  <option value="技术总结">技术总结（兼容旧分类）</option>
                 </select>
               </label>
               <label>
