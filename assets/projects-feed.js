@@ -20,6 +20,7 @@ function renderProjects(articles) {
   const items = (articles || []).filter((article) => isProjectCategory(article.category));
   if (!items.length) {
     projectContainer.hidden = true;
+    projectContainer.innerHTML = "";
     return;
   }
 
@@ -53,10 +54,14 @@ async function loadProjects() {
     const data = await res.json();
     if (res.ok) {
       renderProjects(data.articles);
+    } else if (projectContainer) {
+      projectContainer.hidden = true;
+      projectContainer.innerHTML = "";
     }
   } catch {
     if (projectContainer) {
       projectContainer.hidden = true;
+      projectContainer.innerHTML = "";
     }
   }
 }

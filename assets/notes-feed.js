@@ -17,7 +17,8 @@ function formatDate(iso) {
 
 function renderArticles(articles) {
   if (!articles || articles.length === 0) {
-    container.style.display = "none";
+    container.hidden = true;
+    container.innerHTML = "";
     return;
   }
 
@@ -60,16 +61,43 @@ function renderArticles(articles) {
       </section>
     `)
     .join("");
+
+  const hash = window.location.hash;
+  if (hash) {
+    const target = document.querySelector(hash);
+    if (target) {
+      requestAnimationFrame(() => {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }
+  }
 }
 
 async function load() {
   try {
     const res = await fetch("/api/notion/articles?public=true");
     const data = await res.json();
-    if (res.ok) renderArticles(data.articles);
+    if (res.ok) {
+      renderArticles(data.articles);
+    } else {
+      container.hidden = true;
+      container.innerHTML = "";
+    }
   } catch {
-    container.style.display = "none";
+    container.hidden = true;
+    container.innerHTML = "";
   }
 }
+
+window.addEventListener("hashchange", () => {
+  const hash = window.location.hash;
+  if (!hash) {
+    return;
+  }
+  const target = document.querySelector(hash);
+  if (target) {
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+});
 
 load();
