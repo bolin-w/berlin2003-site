@@ -42,27 +42,32 @@
         </figure>
       </section>
 
-      <section class="section-lab-grid four" aria-label="笔记分类">
-        <a class="section-lab-card" href="#notion-articles" style="text-decoration:none;color:inherit;">
+      <section class="section-lab-grid" style="grid-template-columns:repeat(5,minmax(0,1fr));" aria-label="笔记分类">
+        <a class="section-lab-card" href="#notes-category-reading" style="text-decoration:none;color:inherit;">
           <span>札记一</span>
           <strong>论文阅读</strong>
-          <p>从下方 Notion 笔记里进入单篇，记录每篇论文真正改动的部分：结构、目标、量化、实验设置与边界。</p>
+          <p>去看收在 Notion 里的论文阅读笔记与单篇札记。</p>
         </a>
-        <article class="section-lab-card">
+        <a class="section-lab-card" href="#notes-category-model" style="text-decoration:none;color:inherit;">
           <span>札记二</span>
           <strong>模型判断</strong>
-          <p>写清 semantic token 与 acoustic token 的分工，不让判断只停在“听起来好不好”。</p>
-        </article>
-        <article class="section-lab-card">
+          <p>把结构取舍、层级分工和模型判断收成可回查的笔记。</p>
+        </a>
+        <a class="section-lab-card" href="#notes-category-deploy" style="text-decoration:none;color:inherit;">
           <span>札记三</span>
           <strong>部署记录</strong>
-          <p>记下服务器、Caddy、鉴权、静态资源、同步与回滚路径，免得日后重新摸索。</p>
-        </article>
-        <article class="section-lab-card">
+          <p>服务器、鉴权、同步、回滚与线上变更都放在这里。</p>
+        </a>
+        <a class="section-lab-card" href="#notes-category-design" style="text-decoration:none;color:inherit;">
           <span>札记四</span>
           <strong>页面改版</strong>
-          <p>每次改版都留下缘由：导航、内容深度、可视化问题或整体气质，而非只写“改过”。</p>
-        </article>
+          <p>导航、内容深度、视觉气质和交互改动的来路都归到这里。</p>
+        </a>
+        <a class="section-lab-card" href="#notes-category-projects" style="text-decoration:none;color:inherit;">
+          <span>札记五</span>
+          <strong>项目记录</strong>
+          <p>项目推进中的记录、清单和阶段性沉淀，也和其它札记一起收在这里。</p>
+        </a>
       </section>
 
       <section class="section-lab-grid two" aria-label="最近记录">
@@ -88,7 +93,7 @@
         </article>
       </section>
 
-      <section id="notion-articles" class="section-lab-grid two" aria-label="Notion 笔记"></section>
+      <section id="notion-articles" class="section-lab-main" aria-label="Notion 笔记" hidden></section>
 
       <nav class="section-lab-links" aria-label="继续浏览">
         <a class="section-lab-link" href="/research/semantic/"><small>语义</small><strong>语义主线</strong><p>先看“说了什么”如何被保存。</p></a>
