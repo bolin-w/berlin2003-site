@@ -9,9 +9,10 @@
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
   <link rel="stylesheet" href="/assets/section-lab.css?v=20260505-polish">
+  <link rel="stylesheet" href="/assets/notion-article.css?v=20260515-paper">
 </head>
 <body class="section-lab-body">
-  <div class="site-shell section-lab-shell">
+  <div class="site-shell section-lab-shell notion-article-shell">
     <header class="section-lab-topbar">
       <a class="section-lab-brand" href="/" aria-label="Berlin2003 首页"><span>Berlin</span><strong>2003</strong></a>
       <nav class="section-lab-nav" aria-label="笔记导航">
@@ -22,17 +23,19 @@
       </nav>
     </header>
 
-    <main class="section-lab-main">
-      <section style="padding:30px 0 24px;text-align:center;">
-        <p class="section-lab-kicker" id="article-category" style="margin:0 0 8px;"></p>
-        <h1 id="article-title" style="margin:0;font-size:2.4rem;">加载中...</h1>
-        <div style="margin-top:10px;font-size:0.82rem;color:var(--section-muted);">
-          <span id="article-date"></span>
+    <main class="section-lab-main notion-article-main">
+      <section class="notion-article-hero">
+        <div class="notion-article-meta">
+          <a class="notion-article-back" href="/notes/">返回笔记</a>
+          <span id="article-category" class="notion-article-category"></span>
+          <span id="article-date" class="notion-article-date"></span>
         </div>
+        <h1 id="article-title" class="notion-article-title">加载中...</h1>
+        <p id="article-subtitle" class="notion-article-subtitle">正在读取文章内容。</p>
       </section>
 
-      <section class="section-lab-panel">
-        <div id="article-content" class="notion-article-body" style="padding:24px 8px;"></div>
+      <section class="notion-article-frame">
+        <div id="article-content" class="notion-article-body"></div>
       </section>
     </main>
 
