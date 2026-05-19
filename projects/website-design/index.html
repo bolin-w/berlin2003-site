@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Berlin2003 / 网站设计</title>
+  <meta name="description" content="这个网站从页面结构到部署链路具体怎么做的完整记录。">
+  <meta name="theme-color" content="#f7fbff">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="stylesheet" href="/assets/section-lab.css?v=20260515-refine">
+</head>
+<body class="section-lab-body">
+  <div class="site-shell section-lab-shell">
+    <header class="section-lab-topbar">
+      <a class="section-lab-brand" href="/" aria-label="Berlin2003 首页"><span>Berlin</span><strong>2003</strong></a>
+      <nav class="section-lab-nav" aria-label="主导航">
+        <a href="/projects/">项目</a>
+        <a href="/research/">研究</a>
+        <a href="/notes/">笔记</a>
+        <a href="/contact/">联系</a>
+      </nav>
+    </header>
+
+    <main class="section-lab-main">
+      <section class="section-lab-hero" aria-labelledby="project-title">
+        <div class="section-lab-copy">
+          <p class="section-lab-kicker"><a href="/projects/" style="color:inherit;text-decoration:none;">← 回到项目</a></p>
+          <h1 id="project-title">网站设计</h1>
+          <p class="section-lab-lead">从页面结构、前端样式到 Caddy 部署与 Notion 集成，记录这个网站具体怎么做出来的每一步。</p>
+          <div class="section-lab-actions">
+            <a class="section-lab-primary" href="https://github.com/bolin-w/berlin2003-site" target="_blank" rel="noreferrer">GitHub 仓库</a>
+            <a href="/studio/notion/">导入新文章</a>
+          </div>
+        </div>
+        <figure class="section-lab-visual" style="background:linear-gradient(135deg,rgba(255,114,77,0.12),rgba(35,111,229,0.1));">
+          <div style="display:grid;place-items:center;min-height:430px;padding:40px;text-align:center;">
+            <div>
+              <p style="font-size:4rem;margin:0;line-height:1;">3</p>
+              <p style="margin:12px 0 0;color:var(--section-muted);font-size:1rem;">网站设计方向</p>
+            </div>
+          </div>
+        </figure>
+      </section>
+
+      <section class="section-lab-stats" aria-label="统计">
+        <div class="section-lab-stat"><strong>6</strong><span>工程模块</span></div>
+        <div class="section-lab-stat"><strong>Frontend</strong><span>核心领域</span></div>
+        <div class="section-lab-stat"><strong>Caddy</strong><span>反向代理</span></div>
+      </section>
+
+      <!-- 页面结构 -->
+      <section class="section-lab-panel project-panel-accent-coral">
+        <p class="section-lab-label">模块一</p>
+        <h2>页面结构与路由</h2>
+        <p>站点由多个独立页面组成，每个页面有对应的职责。Caddy 把 URL 路径映射到 <code>/var/www/personal-site/</code> 下的目录，公共页面直接走 file_server，私密页面加 basicauth。</p>
+        <ul class="section-lab-list" style="margin-top:16px;">
+          <li><strong>/research/</strong> — 研究地图，语义与声学两条主线</li>
+          <li><strong>/projects/</strong> — 项目总览，三个方向各领子页</li>
+          <li><strong>/notes/</strong> — 笔记聚合，Notion 文章按分类展示</li>
+          <li><strong>/anime/</strong> — 视频放映室，本地字幕片库</li>
+          <li><strong>/studio/</strong> — 后台工作台（需登录），Notion 导入入口</li>
+          <li><strong>/life/</strong> — 私密日记页（需登录）</li>
+        </ul>
+      </section>
+
+      <!-- 设计系统 -->
+      <section class="section-lab-panel project-panel-accent-coral">
+        <p class="section-lab-label">模块二</p>
+        <h2>Section-Lab 设计系统</h2>
+        <p>全站公共页面共用一套 CSS 变量与组件，保证视觉一致。两个核心样式表分工明确：</p>
+        <ul class="section-lab-list" style="margin-top:16px;">
+          <li><strong>style.css</strong> — 基础 reset、字体、变量定义、老版 edition-body 样式</li>
+          <li><strong>section-lab.css</strong> — section-lab 体系的全部组件：topbar、hero、card、panel、grid、links、stats、footer，以及响应式断点（980px / 680px）</li>
+        </ul>
+        <p style="margin-top:14px;">关键变量：<code>--section-ink</code>、<code>--section-blue</code>、<code>--section-teal</code>、<code>--section-coral</code>、<code>--section-line</code>、<code>--section-panel</code>、<code>--section-shadow</code>。所有颜色、间距、圆角都从这里取值，改一处即全局生效。</p>
+      </section>
+
+      <!-- Notion 集成 -->
+      <section class="section-lab-panel project-panel-accent-coral">
+        <p class="section-lab-label">模块三</p>
+        <h2>Notion 笔记集成</h2>
+        <p>把 Notion 页面导入网站，作为笔记和项目文章的来源。后端 API 处理拉取与存储，前端 JS 按分类动态渲染。</p>
+        <ul class="section-lab-list" style="margin-top:16px;">
+          <li><strong>POST /api/notion/import</strong> — 输入 Notion 页面链接 + 分类 + 是否公开，拉取内容落库</li>
+          <li><strong>GET /api/notion/articles</strong> — 文章列表，<code>?public=true</code> 过滤公开文章</li>
+          <li><strong>GET /api/notion/articles/:id</strong> — 文章详情，返回标题、HTML 内容、分类、时间</li>
+          <li><strong>DELETE /api/notion/articles/:id</strong> — 删除文章（需登录）</li>
+        </ul>
+        <p style="margin-top:14px;">需在 Notion 页面手动连接 Integration 才能导入，API Key 配置在服务器环境变量中。</p>
+      </section>
+
+      <!-- Caddy 路由 -->
+      <section class="section-lab-panel project-panel-accent-coral">
+        <p class="section-lab-label">模块四</p>
+        <h2>Caddy 反向代理与路由</h2>
+        <p>所有请求先经过 Caddy，再分流到静态文件或后端 API。</p>
+        <ul class="section-lab-list" style="margin-top:16px;">
+          <li>公共页面（research、projects、notes、anime、contact）直接 file_server</li>
+          <li>私密页面（studio、life）加 basicauth，密码哈希用 bcrypt</li>
+          <li>公开 API（文章列表等）直接反向代理到后端</li>
+          <li>写入类 API（导入、删除等）需 basicauth 后再代理</li>
+          <li>视频流单独走媒体代理路径，不经过主后端</li>
+          <li>启用 zstd + gzip 压缩，安全头（X-Content-Type-Options、X-Frame-Options、Referrer-Policy）</li>
+        </ul>
+      </section>
+
+      <!-- 部署流程 -->
+      <section class="section-lab-panel project-panel-accent-coral">
+        <p class="section-lab-label">模块五</p>
+        <h2>部署流程</h2>
+        <p>本地改完文件后，通过 SCP 上传到服务器临时目录，再 SSH 进去拷贝到目标位置。没有 CI/CD，手动但可控。</p>
+        <ul class="section-lab-list" style="margin-top:16px;">
+          <li>SSH 密钥认证，不用密码登录</li>
+          <li>先 scp 到服务器 /tmp，再 sudo cp 到 web 目录</li>
+          <li>最后 chown 到 www-data，确保 Caddy 有权限读取</li>
+          <li>本地保留源码目录和部署快照两个副本</li>
+        </ul>
+        <p style="margin-top:14px;">修改 CSS 或 JS 后需更新 HTML 里的 <code>?v=版本号</code>，否则浏览器可能读缓存。</p>
+      </section>
+
+      <!-- 前端脚本 -->
+      <section class="section-lab-panel project-panel-accent-coral">
+        <p class="section-lab-label">模块六</p>
+        <h2>前端脚本与动态加载</h2>
+        <p>静态 HTML 负责结构，JS 负责从 API 拉数据并渲染。各页面有独立的 feed 脚本：</p>
+        <ul class="section-lab-list" style="margin-top:16px;">
+          <li><strong>notes-feed.js</strong> — 笔记页，按分类（论文阅读、模型判断、部署记录等）分组展示 Notion 文章</li>
+          <li><strong>project-page.js</strong> — 项目子页，读取 <code>data-match</code> 关键词过滤对应文章</li>
+          <li><strong>article-detail.js</strong> — 文章详情页，根据 URL 的 <code>?id</code> 参数加载文章内容</li>
+          <li><strong>site-chat.js</strong> — 全站 AI 聊天按钮</li>
+          <li><strong>notion-import.js</strong> — 后台导入页，处理表单提交与文章列表管理</li>
+        </ul>
+        <p style="margin-top:14px;">所有脚本通过 <code>?v=版本号</code> 参数控制浏览器缓存。修改 CSS 或 JS 后更新版本号即可强制刷新。</p>
+      </section>
+
+      <!-- 动态 Notion 文章（通过导入归入此页） -->
+      <section id="project-articles" data-project="website-design" data-match="网站设计,website design,web,前端,caddy,站点,部署,design,notion" aria-label="动态文章">
+      </section>
+    </main>
+
+    <footer class="section-lab-footer">
+      <span>网站设计</span>
+      <span>berlin2003.ccwu.cc/projects</span>
+    </footer>
+  </div>
+
+  <script src="/assets/project-page.js"></script>
+  <script src="/assets/site-chat.js"></script>
+</body>
+</html>

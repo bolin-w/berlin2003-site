@@ -29,7 +29,7 @@ function sizeLabel(bytes) {
 function durationLabel(seconds) {
   const total = Math.round(Number(seconds || 0));
   if (!Number.isFinite(total) || total <= 0) {
-    return "读取时长...";
+    return "未记录";
   }
   const hours = Math.floor(total / 3600);
   const minutes = Math.floor((total % 3600) / 60);
@@ -38,33 +38,6 @@ function durationLabel(seconds) {
     return `${hours}:${String(minutes).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
   }
   return `${minutes}:${String(secs).padStart(2, "0")}`;
-}
-
-function readMediaDuration(item, card) {
-  if (item.durationSeconds) {
-    return;
-  }
-  const summary = card.querySelector(".anime-duration-summary");
-  if (!summary) {
-    return;
-  }
-  const probe = document.createElement("video");
-  probe.preload = "metadata";
-  probe.muted = true;
-  probe.src = item.mediaUrl;
-  probe.addEventListener("loadedmetadata", () => {
-    if (Number.isFinite(probe.duration) && probe.duration > 0) {
-      item.durationSeconds = probe.duration;
-      const label = durationLabel(probe.duration);
-      summary.textContent = `时长 ${label}`;
-      summary.dataset.ready = "true";
-    }
-    probe.removeAttribute("src");
-    probe.load();
-  }, { once: true });
-  probe.addEventListener("error", () => {
-    summary.textContent = "时长未知";
-  }, { once: true });
 }
 
 function renderDetail(item) {
@@ -83,16 +56,6 @@ function renderDetail(item) {
       <p class="anime-status">时长 ${durationLabel(item.durationSeconds)} / 大小 ${sizeLabel(item.sizeBytes)}</p>
     </div>
   `;
-  const player = detailBox.querySelector("video");
-  const meta = detailBox.querySelector(".anime-status");
-  if (player && meta && !item.durationSeconds) {
-    player.addEventListener("loadedmetadata", () => {
-      if (Number.isFinite(player.duration) && player.duration > 0) {
-        item.durationSeconds = player.duration;
-        meta.textContent = `时长 ${durationLabel(player.duration)} / 大小 ${sizeLabel(item.sizeBytes)}`;
-      }
-    }, { once: true });
-  }
 }
 
 function renderVideos(items) {
@@ -128,7 +91,6 @@ function renderVideos(items) {
     `;
     button.addEventListener("click", () => renderDetail(item));
     listBox.appendChild(button);
-    readMediaDuration(item, button);
   });
 
   renderDetail(items[0]);

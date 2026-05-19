@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Berlin2003 / 语音字幕识别</title>
+  <meta name="description" content="用语音识别模型识别视频语音并生成字幕的工程记录。">
+  <meta name="theme-color" content="#f7fbff">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="stylesheet" href="/assets/section-lab.css?v=20260515-refine">
+</head>
+<body class="section-lab-body">
+  <div class="site-shell section-lab-shell">
+    <header class="section-lab-topbar">
+      <a class="section-lab-brand" href="/" aria-label="Berlin2003 首页"><span>Berlin</span><strong>2003</strong></a>
+      <nav class="section-lab-nav" aria-label="主导航">
+        <a href="/projects/">项目</a>
+        <a href="/research/">研究</a>
+        <a href="/notes/">笔记</a>
+        <a href="/contact/">联系</a>
+      </nav>
+    </header>
+
+    <main class="section-lab-main">
+      <section class="section-lab-hero" aria-labelledby="project-title">
+        <div class="section-lab-copy">
+          <p class="section-lab-kicker"><a href="/projects/" style="color:inherit;text-decoration:none;">← 回到项目</a></p>
+          <h1 id="project-title">语音字幕识别</h1>
+          <p class="section-lab-lead">用语音识别模型把视频里的语音转成文字，翻译成中文字幕后压入成片。整条链路在本地完成，服务器只负责收藏与放映。</p>
+          <div class="section-lab-actions">
+            <a class="section-lab-primary" href="/anime/">查看放映室</a>
+            <a href="/studio/notion/">导入新文章</a>
+          </div>
+        </div>
+        <figure class="section-lab-visual" style="background:linear-gradient(135deg,rgba(24,167,168,0.12),rgba(35,111,229,0.1));">
+          <div style="display:grid;place-items:center;min-height:430px;padding:40px;text-align:center;">
+            <div>
+              <p style="font-size:4rem;margin:0;line-height:1;">2</p>
+              <p style="margin:12px 0 0;color:var(--section-muted);font-size:1rem;">语音字幕识别方向</p>
+            </div>
+          </div>
+        </figure>
+      </section>
+
+      <section class="section-lab-stats" aria-label="统计">
+        <div class="section-lab-stat"><strong>5</strong><span>处理阶段</span></div>
+        <div class="section-lab-stat"><strong>ASR</strong><span>核心领域</span></div>
+        <div class="section-lab-stat"><strong>Pipeline</strong><span>重点方向</span></div>
+      </section>
+
+      <!-- 整体流程 -->
+      <section class="section-lab-panel project-panel-accent-teal">
+        <p class="section-lab-label">模块一</p>
+        <h2>整体流程：从视频到中文字幕片</h2>
+        <p>整个工具是一个本地 PowerShell 脚本驱动的管线，把视频放进 input 目录，运行脚本即可自动走完全部流程。</p>
+        <ul class="section-lab-list" style="margin-top:16px;">
+          <li><strong>读取字幕源</strong> — 优先提取内嵌文本字幕轨；没有则尝试 OCR 图片字幕；都没有才走语音识别</li>
+          <li><strong>语音识别</strong> — 用 faster-whisper 对音轨做语音转文字，生成带时间戳的原文</li>
+          <li><strong>翻译润色</strong> — 调用翻译接口把任意语言字幕转成简体中文，再做一次 AI 审核让表达更自然</li>
+          <li><strong>字幕压制</strong> — 用 ffmpeg 把中文字幕烧录进 MP4，输出 H.264 + AAC 的浏览器友好格式</li>
+          <li><strong>上传归档</strong> — 可选把成品上传到网站视频库，在放映室页面展示</li>
+        </ul>
+      </section>
+
+      <!-- 字幕来源 -->
+      <section class="section-lab-panel project-panel-accent-teal">
+        <p class="section-lab-label">模块二</p>
+        <h2>字幕来源：三条路自动降级</h2>
+        <p>工具默认用 <code>auto</code> 模式，按优先级自动选择字幕来源，也可以手动指定。</p>
+        <ul class="section-lab-list" style="margin-top:16px;">
+          <li><strong>文本字幕轨</strong> — MKV、MP4 内嵌的 SRT/ASS 等文本字幕，直接提取翻译</li>
+          <li><strong>PGS 图片字幕</strong> — 蓝光常见格式，需通过 Subtitle Edit + Tesseract OCR 转成文本；未装 OCR 时自动回退语音识别</li>
+          <li><strong>语音识别</strong> — 视频没有任何可用字幕时，提取音轨用 faster-whisper 听写</li>
+          <li>支持 <code>-SubtitleMode asr</code> 强制走语音识别，<code>-SubtitleMode embedded</code> 强制只用内置字幕</li>
+        </ul>
+      </section>
+
+      <!-- ASR 模型 -->
+      <section class="section-lab-panel project-panel-accent-teal">
+        <p class="section-lab-label">模块三</p>
+        <h2>语音识别：faster-whisper</h2>
+        <p>用 faster-whisper 做本地 GPU 推理，不依赖外部 API，数据不出本机。</p>
+        <ul class="section-lab-list" style="margin-top:16px;">
+          <li>可选模型：<code>tiny</code>、<code>base</code>、<code>small</code>、<code>medium</code>、<code>large-v3</code></li>
+          <li>默认 <code>medium</code>，比 small 更不容易漏人声；追求准确率用 <code>large-v3</code></li>
+          <li>支持指定源语言（<code>-SourceLanguage ja</code>）提高识别稳定性</li>
+          <li>默认启用 VAD 语音检测；背景音太重时可关闭（<code>-NoVad</code>）</li>
+          <li>模型文件较大，首次运行会自动下载并缓存到指定目录</li>
+        </ul>
+      </section>
+
+      <!-- 翻译与润色 -->
+      <section class="section-lab-panel project-panel-accent-teal">
+        <p class="section-lab-label">模块四</p>
+        <h2>翻译与 AI 润色</h2>
+        <p>识别出的原文字幕通过翻译接口统一转成简体中文，再做一轮审核润色，让字幕读起来更自然。</p>
+        <ul class="section-lab-list" style="margin-top:16px;">
+          <li>需要在配置文件中填写 API Key，支持任意源语言转简体中文</li>
+          <li>翻译完成后自动做二次 AI 审核，修正断句、口语化表达与不通顺的地方</li>
+          <li><code>-NoTranslate</code> 跳过翻译，保留原文字幕</li>
+          <li><code>-NoReview</code> 只做机器直译，不做二次润色</li>
+          <li>输出 <code>.zh.vtt</code> 和 <code>.zh.srt</code> 两种格式，方便后续复用</li>
+        </ul>
+      </section>
+
+      <!-- 压制与上传 -->
+      <section class="section-lab-panel project-panel-accent-teal">
+        <p class="section-lab-label">模块五</p>
+        <h2>字幕压制与上传</h2>
+        <p>字幕文件准备好后，用 ffmpeg 烧录进视频画面。压制参数可调，成品可直接上传到网站。</p>
+        <ul class="section-lab-list" style="margin-top:16px;">
+          <li>输出统一为 MP4：H.264 视频 + AAC 音频，浏览器直接播放</li>
+          <li>支持 <code>-BurnOnly</code> 跳过识别和翻译，直接用已有的字幕文件重新压制</li>
+          <li>CRF 可调（默认平衡画质与体积），临时文件可指定到非系统盘</li>
+          <li>支持 <code>-Upload</code> 压制完成后直接上传到网站视频库</li>
+          <li>输入格式支持 mp4、mkv、mov、webm、m4v</li>
+        </ul>
+      </section>
+
+      <!-- 可视化界面 -->
+      <section class="section-lab-panel project-panel-accent-teal">
+        <p class="section-lab-label">附：GUI 工作台</p>
+        <h2>可视化操作界面</h2>
+        <p>除了命令行，还做了一个 PowerShell GUI 工作台，提供按钮式操作，不需要记参数。</p>
+        <ul class="section-lab-list" style="margin-top:16px;">
+          <li>打开 input 文件夹 — 快速放入待处理视频</li>
+          <li>生成字幕 — 只做识别 + 翻译，输出字幕文件</li>
+          <li>压制字幕视频 — 完整流程，生成带字幕的 MP4</li>
+          <li>压制并上传服务器 — 压制完成后直接推到视频库</li>
+        </ul>
+      </section>
+
+      <!-- 动态 Notion 文章 -->
+      <section id="project-articles" data-project="speech-subtitle" data-match="语音字幕,语音识别,speech subtitle,asr,字幕,subtitle,recognition" aria-label="动态文章">
+      </section>
+    </main>
+
+    <footer class="section-lab-footer">
+      <span>语音字幕识别</span>
+      <span>berlin2003.ccwu.cc/projects</span>
+    </footer>
+  </div>
+
+  <script src="/assets/project-page.js"></script>
+  <script src="/assets/site-chat.js"></script>
+</body>
+</html>
