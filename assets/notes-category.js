@@ -1,5 +1,6 @@
 const configMap = {
   reading: {
+    meta: "论文阅读",
     kicker: "札记一",
     label: "论文阅读",
     title: "论文阅读",
@@ -8,14 +9,16 @@ const configMap = {
     match: ["论文阅读", "论文笔记", "paper", "research", "reading"]
   },
   model: {
+    meta: "模型判断",
     kicker: "札记二",
     label: "模型判断",
     title: "模型判断",
     lead: "集中记录架构分工、层级取舍、模块作用与模型间的实际差异。",
     figure: "不是只记模型名，而是记为什么这样判断。",
-    match: ["模型判断", "技术总结", "judgement", "judgment", "model"]
+    match: ["模型判断", "模型训练", "技术总结", "judgement", "judgment", "model", "training"]
   },
   deploy: {
+    meta: "部署记录",
     kicker: "札记三",
     label: "部署记录",
     title: "部署记录",
@@ -24,14 +27,16 @@ const configMap = {
     match: ["部署记录", "deploy", "deployment", "ops"]
   },
   design: {
+    meta: "页面改版",
     kicker: "札记四",
     label: "页面改版",
     title: "页面改版",
     lead: "记录导航、布局、内容组织和页面气质上的改动来路。",
     figure: "改版不是换皮，是重新安排信息与阅读顺序。",
-    match: ["页面改版", "ui", "页面", "design"]
+    match: ["页面改版", "ui", "页面", "design", "redesign"]
   },
   projects: {
+    meta: "项目记录",
     kicker: "项目",
     label: "项目记录",
     title: "项目记录",
@@ -41,15 +46,22 @@ const configMap = {
   }
 };
 
-const kickerEl = document.querySelector("#category-kicker");
-const titleEl = document.querySelector("#category-title");
-const leadEl = document.querySelector("#category-lead");
-const figureTitleEl = document.querySelector("#category-figure-title");
-const figureCopyEl = document.querySelector("#category-figure-copy");
-const labelEl = document.querySelector("#category-label");
-const headingEl = document.querySelector("#category-heading");
-const footerEl = document.querySelector("#category-footer");
-const listEl = document.querySelector("#category-list");
+const legacyNodes = {
+  kicker: document.querySelector("#category-kicker"),
+  title: document.querySelector("#category-title"),
+  lead: document.querySelector("#category-lead"),
+  figureTitle: document.querySelector("#category-figure-title"),
+  figureCopy: document.querySelector("#category-figure-copy"),
+  label: document.querySelector("#category-label"),
+  heading: document.querySelector("#category-heading"),
+  footer: document.querySelector("#category-footer"),
+  list: document.querySelector("#category-list")
+};
+
+const hxNodes = {
+  count: document.querySelector("#article-count"),
+  list: document.querySelector("#category-articles")
+};
 
 function formatDate(iso) {
   if (!iso) return "";
@@ -58,22 +70,36 @@ function formatDate(iso) {
   return d.toLocaleDateString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit" });
 }
 
+function getMetaCategory() {
+  const el = document.querySelector('meta[name="notes-category"]');
+  return (el?.content || "").trim();
+}
+
 function pickConfig() {
   const params = new URLSearchParams(window.location.search);
   const key = params.get("key");
-  return configMap[key] || configMap.reading;
+  if (key && configMap[key]) {
+    return configMap[key];
+  }
+
+  const metaCategory = getMetaCategory();
+  const matched = Object.values(configMap).find((config) => config.meta === metaCategory || config.title === metaCategory);
+  return matched || configMap.reading;
 }
 
-function applyHeader(config) {
+function applyLegacyHeader(config) {
+  if (!legacyNodes.title) {
+    return;
+  }
   document.title = `Berlin2003 / ${config.title}`;
-  kickerEl.textContent = config.kicker;
-  titleEl.textContent = config.title;
-  leadEl.textContent = config.lead;
-  figureTitleEl.textContent = config.title;
-  figureCopyEl.textContent = config.figure;
-  labelEl.textContent = config.label;
-  headingEl.textContent = `${config.title}文章`;
-  footerEl.textContent = config.title;
+  if (legacyNodes.kicker) legacyNodes.kicker.textContent = config.kicker;
+  legacyNodes.title.textContent = config.title;
+  if (legacyNodes.lead) legacyNodes.lead.textContent = config.lead;
+  if (legacyNodes.figureTitle) legacyNodes.figureTitle.textContent = config.title;
+  if (legacyNodes.figureCopy) legacyNodes.figureCopy.textContent = config.figure;
+  if (legacyNodes.label) legacyNodes.label.textContent = config.label;
+  if (legacyNodes.heading) legacyNodes.heading.textContent = `${config.title}文章`;
+  if (legacyNodes.footer) legacyNodes.footer.textContent = config.title;
 }
 
 function inGroup(article, config) {
@@ -81,14 +107,17 @@ function inGroup(article, config) {
   return config.match.some((key) => category.includes(key.toLowerCase()));
 }
 
-function renderArticles(articles, config) {
-  const items = (articles || []).filter((article) => inGroup(article, config));
-  if (!items.length) {
-    listEl.innerHTML = `<p style="color:var(--section-muted);margin:0;">这一类还没有公开文章。去 <a href="/studio/notion/" style="color:var(--section-blue);">Notion 导入</a> 里选择「${config.title}」即可归入这里。</p>`;
+function renderLegacy(items, config) {
+  if (!legacyNodes.list) {
     return;
   }
 
-  listEl.innerHTML = items
+  if (!items.length) {
+    legacyNodes.list.innerHTML = `<p style="color:var(--section-muted);margin:0;">这一类还没有公开文章。去 <a href="/studio/notion/" style="color:var(--section-blue);">Notion 导入</a> 里选择「${config.title}」即可归入这里。</p>`;
+    return;
+  }
+
+  legacyNodes.list.innerHTML = items
     .map((article) => {
       const date = formatDate(article.updatedAt || article.createdAt);
       return `
@@ -103,20 +132,93 @@ function renderArticles(articles, config) {
     .join("");
 }
 
+function renderHx(items, config) {
+  if (!hxNodes.list) {
+    return;
+  }
+
+  if (hxNodes.count) {
+    hxNodes.count.textContent = String(items.length);
+  }
+
+  if (!items.length) {
+    hxNodes.list.innerHTML = `
+      <div class="hx-empty-state">
+        <div class="hx-empty-inner">
+          <span class="hx-empty-tag">暂无内容</span>
+          <h2>这一类还没有公开文章</h2>
+          <p>去 <a href="/studio/notion/">Notion 导入</a> 里选择「${config.title}」即可归入这里。</p>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  hxNodes.list.innerHTML = `
+    <div class="hx-project-grid">
+      ${items
+        .map((article, index) => {
+          const date = formatDate(article.updatedAt || article.createdAt);
+          const code = String(index + 1).padStart(2, "0");
+          return `
+            <a class="hx-project-card" href="/notes/article/?id=${article.id}">
+              <div class="hx-project-card-cover" aria-hidden="true">
+                <span class="hx-project-card-code">NOTE ${code}</span>
+                <span class="hx-project-card-status">ARCHIVE</span>
+                <div class="hx-project-card-lines">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+              <div class="hx-project-card-head">
+                <span class="hx-project-card-tag">${article.category || config.title}</span>
+                ${date ? `<span class="hx-project-card-date">${date}</span>` : ""}
+              </div>
+              <strong>${article.title}</strong>
+              <p>${article.summary || "进入文章详情查看完整内容。"}</p>
+              <div class="hx-project-card-foot">
+                <span>阅读笔记</span>
+                <span class="hx-project-card-arrow">→</span>
+              </div>
+            </a>
+          `;
+        })
+        .join("")}
+    </div>
+  `;
+}
+
+function renderArticles(articles, config) {
+  const items = (articles || []).filter((article) => inGroup(article, config));
+  renderLegacy(items, config);
+  renderHx(items, config);
+}
+
 async function load() {
   const config = pickConfig();
-  applyHeader(config);
+  applyLegacyHeader(config);
 
   try {
     const res = await fetch("/api/notion/articles?public=true");
     const data = await res.json();
     if (!res.ok) {
-      listEl.innerHTML = '<p style="color:var(--section-muted);margin:0;">文章加载失败。</p>';
+      if (legacyNodes.list) {
+        legacyNodes.list.innerHTML = '<p style="color:var(--section-muted);margin:0;">文章加载失败。</p>';
+      }
+      if (hxNodes.list) {
+        hxNodes.list.innerHTML = '<div class="hx-empty-state"><div class="hx-empty-inner"><span class="hx-empty-tag">加载异常</span><h2>文章加载失败</h2><p>后端返回了异常结果，请稍后再试。</p></div></div>';
+      }
       return;
     }
     renderArticles(data.articles, config);
   } catch {
-    listEl.innerHTML = '<p style="color:var(--section-muted);margin:0;">无法连接文章服务。</p>';
+    if (legacyNodes.list) {
+      legacyNodes.list.innerHTML = '<p style="color:var(--section-muted);margin:0;">无法连接文章服务。</p>';
+    }
+    if (hxNodes.list) {
+      hxNodes.list.innerHTML = '<div class="hx-empty-state"><div class="hx-empty-inner"><span class="hx-empty-tag">连接中断</span><h2>无法连接文章服务</h2><p>文章接口暂时没有响应，请稍后刷新。</p></div></div>';
+    }
   }
 }
 
