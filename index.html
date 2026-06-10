@@ -3,136 +3,437 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Berlin2003 / Speech Frontend</title>
-  <meta name="description" content="Berlin2003 的语音压缩前端研究主页，记录语义编码、声学恢复、接口判断与公开项目进展。">
-  <meta name="theme-color" content="#f7fbff">
+  <title>Berlin2003 - 语音压缩前端研究 | Speech Codec Research</title>
+  <meta name="description" content="Berlin2003 的语音压缩前端研究主页：先保住语义，再恢复音色、自然度和细节。低码率语音编解码器研究、语义编码、声学恢复。">
+  <meta name="keywords" content="语音压缩,speech codec,语义编码,声学恢复,低码率,neural codec,Berlin2003">
+  <meta name="author" content="Berlin2003">
+  <meta name="theme-color" content="#07162f">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://berlin2003.ccwu.cc/">
+  <meta property="og:title" content="Berlin2003 - 语音压缩前端研究">
+  <meta property="og:description" content="先保住语义，再恢复音色、自然度和细节。低码率语音编解码器研究站点。">
+  <meta property="og:image" content="https://berlin2003.ccwu.cc/assets/home-research.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://berlin2003.ccwu.cc/">
+  <meta property="twitter:title" content="Berlin2003 - 语音压缩前端研究">
+  <meta property="twitter:description" content="先保住语义，再恢复音色、自然度和细节。">
+  <meta property="twitter:image" content="https://berlin2003.ccwu.cc/assets/home-research.png">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://berlin2003.ccwu.cc/">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
-  <link rel="stylesheet" href="/assets/home-lab.css?v=20260501-visual">
-  <link rel="stylesheet" href="/assets/home-tech.css?v=20260501-tech">
+  <link rel="stylesheet" href="/assets/home-tech.css?v=20260520-v2">
+  <link rel="stylesheet" href="/assets/home-anim.css?v=20260501-a1">
+  <link rel="stylesheet" href="/assets/home-intro.css?v=20260501-i1">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Berlin2003 Speech Research",
+    "url": "https://berlin2003.ccwu.cc",
+    "description": "语音压缩前端研究：语义编码与声学恢复",
+    "author": {
+      "@type": "Person",
+      "name": "Berlin2003"
+    },
+    "inLanguage": "zh-CN"
+  }
+  </script>
+
 </head>
-<body class="home edition-body home-lab-body">
-  <div class="site-shell home-lab-shell">
-    <header class="home-lab-topbar">
-      <a class="home-lab-brand" href="/" aria-label="Berlin2003 首页">
-        <span>Berlin</span><strong>2003</strong>
+<body class="home hx-body">
+
+  <div class="hx-intro" id="hx-intro" aria-hidden="true">
+    <div class="hx-intro-grid"></div>
+    <div class="hx-intro-particles"></div>
+
+    <span class="hx-intro-corner hx-intro-corner-tl"></span>
+    <span class="hx-intro-corner hx-intro-corner-tr"></span>
+    <span class="hx-intro-corner hx-intro-corner-bl"></span>
+    <span class="hx-intro-corner hx-intro-corner-br"></span>
+
+    <span class="hx-intro-meta hx-intro-meta-tl">// SYS · BOOT</span>
+    <span class="hx-intro-meta hx-intro-meta-tr">CH · 16kHz / 24bit</span>
+    <span class="hx-intro-meta hx-intro-meta-bl">● ONLINE</span>
+    <span class="hx-intro-meta hx-intro-meta-br">v.2026 / R1</span>
+
+    <div class="hx-intro-sonar" aria-hidden="true">
+      <span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="hx-intro-wave">
+      <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
+        <circle class="hx-intro-ring hx-intro-ring-3" cx="200" cy="200" r="190"/>
+        <circle class="hx-intro-ring hx-intro-ring-2" cx="200" cy="200" r="148"/>
+        <circle class="hx-intro-ring hx-intro-ring-1" cx="200" cy="200" r="110"/>
+      </svg>
+      <div class="hx-intro-bars" aria-hidden="true"></div>
+
+      <div class="hx-intro-center">
+        <span class="hx-intro-tag">SPEECH FRONTEND · INITIALIZING</span>
+        <h1 class="hx-intro-title">
+          <span>S</span><span>e</span><span>m</span><span>a</span><span>n</span><span>t</span><span>i</span><span>c</span>
+          <span>&nbsp;</span>
+          <span><em>first.</em></span>
+        </h1>
+        <p class="hx-intro-sub">// ACOUSTIC <b>NEXT</b> · 0.5 kbps target</p>
+        <div class="hx-intro-flow">
+          <b>VOICE</b><i>▸</i><b>SEMANTIC</b><i>▸</i><b>ACOUSTIC</b><i>▸</i><b>OUT</b>
+        </div>
+      </div>
+    </div>
+
+    <div class="hx-intro-hint" role="button" tabindex="0" aria-label="进入页面">
+      <span>SCROLL TO ENTER</span>
+      <svg viewBox="0 0 24 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+        <rect x="4" y="2" width="16" height="22" rx="8"/>
+        <path d="M12 8v4"/>
+        <path d="M8 26l4 4 4-4"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="hx-bg" aria-hidden="true">
+    <div class="hx-grid"></div>
+    <div class="hx-orb hx-orb-1"></div>
+    <div class="hx-orb hx-orb-2"></div>
+    <div class="hx-orb hx-orb-3"></div>
+    <div class="hx-scanlines"></div>
+    <div class="hx-noise"></div>
+  </div>
+
+  <div class="hx-shell">
+
+    <header class="hx-nav" role="banner">
+      <a class="hx-brand" href="/" aria-label="Berlin2003 首页">
+        <span class="hx-brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 12 L7 12 L9 6 L13 18 L15 9 L17 14 L21 12" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="hx-brand-text">Berlin<strong>2003</strong></span>
       </a>
-      <nav class="home-lab-nav" aria-label="主导航">
-        <a href="/research/">研究</a>
-        <a href="/projects/">项目</a>
-        <a href="/notes/">笔记</a>
-        <a href="/contact/">联系</a>
+
+      <nav class="hx-nav-links" aria-label="主导航">
+        <a href="/research/"><span>01</span>研究</a>
+        <a href="/projects/"><span>02</span>项目</a>
+        <a href="/notes/"><span>03</span>笔记</a>
+        <a href="/contact/"><span>04</span>联系</a>
       </nav>
+
+      <div class="hx-nav-status" aria-hidden="true">
+        <span class="hx-dot"></span>
+        <span>SYS · ONLINE</span>
+      </div>
     </header>
 
-    <main class="home-lab-main">
-      <section class="home-lab-hero" aria-labelledby="home-title">
-        <div class="home-lab-copy">
-          <p class="home-lab-kicker">Speech Frontend</p>
-          <h1 id="home-title">Berlin2003 Speech Frontend</h1>
-          <p class="home-lab-lead">
-            一个围绕低码率语音压缩的公开研究站点：先保住语义，再恢复音色、自然度和细节，把模型判断写成可以反复检查的页面。
+    <main class="hx-main">
+
+      <!-- ============ HERO ============ -->
+      <section class="hx-hero" aria-labelledby="home-title">
+
+        <div class="hx-wave" aria-hidden="true">
+          <svg viewBox="0 0 1200 180" preserveAspectRatio="none">
+            <path class="hx-wave-path hx-wave-path-3" d="M0 90 Q 80 60, 160 90 T 320 90 T 480 90 T 640 90 T 800 90 T 960 90 T 1120 90 T 1200 90"/>
+            <path class="hx-wave-path hx-wave-path-2" d="M0 90 Q 60 50, 120 90 T 240 90 T 360 90 T 480 90 T 600 90 T 720 90 T 840 90 T 960 90 T 1080 90 T 1200 90"/>
+            <path class="hx-wave-path hx-wave-path-1" d="M0 90 Q 50 30, 100 90 T 200 90 T 300 90 T 400 90 T 500 90 T 600 90 T 700 90 T 800 90 T 900 90 T 1000 90 T 1100 90 T 1200 90"/>
+          </svg>
+        </div>
+        <div class="hx-spectrum" aria-hidden="true"></div>
+
+        <div class="hx-hero-left">
+          <div class="hx-kicker">
+            <span class="hx-bracket">[</span>
+            <span class="hx-kicker-tag">SPEECH FRONTEND</span>
+            <span class="hx-kicker-sep">/</span>
+            <span class="hx-kicker-ver">v.2026</span>
+            <span class="hx-bracket">]</span>
+            <span class="hx-kicker-live">● LIVE</span>
+          </div>
+
+          <h1 id="home-title" class="hx-title">
+            <span class="hx-title-row">Semantic <em>first.</em></span>
+            <span class="hx-title-row hx-title-row-2">Acoustic <em>next.</em></span>
+          </h1>
+
+          <p class="hx-lead">
+            围绕低码率语音压缩的公开研究站点 ——
+            <mark>先保住「说了什么」</mark>，再恢复音色、自然度和细节，
+            把每一次模型判断写成可以反复检查的页面。
           </p>
-          <div class="home-lab-actions" aria-label="快速入口">
-            <a class="home-lab-primary" href="/research/">进入研究</a>
-            <a href="/notes/">看阶段笔记</a>
+
+          <div class="hx-actions">
+            <a class="hx-btn hx-btn-primary" href="/research/">
+              <span>进入研究</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a class="hx-btn hx-btn-ghost" href="/notes/">
+              <span>看阶段笔记</span>
+            </a>
+          </div>
+
+          <div class="hx-hero-meta">
+            <div class="hx-meta-item">
+              <b>0.5</b><i>kbps</i>
+              <span>target bitrate</span>
+            </div>
+            <div class="hx-meta-item">
+              <b>2</b><i>layers</i>
+              <span>semantic + acoustic</span>
+            </div>
+            <div class="hx-meta-item">
+              <b>18+</b><i>codecs</i>
+              <span>under review</span>
+            </div>
           </div>
         </div>
 
-        <figure class="home-lab-poster">
-          <img src="/assets/home-hero.png" alt="Berlin2003 semantic first and acoustic next overview">
-          <figcaption>Semantic first / Acoustic next</figcaption>
-        </figure>
-      </section>
-
-      <section class="home-lab-principles" aria-label="研究框架">
-        <article>
-          <span>01</span>
-          <h2>Semantic</h2>
-          <p>优先保存“说了什么”，让低码率不先牺牲可懂度和关键信息。</p>
-        </article>
-        <article>
-          <span>02</span>
-          <h2>Acoustic</h2>
-          <p>把自然度、音色和细节恢复当成工程问题，逐项权衡。</p>
-        </article>
-        <article>
-          <span>03</span>
-          <h2>Bridge</h2>
-          <p>记录两层之间的接口、角色分工和上线前的判断依据。</p>
-        </article>
-      </section>
-
-      <section class="home-lab-gallery" aria-label="页面装饰图">
-        <a class="home-lab-shot shot-wide" href="/research/">
-          <img src="/assets/home-research.png" alt="Research page visual for semantic and acoustic encoders">
-          <span>Research</span>
-        </a>
-        <a class="home-lab-shot" href="/notes/">
-          <img src="/assets/home-notes.png" alt="Notes page visual for stage judgments">
-          <span>Notes</span>
-        </a>
-        <a class="home-lab-shot" href="/projects/">
-          <img src="/assets/home-public.png" alt="Public execution visual with three cards">
-          <span>Projects</span>
-        </a>
-        <a class="home-lab-shot" href="/contact/">
-          <img src="/assets/home-contact.png" alt="Contact page visual with email and GitHub blocks">
-          <span>Contact</span>
-        </a>
-      </section>
-
-      <section class="home-lab-directory" aria-label="站点模块">
-        <div class="home-lab-section-head">
-          <span>Directory</span>
-          <h2>公开内容与个人入口</h2>
+        <div class="hx-hero-right">
+          <figure class="hx-poster">
+            <div class="hx-poster-frame" aria-hidden="true">
+              <span class="hx-corner hx-corner-tl"></span>
+              <span class="hx-corner hx-corner-tr"></span>
+              <span class="hx-corner hx-corner-bl"></span>
+              <span class="hx-corner hx-corner-br"></span>
+            </div>
+            <div class="hx-poster-hud" aria-hidden="true">
+              <span class="hx-hud-tag">REC · 16kHz</span>
+              <span class="hx-hud-tag hx-hud-tag-r">FRAME · 048</span>
+            </div>
+            <img src="/assets/home-research.png" alt="Berlin2003 semantic first acoustic next overview">
+            <div class="hx-poster-scan" aria-hidden="true"></div>
+            <figcaption>
+              <span>// SEMANTIC FIRST · ACOUSTIC NEXT</span>
+            </figcaption>
+          </figure>
         </div>
-        <div class="home-lab-links">
-          <a href="/research/">
-            <span>01</span>
-            <strong>研究</strong>
-            <p>语义编码、声学恢复和低码率约束。</p>
+      </section>
+
+      <!-- ============ METRICS STRIP ============ -->
+      <section class="hx-metrics hx-reveal" aria-label="状态">
+        <div class="hx-metric">
+          <span class="hx-metric-k">// CHANNEL</span>
+          <strong>Low-Bitrate Speech</strong>
+          <em>language · prosody · timbre</em>
+        </div>
+        <div class="hx-metric">
+          <span class="hx-metric-k">// METHOD</span>
+          <strong>Two-Stage Codec</strong>
+          <em>semantic ▸ acoustic</em>
+        </div>
+        <div class="hx-metric">
+          <span class="hx-metric-k">// FOCUS</span>
+          <strong>Public Research</strong>
+          <em>repeatable judgments</em>
+        </div>
+        <div class="hx-metric">
+          <span class="hx-metric-k">// STATUS</span>
+          <strong>Iterating</strong>
+          <em>updated 2026</em>
+        </div>
+      </section>
+
+      <!-- ============ PIPELINE / PRINCIPLES ============ -->
+      <section class="hx-pipeline hx-reveal" aria-label="研究框架">
+        <header class="hx-section-head">
+          <span class="hx-section-tag">[ PIPELINE · 01 ]</span>
+          <h2>三层结构 / Three-layer model</h2>
+          <p>从含义到声学，再到接口判断 —— 每一层独立，可以分开训练、分开评估。</p>
+        </header>
+
+        <div class="hx-pipeline-grid">
+          <article class="hx-stage">
+            <header class="hx-stage-head">
+              <span class="hx-stage-num">01</span>
+              <span class="hx-stage-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M6 12h12M8 17h8" stroke-linecap="round"/><circle cx="4" cy="7" r="1.2" fill="currentColor" stroke="none"/><circle cx="6" cy="12" r="1.2" fill="currentColor" stroke="none"/><circle cx="8" cy="17" r="1.2" fill="currentColor" stroke="none"/></svg>
+              </span>
+            </header>
+            <h3>Semantic</h3>
+            <p>优先保存"说了什么"。让低码率不先牺牲可懂度和关键信息。</p>
+            <span class="hx-stage-tag">// language layer</span>
+          </article>
+
+          <span class="hx-pipeline-arrow" aria-hidden="true">→</span>
+
+          <article class="hx-stage hx-stage-2">
+            <header class="hx-stage-head">
+              <span class="hx-stage-num">02</span>
+              <span class="hx-stage-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 12c2 0 2-6 4-6s2 12 4 12 2-9 4-9 2 5 4 5 2-2 2-2"/></svg>
+              </span>
+            </header>
+            <h3>Acoustic</h3>
+            <p>把自然度、音色和细节恢复当成工程问题，逐项权衡，逐项验证。</p>
+            <span class="hx-stage-tag">// signal layer</span>
+          </article>
+
+          <span class="hx-pipeline-arrow" aria-hidden="true">→</span>
+
+          <article class="hx-stage hx-stage-3">
+            <header class="hx-stage-head">
+              <span class="hx-stage-num">03</span>
+              <span class="hx-stage-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="7" height="7" rx="1"/><rect x="14" y="13" width="7" height="7" rx="1"/><path d="M10 7h4v6"/></svg>
+              </span>
+            </header>
+            <h3>Bridge</h3>
+            <p>记录两层之间的接口、角色分工和上线前的判断依据。</p>
+            <span class="hx-stage-tag">// interface layer</span>
+          </article>
+        </div>
+      </section>
+
+      <!-- ============ MOSAIC GALLERY ============ -->
+      <section class="hx-mosaic hx-reveal" aria-label="页面入口">
+        <header class="hx-section-head">
+          <span class="hx-section-tag">[ MAP · 02 ]</span>
+          <h2>站点视图 / Visual map</h2>
+        </header>
+
+        <div class="hx-mosaic-grid">
+          <a class="hx-tile hx-tile-wide" href="/research/">
+            <img src="/assets/home-notes.png" alt="">
+            <div class="hx-tile-overlay">
+              <span class="hx-tile-k">// 01</span>
+              <strong>Research</strong>
+              <em>语义编码 · 声学恢复</em>
+            </div>
           </a>
-          <a href="/projects/">
-            <span>02</span>
+          <a class="hx-tile" href="/notes/">
+            <img src="/assets/home-contact.png" alt="">
+            <div class="hx-tile-overlay">
+              <span class="hx-tile-k">// 02</span>
+              <strong>Notes</strong>
+              <em>判断 · 取舍</em>
+            </div>
+          </a>
+          <a class="hx-tile" href="/projects/">
+            <img src="/assets/home-public.png" alt="">
+            <div class="hx-tile-overlay">
+              <span class="hx-tile-k">// 03</span>
+              <strong>Projects</strong>
+              <em>公开推进</em>
+            </div>
+          </a>
+          <a class="hx-tile" href="/contact/">
+            <img src="/assets/home-hero.png" alt="">
+            <div class="hx-tile-overlay">
+              <span class="hx-tile-k">// 04</span>
+              <strong>Contact</strong>
+              <em>邮箱 · GitHub</em>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- ============ DIRECTORY ============ -->
+      <section class="hx-directory hx-reveal" aria-label="站点模块">
+        <header class="hx-section-head">
+          <span class="hx-section-tag">[ DIRECTORY · 03 ]</span>
+          <h2>公开内容与个人入口</h2>
+          <p>七个模块 —— 研究、项目、笔记、动漫、联系，以及两个私密入口。</p>
+        </header>
+
+        <div class="hx-dir-grid">
+          <a class="hx-card" href="/research/">
+            <header>
+              <span class="hx-card-num">01</span>
+              <span class="hx-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3v6L4 18a2 2 0 0 0 2 3h12a2 2 0 0 0 2-3l-5-9V3"/><path d="M8 3h8"/><path d="M7 14h10"/></svg></span>
+            </header>
+            <strong>研究</strong>
+            <p>语义编码、声学恢复和低码率约束下的工程权衡。</p>
+            <span class="hx-card-arrow">→</span>
+          </a>
+
+          <a class="hx-card" href="/projects/">
+            <header>
+              <span class="hx-card-num">02</span>
+              <span class="hx-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 7v10l9 4 9-4V7"/><path d="M12 11v10"/></svg></span>
+            </header>
             <strong>项目</strong>
             <p>公开推进的实验、页面和阶段成果。</p>
+            <span class="hx-card-arrow">→</span>
           </a>
-          <a href="/notes/">
-            <span>03</span>
+
+          <a class="hx-card" href="/notes/">
+            <header>
+              <span class="hx-card-num">03</span>
+              <span class="hx-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h11l4 4v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5"/><path d="M8 13h8M8 17h5"/></svg></span>
+            </header>
             <strong>笔记</strong>
-            <p>判断、取舍、部署记录和过程痕迹。</p>
+            <p>判断依据、技术取舍、部署记录和迭代过程。</p>
+            <span class="hx-card-arrow">→</span>
           </a>
-          <a href="/anime/">
-            <span>04</span>
+
+          <a class="hx-card" href="/anime/">
+            <header>
+              <span class="hx-card-num">04</span>
+              <span class="hx-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></span>
+            </header>
             <strong>动漫</strong>
-            <p>自建资源库和播放入口。</p>
+            <p>自建资源库与在线播放入口。</p>
+            <span class="hx-card-arrow">→</span>
           </a>
-          <a href="/contact/">
-            <span>05</span>
+
+          <a class="hx-card" href="/contact/">
+            <header>
+              <span class="hx-card-num">05</span>
+              <span class="hx-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+            </header>
             <strong>联系</strong>
-            <p>研究交流、站点入口和公开联系方式。</p>
+            <p>研究交流、站点反馈与公开联系方式。</p>
+            <span class="hx-card-arrow">→</span>
           </a>
-          <a class="home-lab-private" href="/studio/">
-            <span>06</span>
+
+          <a class="hx-card hx-card-private" href="/studio/">
+            <header>
+              <span class="hx-card-num">06</span>
+              <span class="hx-card-lock">●</span>
+              <span class="hx-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3h0a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8v0a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></span>
+            </header>
             <strong>Studio</strong>
             <p>站点编辑与内容管理。</p>
+            <span class="hx-card-arrow">→</span>
           </a>
-          <a class="home-lab-private" href="/life/">
-            <span>07</span>
+
+          <a class="hx-card hx-card-private" href="/life/">
+            <header>
+              <span class="hx-card-num">07</span>
+              <span class="hx-card-lock">●</span>
+              <span class="hx-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span>
+            </header>
             <strong>Life</strong>
             <p>私密记录。</p>
+            <span class="hx-card-arrow">→</span>
           </a>
         </div>
       </section>
     </main>
 
-    <footer class="home-lab-footer">
-      <span>berlin2003.ccwu.cc</span>
-      <span>semantic first / acoustic next</span>
+    <footer class="hx-footer" role="contentinfo">
+      <div class="hx-footer-l">
+        <span class="hx-dot"></span>
+        <span>berlin2003.ccwu.cc</span>
+      </div>
+      <div class="hx-footer-m">
+        <span>// semantic first / acoustic next</span>
+      </div>
+      <div class="hx-footer-r">
+        <span class="hx-prompt">$ ./berlin2003 --year 2026</span>
+      </div>
     </footer>
   </div>
 
+  <script src="/assets/home-intro.js?v=20260516-fix2"></script>
+  <script src="/assets/home-anim.js?v=20260501-a1" defer></script>
   <script src="/assets/site-chat.js"></script>
 </body>
 </html>
