@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Berlin2003 / Mimi</title>
+  <meta name="description" content="Mimi：低帧率、流式语音 codec，把 semantic information 与 acoustic information 合到同一前端。">
+  <meta name="theme-color" content="#f7fbff">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="stylesheet" href="/assets/paper-lab.css?v=20260502-acoustic-deep">
+</head>
+<body class="edition-body paper-lab-body acoustic-paper-page">
+  <div class="site-shell paper-lab-shell">
+    <header class="paper-lab-topbar">
+      <a class="paper-lab-brand" href="/"><span>Berlin</span><strong>2003</strong></a>
+      <nav class="paper-lab-nav" aria-label="研究导航">
+        <a href="/research/snac/">上一篇</a>
+        <a href="/research/wavtokenizer/">下一篇</a>
+        <a href="/research/acoustic/">声学层</a>
+      </nav>
+    </header>
+
+    <main class="paper-lab-main">
+      <section class="paper-lab-hero">
+        <div class="paper-lab-copy">
+          <p class="paper-lab-kicker">2024 / Low Frame Rate Codec</p>
+          <h1>Mimi</h1>
+          <p class="paper-lab-lead">Mimi 已经明显越过传统 codec 边界：它追求低帧率、流式、低码率，同时让 token 同时承载 semantic information 和 acoustic information，是语义层与声学层开始合流的代表。</p>
+          <div class="paper-lab-actions">
+            <a class="paper-lab-primary" href="https://arxiv.org/abs/2410.00037" target="_blank" rel="noreferrer">论文原文</a>
+            <a href="https://github.com/kyutai-labs/moshi" target="_blank" rel="noreferrer">Moshi / Mimi</a>
+          </div>
+        </div>
+
+        <figure class="paper-lab-figure">
+          <img src="/assets/architecture-mimi.png" alt="Mimi architecture diagram">
+          <figcaption>技术结构图：Mimi 通过 streaming encoder、RVQ stack 和 streaming decoder 形成低帧率 codec，第一层承载语义 token，其余层承担声学细节。</figcaption>
+          <div class="paper-lab-source">
+            <a href="https://arxiv.org/abs/2410.00037" target="_blank" rel="noreferrer">arXiv</a>
+            <a href="https://github.com/kyutai-labs/moshi" target="_blank" rel="noreferrer">GitHub</a>
+          </div>
+        </figure>
+      </section>
+
+      <section class="paper-lab-metrics">
+        <article><span>Frame Rate</span><strong>12.5 Hz</strong><p>把序列长度压低，降低后续 speech model 的建模负担。</p></article>
+        <article><span>Information</span><strong>语义 + 声学</strong><p>token 同时承载内容骨架与可恢复质感。</p></article>
+        <article><span>System</span><strong>streaming 前端</strong><p>设计目标直接面向实时交互，而不只是离线重建。</p></article>
+      </section>
+
+      <section class="paper-lab-deep">
+        <div class="paper-lab-section-head"><span>Paper Deep Dive</span><h2>论文精讲：Mimi 如何把语义和声学塞进低帧率 codec</h2></div>
+        <div class="paper-lab-deep-grid">
+          <article class="paper-lab-deep-card paper-lab-deep-card-wide"><span>模型解析</span><strong>第一层语义，其余层声学</strong><ul><li>Mimi 保留 streaming encoder / decoder 和 RVQ stack，但把第一层 codebook 设计成更偏 semantic。</li><li>第一层 token 通过语义蒸馏对齐自监督 speech representation，其余层继续补音色、韵律和细节。</li><li>整体 token rate 低到约 12.5 Hz，直接面向 streaming dialogue 和 speech LM 前端。</li></ul></article>
+          <article class="paper-lab-deep-card paper-lab-deep-card-wide"><span>创新点</span><strong>codec token 开始承担语言模型接口角色</strong><ul><li>它不是单纯追求重建质量，而是让 token 同时可重建、可建模、可生成。</li><li>semantic / acoustic 在 RVQ 层内分工，比完全独立的两套 tokenizer 更紧凑。</li><li>低帧率大幅降低 speech LM 的序列长度压力。</li></ul></article>
+          <article class="paper-lab-deep-card"><span>损失函数</span><strong>语义蒸馏叠加声学重建</strong><ul><li>第一层 token 通过 semantic distillation 约束，使其靠近 SSL speech representation。</li><li>声学重建仍依赖 waveform / spectral / perceptual 类损失保持听感。</li><li>RVQ commitment / codebook 目标保证多层离散码稳定可用。</li></ul></article>
+          <article class="paper-lab-deep-card"><span>训练策略</span><strong>先保证 token 有语义，再保证音频可听</strong><ul><li>训练中显式约束第一层，避免所有 codebook 都只学习低层声学纹理。</li><li>streaming 结构要求模型在有限未来信息下恢复语音。</li><li>最终优化要平衡三件事：低帧率、语义可读性和重建质量。</li></ul></article>
+          <article class="paper-lab-deep-card"><span>结果分析</span><strong>它是 acoustic codec 和 semantic tokenizer 的桥</strong><ul><li>Mimi 的价值在于把 speech LM 需要的内容信息提前放进 codec token。</li><li>低 token rate 让长语音交互更可行，但音质细节要靠后续 acoustic 层补回来。</li><li>它提示后续路线：codec 不只是压缩器，而是语音生成系统的输入输出协议。</li></ul></article>
+        </div>
+      </section>
+
+      <section class="paper-lab-section">
+        <div class="paper-lab-section-head"><span>Core Route</span><h2>Mimi 为什么是桥接案例</h2></div>
+        <div class="paper-lab-grid">
+          <article class="paper-lab-card"><span>01</span><strong>低帧率优先</strong><p>token rate 降低后，speech model 才能承受更长对话上下文。</p></article>
+          <article class="paper-lab-card"><span>02</span><strong>语义信息进入 codec</strong><p>它不再把 semantic 与 acoustic 完全切开，而是让前端承载两者。</p></article>
+          <article class="paper-lab-card"><span>03</span><strong>流式恢复是核心约束</strong><p>真实语音交互不能等整段音频离线重建。</p></article>
+          <article class="paper-lab-card"><span>04</span><strong>边界开始变模糊</strong><p>Mimi 说明两层分工不是绝对隔离，而是系统里可以合流。</p></article>
+        </div>
+      </section>
+
+      <section class="paper-lab-section">
+        <div class="paper-lab-section-head"><span>Reading Cut</span><h2>读这页时抓三个判断</h2></div>
+        <div class="paper-lab-cuts">
+          <article class="paper-lab-cut"><span>Cut 01</span><strong>低帧率是接口需求</strong><p>模型前端最终要考虑序列长度，而不是只看重建指标。</p></article>
+          <article class="paper-lab-cut"><span>Cut 02</span><strong>语义和声学可以共存</strong><p>真正系统里，两类信息可能被同一个 token 流共同承载。</p></article>
+          <article class="paper-lab-cut"><span>Cut 03</span><strong>部署约束反推结构</strong><p>streaming、延迟和稳定性会决定 codec 设计。</p></article>
+        </div>
+      </section>
+
+      <nav class="paper-lab-next">
+        <a href="/research/snac/"><span>Prev</span><strong>SNAC</strong><p>回到多尺度 token 结构。</p></a>
+        <a href="/research/wavtokenizer/"><span>Next</span><strong>WavTokenizer</strong><p>看面向 audio language modeling 的高效 tokenizer。</p></a>
+        <a href="/research/semantic/"><span>Bridge</span><strong>语义编码器</strong><p>回到内容层，检查语义信息如何进入前端。</p></a>
+      </nav>
+    </main>
+
+    <footer class="paper-lab-footer"><span>Mimi</span><span>semantic information / acoustic information</span></footer>
+  </div>
+  <script src="/assets/site-chat.js"></script>
+</body>
+</html>

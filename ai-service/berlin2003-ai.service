@@ -9,6 +9,7 @@ User=berlinai
 Group=berlinai
 WorkingDirectory=/opt/berlin2003-ai
 EnvironmentFile=/etc/berlin2003-ai.env
+StateDirectory=berlin2003-ai
 ExecStart=/usr/bin/node /opt/berlin2003-ai/server.mjs
 Restart=on-failure
 RestartSec=3

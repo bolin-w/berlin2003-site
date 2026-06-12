@@ -4,34 +4,63 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Berlin2003 / 笔记</title>
-  <meta name="description" content="Berlin2003 的 Notion 笔记详情页。">
-  <meta name="theme-color" content="#f7fbff">
+  <meta name="theme-color" content="#07162f">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
-  <link rel="stylesheet" href="/assets/section-lab.css?v=20260505-polish">
-  <link rel="stylesheet" href="/assets/notion-article.css?v=20260515-paper">
+  <link rel="stylesheet" href="/assets/home-tech.css">
+  <link rel="stylesheet" href="/assets/project-page-hx.css?v=20260612">
+  <link rel="stylesheet" href="/assets/notion-article.css?v=20260612">
+  <link rel="stylesheet" href="/assets/home-anim.css">
 </head>
-<body class="section-lab-body">
-  <div class="site-shell section-lab-shell notion-article-shell">
-    <header class="section-lab-topbar">
-      <a class="section-lab-brand" href="/" aria-label="Berlin2003 首页"><span>Berlin</span><strong>2003</strong></a>
-      <nav class="section-lab-nav" aria-label="笔记导航">
-        <a href="/notes/">笔记</a>
-        <a href="/research/">研究</a>
-        <a href="/projects/">项目</a>
-        <a href="/contact/">联系</a>
+<body class="home hx-body">
+  <div class="hx-bg" aria-hidden="true">
+    <div class="hx-grid"></div>
+    <div class="hx-orb hx-orb-1"></div>
+    <div class="hx-orb hx-orb-2"></div>
+    <div class="hx-orb hx-orb-3"></div>
+    <div class="hx-scanlines"></div>
+    <div class="hx-noise"></div>
+  </div>
+
+  <div class="hx-shell notion-article-shell">
+    <header class="hx-nav" role="banner">
+      <a class="hx-brand" href="/" aria-label="Berlin2003 首页">
+        <span class="hx-brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 12 L7 12 L9 6 L13 18 L15 9 L17 14 L21 12" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="hx-brand-text">Berlin<strong>2003</strong></span>
+      </a>
+      <nav class="hx-nav-links" aria-label="主导航">
+        <a href="/research/"><span>01</span>研究</a>
+        <a href="/projects/"><span>02</span>项目</a>
+        <a href="/notes/" class="is-active"><span>03</span>笔记</a>
+        <a href="/contact/"><span>04</span>联系</a>
       </nav>
+      <div class="hx-nav-status" aria-hidden="true">
+        <span class="hx-dot"></span>
+        <span>SYS · ONLINE</span>
+      </div>
     </header>
 
-    <main class="section-lab-main notion-article-main">
-      <section class="notion-article-hero">
-        <div class="notion-article-meta">
-          <a class="notion-article-back" href="/notes/">返回笔记</a>
-          <span id="article-category" class="notion-article-category"></span>
-          <span id="article-date" class="notion-article-date"></span>
+    <main class="hx-main notion-article-main">
+      <nav class="hx-breadcrumb" aria-label="面包屑导航">
+        <a href="/notes/">笔记</a>
+        <span class="hx-breadcrumb-sep">▸</span>
+        <span class="hx-breadcrumb-current" id="article-breadcrumb">文章详情</span>
+      </nav>
+
+      <section class="notion-article-hero" aria-labelledby="article-title">
+        <div class="hx-kicker">
+          <span class="hx-bracket">[</span>
+          <span class="hx-kicker-tag" id="article-category">NOTE ARTICLE</span>
+          <span class="hx-kicker-sep">/</span>
+          <span class="hx-kicker-ver" id="article-date">LIVE</span>
+          <span class="hx-bracket">]</span>
         </div>
         <h1 id="article-title" class="notion-article-title">加载中...</h1>
-        <p id="article-subtitle" class="notion-article-subtitle">正在读取文章内容。</p>
+        <p id="article-subtitle" class="notion-article-subtitle">正在载入文章内容。</p>
       </section>
 
       <section class="notion-article-frame">
@@ -39,9 +68,17 @@
       </section>
     </main>
 
-    <footer class="section-lab-footer">
-      <span id="article-footer-title">笔记</span>
-      <span>berlin2003.ccwu.cc</span>
+    <footer class="hx-footer" role="contentinfo">
+      <div class="hx-footer-l">
+        <span class="hx-dot"></span>
+        <span id="article-footer-title">笔记</span>
+      </div>
+      <div class="hx-footer-m">
+        <span>// note detail / notion import</span>
+      </div>
+      <div class="hx-footer-r">
+        <span class="hx-prompt">$ ./notes --open</span>
+      </div>
     </footer>
   </div>
 

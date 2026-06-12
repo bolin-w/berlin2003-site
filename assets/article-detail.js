@@ -4,14 +4,7 @@ const categoryEl = document.querySelector("#article-category");
 const dateEl = document.querySelector("#article-date");
 const footerTitleEl = document.querySelector("#article-footer-title");
 const subtitleEl = document.querySelector("#article-subtitle");
-
-function buildSubtitle(article) {
-  const category = String(article.category || "").trim();
-  if (category) {
-    return `这是一篇归入「${category}」的 Notion 笔记。`;
-  }
-  return "这是一篇从 Notion 导入到站点里的笔记文章。";
-}
+const breadcrumbEl = document.querySelector("#article-breadcrumb");
 
 function formatDate(iso) {
   if (!iso) return "";
@@ -33,11 +26,16 @@ async function loadArticle() {
     const a = data.article;
     document.title = `Berlin2003 / ${a.title}`;
     titleEl.textContent = a.title;
-    categoryEl.textContent = a.category;
+    categoryEl.textContent = a.category ? `${a.module} · ${a.category}` : a.module;
     footerTitleEl.textContent = a.title;
-    dateEl.textContent = formatDate(a.createdAt);
-    subtitleEl.textContent = buildSubtitle(a);
-    document.body.classList.add("paper-note-page");
+    const formattedDate = formatDate(a.createdAt);
+    dateEl.textContent = formattedDate || "UNDATED";
+    if (subtitleEl) {
+      subtitleEl.textContent = a.category
+        ? `${a.module} / ${a.category}${formattedDate ? ` · ${formattedDate}` : ""}`
+        : `${a.module}${formattedDate ? ` · ${formattedDate}` : ""}`;
+    }
+    if (breadcrumbEl) breadcrumbEl.textContent = a.title;
     contentEl.innerHTML = a.contentHtml || "<p>这篇文章没有内容。</p>";
   } catch { titleEl.textContent = "加载失败"; }
 }

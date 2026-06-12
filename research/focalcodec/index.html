@@ -1,92 +1,140 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Berlin2003 / FocalCodec</title>
-  <meta name="description" content="FocalCodec：single-codebook 极低码率语音编码路线。">
-  <meta name="theme-color" content="#f7fbff">
+  <meta name="theme-color" content="#f4efe6">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
-  <link rel="stylesheet" href="/assets/paper-lab.css?v=20260502-acoustic-deep">
 </head>
-<body class="edition-body paper-lab-body acoustic-paper-page">
-  <div class="site-shell paper-lab-shell">
-    <header class="paper-lab-topbar">
-      <a class="paper-lab-brand" href="/"><span>Berlin</span><strong>2003</strong></a>
-      <nav class="paper-lab-nav" aria-label="研究导航">
-        <a href="/research/stable-codec/">上一篇</a>
-        <a href="/research/dualcodec/">下一篇</a>
-        <a href="/research/acoustic/">声学层</a>
-      </nav>
+<body>
+  <div class="site-shell">
+    <header class="module-top">
+      <a class="backlink" href="/research/acoustic/">← 声学编码器</a>
+      <span>FocalCodec</span>
     </header>
 
-    <main class="paper-lab-main">
-      <section class="paper-lab-hero">
-        <div class="paper-lab-copy">
-          <p class="paper-lab-kicker">2025 / Ultra Low Bitrate</p>
+    <main class="module-main paper-page">
+      <section class="paper-hero">
+        <div>
+          <p class="paper-kicker">2025 / Low-Bitrate Speech Codec</p>
           <h1>FocalCodec</h1>
-          <p class="paper-lab-lead">FocalCodec 把问题压到极低码率语音编码：single-codebook、低 bit rate 和 focal modulation network，让声学层在极小带宽内尽量保住可懂度与听感。</p>
-          <div class="paper-lab-actions">
-            <a class="paper-lab-primary" href="https://arxiv.org/abs/2502.15447" target="_blank" rel="noreferrer">论文原文</a>
-            <a href="/research/acoustic/">声学路线</a>
-          </div>
+          <p class="paper-summary">FocalCodec 这页最值得看的，是它把极低码率 speech codec 做得非常坚决：single-codebook、focal modulation、12.5 / 25 / 50 Hz 三档 token rate，再加上后续 streaming causal 版本，明显是在压极限。</p>
         </div>
 
-        <figure class="paper-lab-figure">
-          <img src="/assets/architecture-focalcodec.png" alt="FocalCodec architecture diagram">
-          <figcaption>技术结构图：FocalCodec 以 WavLM-large 前 6 层、focal compressor / decompressor、单一 BSQ 码本和 Vocos decoder 组成低码率语音编码链路。</figcaption>
-          <div class="paper-lab-source">
-            <a href="https://arxiv.org/abs/2502.15447" target="_blank" rel="noreferrer">arXiv</a>
-            <a href="/research/acoustic/">Acoustic Map</a>
+        <aside class="paper-side">
+          <div class="paper-side-card">
+            <small>定位</small>
+            <strong>单码本、极低码率的语音 codec 路线</strong>
+          </div>
+          <div class="paper-side-card">
+            <small>图源</small>
+            <strong>官方仓库中的 <code>focalcodec.png</code></strong>
+          </div>
+        </aside>
+      </section>
+
+      <div class="paper-stack">
+        <figure class="paper-figure">
+          <img src="/assets/official-focalcodec.png" alt="FocalCodec 官方图">
+          <figcaption>图源：FocalCodec 官方仓库。图里最关键的不是画得多复杂，而是它把 focal modulation 和 single-codebook 这两个决定性设计放到了前台，说明整条路线就是冲着极低码率去的。</figcaption>
+          <div class="paper-image-actions">
+            <a class="paper-inline-link" href="https://raw.githubusercontent.com/lucadellalib/focalcodec/main/focalcodec.png" target="_blank" rel="noreferrer">原图</a>
+            <a class="paper-inline-link" href="https://arxiv.org/abs/2502.04465" target="_blank" rel="noreferrer">论文</a>
+            <a class="paper-inline-link" href="https://github.com/lucadellalib/focalcodec" target="_blank" rel="noreferrer">官方仓库</a>
           </div>
         </figure>
-      </section>
 
-      <section class="paper-lab-metrics">
-        <article><span>Bitrate</span><strong>0.16-0.80 kbps</strong><p>把语音编码压到非常低的传输预算。</p></article>
-        <article><span>Codebook</span><strong>single-codebook</strong><p>减少多级码本复杂度，逼迫表示更集中。</p></article>
-        <article><span>Focus</span><strong>关键语音信息</strong><p>有限带宽下优先保住对可懂度最关键的信息。</p></article>
-      </section>
+        <section class="paper-glance">
+          <article>
+            <span>Codebook</span>
+            <strong>single-codebook 而不是多级 RVQ</strong>
+            <p>这是一个很强的取舍：用更简洁的离散结构换更低码率和更清晰的部署路径。</p>
+          </article>
+          <article>
+            <span>Rate</span>
+            <strong>12.5 / 25 / 50 Hz，0.16-0.80 kbps</strong>
+            <p>目标直接对准极低码率区间，而不是在更宽松的码率上做保守优化。</p>
+          </article>
+          <article>
+            <span>Extension</span>
+            <strong>后续有 streaming causal 版本</strong>
+            <p>这说明它不是停在离线实验，而是在继续把极低码率路线推向实时链路。</p>
+          </article>
+        </section>
 
-      <section class="paper-lab-deep">
-        <div class="paper-lab-section-head"><span>Paper Deep Dive</span><h2>论文精讲：FocalCodec 如何把语音压到极低码率</h2></div>
-        <div class="paper-lab-deep-grid">
-          <article class="paper-lab-deep-card paper-lab-deep-card-wide"><span>模型解析</span><strong>WavLM 表示、focal 压缩和单一 BSQ 码本</strong><ul><li>前端使用 WavLM-large 前 6 层提取强语音表示，通常冻结或作为稳定语义特征来源。</li><li>focal compressor 把高维表示压到低维 latent，BSQ 单码本负责离散化。</li><li>focal decompressor 和 Vocos decoder 再把低维离散码恢复成高保真 speech waveform。</li></ul></article>
-          <article class="paper-lab-deep-card paper-lab-deep-card-wide"><span>创新点</span><strong>极低码率下主动选择保什么</strong><ul><li>single-codebook 让 token 接口极简，但也形成非常强的信息瓶颈。</li><li>focal modulation 把模型容量集中到对可懂度和语义最关键的部分。</li><li>BSQ 让码本规模清晰可控，适合超低码率 speech coding。</li></ul></article>
-          <article class="paper-lab-deep-card"><span>损失函数</span><strong>目标不是保留全部细节，而是保住关键语音信息</strong><ul><li>重建损失保证 waveform / spectral 层面基本可听。</li><li>语义或表示保持目标避免极低码率下内容丢失。</li><li>量化相关损失约束 BSQ code，使单码本不塌缩并保持可生成。</li></ul></article>
-          <article class="paper-lab-deep-card"><span>训练策略</span><strong>冻结强语音前端，训练压缩和恢复链路</strong><ul><li>利用预训练 WavLM 减少从 waveform 重新学习语义结构的难度。</li><li>compressor / decompressor 在低维瓶颈中学习最小信息保留。</li><li>Vocos 侧负责把有限 token 恢复成自然语音，而不是让前端码本承担所有细节。</li></ul></article>
-          <article class="paper-lab-deep-card"><span>结果分析</span><strong>它更像通信和生成前端，不是通用高保真音频 codec</strong><ul><li>优势是极低码率和简单 token 接口，适合带宽极紧或 speech LM 场景。</li><li>语音可懂度和语义保留优先级高于音乐、环境声等宽域音频质量。</li><li>单码本容量有限，复杂韵律和细节恢复更依赖 decoder 先验。</li></ul></article>
-        </div>
-      </section>
+        <section class="paper-section">
+          <div>
+            <div class="paper-section-label">Core Route</div>
+            <p class="paper-section-lede">FocalCodec 的重要性在于它不是顺着传统多级 RVQ 继续加细节，而是试图用更简洁的离散结构，把极低码率 speech codec 直接做成一条清晰的路线。</p>
+          </div>
 
-      <section class="paper-lab-section">
-        <div class="paper-lab-section-head"><span>Core Route</span><h2>FocalCodec 的极低码率取向</h2></div>
-        <div class="paper-lab-grid">
-          <article class="paper-lab-card"><span>01</span><strong>码率先压到底</strong><p>先接受极低带宽约束，再看模型如何补救可懂度和质感。</p></article>
-          <article class="paper-lab-card"><span>02</span><strong>单码本更苛刻</strong><p>容量变小后，表示必须更集中、更有效。</p></article>
-          <article class="paper-lab-card"><span>03</span><strong>focal modulation</strong><p>让模型把能力集中在更关键的语音结构上。</p></article>
-          <article class="paper-lab-card"><span>04</span><strong>适合通信场景</strong><p>它更接近真实低带宽语音链路，而不是高保真音频生成。</p></article>
-        </div>
-      </section>
+          <div class="paper-section-body">
+            <article class="paper-card">
+              <h2>为什么 single-codebook 是一个强信号</h2>
+              <p>过去很多 codec 习惯用多级 RVQ 来逐层补残差。FocalCodec 反过来做了更激进的取舍：用单码本结构去逼近极低码率目标。这让整个系统的接口更干净，但也意味着编码器必须更会把关键信息压进有限表示里。</p>
+            </article>
 
-      <section class="paper-lab-section">
-        <div class="paper-lab-section-head"><span>Reading Cut</span><h2>读这页时抓三个判断</h2></div>
-        <div class="paper-lab-cuts">
-          <article class="paper-lab-cut"><span>Cut 01</span><strong>极低码率会暴露分工问题</strong><p>内容、音色和细节不可能都完整保留，必须决定优先级。</p></article>
-          <article class="paper-lab-cut"><span>Cut 02</span><strong>单码本是强约束</strong><p>它迫使模型学习更压缩、更稳定的声学表示。</p></article>
-          <article class="paper-lab-cut"><span>Cut 03</span><strong>语义层支撑会变重要</strong><p>码率越低，越需要上游语义信息帮助声学恢复。</p></article>
-        </div>
-      </section>
+            <article class="paper-card">
+              <h2>focal modulation 在这里承担什么角色</h2>
+              <p>它不是一个点缀性模块，而是为了让单码本路线仍然有足够表达能力。换句话说，FocalCodec 不是简单减少 codebook 数量，而是同步重做了表示调制方式，避免信息损失过快。</p>
+            </article>
 
-      <nav class="paper-lab-next">
-        <a href="/research/stable-codec/"><span>Prev</span><strong>Stable Codec</strong><p>回到 Transformer codec 路线。</p></a>
-        <a href="/research/dualcodec/"><span>Next</span><strong>DualCodec</strong><p>看语义增强 codec。</p></a>
-        <a href="/research/hh-codec/"><span>Next</span><strong>HH-Codec</strong><p>看 spoken LM 前端。</p></a>
-      </nav>
+            <article class="paper-card">
+              <h2>为什么 0.16 kbps 这个区间值得单独看</h2>
+              <p>因为到了这个量级，很多常规做法都会失效。模型必须更精准地决定哪些内容要留、哪些细节可以舍弃，这正好逼出了 codec 与更高层语音内容表示之间的真实边界。</p>
+            </article>
+
+            <article class="paper-card">
+              <h2>streaming causal 版本意味着什么</h2>
+              <p>这说明作者不是只做一个离线低码率结果，而是在继续处理实时场景。极低码率、可流式、还能保持可懂度，这几个约束一起出现时，这条路线的工程价值就会明显上升。</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="paper-links">
+          <a class="paper-link" href="https://arxiv.org/abs/2502.04465" target="_blank" rel="noreferrer">
+            <span>Source 01</span>
+            <strong>论文原文</strong>
+            <small>FocalCodec: Low-Bitrate Speech Coding via Focal Modulation Networks with Single Binary Codebook。</small>
+          </a>
+          <a class="paper-link" href="https://github.com/lucadellalib/focalcodec" target="_blank" rel="noreferrer">
+            <span>Source 02</span>
+            <strong>官方代码</strong>
+            <small>仓库里给出了 16 / 24 kHz、不同 token rate 和 streaming 版本的说明。</small>
+          </a>
+        </section>
+
+        <nav class="paper-nav">
+          <a href="/research/acoustic/">
+            <span>Index</span>
+            <strong>声学编码器</strong>
+            <small>回到方向 02 的内部空间。</small>
+          </a>
+          <a href="/research/stable-codec/">
+            <span>Prev</span>
+            <strong>Stable Codec</strong>
+            <small>回到 Transformer 化的低码率 codec 路线。</small>
+          </a>
+          <a href="/research/dualcodec/">
+            <span>Next</span>
+            <strong>DualCodec</strong>
+            <small>继续看双流语义增强的 codec 设计。</small>
+          </a>
+          <a href="/research/hh-codec/">
+            <span>Next</span>
+            <strong>HH-Codec</strong>
+            <small>再看更直接面向 spoken LM 的前端版本。</small>
+          </a>
+        </nav>
+      </div>
     </main>
 
-    <footer class="paper-lab-footer"><span>FocalCodec</span><span>single-codebook ultra-low bitrate</span></footer>
+    <footer class="footer">
+      <span>FocalCodec</span>
+      <span>berlin2003.ccwu.cc</span>
+    </footer>
   </div>
   <script src="/assets/site-chat.js"></script>
 </body>

@@ -1,5 +1,7 @@
 const importForm = document.querySelector("#notion-import-form");
 const urlInput = document.querySelector("#notion-url");
+const moduleInput = document.querySelector("#notion-module");
+const categoryLabel = document.querySelector("#notion-category-label");
 const categoryInput = document.querySelector("#notion-category");
 const publicInput = document.querySelector("#notion-public");
 const importBtn = document.querySelector("#import-btn");
@@ -8,6 +10,8 @@ const statusText = document.querySelector("#import-status-text");
 const articlesList = document.querySelector("#articles-list");
 const refreshBtn = document.querySelector("#refresh-articles");
 
+const NOTE_CATEGORIES = ["论文阅读", "模型训练", "部署记录", "页面改版"];
+
 function setStatus(kind, text) {
   statusDot.className = "status-dot";
   if (kind) {
@@ -15,6 +19,22 @@ function setStatus(kind, text) {
   }
   statusText.textContent = text;
 }
+
+// ── Module / Category cascade ──
+
+function updateCategoryVisibility() {
+  const mod = moduleInput.value;
+  if (mod === "笔记") {
+    categoryLabel.style.display = "";
+  } else {
+    categoryLabel.style.display = "none";
+  }
+}
+
+moduleInput.addEventListener("change", updateCategoryVisibility);
+updateCategoryVisibility();
+
+// ── Health check ──
 
 async function checkHealth() {
   try {
@@ -30,6 +50,8 @@ async function checkHealth() {
   }
 }
 
+// ── Format date ──
+
 function formatDate(iso) {
   if (!iso) return "";
   const d = new Date(iso);
@@ -43,36 +65,38 @@ function formatDate(iso) {
   });
 }
 
+// ── Render articles grouped by module → category ──
+
 function renderArticles(articles) {
   if (!articles || articles.length === 0) {
     articlesList.innerHTML = '<p class="result-placeholder">还没有导入任何文章。</p>';
     return;
   }
 
-  const categoryGroups = [
-    { title: "论文阅读", match: ["论文阅读", "论文笔记", "paper", "research", "reading"] },
-    { title: "模型判断", match: ["模型判断", "技术总结", "judgement", "judgment", "model"] },
-    { title: "部署记录", match: ["部署记录", "deploy", "deployment", "ops"] },
-    { title: "页面改版", match: ["页面改版", "ui", "页面", "design"] },
-    { title: "项目记录", match: ["项目", "项目记录", "项目笔记", "project", "milestone", "roadmap"] },
-    { title: "其余文章", match: [] }
-  ];
+  const groups = {};
+  // Project articles
+  groups["项目"] = [];
+  // Note articles grouped by sub-category
+  for (const cat of NOTE_CATEGORIES) {
+    groups["笔记 · " + cat] = [];
+  }
 
-  const grouped = categoryGroups.map((group) => ({ ...group, items: [] }));
-  for (const article of articles) {
-    const category = String(article.category || "").toLowerCase();
-    const target =
-      grouped.find((group) => group.match.some((key) => category.includes(key.toLowerCase()))) ||
-      grouped[grouped.length - 1];
-    target.items.push(article);
+  for (const a of articles) {
+    if (a.module === "项目") {
+      groups["项目"].push(a);
+    } else if (a.category && NOTE_CATEGORIES.includes(a.category)) {
+      groups["笔记 · " + a.category].push(a);
+    } else {
+      // fallback for unmigrated
+      groups["项目"].push(a);
+    }
   }
 
   let html = "";
-  for (const group of grouped) {
-    const items = group.items;
+  for (const [label, items] of Object.entries(groups)) {
     if (items.length === 0) continue;
 
-    html += `<div class="notion-article-group"><h3>${group.title}</h3>`;
+    html += `<div class="notion-article-group"><h3>${label}</h3>`;
     for (const article of items) {
       const publicBadge = article.public
         ? '<span class="notion-badge notion-badge-public">公开</span>'
@@ -105,6 +129,8 @@ function renderArticles(articles) {
   });
 }
 
+// ── API calls ──
+
 async function loadArticles() {
   try {
     const response = await fetch("/api/notion/articles");
@@ -132,11 +158,14 @@ async function deleteArticle(id) {
   }
 }
 
+// ── Form submit ──
+
 importForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   const url = urlInput.value.trim();
-  const category = categoryInput.value;
+  const mod = moduleInput.value;
+  const category = mod === "笔记" ? categoryInput.value : null;
   const isPublic = publicInput.value === "true";
 
   if (!url) {
@@ -152,7 +181,7 @@ importForm.addEventListener("submit", async (event) => {
     const response = await fetch("/api/notion/import", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ url, category, public: isPublic })
+      body: JSON.stringify({ url, module: mod, category, public: isPublic })
     });
 
     const data = await response.json();

@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">HH-Codec model structure</title>
+  <desc id="desc">Redrawn architecture diagram based on the paper structure.</desc>
+  <defs>
+    <linearGradient id="paperBg" x1="0" y1="0" x2="1280" y2="720" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FBFEFF"/>
+      <stop offset="0.62" stop-color="#F0FAFA"/>
+      <stop offset="1" stop-color="#FFF8F3"/>
+    </linearGradient>
+    <filter id="softShadow" x="-15%" y="-25%" width="130%" height="160%">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#0B3C5D" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrowInk" markerWidth="16" markerHeight="16" refX="10" refY="8" orient="auto">
+      <path d="M2 2L12 8L2 14" fill="none" stroke="#07162F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrowTeal" markerWidth="16" markerHeight="16" refX="10" refY="8" orient="auto">
+      <path d="M2 2L12 8L2 14" fill="none" stroke="#0D999D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="16" markerHeight="16" refX="10" refY="8" orient="auto">
+      <path d="M2 2L12 8L2 14" fill="none" stroke="#F26419" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+  <style>
+    .bg{fill:url(#paperBg)}
+    .grid{stroke:#D9EDF7;stroke-width:1;opacity:.75}
+    .title{font:850 34px "Aptos Display","Segoe UI",sans-serif;fill:#07162F}
+    .kicker{font:800 15px "Aptos","Segoe UI",sans-serif;fill:#0D999D;text-transform:uppercase}
+    .footer{font:750 13px "Aptos","Segoe UI",sans-serif;fill:#5A6C84}
+    .node,.mini,.token{fill:#FFFFFF;stroke-width:2;filter:url(#softShadow)}
+    .node.blue,.mini.blue,.token.blue{stroke:#1264E8}
+    .node.teal,.mini.teal,.token.teal{stroke:#0D999D}
+    .node.orange,.mini.orange,.token.orange{stroke:#F26419}
+    .node.ink,.mini.ink,.token.ink{stroke:#07162F}
+    .node-label{font:850 21px "Aptos Display","Segoe UI",sans-serif;fill:#07162F}
+    .node-sub{font:700 14px "Aptos","Segoe UI",sans-serif;fill:#53647D}
+    .mini-label{font:800 13px "Aptos","Segoe UI",sans-serif;fill:#07162F}
+    .token-label{font:850 13px "Aptos","Segoe UI",sans-serif;fill:#07162F}
+    .group{fill:rgba(255,255,255,.62);stroke:#9DB9D3;stroke-width:1.7;stroke-dasharray:8 8}
+    .group-label{font:850 15px "Aptos","Segoe UI",sans-serif;fill:#53647D}
+    .label{font:850 18px "Aptos","Segoe UI",sans-serif;fill:#07162F}
+    .sub{font:700 14px "Aptos","Segoe UI",sans-serif;fill:#53647D}
+    .arrow{fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+    .arrow.ink{stroke:#07162F;marker-end:url(#arrowInk)}
+    .arrow.teal{stroke:#0D999D;marker-end:url(#arrowTeal)}
+    .arrow.orange{stroke:#F26419;marker-end:url(#arrowOrange)}
+    .line{fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+    .line.muted{stroke:#9DB0C5;stroke-dasharray:6 7}
+    .line.orange{stroke:#F26419;stroke-dasharray:7 7}
+    .wave path{fill:none;stroke-width:4;stroke-linecap:round}
+    .wave.teal path{stroke:#0D999D}
+    .wave.blue path{stroke:#1264E8}
+    .wave.orange path{stroke:#F26419}
+  </style>
+  <rect width="1280" height="720" rx="0" class="bg"/>
+  <path d="M80 0V720" class="grid"/><path d="M160 0V720" class="grid"/><path d="M240 0V720" class="grid"/><path d="M320 0V720" class="grid"/><path d="M400 0V720" class="grid"/><path d="M480 0V720" class="grid"/><path d="M560 0V720" class="grid"/><path d="M640 0V720" class="grid"/><path d="M720 0V720" class="grid"/><path d="M800 0V720" class="grid"/><path d="M880 0V720" class="grid"/><path d="M960 0V720" class="grid"/><path d="M1040 0V720" class="grid"/><path d="M1120 0V720" class="grid"/><path d="M1200 0V720" class="grid"/>
+  <path d="M0 80H1280" class="grid"/><path d="M0 160H1280" class="grid"/><path d="M0 240H1280" class="grid"/><path d="M0 320H1280" class="grid"/><path d="M0 400H1280" class="grid"/><path d="M0 480H1280" class="grid"/><path d="M0 560H1280" class="grid"/><path d="M0 640H1280" class="grid"/>
+  <text x="54" y="62" class="title" text-anchor="start">HH-Codec</text>
+  <text x="54" y="94" class="kicker" text-anchor="start">High compression high-fidelity codec for spoken language modeling</text>
+  
+      <g class="wave teal" transform="translate(58 316)">
+    <path d="M0 28 C12 -8 24 64 36 28 C48 -8 60 64 72 28 C84 -8 96 64 108 28"/>
+  </g>
+      <path d="M176 344 L224 344" class="arrow ink"/>
+      <g>
+    <rect x="228" y="296" width="152" height="96" rx="18" class="node blue"/>
+    <text x="304" y="332" class="node-label" text-anchor="middle">Encoder</text>
+    <text x="304" y="354" class="node-sub"><tspan x="304" dy="0">speech latent</tspan><tspan x="304" dy="20">low rate</tspan></text>
+  </g>
+      <path d="M380 344 L438 344" class="arrow ink"/>
+      <g>
+    <rect x="442" y="296" width="138" height="96" rx="18" class="node orange"/>
+    <text x="511" y="332" class="node-label" text-anchor="middle">VQ1</text>
+    <text x="511" y="354" class="node-sub"><tspan x="511" dy="0">single quantizer</tspan><tspan x="511" dy="20">24 tokens/s</tspan></text>
+  </g>
+      <path d="M580 344 L640 344" class="arrow ink"/>
+      <g>
+    <rect x="644" y="296" width="160" height="96" rx="18" class="node teal"/>
+    <text x="724" y="332" class="node-label" text-anchor="middle">MLP Refine</text>
+    <text x="724" y="354" class="node-sub"><tspan x="724" dy="0">clean latent</tspan><tspan x="724" dy="20">LM-ready</tspan></text>
+  </g>
+      <path d="M804 344 L864 344" class="arrow ink"/>
+      <g>
+    <rect x="868" y="296" width="150" height="96" rx="18" class="node blue"/>
+    <text x="943" y="332" class="node-label" text-anchor="middle">Decoder</text>
+    <text x="943" y="354" class="node-sub"><tspan x="943" dy="0">mel restore</tspan><tspan x="943" dy="20">features</tspan></text>
+  </g>
+      <path d="M1018 344 L1078 344" class="arrow ink"/>
+      <g>
+    <rect x="1082" y="296" width="150" height="96" rx="18" class="node orange"/>
+    <text x="1157" y="332" class="node-label" text-anchor="middle">BigVGAN</text>
+    <text x="1157" y="354" class="node-sub"><tspan x="1157" dy="0">fine-tuned</tspan><tspan x="1157" dy="20">waveform</tspan></text>
+  </g>
+      <g>
+    <rect x="316" y="130" width="220" height="72" rx="18" class="node orange"/>
+    <text x="426" y="166" class="node-label" text-anchor="middle">Dual Supervision</text>
+    <text x="426" y="188" class="node-sub"><tspan x="426" dy="0">discrete front-end</tspan><tspan x="426" dy="20">reconstruction quality</tspan></text>
+  </g>
+      <g>
+    <rect x="702" y="130" width="226" height="72" rx="18" class="node blue"/>
+    <text x="815" y="166" class="node-label" text-anchor="middle">Progressive Training</text>
+    <text x="815" y="188" class="node-sub"><tspan x="815" dy="0">stabilize extreme compression</tspan><tspan x="815" dy="20">high-fidelity target</tspan></text>
+  </g>
+      <path d="M430 296 C430 246 418 224 426 202" class="line orange"/>
+      <path d="M782 296 C782 244 800 222 814 202" class="line muted"/>
+      <g>
+    <rect x="64" y="500" width="166" height="34" rx="12" class="mini orange"/>
+    <text x="147" y="523" class="mini-label" text-anchor="middle">0.3 kbps</text>
+  </g>
+      <g>
+    <rect x="252" y="500" width="166" height="34" rx="12" class="mini blue"/>
+    <text x="335" y="523" class="mini-label" text-anchor="middle">spoken LM</text>
+  </g>
+      <g>
+    <rect x="440" y="500" width="166" height="34" rx="12" class="mini teal"/>
+    <text x="523" y="523" class="mini-label" text-anchor="middle">fast inference</text>
+  </g>
+    
+  <text x="54" y="676" class="footer" text-anchor="start">REDRAWN MODEL STRUCTURE</text>
+  <text x="1226" y="676" class="footer" text-anchor="end">24 tokens/s spoken LM front-end</text>
+</svg>

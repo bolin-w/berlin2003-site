@@ -1694,6 +1694,317 @@ body::before {
   color: var(--muted);
 }
 
+/* Notion import */
+.notion-import-shell {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.notion-articles-list {
+  max-height: 520px;
+  overflow-y: auto;
+}
+
+.notion-article-group {
+  margin-bottom: 18px;
+}
+
+.notion-article-group h3 {
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 8px;
+  font-family: "Cascadia Code", Consolas, monospace;
+}
+
+.notion-article-card {
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  margin-bottom: 6px;
+  background: var(--panel);
+  transition: background 0.15s;
+}
+
+.notion-article-card:hover {
+  background: var(--panel-hover);
+}
+
+.notion-article-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.notion-article-card-top strong {
+  font-size: 0.92rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.notion-article-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+
+.notion-article-card-meta small {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.notion-article-card-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.notion-action-link {
+  font-size: 0.78rem;
+  color: var(--accent);
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+}
+
+.notion-action-link:hover {
+  text-decoration: underline;
+}
+
+.notion-badge {
+  font-size: 0.7rem;
+  padding: 1px 7px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  font-family: "Cascadia Code", Consolas, monospace;
+}
+
+.notion-badge-public {
+  background: rgba(31, 143, 103, 0.12);
+  color: var(--signal);
+}
+
+.notion-badge-private {
+  background: rgba(111, 104, 93, 0.12);
+  color: var(--muted);
+}
+
+/* Notion article content */
+.notion-article-body {
+  line-height: 1.78;
+  font-size: 1rem;
+}
+
+.notion-article-body h2 {
+  font-size: 1.5rem;
+  margin: 2em 0 0.6em;
+}
+
+.notion-article-body h3 {
+  font-size: 1.2rem;
+  margin: 1.6em 0 0.5em;
+}
+
+.notion-article-body h4 {
+  font-size: 1.05rem;
+  margin: 1.4em 0 0.4em;
+}
+
+.notion-article-body p {
+  margin: 0.6em 0;
+}
+
+.notion-article-body blockquote {
+  margin: 1em 0;
+  padding: 10px 16px;
+  border-left: 3px solid var(--accent);
+  background: var(--bg-soft);
+  color: var(--muted);
+  border-radius: 0 6px 6px 0;
+}
+
+.notion-article-body pre {
+  margin: 1em 0;
+  padding: 14px 18px;
+  background: #1e1e1e;
+  color: #d4d4d4;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+.notion-article-body code {
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 0.9em;
+}
+
+.notion-article-body p code,
+.notion-article-body li code {
+  background: rgba(178, 107, 47, 0.1);
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: var(--accent);
+}
+
+.notion-article-body .notion-callout {
+  display: flex;
+  gap: 10px;
+  padding: 12px 16px;
+  margin: 1em 0;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.notion-article-body .notion-callout-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.notion-article-body .notion-image {
+  margin: 1.2em 0;
+}
+
+.notion-article-body .notion-image img {
+  max-width: 100%;
+  border-radius: 8px;
+  display: block;
+}
+
+.notion-article-body .notion-image figcaption,
+.notion-article-body .notion-code figcaption {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-top: 6px;
+  text-align: center;
+}
+
+.notion-article-body .notion-todo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0;
+}
+
+.notion-article-body .notion-bookmark {
+  display: block;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  margin: 0.8em 0;
+  color: var(--accent);
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.notion-article-body .notion-bookmark:hover {
+  background: var(--bg-soft);
+}
+
+.notion-article-body ul,
+.notion-article-body ol {
+  padding-left: 1.4em;
+  margin: 0.6em 0;
+}
+
+.notion-article-body hr {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 1.8em 0;
+}
+
+/* Notes section */
+.notes-section {
+  margin-top: 40px;
+}
+
+.notes-group {
+  margin-bottom: 24px;
+}
+
+.notes-group-label {
+  display: block;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-family: "Cascadia Code", Consolas, monospace;
+  margin-bottom: 10px;
+}
+
+.notes-card {
+  margin-bottom: 8px;
+}
+
+.notes-card-tag {
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-family: "Cascadia Code", Consolas, monospace;
+}
+
+/* Article detail page */
+.article-detail-shell {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.article-detail-back {
+  margin-bottom: 20px;
+}
+
+.article-detail-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.article-detail-source {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.article-detail-source a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.article-detail-source a:hover {
+  text-decoration: underline;
+}
+
+.notion-sub-section {
+  grid-column: 1 / -1;
+}
+
+.notion-sub-section + .notion-sub-section {
+  margin-top: 8px;
+}
+
+.notion-sub-heading {
+  font-size: 0.88rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--section-muted, #8a8578);
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
 .anime-page {
   --anime-ink: #fff8e8;
   --anime-muted: rgba(255, 248, 232, 0.68);
@@ -6282,5 +6593,285 @@ body::after {
   .signal-box,
   .readout-card {
     transition: none;
+  }
+}
+
+/* ============================================================
+   legacy-hx-bridge.css — remap legacy detail pages to hx mood
+   ============================================================ */
+
+body:not(.hx-body):not(.section-lab-body) {
+  color: #dbe7fb;
+  font-family: "Segoe UI Variable Text", "Noto Sans SC", "Microsoft YaHei UI", sans-serif;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(76, 201, 240, 0.12), transparent 22%),
+    radial-gradient(circle at 82% 10%, rgba(157, 123, 255, 0.12), transparent 18%),
+    linear-gradient(180deg, #061224 0%, #09172d 46%, #08111f 100%);
+}
+
+body:not(.hx-body):not(.section-lab-body)::before {
+  opacity: 0.12;
+  background:
+    linear-gradient(rgba(112, 173, 255, 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(112, 173, 255, 0.1) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: none;
+}
+
+body:not(.hx-body):not(.section-lab-body) .site-shell {
+  width: min(1180px, calc(100% - 32px));
+  padding: 24px 0 56px;
+}
+
+body:not(.hx-body):not(.section-lab-body) .module-top,
+body:not(.hx-body):not(.section-lab-body) .footer {
+  align-items: center;
+  gap: 16px;
+  padding: 0 0 18px;
+  border-bottom: 1px solid rgba(76, 201, 240, 0.12);
+}
+
+body:not(.hx-body):not(.section-lab-body) .footer {
+  margin-top: 34px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(76, 201, 240, 0.12);
+  border-bottom: 0;
+  color: rgba(220, 230, 250, 0.58);
+}
+
+body:not(.hx-body):not(.section-lab-body) .backlink,
+body:not(.hx-body):not(.section-lab-body) .module-top span {
+  color: rgba(220, 230, 250, 0.74);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+body:not(.hx-body):not(.section-lab-body) .backlink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0 14px;
+  border: 1px solid rgba(76, 201, 240, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+body:not(.hx-body):not(.section-lab-body) .module-main {
+  padding: 30px 0 0;
+}
+
+body:not(.hx-body):not(.section-lab-body) .paper-page,
+body:not(.hx-body):not(.section-lab-body) .paper-stack {
+  display: grid;
+  gap: 22px;
+}
+
+body:not(.hx-body):not(.section-lab-body) .paper-hero {
+  grid-template-columns: minmax(0, 1.2fr) 320px;
+  gap: 20px;
+  align-items: start;
+  padding: 28px;
+  border: 1px solid rgba(76, 201, 240, 0.14);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(11, 22, 42, 0.92), rgba(7, 15, 30, 0.96));
+  box-shadow: 0 20px 48px rgba(2, 7, 20, 0.36);
+}
+
+body:not(.hx-body):not(.section-lab-body) .paper-kicker,
+body:not(.hx-body):not(.section-lab-body) .paper-section-label,
+body:not(.hx-body):not(.section-lab-body) .paper-side-card small,
+body:not(.hx-body):not(.section-lab-body) .paper-glance article span,
+body:not(.hx-body):not(.section-lab-body) .paper-link span,
+body:not(.hx-body):not(.section-lab-body) .paper-nav span {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.76rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #4cc9f0;
+}
+
+body:not(.hx-body):not(.section-lab-body) .paper-hero h1,
+body:not(.hx-body):not(.section-lab-body) .paper-card h2,
+body:not(.hx-body):not(.section-lab-body) .paper-link strong,
+body:not(.hx-body):not(.section-lab-body) .paper-nav strong,
+body:not(.hx-body):not(.section-lab-body) .paper-side-card strong,
+body:not(.hx-body):not(.section-lab-body) .paper-glance article strong {
+  color: #eef5ff;
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  letter-spacing: 0;
+}
+
+body:not(.hx-body):not(.section-lab-body) .paper-hero h1 {
+  margin-top: 10px;
+  font-size: clamp(2.8rem, 6vw, 4.7rem);
+  line-height: 0.96;
+}
+
+body:not(.hx-body):not(.section-lab-body) .paper-summary,
+body:not(.hx-body):not(.section-lab-body) .paper-side-card,
+body:not(.hx-body):not(.section-lab-body) .paper-glance article p,
+body:not(.hx-body):not(.section-lab-body) .paper-card p,
+body:not(.hx-body):not(.section-lab-body) .paper-link small,
+body:not(.hx-body):not(.section-lab-body) .paper-nav small,
+body:not(.hx-body):not(.section-lab-body) .paper-figure figcaption {
+  color: rgba(220, 230, 250, 0.74);
+}
+
+body:not(.hx-body):not(.section-lab-body) .paper-summary {
+  max-width: 58ch;
+  line-height: 1.86;
+}
+
+body:not(.hx-body):not(.section-lab-body) .paper-side {
+  display: grid;
+  gap: 14px;
+}
+
+body:not(.hx-body):not(.section-lab-body) .paper-side-card,
+body:not(.hx-body):not(.section-lab-body) .paper-figure,
+body:not(.hx-body):not(.section-lab-body) .paper-glance article,
+body:not(.hx-body):not(.section-lab-body) .paper-section,
+body:not(.hx-body):not(.section-lab-body) .paper-card,
+body:not(.hx-body):not(.section-lab-body) .paper-link,
+body:not(.hx-body):not(.section-lab-body) .paper-nav a {
+  border: 1px solid rgba(76, 201, 240, 0.14);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(9, 20, 40, 0.88), rgba(7, 14, 28, 0.94));
+  box-shadow: 0 18px 36px rgba(2, 7, 20, 0.32);
+}
+
+body:not(.hx-body):not(.section-lab-body) .paper-side-card,
+body:not(.hx-body):not(.section-lab-body) .paper-card,
+body:not(.hx-body):not(.section-lab-body) .paper-link,
+body:not(.hx-body):not(.section-lab-body) .paper-nav a {
+  padding: 20px;
+}
+
+body:not(.hx-body):not(.section-lab-body) .paper-figure {
+  overflow: hidden;
+  padding: 18px;
+}
+
+body:not(.hx-body):not(.section-lab-body) .paper-figure img {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid rgba(76, 201, 240, 0.12);
+}
+
+body:not(.hx-body):not(.section-lab-body) .paper-image-actions,
+body:not(.hx-body):not(.section-lab-body) .paper-links,
+body:not(.hx-body):not(.section-lab-body) .paper-nav,
+body:not(.hx-body):not(.section-lab-body) .paper-section-body,
+body:not(.hx-body):not(.section-lab-body) .paper-glance {
+  display: grid;
+  gap: 16px;
+}
+
+body:not(.hx-body):not(.section-lab-body) .paper-image-actions {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+body:not(.hx-body):not(.section-lab-body) .paper-inline-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid rgba(157, 123, 255, 0.2);
+  border-radius: 999px;
+  color: #9d7bff;
+  text-decoration: none;
+}
+
+body:not(.hx-body):not(.section-lab-body) .paper-glance {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+body:not(.hx-body):not(.section-lab-body) .paper-section {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 18px;
+  padding: 20px;
+}
+
+body:not(.hx-body):not(.section-lab-body) .paper-section-lede {
+  color: rgba(220, 230, 250, 0.74);
+  line-height: 1.8;
+}
+
+body:not(.hx-body):not(.section-lab-body) .paper-card h2 {
+  margin: 0 0 12px;
+  font-size: 1.3rem;
+  line-height: 1.25;
+}
+
+body:not(.hx-body):not(.section-lab-body) .paper-card p {
+  margin: 0;
+  line-height: 1.82;
+}
+
+body:not(.hx-body):not(.section-lab-body) .paper-link,
+body:not(.hx-body):not(.section-lab-body) .paper-nav a {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+body:not(.hx-body):not(.section-lab-body) .paper-link strong,
+body:not(.hx-body):not(.section-lab-body) .paper-nav strong {
+  display: block;
+  margin-top: 12px;
+  font-size: 1.5rem;
+}
+
+body:not(.hx-body):not(.section-lab-body) .paper-link small,
+body:not(.hx-body):not(.section-lab-body) .paper-nav small {
+  display: block;
+  margin-top: 10px;
+  line-height: 1.72;
+}
+
+body:not(.hx-body):not(.section-lab-body) .paper-nav {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+body:not(.hx-body):not(.section-lab-body) .paper-link:hover,
+body:not(.hx-body):not(.section-lab-body) .paper-nav a:hover,
+body:not(.hx-body):not(.section-lab-body) .backlink:hover {
+  transform: translateY(-2px);
+  border-color: rgba(76, 201, 240, 0.28);
+  box-shadow: 0 22px 42px rgba(3, 10, 24, 0.38);
+}
+
+@media (max-width: 900px) {
+  body:not(.hx-body):not(.section-lab-body) .paper-hero,
+  body:not(.hx-body):not(.section-lab-body) .paper-section,
+  body:not(.hx-body):not(.section-lab-body) .paper-glance,
+  body:not(.hx-body):not(.section-lab-body) .paper-nav {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  body:not(.hx-body):not(.section-lab-body) .site-shell {
+    width: min(100% - 16px, 1180px);
+    padding-top: 16px;
+  }
+
+  body:not(.hx-body):not(.section-lab-body) .module-top,
+  body:not(.hx-body):not(.section-lab-body) .footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  body:not(.hx-body):not(.section-lab-body) .paper-hero {
+    padding: 20px;
+  }
+
+  body:not(.hx-body):not(.section-lab-body) .paper-hero h1 {
+    font-size: clamp(2.4rem, 14vw, 3.6rem);
   }
 }

@@ -10,148 +10,23 @@
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
   <link rel="stylesheet" href="/assets/home-tech.css">
-  <link rel="stylesheet" href="/assets/project-page-hx.css?v=20260525-notes">
+  <link rel="stylesheet" href="/assets/project-page-hx.css?v=20260516">
   <link rel="stylesheet" href="/assets/home-anim.css">
 </head>
-<body class="home hx-body hx-notes-page">
-  <div class="hx-bg" aria-hidden="true">
-    <div class="hx-grid"></div>
-    <div class="hx-orb hx-orb-1"></div>
-    <div class="hx-orb hx-orb-2"></div>
-    <div class="hx-orb hx-orb-3"></div>
-    <div class="hx-scanlines"></div>
-    <div class="hx-noise"></div>
-  </div>
+<body class="home hx-body">
+  <div class="hx-bg" aria-hidden="true"><div class="hx-grid"></div><div class="hx-orb hx-orb-1"></div><div class="hx-orb hx-orb-2"></div><div class="hx-orb hx-orb-3"></div><div class="hx-scanlines"></div><div class="hx-noise"></div></div>
   <div class="hx-shell">
-    <header class="hx-nav" role="banner">
-      <a class="hx-brand" href="/" aria-label="Berlin2003 首页">
-        <span class="hx-brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M3 12 L7 12 L9 6 L13 18 L15 9 L17 14 L21 12" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-        <span class="hx-brand-text">Berlin<strong>2003</strong></span>
-      </a>
-      <nav class="hx-nav-links" aria-label="主导航">
-        <a href="/research/"><span>01</span>研究</a>
-        <a href="/projects/"><span>02</span>项目</a>
-        <a href="/notes/" class="is-active"><span>03</span>笔记</a>
-        <a href="/contact/"><span>04</span>联系</a>
-      </nav>
-      <div class="hx-nav-status" aria-hidden="true">
-        <span class="hx-dot"></span>
-        <span>SYS · ONLINE</span>
-      </div>
-    </header>
-
+    <header class="hx-nav" role="banner"><a class="hx-brand" href="/" aria-label="Berlin2003 首页"><span class="hx-brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12 L7 12 L9 6 L13 18 L15 9 L17 14 L21 12" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="hx-brand-text">Berlin<strong>2003</strong></span></a><nav class="hx-nav-links" aria-label="主导航"><a href="/research/"><span>01</span>研究</a><a href="/projects/"><span>02</span>项目</a><a href="/notes/" class="is-active"><span>03</span>笔记</a><a href="/contact/"><span>04</span>联系</a></nav><div class="hx-nav-status" aria-hidden="true"><span class="hx-dot"></span><span>SYS · ONLINE</span></div></header>
     <main class="hx-main hx-project-main">
-      <nav class="hx-breadcrumb" aria-label="面包屑导航">
-        <a href="/notes/">笔记</a>
-        <span class="hx-breadcrumb-sep">▸</span>
-        <span class="hx-breadcrumb-current">部署记录</span>
-      </nav>
-
-      <section class="hx-project-hero" aria-labelledby="cat-title">
-        <div class="hx-project-hero-main">
-          <div class="hx-kicker">
-            <span class="hx-bracket">[</span>
-            <span class="hx-kicker-tag">札记三</span>
-            <span class="hx-kicker-sep">/</span>
-            <span class="hx-kicker-ver">部署记录</span>
-            <span class="hx-bracket">]</span>
-          </div>
-
-          <h1 id="cat-title" class="hx-title">
-            <span class="hx-title-row">部署记录</span>
-          </h1>
-
-          <p class="hx-lead">
-            把线上环境的关键路径记下来，包括
-            <mark>服务器、鉴权、静态资源同步、回滚步骤与故障排查</mark>。
-          </p>
-
-          <div class="hx-hero-meta hx-project-meta">
-            <div class="hx-meta-item">
-              <b id="article-count">-</b><i>篇</i>
-              <span>已归档文章</span>
-            </div>
-            <div class="hx-meta-item">
-              <b>线上</b><i>重点</i>
-              <span>部署与问题留痕</span>
-            </div>
-            <div class="hx-meta-item">
-              <b>持续</b><i>更新</i>
-              <span>同步运维记录</span>
-            </div>
-          </div>
-        </div>
-
-        <aside class="hx-project-aside">
-          <article class="hx-aside-card">
-            <span class="hx-aside-tag">记录方式</span>
-            <p>把每次上线里真正有用的路径保留下来，下一次就不用再回忆服务器细节。</p>
-          </article>
-          <article class="hx-aside-card">
-            <span class="hx-aside-tag">关注重点</span>
-            <p>重点记环境差异、资源同步、权限问题、路由配置和回滚操作。</p>
-          </article>
-        </aside>
-      </section>
-
-      <div class="hx-tag-strip" aria-label="部署记录标签">
-        <span class="hx-tag">服务器</span>
-        <span class="hx-tag">鉴权</span>
-        <span class="hx-tag">同步</span>
-        <span class="hx-tag">回滚</span>
-      </div>
-
-      <section class="hx-notes-mosaic" aria-label="部署记录导览">
-        <article class="hx-notes-panel hx-notes-panel-wide">
-          <span class="hx-notes-panel-kicker">DEPLOY MAP</span>
-          <h2>把每条线上操作链路留成可以重复执行的记录</h2>
-          <p>从环境准备到资源同步，再到鉴权和回滚，把真正影响线上行为的环节单独拆开。</p>
-        </article>
-        <article class="hx-notes-panel">
-          <span class="hx-notes-panel-kicker">FOCUS 01</span>
-          <strong>环境差异</strong>
-          <p>本地、测试和线上之间的配置差异需要被单独标记。</p>
-        </article>
-        <article class="hx-notes-panel">
-          <span class="hx-notes-panel-kicker">FOCUS 02</span>
-          <strong>同步路径</strong>
-          <p>资源目录、权限问题和服务重载步骤都写清楚。</p>
-        </article>
-        <article class="hx-notes-panel">
-          <span class="hx-notes-panel-kicker">FOCUS 03</span>
-          <strong>回滚方案</strong>
-          <p>出现问题时如何最快回到可用状态，不能靠临场判断。</p>
-        </article>
-      </section>
-
-      <section id="category-articles" class="hx-project-articles hx-reveal" aria-label="部署记录文章">
-        <div class="hx-loading-state">
-          <span class="hx-dot"></span>
-          <span>正在整理这一组笔记...</span>
-        </div>
-      </section>
+      <nav class="hx-breadcrumb" aria-label="面包屑导航"><a href="/notes/">笔记</a><span class="hx-breadcrumb-sep">▸</span><span class="hx-breadcrumb-current">部署记录</span></nav>
+      <section class="hx-project-hero" aria-labelledby="cat-title"><div class="hx-project-hero-main"><div class="hx-kicker"><span class="hx-bracket">[</span><span class="hx-kicker-tag">NOTES 03</span><span class="hx-kicker-sep">/</span><span class="hx-kicker-ver">DEPLOY RECORDS</span><span class="hx-bracket">]</span></div><h1 id="cat-title" class="hx-title"><span class="hx-title-row">部署记录</span></h1><p class="hx-lead">记下服务器、Caddy、鉴权、静态资源、同步与回滚路径，<mark>免得日后重新摸索</mark>。</p><div class="hx-hero-meta hx-project-meta"><div class="hx-meta-item"><b id="article-count">—</b><i>articles</i><span>deploy notes</span></div><div class="hx-meta-item"><b>Ops</b><i>focus</i><span>server & deployment</span></div><div class="hx-meta-item"><b>Live</b><i>status</i><span>continuously updated</span></div></div></div><aside class="hx-project-aside"><article class="hx-aside-card"><span class="hx-aside-tag">记录重点</span><p>服务器配置、Caddy 路由、鉴权策略、静态资源管理和回滚方案。</p></article><article class="hx-aside-card"><span class="hx-aside-tag">避免重复</span><p>记录每次部署的坑和解决方案，避免日后重新踩坑。</p></article></aside></section>
+      <div class="hx-tag-strip"><span class="hx-tag">Server</span><span class="hx-tag">Caddy</span><span class="hx-tag">Auth</span><span class="hx-tag">Rollback</span></div>
+      <section id="category-articles" class="hx-project-articles hx-reveal" aria-label="部署记录文章"><div class="hx-loading-state"><span class="hx-dot"></span><span>Loading articles...</span></div></section>
     </main>
-
-    <footer class="hx-footer" role="contentinfo">
-      <div class="hx-footer-l">
-        <span class="hx-dot"></span>
-        <span>berlin2003.ccwu.cc</span>
-      </div>
-      <div class="hx-footer-m">
-        <span>// notes / deploy records</span>
-      </div>
-      <div class="hx-footer-r">
-        <span class="hx-prompt">$ ./notes --category deploy</span>
-      </div>
-    </footer>
+    <footer class="hx-footer" role="contentinfo"><div class="hx-footer-l"><span class="hx-dot"></span><span>berlin2003.ccwu.cc</span></div><div class="hx-footer-m"><span>// deploy records</span></div><div class="hx-footer-r"><span class="hx-prompt">$ ./notes --category deploy</span></div></footer>
   </div>
-
   <script src="/assets/home-anim.js?v=20260501-a1" defer></script>
-  <script src="/assets/notes-category.js?v=20260525-notes"></script>
+  <script src="/assets/notes-category.js"></script>
   <script src="/assets/site-chat.js"></script>
 </body>
 </html>

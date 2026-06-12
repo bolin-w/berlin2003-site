@@ -10,10 +10,11 @@
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
   <link rel="stylesheet" href="/assets/home-tech.css">
-  <link rel="stylesheet" href="/assets/project-page-hx.css?v=20260525-notes">
+  <link rel="stylesheet" href="/assets/project-page-hx.css?v=20260516">
   <link rel="stylesheet" href="/assets/home-anim.css">
 </head>
-<body class="home hx-body hx-notes-page">
+<body class="home hx-body">
+
   <div class="hx-bg" aria-hidden="true">
     <div class="hx-grid"></div>
     <div class="hx-orb hx-orb-1"></div>
@@ -22,7 +23,9 @@
     <div class="hx-scanlines"></div>
     <div class="hx-noise"></div>
   </div>
+
   <div class="hx-shell">
+
     <header class="hx-nav" role="banner">
       <a class="hx-brand" href="/" aria-label="Berlin2003 首页">
         <span class="hx-brand-mark" aria-hidden="true">
@@ -32,12 +35,14 @@
         </span>
         <span class="hx-brand-text">Berlin<strong>2003</strong></span>
       </a>
+
       <nav class="hx-nav-links" aria-label="主导航">
         <a href="/research/"><span>01</span>研究</a>
         <a href="/projects/"><span>02</span>项目</a>
         <a href="/notes/" class="is-active"><span>03</span>笔记</a>
         <a href="/contact/"><span>04</span>联系</a>
       </nav>
+
       <div class="hx-nav-status" aria-hidden="true">
         <span class="hx-dot"></span>
         <span>SYS · ONLINE</span>
@@ -45,6 +50,7 @@
     </header>
 
     <main class="hx-main hx-project-main">
+
       <nav class="hx-breadcrumb" aria-label="面包屑导航">
         <a href="/notes/">笔记</a>
         <span class="hx-breadcrumb-sep">▸</span>
@@ -55,9 +61,9 @@
         <div class="hx-project-hero-main">
           <div class="hx-kicker">
             <span class="hx-bracket">[</span>
-            <span class="hx-kicker-tag">札记一</span>
+            <span class="hx-kicker-tag">NOTES 01</span>
             <span class="hx-kicker-sep">/</span>
-            <span class="hx-kicker-ver">论文阅读</span>
+            <span class="hx-kicker-ver">PAPER READING</span>
             <span class="hx-bracket">]</span>
           </div>
 
@@ -66,72 +72,49 @@
           </h1>
 
           <p class="hx-lead">
-            把论文放回问题链条里读，重点拆清
-            <mark>模型结构、创新点、损失函数、训练设定与结果分析</mark>。
+            记录每篇论文真正改变的部分：
+            <mark>结构、目标、量化、实验设置与适用边界</mark>。
           </p>
 
           <div class="hx-hero-meta hx-project-meta">
             <div class="hx-meta-item">
-              <b id="article-count">-</b><i>篇</i>
-              <span>已归档文章</span>
+              <b id="article-count">—</b><i>articles</i>
+              <span>paper notes</span>
             </div>
             <div class="hx-meta-item">
-              <b>精读</b><i>重点</i>
-              <span>结构与实验并看</span>
+              <b>Analysis</b><i>focus</i>
+              <span>innovation & boundary</span>
             </div>
             <div class="hx-meta-item">
-              <b>持续</b><i>更新</i>
-              <span>同步 Notion 内容</span>
+              <b>Live</b><i>status</i>
+              <span>continuously updated</span>
             </div>
           </div>
         </div>
 
         <aside class="hx-project-aside">
           <article class="hx-aside-card">
-            <span class="hx-aside-tag">阅读方式</span>
-            <p>不是只摘摘要和结论，而是把方法真正解决了什么、又留下了什么写明白。</p>
+            <span class="hx-aside-tag">阅读重点</span>
+            <p>不只是摘要和结论，重点记录创新点、实验设置、适用边界和可复现性。</p>
           </article>
           <article class="hx-aside-card">
-            <span class="hx-aside-tag">收录内容</span>
-            <p>每篇笔记优先保留模型解析、实验判断与适用边界，方便后续横向对比。</p>
+            <span class="hx-aside-tag">笔记来源</span>
+            <p>从 Notion 导入，保持原始思考过程和判断依据。</p>
           </article>
         </aside>
       </section>
 
-      <div class="hx-tag-strip" aria-label="论文阅读标签">
-        <span class="hx-tag">模型解析</span>
-        <span class="hx-tag">创新点</span>
-        <span class="hx-tag">损失函数</span>
-        <span class="hx-tag">结果分析</span>
+      <div class="hx-tag-strip">
+        <span class="hx-tag">Innovation</span>
+        <span class="hx-tag">Experiment</span>
+        <span class="hx-tag">Boundary</span>
+        <span class="hx-tag">Reproducibility</span>
       </div>
-
-      <section class="hx-notes-mosaic" aria-label="论文阅读导览">
-        <article class="hx-notes-panel hx-notes-panel-wide">
-          <span class="hx-notes-panel-kicker">READING MAP</span>
-          <h2>每篇论文都按同一套观察路径拆开</h2>
-          <p>先看问题定义，再看模型结构与训练目标，最后回到实验结果和适用边界，避免只记结论。</p>
-        </article>
-        <article class="hx-notes-panel">
-          <span class="hx-notes-panel-kicker">FOCUS 01</span>
-          <strong>结构链路</strong>
-          <p>编码器、量化器、解码器和辅助模块各自承担什么职责。</p>
-        </article>
-        <article class="hx-notes-panel">
-          <span class="hx-notes-panel-kicker">FOCUS 02</span>
-          <strong>训练目标</strong>
-          <p>损失函数怎么配，训练时真正约束了什么，哪些项最关键。</p>
-        </article>
-        <article class="hx-notes-panel">
-          <span class="hx-notes-panel-kicker">FOCUS 03</span>
-          <strong>实验结论</strong>
-          <p>结果提升来自哪里，和基线相比到底解决了什么问题。</p>
-        </article>
-      </section>
 
       <section id="category-articles" class="hx-project-articles hx-reveal" aria-label="论文阅读文章">
         <div class="hx-loading-state">
           <span class="hx-dot"></span>
-          <span>正在整理这一组笔记...</span>
+          <span>Loading articles...</span>
         </div>
       </section>
     </main>
@@ -142,7 +125,7 @@
         <span>berlin2003.ccwu.cc</span>
       </div>
       <div class="hx-footer-m">
-        <span>// notes / paper reading</span>
+        <span>// paper reading notes</span>
       </div>
       <div class="hx-footer-r">
         <span class="hx-prompt">$ ./notes --category paper</span>
@@ -151,7 +134,7 @@
   </div>
 
   <script src="/assets/home-anim.js?v=20260501-a1" defer></script>
-  <script src="/assets/notes-category.js?v=20260525-notes"></script>
+  <script src="/assets/notes-category.js"></script>
   <script src="/assets/site-chat.js"></script>
 </body>
 </html>

@@ -4,90 +4,205 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Berlin2003 / HuBERT</title>
-  <meta name="description" content="HuBERT：用 hidden-unit 伪标签和 masked prediction 稳定语音语义表示。">
-  <meta name="theme-color" content="#f7fbff">
+  <meta name="description" content="HuBERT: 从离散 unit 发现走向 masked prediction 主线的关键版本">
+  <meta name="theme-color" content="#07162f">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
-  <link rel="stylesheet" href="/assets/paper-lab.css?v=20260505-semantic-deep">
+  <link rel="stylesheet" href="/assets/home-tech.css">
+  <link rel="stylesheet" href="/assets/model-page.css?v=20260515">
+  <link rel="stylesheet" href="/assets/home-anim.css">
 </head>
-<body class="edition-body paper-lab-body hubert-paper-page">
-  <div class="site-shell paper-lab-shell">
-    <header class="paper-lab-topbar">
-      <a class="paper-lab-brand" href="/"><span>Berlin</span><strong>2003</strong></a>
-      <nav class="paper-lab-nav" aria-label="研究导航">
-        <a href="/research/vq-wav2vec/">上一篇</a>
-        <a href="/research/wavlm/">下一篇</a>
-        <a href="/research/semantic/">语义层</a>
+<body class="home hx-body">
+
+  <div class="hx-bg" aria-hidden="true">
+    <div class="hx-grid"></div>
+    <div class="hx-orb hx-orb-1"></div>
+    <div class="hx-orb hx-orb-2"></div>
+    <div class="hx-orb hx-orb-3"></div>
+    <div class="hx-scanlines"></div>
+    <div class="hx-noise"></div>
+  </div>
+
+  <div class="hx-shell">
+
+    <header class="hx-nav" role="banner">
+      <a class="hx-brand" href="/" aria-label="Berlin2003 首页">
+        <span class="hx-brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 12 L7 12 L9 6 L13 18 L15 9 L17 14 L21 12" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="hx-brand-text">Berlin<strong>2003</strong></span>
+      </a>
+
+      <nav class="hx-nav-links" aria-label="主导航">
+        <a href="/research/" class="is-active"><span>01</span>研究</a>
+        <a href="/projects/"><span>02</span>项目</a>
+        <a href="/notes/"><span>03</span>笔记</a>
+        <a href="/contact/"><span>04</span>联系</a>
       </nav>
+
+      <div class="hx-nav-status" aria-hidden="true">
+        <span class="hx-dot"></span>
+        <span>SYS · ONLINE</span>
+      </div>
     </header>
 
-    <main class="paper-lab-main">
-      <section class="paper-lab-hero">
-        <div class="paper-lab-copy">
-          <p class="paper-lab-kicker">2021 / Hidden-Unit Prediction</p>
-          <h1>HuBERT</h1>
-          <p class="paper-lab-lead">HuBERT 的价值不在于伪标签一开始有多准，而在于它抓住了“时间上一致的 hidden-unit 目标 + masked prediction”这个组合。它把语义层从局部离散单位推进到更稳的上下文表示。</p>
-          <div class="paper-lab-actions">
-            <a class="paper-lab-primary" href="https://arxiv.org/abs/2106.07447" target="_blank" rel="noreferrer">论文原文</a>
-            <a href="https://github.com/facebookresearch/fairseq/tree/main/examples/hubert" target="_blank" rel="noreferrer">官方代码</a>
+    <main class="hx-main hx-model-main">
+
+      <!-- ============ BREADCRUMB ============ -->
+      <nav class="hx-breadcrumb" aria-label="面包屑导航">
+        <a href="/research/">研究</a>
+        <span class="hx-breadcrumb-sep">▸</span>
+        <a href="/research/semantic/">语义编码器</a>
+        <span class="hx-breadcrumb-sep">▸</span>
+        <span class="hx-breadcrumb-current">HuBERT</span>
+      </nav>
+
+      <!-- ============ MODEL HERO ============ -->
+      <section class="hx-model-hero">
+        <div class="hx-model-hero-main">
+          <div class="hx-model-meta-top">
+            <span class="hx-model-year">2021</span>
+            <span class="hx-model-org">FAIR</span>
+          </div>
+
+          <h1 class="hx-model-title">HuBERT</h1>
+
+          <p class="hx-model-summary">
+            HuBERT 之所以成了语义编码器主线，不是因为它把标签做得更"真"，
+            而是因为它抓住了一个更重要的点：<mark>预训练阶段最需要的是时间上足够一致的 hidden-unit 目标</mark>，
+            再通过 masked prediction 把内容和上下文真正学出来。
+          </p>
+
+          <div class="hx-model-links">
+            <a class="hx-model-link-primary" href="https://arxiv.org/abs/2106.07447" target="_blank" rel="noreferrer">
+              <span>论文原文</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
+            </a>
+            <a class="hx-model-link-secondary" href="https://github.com/facebookresearch/fairseq/tree/main/examples/hubert" target="_blank" rel="noreferrer">
+              <span>官方代码</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
+            </a>
           </div>
         </div>
 
-        <figure class="paper-lab-figure">
-          <img src="/assets/research-semantic.png" alt="HuBERT paper diagram">
-          <figcaption>关键关系：离线 clustering 产生 hidden-unit targets，只对 masked 区域预测。核心不是量化器更复杂，而是 teacher 与 prediction loss 的分工更清楚。</figcaption>
-          <div class="paper-lab-source">
-            <a href="https://arxiv.org/abs/2106.07447" target="_blank" rel="noreferrer">arXiv</a>
-            <a href="https://github.com/facebookresearch/fairseq/tree/main/examples/hubert" target="_blank" rel="noreferrer">fairseq</a>
+        <aside class="hx-model-aside">
+          <article class="hx-model-info-card">
+            <span class="hx-model-info-label">定位</span>
+            <p>从离散 unit 发现走向 masked prediction 主线的关键版本</p>
+          </article>
+          <article class="hx-model-info-card">
+            <span class="hx-model-info-label">图源</span>
+            <p>论文 Fig. 1，来自 arXiv 官方 PDF</p>
+          </article>
+        </aside>
+      </section>
+
+      <!-- ============ FIGURE ============ -->
+      <section class="hx-model-figure hx-reveal">
+        <figure>
+          <div class="hx-figure-frame">
+            <img src="/assets/official-hubert.png" alt="HuBERT 论文图">
           </div>
+          <figcaption>
+            <strong>图源：HuBERT 论文 Figure 1</strong>
+            <p>图里真正关键的关系是：先用离线 clustering 产出 hidden-unit targets，再只对 masked 区域做预测。HuBERT 的创新点，不是把 quantizer 做得更复杂，而是把 teacher 和 prediction loss 的分工重新理顺了。</p>
+          </figcaption>
         </figure>
       </section>
 
-      <section class="paper-lab-metrics" aria-label="核心定位">
-        <article><span>Teacher</span><strong>离线聚类</strong><p>先用粗 teacher 提供足够一致的 hidden-unit 伪标签。</p></article>
-        <article><span>Loss</span><strong>masked prediction</strong><p>只预测被遮掉的区域，迫使模型使用上下文而不是局部复制。</p></article>
-        <article><span>Role</span><strong>语义 teacher</strong><p>它后续常被用来稳定 tokenizer 的语义层表示。</p></article>
-      </section>
+      <!-- ============ GLANCE ============ -->
+      <section class="hx-model-glance hx-reveal">
+        <div class="hx-glance-grid">
+          <article class="hx-glance-card">
+            <span class="hx-glance-label">Teacher</span>
+            <h3>离线 clustering 产出 hidden-unit 伪标签</h3>
+            <p>先有一个粗 teacher，就足以让模型开始学更稳的内容结构，不必等标签一开始就完美。</p>
+          </article>
 
-      <section class="paper-lab-deep">
-        <div class="paper-lab-section-head"><span>Paper Deep Dive</span><h2>论文精讲：HuBERT 如何用 hidden units 稳定语义表示</h2></div>
-        <div class="paper-lab-deep-grid">
-          <article class="paper-lab-deep-card paper-lab-deep-card-wide"><span>模型解析</span><strong>离线聚类 teacher + masked prediction student</strong><ul><li>先用 MFCC 或上一轮模型表示做 offline clustering，得到 hidden-unit pseudo labels。</li><li>输入语音被随机 mask，Transformer 只能根据上下文预测被遮挡区域的 cluster label。</li><li>训练后再用更好的表示重新聚类，形成 teacher 逐轮变强的自训练闭环。</li></ul></article>
-          <article class="paper-lab-deep-card paper-lab-deep-card-wide"><span>创新点</span><strong>伪标签不需要完美，但必须时间一致</strong><ul><li>HuBERT 的洞察是：预训练标签可以粗糙，只要在时间结构上足够一致。</li><li>只在 masked frames 上计算预测损失，迫使模型学上下文，而不是复述局部声学。</li><li>它把 speech representation 从局部单位推进到更稳定的 hidden-unit semantic representation。</li></ul></article>
-          <article class="paper-lab-deep-card"><span>损失函数</span><strong>masked hidden-unit classification 是核心目标</strong><ul><li>主损失是对 masked frame 的 cluster ID 做 cross-entropy classification。</li><li>非 masked 区域通常不作为主要预测目标，避免模型靠局部 acoustic shortcut 取巧。</li><li>迭代聚类提升 target 质量，本质上是在不断改进 loss 的监督信号。</li></ul></article>
-          <article class="paper-lab-deep-card"><span>训练策略</span><strong>粗 teacher 启动，再用强 student 反哺 teacher</strong><ul><li>第一轮可以用 MFCC 聚类生成粗标签，先让模型学到基本音素级结构。</li><li>后续轮次用模型中间层表示重新聚类，target 逐渐更贴近内容结构。</li><li>这种 teacher-student 过程让无标注数据可以持续产生更好的训练目标。</li></ul></article>
-          <article class="paper-lab-deep-card"><span>结果分析</span><strong>HuBERT 的工程价值是成为 semantic teacher</strong><ul><li>它在 ASR 和多类语音任务上提供强表示，说明 hidden units 捕捉了内容结构。</li><li>后续 tokenizer 常用 HuBERT 表示或标签约束第一层 semantic token。</li><li>短板是它本身不是 codec，不能直接负责高保真重建，需要 acoustic 层补上。</li></ul></article>
+          <article class="hx-glance-card">
+            <span class="hx-glance-label">Loss</span>
+            <h3>只在 masked 区域上做 prediction</h3>
+            <p>这一步强迫模型真正利用上下文，而不是仅靠局部声学相似性去偷答案。</p>
+          </article>
+
+          <article class="hx-glance-card">
+            <span class="hx-glance-label">Refine</span>
+            <h3>迭代 clustering，再提升 teacher 一致性</h3>
+            <p>它的重点不在标签"像不像真音素"，而在于 teacher 是否足够一致，能否支撑下一轮表示继续变好。</p>
+          </article>
         </div>
       </section>
 
-      <section class="paper-lab-section">
-        <div class="paper-lab-section-head"><span>Core Route</span><h2>HuBERT 解决了什么</h2></div>
-        <div class="paper-lab-grid">
-          <article class="paper-lab-card"><span>01</span><strong>一致性比正确性更重要</strong><p>预训练阶段不需要完美标签，首先需要足够稳定的时间结构。</p></article>
-          <article class="paper-lab-card"><span>02</span><strong>遮挡预测逼出上下文</strong><p>只预测 masked 区域，模型才会整合前后文，而不是复述局部声学。</p></article>
-          <article class="paper-lab-card"><span>03</span><strong>迭代聚类让 teacher 变强</strong><p>先用粗标签启动，再用更好的表示反过来生成更稳定的 teacher。</p></article>
-          <article class="paper-lab-card"><span>04</span><strong>成为后续语义层默认起点</strong><p>SpeechTokenizer 等工作直接借用 HuBERT 表示来稳定 semantic token。</p></article>
+      <!-- ============ CORE ROUTE ============ -->
+      <section class="hx-model-core hx-reveal">
+        <header class="hx-section-head">
+          <span class="hx-section-tag">[ CORE ROUTE ]</span>
+          <h2>核心路线</h2>
+          <p>HuBERT 真正解决的是一个长期卡住语义预训练的问题：如果没有显式 lexicon，也没有天然切分，模型到底该靠什么稳定学到内容单位。它给出的回答是，一致的 hidden units 加 masked prediction 就够了。</p>
+        </header>
+
+        <div class="hx-core-grid">
+          <article class="hx-core-card">
+            <h3>为什么"consistency 比 correctness 更重要"</h3>
+            <p>HuBERT 的论文明确指出，预训练阶段最重要的不是伪标签绝对正确，而是它们在时间上足够一致。只要 teacher 的边界和模式足够稳定，模型就能持续学出更强的内容表示；如果标签每次都乱跳，再"精确"也很难形成稳定语义层。</p>
+          </article>
+
+          <article class="hx-core-card">
+            <h3>为什么只在 masked 区域做 prediction</h3>
+            <p>这一步等于把模型从"局部复制器"强制推成上下文建模器。只有被遮掉的部分需要预测时，模型才会真的去整合前后文的信息，因此输出会更像 combined acoustic + language model，而不只是局部声学对齐器。</p>
+          </article>
+
+          <article class="hx-core-card">
+            <h3>迭代 clustering 解决了什么</h3>
+            <p>第一轮 teacher 往往很粗，但已经足够把模型带到比原始特征更好的表示上。接着再用新表示去重新聚类，teacher 就会更稳定，下一轮模型也更强。HuBERT 的迭代路线说明：语义层可以是逐轮长出来的，而不是一开始就被精确规定死。</p>
+          </article>
+
+          <article class="hx-core-card">
+            <h3>为什么它会成为后面很多语义 teacher 的默认选择</h3>
+            <p>因为 HuBERT 输出的 hidden representation 相对更稳、更上下文化，也更适合作为后续 tokenizer 或分层语义前端的 teacher。SpeechTokenizer 用 HuBERT 层表示做 semantic teacher，本质上就是沿着这条逻辑继续往系统接口上走。</p>
+          </article>
         </div>
       </section>
 
-      <section class="paper-lab-section">
-        <div class="paper-lab-section-head"><span>Reading Cut</span><h2>读这页时抓三个判断</h2></div>
-        <div class="paper-lab-cuts">
-          <article class="paper-lab-cut"><span>Cut 01</span><strong>标签不完美也能启动</strong><p>只要伪标签足够一致，模型就能把内容结构逐轮学出来。</p></article>
-          <article class="paper-lab-cut"><span>Cut 02</span><strong>语义不是从词典硬塞进去</strong><p>HuBERT 展示的是语义表示可以从隐藏单元和上下文预测中长出来。</p></article>
-          <article class="paper-lab-cut"><span>Cut 03</span><strong>接口价值高于单模型指标</strong><p>它最大的工程价值，是能成为后续 tokenizer 的稳定 semantic teacher。</p></article>
-        </div>
-      </section>
+      <!-- ============ MODEL NAV ============ -->
+      <nav class="hx-model-nav hx-reveal">
+        <a class="hx-model-nav-card" href="/research/semantic/">
+          <span class="hx-model-nav-label">Index</span>
+          <strong>语义编码器</strong>
+          <p>回到方向 01 的内部空间</p>
+        </a>
 
-      <nav class="paper-lab-next" aria-label="下一步阅读">
-        <a href="/research/vq-wav2vec/"><span>Prev</span><strong>vq-wav2vec</strong><p>回到离散 unit 的起点。</p></a>
-        <a href="/research/wavlm/"><span>Next</span><strong>WavLM</strong><p>看 denoising 和更强 teacher 如何加入。</p></a>
-        <a href="/research/speechtokenizer/"><span>Bridge</span><strong>SpeechTokenizer</strong><p>看 HuBERT 表示如何进入分层 tokenizer。</p></a>
+        <a class="hx-model-nav-card" href="/research/vq-wav2vec/">
+          <span class="hx-model-nav-label">Prev</span>
+          <strong>vq-wav2vec</strong>
+          <p>回到离散 speech units 这条起点版本</p>
+        </a>
+
+        <a class="hx-model-nav-card" href="/research/wavlm/">
+          <span class="hx-model-nav-label">Next</span>
+          <strong>WavLM</strong>
+          <p>更强的 teacher encoder</p>
+        </a>
       </nav>
     </main>
 
-    <footer class="paper-lab-footer"><span>HuBERT</span><span>masked prediction of hidden units</span></footer>
+    <footer class="hx-footer" role="contentinfo">
+      <div class="hx-footer-l">
+        <span class="hx-dot"></span>
+        <span>berlin2003.ccwu.cc</span>
+      </div>
+      <div class="hx-footer-m">
+        <span>// semantic first / acoustic next</span>
+      </div>
+      <div class="hx-footer-r">
+        <span class="hx-prompt">$ ./hubert --masked-prediction</span>
+      </div>
+    </footer>
   </div>
+
+  <script src="/assets/home-anim.js?v=20260501-a1" defer></script>
   <script src="/assets/site-chat.js"></script>
 </body>
 </html>

@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Berlin2003 / HH-Codec</title>
+  <meta name="description" content="HH-Codec：面向 spoken language modeling 的高压缩、高保真离散语音前端。">
+  <meta name="theme-color" content="#f7fbff">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="stylesheet" href="/assets/paper-lab.css?v=20260502-acoustic-deep">
+</head>
+<body class="edition-body paper-lab-body acoustic-paper-page">
+  <div class="site-shell paper-lab-shell">
+    <header class="paper-lab-topbar">
+      <a class="paper-lab-brand" href="/"><span>Berlin</span><strong>2003</strong></a>
+      <nav class="paper-lab-nav" aria-label="研究导航">
+        <a href="/research/dualcodec/">上一篇</a>
+        <a href="/research/longcat-audio-codec/">下一篇</a>
+        <a href="/research/acoustic/">声学层</a>
+      </nav>
+    </header>
+
+    <main class="paper-lab-main">
+      <section class="paper-lab-hero">
+        <div class="paper-lab-copy">
+          <p class="paper-lab-kicker">2025 / Spoken Language Modeling</p>
+          <h1>HH-Codec</h1>
+          <p class="paper-lab-lead">HH-Codec 的目标很明确：为 spoken language modeling 提供极低 token 速率、极低带宽、但仍保持重建可用性的离散语音前端。</p>
+          <div class="paper-lab-actions">
+            <a class="paper-lab-primary" href="https://arxiv.org/abs/2507.18897" target="_blank" rel="noreferrer">论文原文</a>
+            <a href="https://github.com/opendilab/HH-Codec" target="_blank" rel="noreferrer">官方代码</a>
+          </div>
+        </div>
+
+        <figure class="paper-lab-figure">
+          <img src="/assets/architecture-hh-codec.png" alt="HH-Codec architecture diagram">
+          <figcaption>技术结构图：HH-Codec 用单量化器推理、Audio-VQ-Mel-Audio 链路、双重监督和渐进式训练，实现约 24 tokens/s 的 spoken LM 离散前端。</figcaption>
+          <div class="paper-lab-source">
+            <a href="https://raw.githubusercontent.com/opendilab/HH-Codec/main/main.png" target="_blank" rel="noreferrer">原图</a>
+            <a href="https://arxiv.org/abs/2507.18897" target="_blank" rel="noreferrer">arXiv</a>
+          </div>
+        </figure>
+      </section>
+
+      <section class="paper-lab-metrics">
+        <article><span>Rate</span><strong>24 tokens/s</strong><p>把 spoken LM 前端压到低 token 速率，服务长上下文和推理预算。</p></article>
+        <article><span>Bandwidth</span><strong>约 0.3 kbps</strong><p>在极低码率下继续保住语音可懂度和重建稳定性。</p></article>
+        <article><span>Inference</span><strong>single-quantizer</strong><p>推理路径更轻，更适合大规模 speech-to-speech 系统。</p></article>
+      </section>
+
+      <section class="paper-lab-deep">
+        <div class="paper-lab-section-head"><span>Paper Deep Dive</span><h2>论文精讲：HH-Codec 如何服务 spoken language modeling</h2></div>
+        <div class="paper-lab-deep-grid">
+          <article class="paper-lab-deep-card paper-lab-deep-card-wide"><span>模型解析</span><strong>Audio → VQ → Mel / Waveform 双重重建</strong><ul><li>encoder 把 24 kHz speech 压成 latent，再通过单量化器产生离散 token。</li><li>量化输出同时走 mel reconstruction branch 和 waveform reconstruction branch。</li><li>mel decoder 预测梅尔谱，vocoder decoder 负责时域波形，形成 Audio-VQ-Mel-Audio 闭环。</li></ul></article>
+          <article class="paper-lab-deep-card paper-lab-deep-card-wide"><span>创新点</span><strong>约 24 tokens/s 的单量化器推理</strong><ul><li>推理时只保留单量化器路径，降低 spoken LM 前端复杂度。</li><li>dual supervision 同时约束梅尔谱和波形，避免只优化一个目标导致质量偏斜。</li><li>progressive training 把极低 token rate 下难训的问题拆成多个阶段。</li></ul></article>
+          <article class="paper-lab-deep-card"><span>损失函数</span><strong>VQ、mel 和 waveform 三类目标共同约束</strong><ul><li>VQ commitment loss 让 encoder 输出稳定贴近离散码。</li><li>mel spectrogram loss 引导内容和感知质量，尤其帮助语音清晰度。</li><li>waveform / perceptual loss 保证时域自然度，减少重建语音的机械感。</li></ul></article>
+          <article class="paper-lab-deep-card"><span>训练策略</span><strong>从容易目标逐步加到完整目标</strong><ul><li>第一阶段可先训练 encoder 和 mel branch，让 token 学会表达语音内容。</li><li>随后加入量化损失和 vocoder branch，提升离散瓶颈下的可解码性。</li><li>最后再做稳定性与对齐优化，使 token 更适合 spoken LM 使用。</li></ul></article>
+          <article class="paper-lab-deep-card"><span>结果分析</span><strong>优势是前端轻，目标明确</strong><ul><li>约 24 tokens/s 显著降低 speech LM 序列长度。</li><li>高压缩同时保持可懂度和自然度，使它适合作为语音建模前端。</li><li>它更偏 spoken language modeling，不是面向所有音频类型的通用 codec。</li></ul></article>
+        </div>
+      </section>
+
+      <section class="paper-lab-section">
+        <div class="paper-lab-section-head"><span>Core Route</span><h2>HH-Codec 的目标导向设计</h2></div>
+        <div class="paper-lab-grid">
+          <article class="paper-lab-card"><span>01</span><strong>先服务 spoken LM</strong><p>它不是泛用压缩器，而是直接按语音生成模型的输入接口来设计。</p></article>
+          <article class="paper-lab-card"><span>02</span><strong>单量化推理减负</strong><p>减少多量化器并行流带来的延迟、显存和系统复杂度。</p></article>
+          <article class="paper-lab-card"><span>03</span><strong>refine 整理 latent</strong><p>MLP refine 让离散表示更适合后续 decoder 和声码器恢复。</p></article>
+          <article class="paper-lab-card"><span>04</span><strong>训练过程渐进稳住</strong><p>dual supervision 与 progressive training 用来平衡低码率和高保真。</p></article>
+        </div>
+      </section>
+
+      <section class="paper-lab-section">
+        <div class="paper-lab-section-head"><span>Reading Cut</span><h2>读这页时抓三个判断</h2></div>
+        <div class="paper-lab-cuts">
+          <article class="paper-lab-cut"><span>Cut 01</span><strong>它把工程预算写进结构</strong><p>24 tokens/s 不是装饰指标，而是 speech LM 长序列建模的入口约束。</p></article>
+          <article class="paper-lab-cut"><span>Cut 02</span><strong>前端轻，后端重建强化</strong><p>token 侧尽量省，decoder 和 BigVGAN 侧负责恢复自然度。</p></article>
+          <article class="paper-lab-cut"><span>Cut 03</span><strong>它和双流路线互补</strong><p>DualCodec 更强调语义增强，HH-Codec 更强调低速率前端的实用路径。</p></article>
+        </div>
+      </section>
+
+      <nav class="paper-lab-next">
+        <a href="/research/dualcodec/"><span>Prev</span><strong>DualCodec</strong><p>回到双流语义增强 codec。</p></a>
+        <a href="/research/longcat-audio-codec/"><span>Next</span><strong>LongCat</strong><p>看 speech LLM 的 tokenizer / detokenizer 方案。</p></a>
+        <a href="/research/mimi/"><span>Bridge</span><strong>Mimi</strong><p>回看 semantic-acoustic hybrid codec 的边界。</p></a>
+      </nav>
+    </main>
+
+    <footer class="paper-lab-footer"><span>HH-Codec</span><span>high compression high-fidelity speech codec</span></footer>
+  </div>
+  <script src="/assets/site-chat.js"></script>
+</body>
+</html>

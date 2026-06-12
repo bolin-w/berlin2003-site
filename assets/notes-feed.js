@@ -1,12 +1,4 @@
-const container = document.querySelector("#notion-articles");
-const categoryMap = [
-  { id: "notes-category-reading", title: "札记一：论文阅读", key: "论文阅读", match: ["论文阅读", "论文笔记", "paper", "research", "reading"] },
-  { id: "notes-category-model", title: "札记二：模型判断", key: "模型判断", match: ["模型判断", "技术总结", "judgement", "judgment", "model"] },
-  { id: "notes-category-deploy", title: "札记三：部署记录", key: "部署记录", match: ["部署记录", "deploy", "deployment", "ops"] },
-  { id: "notes-category-design", title: "札记四：页面改版", key: "页面改版", match: ["页面改版", "ui", "页面", "design"] },
-  { id: "notes-category-projects", title: "项目：推进记录", key: "项目记录", match: ["项目", "项目记录", "项目笔记", "project", "milestone", "roadmap"] },
-  { id: "notes-category-others", title: "其余札记", key: "其余札记", match: [] }
-];
+const NOTE_CATEGORIES = ["论文阅读", "模型判断", "部署记录", "页面改版"];
 
 function formatDate(iso) {
   if (!iso) return "";
@@ -15,89 +7,44 @@ function formatDate(iso) {
   return d.toLocaleDateString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit" });
 }
 
-function renderArticles(articles) {
+function renderInto(container, articles) {
   if (!articles || articles.length === 0) {
-    container.hidden = true;
-    container.innerHTML = "";
+    container.parentElement.style.display = "none";
     return;
   }
-
-  const groups = categoryMap.map((group) => ({ ...group, items: [] }));
-
-  for (const article of articles) {
-    const category = String(article.category || "").toLowerCase();
-    const target =
-      groups.find((group) => group.match.some((key) => category.includes(key.toLowerCase()))) ||
-      groups[groups.length - 1];
-    target.items.push(article);
+  let html = "";
+  for (const a of articles) {
+    const date = formatDate(a.createdAt);
+    html += `
+      <a class="section-lab-panel" href="/notes/article/?id=${a.id}" style="text-decoration:none;color:inherit;">
+        <h2>${a.title}</h2>
+        ${date ? `<p style="font-size:0.82rem;color:var(--section-muted);margin-top:8px;">${date}</p>` : ""}
+      </a>`;
   }
-
-  const visibleGroups = groups.filter((group) => group.items.length > 0);
-  if (!visibleGroups.length) {
-    container.hidden = true;
-    return;
-  }
-
-  container.hidden = false;
-  container.innerHTML = visibleGroups
-    .map((group) => `
-      <section id="${group.id}" class="section-lab-panel">
-        <p class="section-lab-label">${group.key}</p>
-        <h2>${group.title}</h2>
-        <div class="section-lab-grid two" style="margin-top:18px;">
-          ${group.items
-            .map((article) => {
-              const date = formatDate(article.createdAt);
-              return `
-                <a class="section-lab-card" href="/notes/article/?id=${article.id}" style="text-decoration:none;color:inherit;">
-                  <span>${article.category || "笔记"}</span>
-                  <strong>${article.title}</strong>
-                  ${date ? `<p style="font-size:0.82rem;color:var(--section-muted);margin-top:10px;">${date}</p>` : ""}
-                </a>
-              `;
-            })
-            .join("")}
-        </div>
-      </section>
-    `)
-    .join("");
-
-  const hash = window.location.hash;
-  if (hash) {
-    const target = document.querySelector(hash);
-    if (target) {
-      requestAnimationFrame(() => {
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-    }
-  }
+  container.innerHTML = html;
 }
 
 async function load() {
   try {
-    const res = await fetch("/api/notion/articles?public=true");
+    const res = await fetch("/api/notion/articles?public=true&module=笔记");
     const data = await res.json();
-    if (res.ok) {
-      renderArticles(data.articles);
-    } else {
-      container.hidden = true;
-      container.innerHTML = "";
+    if (!res.ok) return;
+
+    const articles = data.articles || [];
+    for (const cat of NOTE_CATEGORIES) {
+      const section = document.querySelector("#notion-" + CSS.escape(cat));
+      if (!section) continue;
+      const grid = section.querySelector(".notion-sub-grid");
+      const items = articles.filter((a) => a.category === cat);
+      renderInto(grid, items);
     }
   } catch {
-    container.hidden = true;
-    container.innerHTML = "";
+    // hide all sub-sections on error
+    for (const cat of NOTE_CATEGORIES) {
+      const section = document.querySelector("#notion-" + CSS.escape(cat));
+      if (section) section.style.display = "none";
+    }
   }
 }
-
-window.addEventListener("hashchange", () => {
-  const hash = window.location.hash;
-  if (!hash) {
-    return;
-  }
-  const target = document.querySelector(hash);
-  if (target) {
-    target.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-});
 
 load();

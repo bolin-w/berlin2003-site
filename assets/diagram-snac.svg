@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="40" y1="40" x2="920" y2="520" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F5FBF6"/>
+      <stop offset="1" stop-color="#F3EFE5"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="14" markerHeight="14" refX="8" refY="7" orient="auto">
+      <path d="M1 1L11 7L1 13" stroke="#1B8B61" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <rect x="10" y="10" width="940" height="540" rx="30" fill="url(#bg)" stroke="#D8E0D2"/>
+  <circle cx="122" cy="96" r="58" fill="#E8F6ED"/>
+  <circle cx="838" cy="446" r="74" fill="#FFF1DE"/>
+
+  <text x="52" y="70" fill="#191611" font-size="26" font-family="Georgia, serif">SNAC</text>
+  <text x="52" y="100" fill="#6F685D" font-size="15" font-family="Arial, sans-serif">Multi-scale neural audio codec with different temporal resolutions</text>
+
+  <rect x="44" y="226" width="108" height="112" rx="22" fill="#FFFFFF" stroke="#D0DACC"/>
+  <path d="M60 282C72 262 85 302 96 282C107 262 118 302 130 282" stroke="#1B8B61" stroke-width="4" stroke-linecap="round"/>
+  <text x="98" y="316" text-anchor="middle" fill="#191611" font-size="17" font-family="Arial, sans-serif">Audio</text>
+
+  <rect x="188" y="194" width="162" height="176" rx="26" fill="#FFFFFF" stroke="#D0DACC"/>
+  <text x="269" y="236" text-anchor="middle" fill="#191611" font-size="21" font-family="Arial, sans-serif">Encoder</text>
+  <text x="269" y="286" text-anchor="middle" fill="#6F685D" font-size="14" font-family="Arial, sans-serif">shared backbone</text>
+  <text x="269" y="310" text-anchor="middle" fill="#6F685D" font-size="14" font-family="Arial, sans-serif">before multi-scale quantizers</text>
+
+  <path d="M152 282H188" stroke="#1B8B61" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="396" y="150" width="290" height="262" rx="28" fill="#FFFFFF" stroke="#D0DACC"/>
+  <text x="541" y="188" text-anchor="middle" fill="#191611" font-size="22" font-family="Arial, sans-serif">Multi-scale Quantizers</text>
+
+  <text x="430" y="232" fill="#6F685D" font-size="14" font-family="Arial, sans-serif">Coarse 10 Hz</text>
+  <rect x="520" y="214" width="120" height="28" rx="14" fill="#DFF3E5" stroke="#B8D6C1"/>
+  <rect x="528" y="220" width="14" height="16" rx="5" fill="#1B8B61"/>
+  <rect x="548" y="220" width="14" height="16" rx="5" fill="#1B8B61"/>
+  <rect x="568" y="220" width="14" height="16" rx="5" fill="#1B8B61"/>
+
+  <text x="430" y="274" fill="#6F685D" font-size="14" font-family="Arial, sans-serif">Mid 20 Hz</text>
+  <rect x="520" y="256" width="140" height="28" rx="14" fill="#EAF7F0" stroke="#B8D6C1"/>
+  <rect x="528" y="262" width="14" height="16" rx="5" fill="#36A679"/>
+  <rect x="548" y="262" width="14" height="16" rx="5" fill="#36A679"/>
+  <rect x="568" y="262" width="14" height="16" rx="5" fill="#36A679"/>
+  <rect x="588" y="262" width="14" height="16" rx="5" fill="#36A679"/>
+  <rect x="608" y="262" width="14" height="16" rx="5" fill="#36A679"/>
+
+  <text x="430" y="316" fill="#6F685D" font-size="14" font-family="Arial, sans-serif">Fine 40 Hz</text>
+  <rect x="520" y="298" width="170" height="28" rx="14" fill="#FFF3E3" stroke="#E6CCAA"/>
+  <rect x="528" y="304" width="14" height="16" rx="5" fill="#B26B2F"/>
+  <rect x="548" y="304" width="14" height="16" rx="5" fill="#B26B2F"/>
+  <rect x="568" y="304" width="14" height="16" rx="5" fill="#B26B2F"/>
+  <rect x="588" y="304" width="14" height="16" rx="5" fill="#B26B2F"/>
+  <rect x="608" y="304" width="14" height="16" rx="5" fill="#B26B2F"/>
+  <rect x="628" y="304" width="14" height="16" rx="5" fill="#B26B2F"/>
+  <rect x="648" y="304" width="14" height="16" rx="5" fill="#B26B2F"/>
+
+  <text x="430" y="358" fill="#6F685D" font-size="14" font-family="Arial, sans-serif">Fine 80 Hz</text>
+  <rect x="520" y="340" width="196" height="28" rx="14" fill="#FFF7EA" stroke="#E6CCAA"/>
+  <rect x="528" y="346" width="12" height="16" rx="5" fill="#D78A43"/>
+  <rect x="546" y="346" width="12" height="16" rx="5" fill="#D78A43"/>
+  <rect x="564" y="346" width="12" height="16" rx="5" fill="#D78A43"/>
+  <rect x="582" y="346" width="12" height="16" rx="5" fill="#D78A43"/>
+  <rect x="600" y="346" width="12" height="16" rx="5" fill="#D78A43"/>
+  <rect x="618" y="346" width="12" height="16" rx="5" fill="#D78A43"/>
+  <rect x="636" y="346" width="12" height="16" rx="5" fill="#D78A43"/>
+  <rect x="654" y="346" width="12" height="16" rx="5" fill="#D78A43"/>
+  <rect x="672" y="346" width="12" height="16" rx="5" fill="#D78A43"/>
+
+  <path d="M350 282H396" stroke="#1B8B61" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="730" y="194" width="168" height="176" rx="26" fill="#FFFFFF" stroke="#D0DACC"/>
+  <text x="814" y="236" text-anchor="middle" fill="#191611" font-size="21" font-family="Arial, sans-serif">Decoder</text>
+  <text x="814" y="286" text-anchor="middle" fill="#6F685D" font-size="14" font-family="Arial, sans-serif">rebuilds waveform</text>
+  <text x="814" y="310" text-anchor="middle" fill="#6F685D" font-size="14" font-family="Arial, sans-serif">from hierarchical codes</text>
+  <path d="M686 282H730" stroke="#1B8B61" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="398" y="438" width="226" height="72" rx="20" fill="#1B8B61"/>
+  <text x="511" y="466" text-anchor="middle" fill="#FFFFFF" font-size="18" font-family="Arial, sans-serif">Long-context friendly</text>
+  <text x="511" y="490" text-anchor="middle" fill="#E7F7EF" font-size="13" font-family="Arial, sans-serif">2048 coarse tokens can cover minutes</text>
+
+  <rect x="658" y="438" width="224" height="72" rx="20" fill="#FFFFFF" stroke="#D0DACC"/>
+  <text x="770" y="466" text-anchor="middle" fill="#191611" font-size="18" font-family="Arial, sans-serif">Hierarchical token lengths</text>
+  <text x="770" y="490" text-anchor="middle" fill="#6F685D" font-size="13" font-family="Arial, sans-serif">12 / 24 / 48 / 96 style code groups</text>
+
+  <text x="52" y="522" fill="#6F685D" font-size="13" font-family="Arial, sans-serif">SNAC changes the time organization of tokens, not just the reconstruction quality of the codec</text>
+</svg>

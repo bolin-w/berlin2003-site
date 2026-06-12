@@ -3,69 +3,119 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Berlin2003 / 放映室</title>
-  <meta name="description" content="Berlin2003 的私密放映室：本地压好字幕后上传，网页负责整理和播放。">
-  <meta name="theme-color" content="#f7fbff">
+  <title>Berlin2003 / 视频库</title>
+  <meta name="description" content="本地制作字幕后上传存储的视频播放页">
+  <meta name="theme-color" content="#07162f">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
-  <link rel="stylesheet" href="/assets/section-lab.css?v=20260505-polish">
+  <link rel="stylesheet" href="/assets/home-tech.css">
+  <link rel="stylesheet" href="/assets/semantic-page.css?v=20260516">
+  <link rel="stylesheet" href="/assets/anime-hx.css?v=20260517b">
+  <link rel="stylesheet" href="/assets/home-anim.css">
 </head>
-<body class="anime-page section-lab-body anime-lab-body">
-  <div class="site-shell section-lab-shell">
-    <header class="section-lab-topbar">
-      <a class="section-lab-brand" href="/" aria-label="Berlin2003 首页"><span>Berlin</span><strong>2003</strong></a>
-      <nav class="section-lab-nav" aria-label="视频库导航">
-        <a href="/projects/">项目</a>
-        <a href="/notes/">笔记</a>
-        <a href="/studio/anime/">片库后台</a>
-        <a href="/contact/">联系</a>
+<body class="home hx-body">
+
+  <div class="hx-bg" aria-hidden="true">
+    <div class="hx-grid"></div>
+    <div class="hx-orb hx-orb-1"></div>
+    <div class="hx-orb hx-orb-2"></div>
+    <div class="hx-orb hx-orb-3"></div>
+    <div class="hx-scanlines"></div>
+    <div class="hx-noise"></div>
+  </div>
+
+  <div class="hx-shell">
+
+    <header class="hx-nav" role="banner">
+      <a class="hx-brand" href="/" aria-label="Berlin2003 首页">
+        <span class="hx-brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 12 L7 12 L9 6 L13 18 L15 9 L17 14 L21 12" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="hx-brand-text">Berlin<strong>2003</strong></span>
+      </a>
+
+      <nav class="hx-nav-links" aria-label="主导航">
+        <a href="/research/"><span>01</span>研究</a>
+        <a href="/projects/"><span>02</span>项目</a>
+        <a href="/notes/"><span>03</span>笔记</a>
+        <a href="/contact/"><span>04</span>联系</a>
       </nav>
+
+      <div class="hx-nav-status" aria-hidden="true">
+        <span class="hx-dot"></span>
+        <span>SYS · ONLINE</span>
+      </div>
     </header>
 
-    <main class="section-lab-main anime-main">
-      <section class="section-lab-hero">
-        <div class="section-lab-copy">
-          <p class="section-lab-kicker">私人放映</p>
-          <h1>有字幕的夜场</h1>
-          <p class="section-lab-lead">那些已经配好中文字幕的影像，安静陈列于此。此页只负责收藏与放映，不涉搜索、下载或转码。</p>
-          <div class="section-lab-actions">
-            <a class="section-lab-primary" href="/studio/anime/">整理片架</a>
-            <a href="/projects/">返回项目</a>
-          </div>
-        </div>
-        <div class="section-lab-visual anime-screen-visual">
-          <img class="anime-screen-image" src="/assets/anime-screening-room.png" alt="带中文字幕的私人放映室">
-          <div class="section-lab-visual-note">
-            <strong>片架状态</strong>
-            <span id="anime-status">正在点亮片架...</span>
+    <main class="hx-main hx-cinema-main">
+
+      <section class="hx-cinema-hero" id="cinema-hero" aria-label="特色播放">
+        <div class="hx-cinema-hero-bg" id="cinema-hero-bg" style="background-image:url('/assets/anime-hero.png')" aria-hidden="true"></div>
+        <div class="hx-cinema-hero-shade" aria-hidden="true"></div>
+        <div class="hx-cinema-hero-inner" id="cinema-hero-inner">
+          <div class="hx-cinema-hero-empty">
+            <div class="hx-kicker">
+              <span class="hx-bracket">[</span>
+              <span class="hx-kicker-tag">VIDEO LIBRARY</span>
+              <span class="hx-kicker-sep">/</span>
+              <span class="hx-kicker-ver">CINEMA</span>
+              <span class="hx-bracket">]</span>
+            </div>
+            <h1 class="hx-cinema-hero-title">私人放映厅</h1>
+            <p class="hx-cinema-hero-lead">本地压制字幕、上传到服务器流式播放。选一个开始 —— 或者从下面继续看。</p>
+            <div class="hx-cinema-hero-meta">
+              <span><b id="anime-count">—</b> 部视频</span>
+              <span>Local subtitle · Server stream</span>
+            </div>
           </div>
         </div>
       </section>
 
-      <section class="anime-layout video-layout">
-        <div class="anime-panel">
-          <div class="anime-panel-head">
-            <h2>片架</h2>
-            <span id="anime-count">0 部片子</span>
+      <section class="hx-cinema-toolbar-wrap" aria-label="工具栏">
+        <div class="hx-cinema-toolbar">
+          <div class="hx-anime-search-wrap">
+            <svg class="hx-anime-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
+            </svg>
+            <input id="anime-search" class="hx-anime-search" type="search" placeholder="搜索标题..." autocomplete="off">
           </div>
-          <div class="anime-grid" id="video-list"></div>
-        </div>
-
-        <div class="anime-panel anime-detail" id="video-detail">
-          <div class="anime-empty">
-            <span>银幕</span>
-            <p>从片架取一部，银幕便在此处展开。</p>
-          </div>
+          <select id="anime-sort" class="hx-anime-sort" aria-label="排序">
+            <option value="new">最新优先</option>
+            <option value="old">最早优先</option>
+            <option value="title">按标题</option>
+            <option value="size">按大小</option>
+          </select>
+          <span class="hx-cinema-status" id="anime-status">Loading...</span>
         </div>
       </section>
+
+      <section class="hx-cinema-rails" id="cinema-rails" aria-label="片单">
+        <div class="hx-loading-state">
+          <span class="hx-dot"></span>
+          <span>Loading videos...</span>
+        </div>
+      </section>
+
     </main>
 
-    <footer class="section-lab-footer">
-      <span>放映室</span>
-      <span>中文字幕 / 私人放映</span>
+    <footer class="hx-footer" role="contentinfo">
+      <div class="hx-footer-l">
+        <span class="hx-dot"></span>
+        <span>berlin2003.ccwu.cc</span>
+      </div>
+      <div class="hx-footer-m">
+        <span>// local subtitles / server storage</span>
+      </div>
+      <div class="hx-footer-r">
+        <span class="hx-prompt">$ ./anime --stream</span>
+      </div>
     </footer>
   </div>
 
-  <script src="/assets/anime.js?v=20260505-polish"></script>
+  <script src="/assets/home-anim.js?v=20260501-a1" defer></script>
+  <script src="/assets/anime.js?v=20260517b"></script>
+  <script src="/assets/site-chat.js"></script>
 </body>
 </html>

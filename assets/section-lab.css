@@ -121,15 +121,22 @@ body.section-lab-body::after {
   align-items: center;
   justify-content: center;
   min-height: 40px;
-  padding: 9px 13px;
+  padding: 9px 16px;
   color: var(--section-ink) !important;
   text-decoration: none !important;
   font-size: 0.94rem;
   font-weight: 700;
   border: 1px solid var(--section-line);
-  border-radius: 5px;
+  border-radius: 6px;
   background: rgba(255, 255, 255, 0.78);
   transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.section-lab-nav a.active {
+  color: #fff !important;
+  border-color: var(--section-blue);
+  background: var(--section-blue);
+  box-shadow: 0 8px 20px rgba(35, 111, 229, 0.2);
 }
 
 .section-lab-nav a:hover,
@@ -1264,6 +1271,138 @@ body.anime-lab-body {
   line-height: 1.75;
 }
 
+/* project cards */
+.project-accent-blue { border-left: 3px solid var(--section-blue) !important; }
+.project-accent-teal { border-left: 3px solid var(--section-teal) !important; }
+.project-accent-coral { border-left: 3px solid var(--section-coral) !important; }
+.project-accent-green { border-left: 3px solid var(--section-green) !important; }
+
+.section-lab-card[class*="project-accent-"]::before { display: none; }
+.section-lab-card[class*="project-accent-"] {
+  display: grid;
+  align-content: start;
+  gap: 0;
+  padding: 22px 22px 18px;
+}
+
+.section-lab-card[class*="project-accent-"]:hover .project-card-arrow {
+  transform: translateX(4px);
+  color: var(--section-ink);
+}
+
+.project-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.project-card-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: "Bahnschrift", "DIN Alternate", "Aptos", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+.project-card-status::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--section-muted);
+}
+
+.project-card-status.is-active { color: var(--section-green); }
+.project-card-status.is-active::before { background: var(--section-green); }
+
+.project-card-status.is-building { color: var(--section-coral); }
+.project-card-status.is-building::before { background: var(--section-coral); }
+
+.project-card-status.is-planned { color: var(--section-muted); }
+
+.section-lab-card[class*="project-accent-"] strong {
+  margin-top: 14px;
+  font-size: 1.45rem;
+}
+
+.section-lab-card[class*="project-accent-"] p {
+  margin: 12px 0 0;
+  line-height: 1.72;
+}
+
+.project-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 16px;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 4px 9px;
+  font-family: "Bahnschrift", "DIN Alternate", "Aptos", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  color: var(--section-muted);
+  border: 1px solid var(--section-line);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.project-card-progress {
+  margin-top: 16px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--section-line);
+  overflow: hidden;
+}
+
+.project-card-progress-bar {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--section-blue), var(--section-teal));
+  transition: width 0.6s ease;
+}
+
+.project-card-arrow {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+  color: var(--section-muted);
+  font-size: 1.1rem;
+  transition: transform 180ms ease, color 180ms ease;
+}
+
+/* project notion panels */
+.project-panel-accent-blue { border-left: 3px solid var(--section-blue) !important; }
+.project-panel-accent-teal { border-left: 3px solid var(--section-teal) !important; }
+.project-panel-accent-coral { border-left: 3px solid var(--section-coral) !important; }
+.project-panel-accent-green { border-left: 3px solid var(--section-green) !important; }
+
+.project-panel-meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.project-panel-count {
+  color: var(--section-muted);
+  font-family: "Bahnschrift", "DIN Alternate", "Aptos", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
 @media (max-width: 980px) {
   .section-lab-shell {
     width: min(100% - 32px, 1220px) !important;
@@ -1350,7 +1489,9 @@ body.anime-lab-body {
   .section-lab-link,
   .section-lab-meta a,
   .section-lab-button,
-  .section-lab-tool {
+  .section-lab-tool,
+  .project-card-arrow,
+  .project-card-progress-bar {
     transition: none;
   }
 }

@@ -1,0 +1,591 @@
+/* Berlin2003 semantic paper pages. Stable visual layer for deep research pages. */
+
+html {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body.paper-lab-body {
+  --paper-ink: #07162f;
+  --paper-muted: #53647d;
+  --paper-blue: #125fe5;
+  --paper-teal: #0d999d;
+  --paper-orange: #f26419;
+  --paper-line: rgba(7, 22, 47, 0.12);
+  --paper-panel: rgba(255, 255, 255, 0.88);
+  --paper-shadow: 0 24px 70px rgba(29, 89, 143, 0.14);
+  margin: 0;
+  max-width: 100%;
+  overflow-x: hidden;
+  color: var(--paper-ink);
+  font-family: "Aptos", "Segoe UI Variable Text", "Noto Sans SC", "Microsoft YaHei UI", sans-serif;
+  background:
+    linear-gradient(90deg, rgba(18, 95, 229, 0.08) 0 1px, transparent 1px 100%),
+    radial-gradient(circle at 78% 8%, rgba(13, 153, 157, 0.13), transparent 24%),
+    linear-gradient(180deg, #fcfeff 0%, #f2f9fb 54%, #fff8f3 100%) !important;
+  background-size: 88px 100%, auto, auto !important;
+}
+
+body.paper-lab-body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.55;
+  background:
+    linear-gradient(180deg, transparent 0%, rgba(18, 95, 229, 0.07) 34%, transparent 35% 64%, rgba(13, 153, 157, 0.07) 65%, transparent 100%);
+  background-size: 100% 220px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), transparent 96%);
+}
+
+body.paper-lab-body::after {
+  display: none !important;
+}
+
+.paper-lab-shell {
+  position: relative;
+  z-index: 1;
+  width: min(1440px, calc(100% - 48px)) !important;
+  margin: 0 auto !important;
+  padding: 30px 0 42px !important;
+}
+
+.paper-lab-topbar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--paper-line);
+}
+
+.paper-lab-brand {
+  display: inline-flex !important;
+  align-items: baseline;
+  color: var(--paper-ink) !important;
+  text-decoration: none !important;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.paper-lab-brand strong {
+  color: var(--paper-blue);
+  font-weight: 800;
+}
+
+.paper-lab-nav,
+.paper-lab-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.paper-lab-nav {
+  justify-content: flex-end;
+}
+
+.paper-lab-nav a,
+.paper-lab-actions a,
+.paper-lab-source a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  color: var(--paper-ink) !important;
+  text-decoration: none !important;
+  font-size: 0.95rem;
+  font-weight: 650;
+  border: 1px solid var(--paper-line);
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.78);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.paper-lab-nav a,
+.paper-lab-actions a,
+.paper-lab-source a {
+  padding: 9px 13px;
+}
+
+.paper-lab-nav a:hover,
+.paper-lab-actions a:hover,
+.paper-lab-source a:hover,
+.paper-lab-card:hover,
+.paper-lab-next a:hover {
+  transform: translateY(-2px);
+  border-color: rgba(18, 95, 229, 0.34);
+  box-shadow: 0 16px 34px rgba(29, 89, 143, 0.12);
+}
+
+.paper-lab-main {
+  display: grid;
+  gap: 46px;
+  padding-top: 38px;
+}
+
+.paper-lab-hero {
+  display: grid;
+  grid-template-columns: minmax(390px, 0.76fr) minmax(0, 1.24fr);
+  gap: 34px;
+  align-items: center;
+}
+
+.paper-lab-copy {
+  display: grid;
+  align-content: center;
+  gap: 18px;
+  min-height: 500px;
+  padding: 30px 0;
+}
+
+.paper-lab-kicker,
+.paper-lab-figure figcaption,
+.paper-lab-metrics span,
+.paper-lab-section-head span,
+.paper-lab-card span,
+.paper-lab-cut span,
+.paper-lab-next span,
+.paper-lab-footer {
+  font-family: "Bahnschrift", "DIN Alternate", "Aptos", sans-serif;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.paper-lab-kicker {
+  position: relative;
+  margin: 0;
+  padding-top: 18px;
+  color: var(--paper-blue);
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.acoustic-paper-page .paper-lab-kicker,
+.acoustic-paper-page .paper-lab-metrics span,
+.acoustic-paper-page .paper-lab-card span,
+.acoustic-paper-page .paper-lab-cut span,
+.acoustic-paper-page .paper-lab-next span {
+  color: var(--paper-teal);
+}
+
+.paper-lab-kicker::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: currentColor;
+}
+
+.paper-lab-copy h1 {
+  max-width: 10em;
+  margin: 0;
+  color: var(--paper-ink);
+  font-family: "Aptos Display", "Segoe UI Variable Display", "Noto Sans SC", sans-serif;
+  font-size: 4.45rem;
+  font-weight: 820;
+  letter-spacing: 0;
+  line-height: 0.98;
+}
+
+.paper-lab-lead {
+  max-width: 38em;
+  margin: 0;
+  color: var(--paper-muted);
+  font-size: 1.08rem;
+  line-height: 1.9;
+}
+
+.paper-lab-actions .paper-lab-primary {
+  color: #fff !important;
+  border-color: var(--paper-blue);
+  background: var(--paper-blue);
+  box-shadow: 0 14px 28px rgba(18, 95, 229, 0.22);
+}
+
+.acoustic-paper-page .paper-lab-actions .paper-lab-primary {
+  border-color: var(--paper-teal);
+  background: var(--paper-teal);
+  box-shadow: 0 14px 28px rgba(13, 153, 157, 0.2);
+}
+
+.paper-lab-figure,
+.paper-lab-metrics article,
+.paper-lab-card,
+.paper-lab-cut,
+.paper-lab-next a {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(18, 95, 229, 0.16);
+  border-radius: 8px;
+  background: var(--paper-panel);
+  box-shadow: var(--paper-shadow);
+}
+
+.paper-lab-figure {
+  margin: 0;
+  background: #fff;
+}
+
+.paper-lab-figure img {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  padding: 22px;
+  background: #fff;
+}
+
+.hubert-paper-page .paper-lab-figure img {
+  mask-image: linear-gradient(to right, transparent 0 14%, rgba(0, 0, 0, 0.62) 18%, #000 25%);
+}
+
+.paper-lab-figure figcaption {
+  padding: 12px 16px 16px;
+  color: var(--paper-muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.65;
+  border-top: 1px solid var(--paper-line);
+}
+
+.paper-lab-source {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 16px 16px;
+}
+
+.paper-lab-metrics,
+.paper-lab-grid,
+.paper-lab-cuts,
+.paper-lab-next {
+  display: grid;
+  gap: 14px;
+}
+
+.paper-lab-metrics,
+.paper-lab-cuts,
+.paper-lab-next {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.paper-lab-metrics article,
+.paper-lab-card,
+.paper-lab-cut,
+.paper-lab-next a {
+  padding: 20px;
+}
+
+.paper-lab-metrics article::before,
+.paper-lab-card::before,
+.paper-lab-cut::before,
+.paper-lab-next a::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(90deg, var(--paper-blue), var(--paper-teal), var(--paper-orange));
+}
+
+.paper-lab-metrics span,
+.paper-lab-card span,
+.paper-lab-cut span,
+.paper-lab-next span {
+  color: var(--paper-blue);
+  font-size: 0.86rem;
+  font-weight: 850;
+}
+
+.paper-lab-metrics strong,
+.paper-lab-section-head h2,
+.paper-lab-card strong,
+.paper-lab-cut strong,
+.paper-lab-next strong {
+  display: block;
+  margin: 0;
+  color: var(--paper-ink);
+  font-family: "Aptos Display", "Segoe UI Variable Display", "Noto Sans SC", sans-serif;
+  letter-spacing: 0;
+}
+
+.paper-lab-metrics strong {
+  margin-top: 14px;
+  font-size: 1.85rem;
+  line-height: 1;
+}
+
+.paper-lab-metrics p,
+.paper-lab-card p,
+.paper-lab-cut p,
+.paper-lab-next p,
+.paper-lab-deep-card p,
+.paper-lab-deep-card li {
+  margin: 14px 0 0;
+  color: var(--paper-muted);
+  line-height: 1.75;
+}
+
+.paper-lab-section {
+  display: grid;
+  gap: 18px;
+}
+
+.paper-lab-deep {
+  display: grid;
+  gap: 18px;
+}
+
+.paper-lab-deep-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.paper-lab-deep-card {
+  position: relative;
+  min-height: 244px;
+  grid-column: span 2;
+  overflow: hidden;
+  padding: 22px;
+  border: 1px solid rgba(18, 95, 229, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: var(--paper-shadow);
+}
+
+.paper-lab-deep-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(90deg, var(--paper-blue), var(--paper-teal), var(--paper-orange));
+}
+
+.paper-lab-deep-card-wide {
+  grid-column: span 3;
+}
+
+.paper-lab-deep-card span {
+  color: var(--paper-teal);
+  font-family: "Bahnschrift", "DIN Alternate", "Aptos", sans-serif;
+  font-size: 0.86rem;
+  font-weight: 850;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.paper-lab-deep-card strong {
+  display: block;
+  margin-top: 16px;
+  color: var(--paper-ink);
+  font-family: "Aptos Display", "Segoe UI Variable Display", "Noto Sans SC", sans-serif;
+  font-size: 1.58rem;
+  font-weight: 780;
+  line-height: 1.16;
+}
+
+.paper-lab-deep-card ul {
+  display: grid;
+  gap: 8px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.paper-lab-deep-card li {
+  position: relative;
+  padding-left: 18px;
+}
+
+.paper-lab-deep-card li::before {
+  content: "";
+  position: absolute;
+  top: 0.8em;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--paper-teal);
+  box-shadow: 0 0 0 4px rgba(13, 153, 157, 0.11);
+}
+
+.paper-lab-section-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--paper-line);
+}
+
+.paper-lab-section-head span {
+  color: var(--paper-teal);
+  font-size: 0.86rem;
+  font-weight: 850;
+}
+
+.paper-lab-section-head h2 {
+  font-size: 2.4rem;
+  font-weight: 760;
+  line-height: 1.1;
+}
+
+.paper-lab-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.paper-lab-card {
+  min-height: 188px;
+  color: var(--paper-ink) !important;
+  text-decoration: none !important;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.paper-lab-card strong,
+.paper-lab-cut strong,
+.paper-lab-next strong {
+  margin-top: 18px;
+  font-size: 1.45rem;
+  font-weight: 760;
+  line-height: 1.15;
+}
+
+.paper-lab-card-wide {
+  grid-column: span 2;
+}
+
+.paper-lab-cut {
+  min-height: 176px;
+}
+
+.paper-lab-next a {
+  min-height: 160px;
+  color: var(--paper-ink) !important;
+  text-decoration: none !important;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.paper-lab-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 42px;
+  padding-top: 18px;
+  color: var(--paper-muted);
+  font-size: 0.84rem;
+  border-top: 1px solid var(--paper-line);
+}
+
+body.paper-lab-body .site-chat-button {
+  right: 22px !important;
+  bottom: 22px !important;
+  top: auto !important;
+  transform: scale(0.94);
+  transform-origin: right bottom;
+}
+
+@media (max-width: 1180px) {
+  .paper-lab-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .paper-lab-copy {
+    min-height: auto;
+    padding: 20px 0 0;
+  }
+
+  .paper-lab-copy h1 {
+    font-size: 3.8rem;
+  }
+
+  .paper-lab-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .paper-lab-deep-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .paper-lab-deep-card,
+  .paper-lab-deep-card-wide {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 820px) {
+  .paper-lab-shell {
+    width: min(100% - 20px, 1440px) !important;
+    padding-top: 18px !important;
+  }
+
+  .paper-lab-topbar,
+  .paper-lab-section-head,
+  .paper-lab-footer {
+    align-items: flex-start !important;
+    flex-direction: column;
+  }
+
+  .paper-lab-brand {
+    font-size: 1.68rem;
+  }
+
+  .paper-lab-nav {
+    justify-content: flex-start;
+  }
+
+  .paper-lab-main {
+    gap: 28px;
+    padding-top: 26px;
+  }
+
+  .paper-lab-copy h1 {
+    max-width: 11em;
+    font-size: 2.42rem;
+  }
+
+  .paper-lab-lead {
+    font-size: 1rem;
+  }
+
+  .paper-lab-metrics,
+  .paper-lab-grid,
+  .paper-lab-cuts,
+  .paper-lab-next,
+  .paper-lab-deep-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .paper-lab-card-wide {
+    grid-column: auto;
+  }
+
+  .paper-lab-section-head h2 {
+    font-size: 2rem;
+  }
+
+  .paper-lab-figure img {
+    padding: 10px;
+  }
+
+  body.paper-lab-body .site-chat-button {
+    right: 14px !important;
+    bottom: 14px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .paper-lab-nav a,
+  .paper-lab-actions a,
+  .paper-lab-source a,
+  .paper-lab-card,
+  .paper-lab-next a {
+    transition: none;
+  }
+}

@@ -1,93 +1,208 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Berlin2003 / EnCodec</title>
-  <meta name="description" content="EnCodec：把 neural audio codec 推成稳定工程基线的声学编码器。">
-  <meta name="theme-color" content="#f7fbff">
+  <meta name="description" content="EnCodec: 从离散 unit 发现走向 masked prediction 主线的关键版本">
+  <meta name="theme-color" content="#07162f">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
-  <link rel="stylesheet" href="/assets/paper-lab.css?v=20260502-acoustic-deep">
+  <link rel="stylesheet" href="/assets/home-tech.css">
+  <link rel="stylesheet" href="/assets/model-page.css?v=20260515">
+  <link rel="stylesheet" href="/assets/home-anim.css">
 </head>
-<body class="edition-body paper-lab-body acoustic-paper-page">
-  <div class="site-shell paper-lab-shell">
-    <header class="paper-lab-topbar">
-      <a class="paper-lab-brand" href="/"><span>Berlin</span><strong>2003</strong></a>
-      <nav class="paper-lab-nav" aria-label="研究导航">
-        <a href="/research/soundstream/">上一篇</a>
-        <a href="/research/dac/">下一篇</a>
-        <a href="/research/acoustic/">声学层</a>
+<body class="home hx-body">
+
+  <div class="hx-bg" aria-hidden="true">
+    <div class="hx-grid"></div>
+    <div class="hx-orb hx-orb-1"></div>
+    <div class="hx-orb hx-orb-2"></div>
+    <div class="hx-orb hx-orb-3"></div>
+    <div class="hx-scanlines"></div>
+    <div class="hx-noise"></div>
+  </div>
+
+  <div class="hx-shell">
+
+    <header class="hx-nav" role="banner">
+      <a class="hx-brand" href="/" aria-label="Berlin2003 首页">
+        <span class="hx-brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 12 L7 12 L9 6 L13 18 L15 9 L17 14 L21 12" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="hx-brand-text">Berlin<strong>2003</strong></span>
+      </a>
+
+      <nav class="hx-nav-links" aria-label="主导航">
+        <a href="/research/" class="is-active"><span>01</span>研究</a>
+        <a href="/projects/"><span>02</span>项目</a>
+        <a href="/notes/"><span>03</span>笔记</a>
+        <a href="/contact/"><span>04</span>联系</a>
       </nav>
+
+      <div class="hx-nav-status" aria-hidden="true">
+        <span class="hx-dot"></span>
+        <span>SYS · ONLINE</span>
+      </div>
     </header>
 
-    <main class="paper-lab-main">
-      <section class="paper-lab-hero">
-        <div class="paper-lab-copy">
-          <p class="paper-lab-kicker">2022 / Engineering Baseline</p>
-          <h1>EnCodec</h1>
-          <p class="paper-lab-lead">EnCodec 不是推翻 SoundStream，而是把 neural codec 做成更稳的工程基线：更成熟的训练配方、MS-STFT 判别器、熵模型，以及语音和音乐都可用的公开实现。</p>
-          <div class="paper-lab-actions">
-            <a class="paper-lab-primary" href="https://arxiv.org/abs/2210.13438" target="_blank" rel="noreferrer">论文原文</a>
-            <a href="https://github.com/facebookresearch/encodec" target="_blank" rel="noreferrer">官方代码</a>
+    <main class="hx-main hx-model-main">
+
+      <!-- ============ BREADCRUMB ============ -->
+      <nav class="hx-breadcrumb" aria-label="面包屑导航">
+        <a href="/research/">研究</a>
+        <span class="hx-breadcrumb-sep">▸</span>
+        <a href="/research/acoustic/">声学编码器</a>
+        <span class="hx-breadcrumb-sep">▸</span>
+        <span class="hx-breadcrumb-current">EnCodec</span>
+      </nav>
+
+      <!-- ============ MODEL HERO ============ -->
+      <section class="hx-model-hero">
+        <div class="hx-model-hero-main">
+          <div class="hx-model-meta-top">
+            <span class="hx-model-year">2022</span>
+            <span class="hx-model-org">Meta</span>
+          </div>
+
+          <h1 class="hx-model-title">EnCodec</h1>
+
+          <p class="hx-model-summary">
+            EnCodec 之所以成了声学编码器主线，不是因为它把标签做得更"真"，
+            而是因为它抓住了一个更重要的点：<mark>预训练阶段最需要的是时间上足够一致的 hidden-unit 目标</mark>，
+            再通过 masked prediction 把内容和上下文真正学出来。
+          </p>
+
+          <div class="hx-model-links">
+            <a class="hx-model-link-primary" href="https://arxiv.org/abs/2210.13438" target="_blank" rel="noreferrer">
+              <span>论文原文</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
+            </a>
+            <a class="hx-model-link-secondary" href="https://github.com/facebookresearch/encodec" target="_blank" rel="noreferrer">
+              <span>官方代码</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
+            </a>
           </div>
         </div>
 
-        <figure class="paper-lab-figure">
-          <img src="/assets/architecture-encodec.png" alt="EnCodec architecture diagram">
-          <figcaption>技术结构图：EnCodec 使用 streaming SEANet-style encoder / decoder 与 RVQ bottleneck，并可接入 Transformer LM entropy coding 进一步降低码率。</figcaption>
-          <div class="paper-lab-source">
-            <a href="https://arxiv.org/abs/2210.13438" target="_blank" rel="noreferrer">arXiv</a>
-            <a href="https://github.com/facebookresearch/encodec" target="_blank" rel="noreferrer">GitHub</a>
+        <aside class="hx-model-aside">
+          <article class="hx-model-info-card">
+            <span class="hx-model-info-label">定位</span>
+            <p>从离散 unit 发现走向 masked prediction 主线的关键版本</p>
+          </article>
+          <article class="hx-model-info-card">
+            <span class="hx-model-info-label">图源</span>
+            <p>论文 Fig. 1，来自 arXiv 官方 PDF</p>
+          </article>
+        </aside>
+      </section>
+
+      <!-- ============ FIGURE ============ -->
+      <section class="hx-model-figure hx-reveal">
+        <figure>
+          <div class="hx-figure-frame">
+            <img src="/assets/official-encodec.png" alt="EnCodec 论文图">
           </div>
+          <figcaption>
+            <strong>图源：EnCodec 论文 Figure 1</strong>
+            <p>图里真正关键的关系是：先用离线 clustering 产出 hidden-unit targets，再只对 masked 区域做预测。EnCodec 的创新点，不是把 quantizer 做得更复杂，而是把 teacher 和 prediction loss 的分工重新理顺了。</p>
+          </figcaption>
         </figure>
       </section>
 
-      <section class="paper-lab-metrics">
-        <article><span>Training</span><strong>MS-STFT 判别器</strong><p>让频谱结构和听感优化更稳定。</p></article>
-        <article><span>Compression</span><strong>熵模型</strong><p>在离散码之后进一步提升实际压缩效率。</p></article>
-        <article><span>Role</span><strong>公开工程基线</strong><p>后续大量 audio token 工作都会拿它作为比较对象。</p></article>
-      </section>
+      <!-- ============ GLANCE ============ -->
+      <section class="hx-model-glance hx-reveal">
+        <div class="hx-glance-grid">
+          <article class="hx-glance-card">
+            <span class="hx-glance-label">Teacher</span>
+            <h3>离线 clustering 产出 hidden-unit 伪标签</h3>
+            <p>先有一个粗 teacher，就足以让模型开始学更稳的内容结构，不必等标签一开始就完美。</p>
+          </article>
 
-      <section class="paper-lab-deep">
-        <div class="paper-lab-section-head"><span>Paper Deep Dive</span><h2>论文精讲：EnCodec 如何把 SoundStream 路线工程化</h2></div>
-        <div class="paper-lab-deep-grid">
-          <article class="paper-lab-deep-card paper-lab-deep-card-wide"><span>模型解析</span><strong>SEANet + RVQ + streaming decoder</strong><ul><li>encoder 把 waveform 压成 latent，RVQ 按层输出离散 code，decoder 再恢复时域音频。</li><li>模型可做 causal / streaming，也可做更高质量的非因果版本，覆盖实时与离线场景。</li><li>可选 Transformer language model 对离散码做 entropy coding，进一步减少传输 bit。</li></ul></article>
-          <article class="paper-lab-deep-card paper-lab-deep-card-wide"><span>创新点</span><strong>稳定训练和工程可复用性是重点</strong><ul><li>MS-STFT discriminator 比单一 waveform 判别器更贴近音频频谱结构。</li><li>loss balancer 动态调节不同损失项，减少 GAN 训练时某一项支配全局的问题。</li><li>RVQ 层数控制带宽，配合 entropy coding，让 codec 从模型论文变成可部署系统。</li></ul></article>
-          <article class="paper-lab-deep-card"><span>损失函数</span><strong>多尺度频谱、对抗和重建共同工作</strong><ul><li>reconstruction loss 约束时域或频域重建，保证内容和基础音色不丢。</li><li>MS-STFT adversarial loss 关注不同时间频率尺度下的真实感和瞬态纹理。</li><li>loss balancer 不是额外指标，而是训练机制：让重建、对抗、量化目标保持可控权重。</li></ul></article>
-          <article class="paper-lab-deep-card"><span>训练策略</span><strong>先训练 codec，再训练熵模型</strong><ul><li>codec 主体用多码率目标训练，使不同 RVQ 层数都能正常解码。</li><li>entropy model 在离散 token 上建模概率分布，部署时用于 arithmetic coding。</li><li>训练覆盖 24 kHz 单声道和更高规格版本，目标是让同一设计跨音频设置复用。</li></ul></article>
-          <article class="paper-lab-deep-card"><span>结果分析</span><strong>它的贡献是质量、码率和部署性的平衡</strong><ul><li>低码率下相对传统 codec 和早期 neural codec 保持更稳的主观质量。</li><li>entropy coding 可以在不改音频重建器的情况下继续压缩 token。</li><li>它也暴露出后续问题：token 主要仍是声学码，未天然适配 speech / audio LM。</li></ul></article>
+          <article class="hx-glance-card">
+            <span class="hx-glance-label">Loss</span>
+            <h3>只在 masked 区域上做 prediction</h3>
+            <p>这一步强迫模型真正利用上下文，而不是仅靠局部声学相似性去偷答案。</p>
+          </article>
+
+          <article class="hx-glance-card">
+            <span class="hx-glance-label">Refine</span>
+            <h3>迭代 clustering，再提升 teacher 一致性</h3>
+            <p>它的重点不在标签"像不像真音素"，而在于 teacher 是否足够一致，能否支撑下一轮表示继续变好。</p>
+          </article>
         </div>
       </section>
 
-      <section class="paper-lab-section">
-        <div class="paper-lab-section-head"><span>Core Route</span><h2>EnCodec 把什么变稳定了</h2></div>
-        <div class="paper-lab-grid">
-          <article class="paper-lab-card"><span>01</span><strong>训练配方更稳</strong><p>对抗损失、重建损失和频谱约束更系统化。</p></article>
-          <article class="paper-lab-card"><span>02</span><strong>覆盖语音和音乐</strong><p>它把 neural codec 从语音任务推向更通用的音频基线。</p></article>
-          <article class="paper-lab-card"><span>03</span><strong>熵编码进入实际链路</strong><p>离散码本身之外，还要考虑真实传输码率。</p></article>
-          <article class="paper-lab-card"><span>04</span><strong>代码成为接口</strong><p>公开实现让后续研究能直接复用 acoustic token 前端。</p></article>
+      <!-- ============ CORE ROUTE ============ -->
+      <section class="hx-model-core hx-reveal">
+        <header class="hx-section-head">
+          <span class="hx-section-tag">[ CORE ROUTE ]</span>
+          <h2>核心路线</h2>
+          <p>EnCodec 真正解决的是一个长期卡住语义预训练的问题：如果没有显式 lexicon，也没有天然切分，模型到底该靠什么稳定学到内容单位。它给出的回答是，一致的 hidden units 加 masked prediction 就够了。</p>
+        </header>
+
+        <div class="hx-core-grid">
+          <article class="hx-core-card">
+            <h3>为什么"consistency 比 correctness 更重要"</h3>
+            <p>EnCodec 的论文明确指出，预训练阶段最重要的不是伪标签绝对正确，而是它们在时间上足够一致。只要 teacher 的边界和模式足够稳定，模型就能持续学出更强的内容表示；如果标签每次都乱跳，再"精确"也很难形成稳定语义层。</p>
+          </article>
+
+          <article class="hx-core-card">
+            <h3>为什么只在 masked 区域做 prediction</h3>
+            <p>这一步等于把模型从"局部复制器"强制推成上下文建模器。只有被遮掉的部分需要预测时，模型才会真的去整合前后文的信息，因此输出会更像 combined acoustic + language model，而不只是局部声学对齐器。</p>
+          </article>
+
+          <article class="hx-core-card">
+            <h3>迭代 clustering 解决了什么</h3>
+            <p>第一轮 teacher 往往很粗，但已经足够把模型带到比原始特征更好的表示上。接着再用新表示去重新聚类，teacher 就会更稳定，下一轮模型也更强。EnCodec 的迭代路线说明：语义层可以是逐轮长出来的，而不是一开始就被精确规定死。</p>
+          </article>
+
+          <article class="hx-core-card">
+            <h3>为什么它会成为后面很多语义 teacher 的默认选择</h3>
+            <p>因为 EnCodec 输出的 hidden representation 相对更稳、更上下文化，也更适合作为后续 tokenizer 或分层语义前端的 teacher。SpeechTokenizer 用 EnCodec 层表示做 acoustic teacher，本质上就是沿着这条逻辑继续往系统接口上走。</p>
+          </article>
         </div>
       </section>
 
-      <section class="paper-lab-section">
-        <div class="paper-lab-section-head"><span>Reading Cut</span><h2>读这页时抓三个判断</h2></div>
-        <div class="paper-lab-cuts">
-          <article class="paper-lab-cut"><span>Cut 01</span><strong>基线价值高</strong><p>它让后续模型能在同一条工程链路里比较。</p></article>
-          <article class="paper-lab-cut"><span>Cut 02</span><strong>判别器影响质感</strong><p>声学层的自然度很大程度来自训练目标设计。</p></article>
-          <article class="paper-lab-cut"><span>Cut 03</span><strong>压缩不是只看 token</strong><p>熵模型提醒我们，真实传输还要看码流统计。</p></article>
-        </div>
-      </section>
+      <!-- ============ MODEL NAV ============ -->
+      <nav class="hx-model-nav hx-reveal">
+        <a class="hx-model-nav-card" href="/research/acoustic/">
+          <span class="hx-model-nav-label">Index</span>
+          <strong>声学编码器</strong>
+          <p>回到方向 01 的内部空间</p>
+        </a>
 
-      <nav class="paper-lab-next">
-        <a href="/research/soundstream/"><span>Prev</span><strong>SoundStream</strong><p>回到系统起点。</p></a>
-        <a href="/research/dac/"><span>Next</span><strong>DAC</strong><p>看统一高保真前端。</p></a>
-        <a href="/research/snac/"><span>Next</span><strong>SNAC</strong><p>看多时间尺度 token。</p></a>
+        <a class="hx-model-nav-card" href="/research/vq-wav2vec/">
+          <span class="hx-model-nav-label">Prev</span>
+          <strong>vq-wav2vec</strong>
+          <p>回到离散 speech units 这条起点版本</p>
+        </a>
+
+        <a class="hx-model-nav-card" href="/research/wavlm/">
+          <span class="hx-model-nav-label">Next</span>
+          <strong>WavLM</strong>
+          <p>更强的 teacher encoder</p>
+        </a>
       </nav>
     </main>
 
-    <footer class="paper-lab-footer"><span>EnCodec</span><span>high fidelity neural audio compression</span></footer>
+    <footer class="hx-footer" role="contentinfo">
+      <div class="hx-footer-l">
+        <span class="hx-dot"></span>
+        <span>berlin2003.ccwu.cc</span>
+      </div>
+      <div class="hx-footer-m">
+        <span>// acoustic first / acoustic next</span>
+      </div>
+      <div class="hx-footer-r">
+        <span class="hx-prompt">$ ./encodec --neural-codec</span>
+      </div>
+    </footer>
   </div>
+
+  <script src="/assets/home-anim.js?v=20260501-a1" defer></script>
   <script src="/assets/site-chat.js"></script>
 </body>
 </html>

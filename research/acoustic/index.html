@@ -3,210 +3,331 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Berlin2003 / Acoustic Encoder</title>
-  <meta name="description" content="声学编码器研究页：恢复自然度、音色和细节，把 codec 推成可供上层模型读取的语音前端。">
-  <meta name="theme-color" content="#f7fbff">
+  <title>Berlin2003 / 声学编码器</title>
+  <meta name="description" content="声学层负责自然度、音色和局部细节，正在从重建器走向 speech LLM 前端接口。">
+  <meta name="theme-color" content="#07162f">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
-  <link rel="stylesheet" href="/assets/research-detail.css?v=20260501-inner">
+  <link rel="stylesheet" href="/assets/home-tech.css">
+  <link rel="stylesheet" href="/assets/semantic-page.css?v=20260515">
+  <link rel="stylesheet" href="/assets/home-anim.css">
 </head>
-<body class="edition-body research-detail-body acoustic-detail-page">
-  <div class="site-shell research-detail-shell">
-    <header class="research-detail-topbar">
-      <a class="research-detail-brand" href="/" aria-label="Berlin2003 首页">
-        <span>Berlin</span><strong>2003</strong>
+<body class="home hx-body">
+
+  <div class="hx-bg" aria-hidden="true">
+    <div class="hx-grid"></div>
+    <div class="hx-orb hx-orb-1"></div>
+    <div class="hx-orb hx-orb-2"></div>
+    <div class="hx-orb hx-orb-3"></div>
+    <div class="hx-scanlines"></div>
+    <div class="hx-noise"></div>
+  </div>
+
+  <div class="hx-shell">
+
+    <header class="hx-nav" role="banner">
+      <a class="hx-brand" href="/" aria-label="Berlin2003 首页">
+        <span class="hx-brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 12 L7 12 L9 6 L13 18 L15 9 L17 14 L21 12" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="hx-brand-text">Berlin<strong>2003</strong></span>
       </a>
-      <nav class="research-detail-nav" aria-label="研究导航">
-        <a href="/research/">研究地图</a>
-        <a href="/research/semantic/">语义层</a>
-        <a href="/notes/">笔记</a>
+
+      <nav class="hx-nav-links" aria-label="主导航">
+        <a href="/research/" class="is-active"><span>01</span>研究</a>
+        <a href="/projects/"><span>02</span>项目</a>
+        <a href="/notes/"><span>03</span>笔记</a>
+        <a href="/contact/"><span>04</span>联系</a>
       </nav>
+
+      <div class="hx-nav-status" aria-hidden="true">
+        <span class="hx-dot"></span>
+        <span>SYS · ONLINE</span>
+      </div>
     </header>
 
-    <main class="research-detail-main">
-      <section class="research-detail-hero" aria-labelledby="acoustic-title">
-        <div class="research-detail-copy">
-          <p class="research-detail-kicker">Direction 02 / Acoustic Next</p>
-          <h1 id="acoustic-title">声学编码器 / Acoustic Encoder</h1>
-          <p class="research-detail-lead">
-            声学层负责把“听起来如何”补回来：自然度、音色、动态和微小细节。它不应继续承担全部内容建模，而要成为语义层之后的高质量恢复模块。
+    <main class="hx-main hx-semantic-main">
+
+      <nav class="hx-breadcrumb" aria-label="面包屑导航">
+        <a href="/research/">研究</a>
+        <span class="hx-breadcrumb-sep">▸</span>
+        <span class="hx-breadcrumb-current">声学编码器</span>
+      </nav>
+
+      <section class="hx-semantic-hero" aria-labelledby="acoustic-title">
+        <div class="hx-semantic-hero-main">
+          <div class="hx-kicker">
+            <span class="hx-bracket">[</span>
+            <span class="hx-kicker-tag">DIRECTION 02</span>
+            <span class="hx-kicker-sep">/</span>
+            <span class="hx-kicker-ver">ACOUSTIC ENCODER</span>
+            <span class="hx-bracket">]</span>
+          </div>
+
+          <h1 id="acoustic-title" class="hx-title">
+            <span class="hx-title-row">声学编码器</span>
+          </h1>
+
+          <p class="hx-lead">
+            这里不再只是论文索引，而是我当前在用的声学研究空间。核心问题很明确：
+            <mark>怎样把 codec 从"重建器"推进成真正可供上层模型读取的前端</mark>，
+            同时又不把音色、自然度和细节彻底丢掉。
           </p>
-          <div class="research-detail-actions">
-            <a class="research-detail-primary" href="#tracks">阅读模型路线</a>
-            <a href="/research/semantic/">回到语义层</a>
+
+          <div class="hx-hero-meta hx-semantic-meta">
+            <div class="hx-meta-item">
+              <b>11</b><i>routes</i>
+              <span>public research lines</span>
+            </div>
+            <div class="hx-meta-item">
+              <b>2021</b><i>→ 2025</i>
+              <span>streaming → semantic bridge</span>
+            </div>
+            <div class="hx-meta-item">
+              <b>3</b><i>stages</i>
+              <span>evolution phases</span>
+            </div>
           </div>
         </div>
 
-        <figure class="research-detail-poster">
-          <img src="/assets/research-acoustic.png" alt="Acoustic encoder visual explanation">
-          <figcaption>Restore naturalness, timbre, and detail</figcaption>
-        </figure>
+        <aside class="hx-semantic-aside">
+          <article class="hx-aside-card">
+            <span class="hx-aside-tag">当前判断</span>
+            <p>真正重要的转向，不是单点指标，而是 codec 开始承担"语言模型前端接口"的角色。低帧率、语义增强和 streaming detokenizer 都是在围绕这个目标收紧。</p>
+          </article>
+          <article class="hx-aside-card">
+            <span class="hx-aside-tag">建议阅读顺序</span>
+            <p>先看 SoundStream 和 EnCodec 把骨架立住，再看 DAC 和 SNAC 怎样把 token 结构重新组织，最后再进入 Mimi、DualCodec、LongCat 这些已经靠近语义层边界的路线。</p>
+          </article>
+        </aside>
       </section>
 
-      <section class="research-detail-metrics" aria-label="声学层指标">
-        <article>
-          <span>Layer Role</span>
-          <strong>恢复质感</strong>
-          <p>补自然度、音色、节奏和局部声学细节。</p>
+      <div class="hx-tag-strip">
+        <span class="hx-tag">RVQ</span>
+        <span class="hx-tag">Acoustic Tokenizer</span>
+        <span class="hx-tag">Low Frame Rate</span>
+        <span class="hx-tag">Streaming</span>
+        <span class="hx-tag">Speech LLM Frontend</span>
+      </div>
+
+      <section class="hx-roles hx-reveal" aria-label="层级角色">
+        <article class="hx-role-card">
+          <span class="hx-role-label">Layer Role</span>
+          <strong>这一层主要负责自然度、音色和局部细节，不再承担全部内容建模。</strong>
         </article>
-        <article>
-          <span>Token Goal</span>
-          <strong>可重建也可读取</strong>
-          <p>token 不只是还原音频，也要适合作为模型接口。</p>
+        <article class="hx-role-card">
+          <span class="hx-role-label">Token Goal</span>
+          <strong>token 既要能重建音频，也越来越需要被 speech / audio 模型直接读取。</strong>
         </article>
-        <article>
-          <span>Current Trend</span>
-          <strong>低帧率接口</strong>
-          <p>低 token rate、语义增强和流式 detokenizer 正在收紧。</p>
+        <article class="hx-role-card">
+          <span class="hx-role-label">Current Trend</span>
+          <strong>低帧率、语义增强、streaming detokenizer，正在把 codec 推成真正的系统前端。</strong>
         </article>
       </section>
 
-      <section class="research-detail-board" aria-label="声学演进">
-        <div class="research-detail-section-head">
-          <span>Evolution</span>
-          <h2>声学编码器的三段演进</h2>
+      <section class="hx-key-questions hx-reveal" aria-label="演进阶段">
+        <header class="hx-section-head">
+          <span class="hx-section-tag">[ EVOLUTION · 01 ]</span>
+          <h2>三段演进</h2>
+        </header>
+
+        <div class="hx-kq-grid">
+          <article class="hx-kq-card">
+            <span class="hx-kq-num">Stage 01</span>
+            <h3>先把流式 neural codec 的骨架立住</h3>
+            <p>这一段主要解决"端到端 codec 能否稳定成立"这个问题。关键字是流式结构、RVQ、多码率训练、感知损失，以及可真正部署的推理链路。代表模型：SoundStream、EnCodec。</p>
+          </article>
+
+          <article class="hx-kq-card">
+            <span class="hx-kq-num">Stage 02</span>
+            <h3>把 codec 推成统一离散前端</h3>
+            <p>到了这里，重点已经不再只是听感，而是 token 本身是否适合作为后续生成模型接口。统一音频域、高保真和多时间尺度 token 都是这一段的核心词。代表模型：DAC、SNAC。</p>
+          </article>
+
+          <article class="hx-kq-card">
+            <span class="hx-kq-num">Stage 03</span>
+            <h3>向 speech / audio 模型接口继续收紧</h3>
+            <p>新路线已经不满足于"做一个更好 codec"。它们更关心更低 token 速率、语义增强、单码本极低码率，以及 tokenizer / detokenizer 怎样直接服务 speech LLM。代表模型：Mimi、DualCodec、HH-Codec、LongCat。</p>
+          </article>
         </div>
-        <div class="research-detail-questions">
-          <article>
-            <span>Stage 01</span>
-            <strong>先把 neural codec 骨架立住</strong>
-            <p>SoundStream 和 EnCodec 解决结构、训练、码率和部署链路，让端到端 codec 真正成立。</p>
-          </article>
-          <article>
-            <span>Stage 02</span>
-            <strong>再把 token 组织成统一前端</strong>
-            <p>DAC 和 SNAC 开始关心多音频域、高保真和多时间尺度 token，服务更长上下文模型。</p>
-          </article>
-          <article>
-            <span>Stage 03</span>
-            <strong>最后向 speech LLM 接口收紧</strong>
-            <p>Mimi、DualCodec、HH-Codec 等路线把低帧率、语义增强和流式恢复放到前台。</p>
-          </article>
-        </div>
       </section>
 
-      <section id="tracks" class="research-detail-tracks" aria-label="模型路线">
-        <div class="research-detail-section-head">
-          <span>Track 01</span>
+      <section class="hx-routes hx-reveal" aria-label="主干骨架">
+        <header class="hx-section-head">
+          <span class="hx-section-tag">[ BACKBONE · 02 ]</span>
           <h2>主干骨架 / 2021-2024</h2>
-        </div>
-        <div class="research-detail-track-grid acoustic-track-grid">
-          <a href="/research/soundstream/" class="research-detail-card">
-            <span>2021</span>
-            <strong>SoundStream</strong>
-            <p>全卷积流式结构、RVQ、多码率训练和感知优化，构成 neural codec 起点。</p>
+          <p>这四个模型负责把主线讲清楚。它们不是并列的"热门模型"，而是把这条路线从可运行 codec、可复用基线、统一离散前端，再到多时间尺度 token 设计，一步步推进下去。</p>
+        </header>
+
+        <div class="hx-timeline">
+          <a class="hx-timeline-card" href="/research/soundstream/">
+            <div class="hx-timeline-head">
+              <span class="hx-timeline-year">2021</span>
+              <div class="hx-timeline-title">
+                <strong>SoundStream</strong>
+                <span class="hx-timeline-cat">起点骨架</span>
+              </div>
+            </div>
+            <p>全卷积流式结构、RVQ、多码率训练和感知优化在这里第一次被放进同一条完整链路里。</p>
+            <div class="hx-timeline-tags">
+              <span>Streaming</span>
+              <span>RVQ</span>
+              <span>Multi-bitrate</span>
+            </div>
           </a>
-          <a href="/research/encodec/" class="research-detail-card">
-            <span>2022</span>
-            <strong>EnCodec</strong>
-            <p>更稳的训练配方和 MS-STFT 判别器，让 codec 变成可复用工程基线。</p>
+
+          <a class="hx-timeline-card" href="/research/encodec/">
+            <div class="hx-timeline-head">
+              <span class="hx-timeline-year">2022</span>
+              <div class="hx-timeline-title">
+                <strong>EnCodec</strong>
+                <span class="hx-timeline-cat">工程基线</span>
+              </div>
+            </div>
+            <p>更稳的训练配方、MS-STFT 判别器和离散码后接语言模型支路，让 codec 真正变成可复用前端。</p>
+            <div class="hx-timeline-tags">
+              <span>MS-STFT</span>
+              <span>Entropy Model</span>
+              <span>Speech / Music</span>
+            </div>
           </a>
-          <a href="/research/dac/" class="research-detail-card">
-            <span>2023</span>
-            <strong>DAC</strong>
-            <p>Improved RVQGAN 把高保真和多音频域统一到同一个离散接口。</p>
+
+          <a class="hx-timeline-card" href="/research/dac/">
+            <div class="hx-timeline-head">
+              <span class="hx-timeline-year">2023</span>
+              <div class="hx-timeline-title">
+                <strong>DAC</strong>
+                <span class="hx-timeline-cat">统一音频前端</span>
+              </div>
+            </div>
+            <p>44.1kHz 高采样率、周期性激活和更强判别器，把 codec 推成真正统一的音频离散前端，不再只是语音工具。</p>
+            <div class="hx-timeline-tags">
+              <span>44.1kHz</span>
+              <span>Periodic Activation</span>
+              <span>Universal Audio</span>
+            </div>
           </a>
-          <a href="/research/snac/" class="research-detail-card">
-            <span>2024</span>
-            <strong>SNAC</strong>
-            <p>多尺度 token 让不同量化层工作在不同时间分辨率，服务长上下文建模。</p>
+
+          <a class="hx-timeline-card" href="/research/snac/">
+            <div class="hx-timeline-head">
+              <span class="hx-timeline-year">2024</span>
+              <div class="hx-timeline-title">
+                <strong>SNAC</strong>
+                <span class="hx-timeline-cat">多时间尺度 token</span>
+              </div>
+            </div>
+            <p>不再把所有 RVQ 层都放在同一帧率上，而是让粗层更慢、细层更快，token 结构开始真正对齐时间尺度。</p>
+            <div class="hx-timeline-tags">
+              <span>Multi-scale</span>
+              <span>Hierarchical Token</span>
+              <span>Variable Rate</span>
+            </div>
           </a>
         </div>
       </section>
 
-      <section class="research-detail-tracks" aria-label="接口收紧">
-        <div class="research-detail-section-head">
-          <span>Track 02</span>
-          <h2>接口收紧 / 2024-2025</h2>
-        </div>
-        <div class="research-detail-track-grid acoustic-track-grid">
-          <a href="/research/mimi/" class="research-detail-card">
-            <span>2024</span>
-            <strong>Mimi</strong>
-            <p>低帧率 token 同时承载 semantic information 和 acoustic information，触到两层边界。</p>
+      <section class="hx-routes hx-reveal" aria-label="前沿路线">
+        <header class="hx-section-head">
+          <span class="hx-section-tag">[ FRONTIER · 03 ]</span>
+          <h2>前沿路线 / 2024-2025</h2>
+          <p>这些路线已经不再只是"改进 codec"，而是在重新定义 codec 和语义层的边界。语义蒸馏、极低帧率、流式 detokenizer 和单码本设计，都在说明声学编码器正在长成真正的系统前端接口。</p>
+        </header>
+
+        <div class="hx-timeline">
+          <a class="hx-timeline-card" href="/research/mimi/">
+            <div class="hx-timeline-head">
+              <span class="hx-timeline-year">2024</span>
+              <div class="hx-timeline-title">
+                <strong>Mimi</strong>
+                <span class="hx-timeline-cat">语义蒸馏 codec</span>
+              </div>
+            </div>
+            <p>把 WavLM 的语义表示蒸馏进 codec，让声学层不再只是"重建器"，而是开始承担部分语义稳定性。</p>
+            <div class="hx-timeline-tags">
+              <span>Semantic Distillation</span>
+              <span>12.5Hz</span>
+              <span>Streaming</span>
+            </div>
           </a>
-          <a href="/research/wavtokenizer/" class="research-detail-card">
-            <span>2024</span>
-            <strong>WavTokenizer</strong>
-            <p>面向 audio language modeling 的高效 acoustic discrete codec tokenizer。</p>
+
+          <a class="hx-timeline-card" href="/research/dualcodec/">
+            <div class="hx-timeline-head">
+              <span class="hx-timeline-year">2024</span>
+              <div class="hx-timeline-title">
+                <strong>DualCodec</strong>
+                <span class="hx-timeline-cat">显式语义 / 声学分层</span>
+              </div>
+            </div>
+            <p>不再把语义和声学混在一个 RVQ 里，而是用两个独立 codec 分别建模，接口更清晰，分工更明确。</p>
+            <div class="hx-timeline-tags">
+              <span>Dual Encoder</span>
+              <span>Semantic + Acoustic</span>
+              <span>Clean Interface</span>
+            </div>
           </a>
-          <a href="/research/stable-codec/" class="research-detail-card">
-            <span>2024</span>
-            <strong>Stable Codec</strong>
-            <p>把低码率 speech codec 往 Transformer 化推进，用 FSQ 做离散瓶颈。</p>
+
+          <a class="hx-timeline-card" href="/research/hh-codec/">
+            <div class="hx-timeline-head">
+              <span class="hx-timeline-year">2024</span>
+              <div class="hx-timeline-title">
+                <strong>HH-Codec</strong>
+                <span class="hx-timeline-cat">单码本极低码率</span>
+              </div>
+            </div>
+            <p>用单码本就能做到 0.5 kbps，证明在极低码率下，codec 仍然可以保住基本可懂度和音色轮廓。</p>
+            <div class="hx-timeline-tags">
+              <span>Single Codebook</span>
+              <span>0.5 kbps</span>
+              <span>Ultra-low Rate</span>
+            </div>
           </a>
-          <a href="/research/focalcodec/" class="research-detail-card">
-            <span>2025</span>
-            <strong>FocalCodec</strong>
-            <p>聚焦极低码率语音编码，用 single-codebook 设计压低码率。</p>
-          </a>
-          <a href="/research/dualcodec/" class="research-detail-card">
-            <span>2025</span>
-            <strong>DualCodec</strong>
-            <p>双路接入 SSL representation 和 waveform representation，增强首层 token 语义性。</p>
-          </a>
-          <a href="/research/hh-codec/" class="research-detail-card">
-            <span>2025</span>
-            <strong>HH-Codec</strong>
-            <p>面向 spoken language modeling 的低 token 速率、低码率离散语音前端。</p>
-          </a>
-          <a href="/research/longcat-audio-codec/" class="research-detail-card research-detail-card-wide">
-            <span>2025</span>
-            <strong>LongCat Audio Codec</strong>
-            <p>继续把 audio codec 往长上下文、低帧率和模型接口方向推进。</p>
+
+          <a class="hx-timeline-card" href="/research/longcat-audio-codec/">
+            <div class="hx-timeline-head">
+              <span class="hx-timeline-year">2025</span>
+              <div class="hx-timeline-title">
+                <strong>LongCat Audio Codec</strong>
+                <span class="hx-timeline-cat">流式 detokenizer</span>
+              </div>
+            </div>
+            <p>把 detokenizer 也做成流式，让 codec 不再只是训练时工具，而是真正可以放进实时系统的前后端接口。</p>
+            <div class="hx-timeline-tags">
+              <span>Streaming Decoder</span>
+              <span>Real-time</span>
+              <span>System Interface</span>
+            </div>
           </a>
         </div>
       </section>
 
-      <section class="research-detail-cuts" aria-label="技术判断">
-        <div class="research-detail-section-head">
-          <span>Technical Cut</span>
-          <h2>声学层当前最关键的取舍</h2>
-        </div>
-        <div class="research-detail-cut-grid">
-          <article>
-            <span>Cut 01</span>
-            <strong>高保真不是唯一目标</strong>
-            <p>如果 token 不能被上层模型稳定读取，再好的重建听感也只是在 codec 内部自洽。</p>
-          </article>
-          <article>
-            <span>Cut 02</span>
-            <strong>低帧率会倒逼分工</strong>
-            <p>token rate 越低，越需要语义层和声学层清楚分担，否则内容和细节都会受损。</p>
-          </article>
-          <article>
-            <span>Cut 03</span>
-            <strong>streaming detokenizer 是部署分水岭</strong>
-            <p>真正可用的语音前端不能只在离线重建漂亮，还要考虑延迟、稳定性和恢复链路。</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="research-detail-next" aria-label="下一步阅读">
-        <a href="/research/semantic/">
-          <span>Back</span>
+      <section class="hx-next-reading hx-reveal" aria-label="继续阅读">
+        <a class="hx-next-card" href="/research/semantic/">
+          <span class="hx-next-label">Related Reading</span>
           <strong>语义编码器</strong>
-          <p>回到内容层，检查声学层到底该接收怎样的输入。</p>
-        </a>
-        <a href="/research/dac/">
-          <span>Core</span>
-          <strong>DAC</strong>
-          <p>看统一离散前端如何把高保真和多音频域放到一起。</p>
-        </a>
-        <a href="/research/mimi/">
-          <span>Bridge</span>
-          <strong>Mimi</strong>
-          <p>看语义信息和声学信息在低帧率 token 里如何合流。</p>
+          <p>看完声学层如何恢复细节，回到语义层看它如何保住内容。</p>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
       </section>
     </main>
 
-    <footer class="research-detail-footer">
-      <span>Acoustic Encoder</span>
-      <span>restore how it should sound</span>
+    <footer class="hx-footer" role="contentinfo">
+      <div class="hx-footer-l">
+        <span class="hx-dot"></span>
+        <span>berlin2003.ccwu.cc</span>
+      </div>
+      <div class="hx-footer-m">
+        <span>// acoustic detail / semantic content</span>
+      </div>
+      <div class="hx-footer-r">
+        <span class="hx-prompt">$ ./acoustic --codec 2026</span>
+      </div>
     </footer>
   </div>
 
+  <script src="/assets/home-anim.js?v=20260501-a1" defer></script>
+  <script src="/assets/semantic-anim.js?v=20260515" defer></script>
   <script src="/assets/site-chat.js"></script>
 </body>
 </html>

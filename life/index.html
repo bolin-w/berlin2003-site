@@ -3,120 +3,202 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Berlin2003 / 日记</title>
-  <meta name="description" content="Berlin2003 的私密日记页，支持写入、编辑、删除，并按时间展示成卡片。">
-  <meta name="theme-color" content="#f7fbff">
+  <title>Berlin2003 / 生活</title>
+  <meta name="description" content="私密生活笔记">
+  <meta name="theme-color" content="#fff0f5">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/assets/style.css">
-  <link rel="stylesheet" href="/assets/section-lab.css?v=20260505-diary">
+  <link rel="stylesheet" href="/assets/life-hx.css?v=20260517g">
 </head>
-<body class="section-lab-body life-diary-body">
-  <div class="site-shell section-lab-shell">
-    <header class="section-lab-topbar">
-      <a class="section-lab-brand" href="/" aria-label="Berlin2003 首页"><span>Berlin</span><strong>2003</strong></a>
-      <nav class="section-lab-nav" aria-label="日记导航">
-        <a href="/studio/">工作台</a>
-        <a href="/notes/">笔记</a>
-        <a href="/contact/">联系</a>
-        <a href="/studio-logout/">退出</a>
-      </nav>
-    </header>
+<body class="life-body">
 
-    <main class="section-lab-main">
-      <section class="section-lab-hero life-diary-hero" aria-labelledby="life-title">
-        <div class="section-lab-copy">
-          <p class="section-lab-kicker">私人日记</p>
-          <h1 id="life-title">浮生日笺</h1>
-          <p class="section-lab-lead">把一日的光影、天气与心绪收作短笺。来日重读，不求成篇，只为留住当时的声息。</p>
-          <figure class="life-diary-hero-image">
-            <img src="/assets/life-diary-room.png" alt="私人日记与生活片段的视觉插图">
-          </figure>
-          <div class="section-lab-chips">
-            <span class="section-lab-chip">私有访问</span>
-            <span class="section-lab-chip">服务器保存</span>
-            <span class="section-lab-chip">卡片可编辑</span>
-          </div>
-        </div>
-
-        <section class="life-diary-editor" aria-label="写日记">
-          <div class="life-diary-editor-head">
-            <div>
-              <span>写新日记</span>
-              <h2>记今日</h2>
-            </div>
-            <strong id="diary-status">日记本正在翻页...</strong>
-          </div>
-
-          <form id="life-diary-form" class="life-diary-form">
-            <div class="life-diary-row">
-              <label>
-                标题
-                <input id="diary-title" name="title" maxlength="80" placeholder="给这一日题名">
-              </label>
-              <label>
-                心情
-                <input id="diary-mood" name="mood" maxlength="40" placeholder="天气、心绪或一瞬状态">
-              </label>
-            </div>
-
-            <label>
-              标签
-              <input id="diary-tags" name="tags" maxlength="120" placeholder="索引词，例如：生活, 学习, 网站">
-            </label>
-
-            <label>
-              内容
-              <textarea id="diary-content" name="content" required placeholder="写下此刻仍值得留下的几行。"></textarea>
-            </label>
-
-            <div class="life-diary-emoji" aria-label="添加表情">
-              <span>表情</span>
-              <button type="button" data-emoji="🙂">🙂</button>
-              <button type="button" data-emoji="😄">😄</button>
-              <button type="button" data-emoji="🥲">🥲</button>
-              <button type="button" data-emoji="😴">😴</button>
-              <button type="button" data-emoji="🍜">🍜</button>
-              <button type="button" data-emoji="📚">📚</button>
-              <button type="button" data-emoji="💻">💻</button>
-              <button type="button" data-emoji="✨">✨</button>
-            </div>
-
-            <section class="life-photo-drop" id="life-photo-drop" aria-label="上传照片">
-              <input id="diary-photos" type="file" accept="image/*" multiple>
-              <div>
-                <strong>今日影像</strong>
-                <span>拖入图片，或点击选择。最多 6 张，会先压缩再归入日笺。</span>
-              </div>
-            </section>
-
-            <div class="life-photo-preview" id="life-photo-preview" aria-label="照片预览"></div>
-
-            <div class="life-diary-actions">
-              <button id="diary-submit" type="submit">收进时间线</button>
-              <button id="diary-reset" type="button" hidden>不改了</button>
-            </div>
-          </form>
-        </section>
-      </section>
-
-      <section class="life-diary-board" aria-label="日记卡片">
-        <div class="life-diary-board-head">
-          <div>
-            <span>日记卡片</span>
-            <h2>旧日留痕</h2>
-          </div>
-          <strong id="diary-count">0 条记录</strong>
-        </div>
-        <div id="diary-list" class="life-diary-list"></div>
-      </section>
-    </main>
-
-    <footer class="section-lab-footer">
-      <span>生活日记</span>
-      <span>私有访问 / 可编辑</span>
-    </footer>
+  <div class="life-deco-float" aria-hidden="true">
+    <span class="life-float-heart life-float-1"></span>
+    <span class="life-float-heart life-float-2"></span>
+    <span class="life-float-star life-float-3"></span>
+    <span class="life-float-star life-float-4"></span>
+    <span class="life-float-bow life-float-5"></span>
+    <span class="life-float-sparkle life-float-6"></span>
   </div>
 
-  <script src="/assets/life-diary.js?v=20260505"></script>
+  <div class="life-shell">
+
+    <aside class="life-sidebar">
+      <div class="life-sidebar-brand">
+        <a href="/" class="life-logo">
+          <span class="life-logo-kitty" aria-hidden="true"></span>
+          <span>Berlin<strong>2003</strong></span>
+        </a>
+      </div>
+
+      <div class="life-sidebar-auth">
+        <input id="note-auth-user" class="life-input" placeholder="用户名" value="berlin2003">
+        <input id="note-auth-pass" class="life-input" type="password" placeholder="密码">
+        <div class="life-auth-btns">
+          <button id="note-auth-connect" type="button" class="life-btn life-btn-pink">连接</button>
+          <button id="note-auth-disconnect" type="button" class="life-btn">退出</button>
+        </div>
+        <div id="note-auth-status" class="life-auth-status">未连接</div>
+      </div>
+
+      <nav class="life-nav">
+        <span class="life-nav-label">我的日记本</span>
+
+        <div class="life-nav-group">
+          <button type="button" class="life-nav-item is-active" data-category="daily">
+            <span class="life-nav-emoji">📝</span>
+            <span class="life-nav-text"><strong>日常生活</strong><small id="daily-count">0 篇</small></span>
+          </button>
+          <div id="daily-entries" class="life-nav-entries">
+            <div class="life-entries-empty">暂无日记</div>
+          </div>
+        </div>
+
+        <div class="life-nav-group">
+          <button type="button" class="life-nav-item" data-category="gratitude">
+            <span class="life-nav-emoji">🌸</span>
+            <span class="life-nav-text"><strong>感恩日记</strong><small id="gratitude-count">0 篇</small></span>
+          </button>
+          <div id="gratitude-entries" class="life-nav-entries" hidden>
+            <div class="life-entries-empty">暂无日记</div>
+          </div>
+        </div>
+
+        <div class="life-nav-group">
+          <button type="button" class="life-nav-item" data-category="travel">
+            <span class="life-nav-emoji">✈️</span>
+            <span class="life-nav-text"><strong>旅行记录</strong><small id="travel-count">0 篇</small></span>
+          </button>
+          <div id="travel-entries" class="life-nav-entries" hidden>
+            <div class="life-entries-empty">暂无日记</div>
+          </div>
+        </div>
+
+        <div class="life-nav-group">
+          <button type="button" class="life-nav-item" data-category="dream">
+            <span class="life-nav-emoji">💭</span>
+            <span class="life-nav-text"><strong>梦境日志</strong><small id="dream-count">0 篇</small></span>
+          </button>
+          <div id="dream-entries" class="life-nav-entries" hidden>
+            <div class="life-entries-empty">暂无日记</div>
+          </div>
+        </div>
+      </nav>
+
+      <div class="life-sidebar-widget">
+        <div class="life-widget-today">
+          <span class="life-widget-label">今天</span>
+          <div class="life-widget-date" id="life-widget-date"></div>
+        </div>
+        <div class="life-widget-streak">
+          <span class="life-widget-label">连续记录</span>
+          <div class="life-widget-value"><strong id="life-streak-days">0</strong> 天</div>
+        </div>
+        <div class="life-widget-total">
+          <span class="life-widget-label">总计</span>
+          <div class="life-widget-value"><strong id="life-total-entries">0</strong> 篇日记</div>
+        </div>
+      </div>
+
+      <div class="life-sidebar-foot">
+        <span class="life-sidebar-deco" aria-hidden="true"></span>
+        <small>private · life notes</small>
+      </div>
+    </aside>
+
+    <main class="life-content">
+
+      <div class="life-content-deco life-content-deco-left" aria-hidden="true">
+        <div class="life-deco-sticker life-deco-sticker-1">🦄</div>
+        <div class="life-deco-sticker life-deco-sticker-2">🌸</div>
+        <div class="life-deco-sticker life-deco-sticker-3">🌈</div>
+        <div class="life-deco-cloud life-deco-cloud-1"></div>
+        <div class="life-deco-heart-float life-deco-heart-1"></div>
+        <div class="life-deco-star-float life-deco-star-1"></div>
+      </div>
+
+      <div class="life-content-deco life-content-deco-right" aria-hidden="true">
+        <div class="life-deco-sticker life-deco-sticker-4">🎀</div>
+        <div class="life-deco-sticker life-deco-sticker-5">🧁</div>
+        <div class="life-deco-sticker life-deco-sticker-6">🦋</div>
+        <div class="life-deco-cloud life-deco-cloud-2"></div>
+        <div class="life-deco-heart-float life-deco-heart-2"></div>
+        <div class="life-deco-star-float life-deco-star-2"></div>
+      </div>
+
+      <header class="life-content-header">
+        <h1 id="life-category-title">日常生活</h1>
+        <button id="life-new-entry" type="button" class="life-btn life-btn-pink life-btn-new">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          写新日记
+        </button>
+      </header>
+
+      <section id="life-composer" class="life-composer" hidden>
+        <div class="life-composer-head">
+          <span class="life-composer-date" id="life-composer-date"></span>
+          <div class="life-composer-moods">
+            <button type="button" class="life-mood" data-mood="happy">😊</button>
+            <button type="button" class="life-mood" data-mood="love">🥰</button>
+            <button type="button" class="life-mood" data-mood="calm">😌</button>
+            <button type="button" class="life-mood" data-mood="sad">😢</button>
+            <button type="button" class="life-mood" data-mood="angry">😤</button>
+          </div>
+        </div>
+        <input id="life-composer-title" class="life-composer-title" type="text" placeholder="给这篇日记起个标题..." maxlength="50">
+        <div id="life-composer-input" class="life-composer-input" contenteditable="true" data-placeholder="今天想写点什么..." aria-label="写日记"></div>
+        <div class="life-composer-foot">
+          <div class="life-composer-tools">
+            <input id="life-composer-image-picker" type="file" accept="image/*" multiple hidden>
+            <button id="life-composer-add-image" type="button" class="life-tool-btn">📎 插入图片</button>
+          </div>
+          <div class="life-composer-actions">
+            <button id="life-composer-cancel" type="button" class="life-btn">取消</button>
+            <button id="life-composer-save" type="button" class="life-btn life-btn-pink">保存日记</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="life-gallery" aria-label="相册">
+        <div class="life-gallery-header">
+          <span class="life-gallery-title">🖼️ 我的相册</span>
+        </div>
+        <div class="life-gallery-grid">
+          <a class="life-gallery-item" href="/assets/life-gallery/gallery-1.png" target="_blank" rel="noopener">
+            <img src="/assets/life-gallery/gallery-1.png" alt="相册图片 1" loading="lazy">
+          </a>
+          <a class="life-gallery-item" href="/assets/life-gallery/gallery-2.png" target="_blank" rel="noopener">
+            <img src="/assets/life-gallery/gallery-2.png" alt="相册图片 2" loading="lazy">
+          </a>
+          <a class="life-gallery-item" href="/assets/life-gallery/gallery-3.png" target="_blank" rel="noopener">
+            <img src="/assets/life-gallery/gallery-3.png" alt="相册图片 3" loading="lazy">
+          </a>
+          <a class="life-gallery-item" href="/assets/life-gallery/gallery-4.png" target="_blank" rel="noopener">
+            <img src="/assets/life-gallery/gallery-4.png" alt="相册图片 4" loading="lazy">
+          </a>
+          <a class="life-gallery-item" href="/assets/life-gallery/gallery-5.png" target="_blank" rel="noopener">
+            <img src="/assets/life-gallery/gallery-5.png" alt="相册图片 5" loading="lazy">
+          </a>
+          <a class="life-gallery-item" href="/assets/life-gallery/gallery-6.png" target="_blank" rel="noopener">
+            <img src="/assets/life-gallery/gallery-6.png" alt="相册图片 6" loading="lazy">
+          </a>
+        </div>
+      </section>
+
+      <section id="life-timeline" class="life-timeline">
+        <div class="life-empty">
+          <span class="life-empty-icon">📖</span>
+          <p>还没有日记，点击「写新日记」开始记录吧</p>
+        </div>
+      </section>
+
+      <div class="life-sync-bar" id="life-sync-bar" hidden>
+        <span id="life-sync-status">有未同步的本地草稿</span>
+        <button id="life-sync-btn" type="button" class="life-btn life-btn-pink life-btn-sm">同步到服务器</button>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="/assets/life-diary.js?v=20260517g"></script>
 </body>
 </html>

@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Berlin2003 / DAC</title>
+  <meta name="description" content="DAC：用 Improved RVQGAN 推进高保真、统一音频域的离散声学前端。">
+  <meta name="theme-color" content="#f7fbff">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="stylesheet" href="/assets/paper-lab.css?v=20260502-acoustic-deep">
+</head>
+<body class="edition-body paper-lab-body acoustic-paper-page">
+  <div class="site-shell paper-lab-shell">
+    <header class="paper-lab-topbar">
+      <a class="paper-lab-brand" href="/"><span>Berlin</span><strong>2003</strong></a>
+      <nav class="paper-lab-nav" aria-label="研究导航">
+        <a href="/research/encodec/">上一篇</a>
+        <a href="/research/snac/">下一篇</a>
+        <a href="/research/acoustic/">声学层</a>
+      </nav>
+    </header>
+
+    <main class="paper-lab-main">
+      <section class="paper-lab-hero">
+        <div class="paper-lab-copy">
+          <p class="paper-lab-kicker">2023 / Unified Audio Codec</p>
+          <h1>DAC</h1>
+          <p class="paper-lab-lead">DAC 把 codec 进一步推成统一的离散音频前端：语音、音乐和通用音频尽量共用同一套高保真表示，让上层生成模型不用为每个域重新适配。</p>
+          <div class="paper-lab-actions">
+            <a class="paper-lab-primary" href="https://arxiv.org/abs/2306.06546" target="_blank" rel="noreferrer">论文原文</a>
+            <a href="https://github.com/descriptinc/descript-audio-codec" target="_blank" rel="noreferrer">官方代码</a>
+          </div>
+        </div>
+
+        <figure class="paper-lab-figure">
+          <img src="/assets/architecture-dac.png" alt="DAC architecture diagram">
+          <figcaption>技术结构图：DAC 基于 improved RVQGAN，使用全卷积编码/解码、残差向量量化、Snake 残差层和多类判别器训练高保真音频 codec。</figcaption>
+          <div class="paper-lab-source">
+            <a href="https://arxiv.org/abs/2306.06546" target="_blank" rel="noreferrer">arXiv</a>
+            <a href="https://github.com/descriptinc/descript-audio-codec" target="_blank" rel="noreferrer">GitHub</a>
+          </div>
+        </figure>
+      </section>
+
+      <section class="paper-lab-metrics">
+        <article><span>Target</span><strong>44.1 kHz / 8 kbps</strong><p>不只压语音，也要覆盖音乐和通用音频。</p></article>
+        <article><span>Recipe</span><strong>Improved RVQGAN</strong><p>周期归纳偏置、更强频谱约束和 codebook 处理一起提升保真度。</p></article>
+        <article><span>Role</span><strong>统一离散前端</strong><p>token 更像生成模型愿意直接消费的高保真接口。</p></article>
+      </section>
+
+      <section class="paper-lab-deep">
+        <div class="paper-lab-section-head"><span>Paper Deep Dive</span><h2>论文精讲：DAC 为什么强调高保真和通用音频</h2></div>
+        <div class="paper-lab-deep-grid">
+          <article class="paper-lab-deep-card paper-lab-deep-card-wide"><span>模型解析</span><strong>Improved RVQGAN 的全卷积音频前端</strong><ul><li>DAC 用 encoder 把 44.1 kHz waveform 压成 latent，RVQ 负责离散化，decoder 直接重建高保真 waveform。</li><li>Snake activation 与残差层增强周期性和高频细节表达，对音乐和环境声尤其重要。</li><li>多级 RVQ 仍然是核心瓶颈，但 DAC 更强调 codebook 使用效率和通用音频覆盖。</li></ul></article>
+          <article class="paper-lab-deep-card paper-lab-deep-card-wide"><span>创新点</span><strong>从 speech codec 推到 universal audio codec</strong><ul><li>不只服务语音通信，也覆盖 speech、music、environmental audio。</li><li>改进 RVQGAN 训练，使高压缩条件下的音色、瞬态和质感更稳定。</li><li>multi-period / multi-scale 判别器把周期结构和频谱结构都纳入听感约束。</li></ul></article>
+          <article class="paper-lab-deep-card"><span>损失函数</span><strong>高保真来自多目标感知训练</strong><ul><li>reconstruction loss 负责时域或频域的基础一致性。</li><li>multi-scale STFT / mel 类损失让频谱包络和细节纹理更接近真实音频。</li><li>multi-period discriminator 与 complex multi-scale STFT discriminator 提升周期、瞬态和高频自然度。</li></ul></article>
+          <article class="paper-lab-deep-card"><span>训练策略</span><strong>用 GAN codec 方式训练宽域音频</strong><ul><li>encoder、RVQ、decoder 与判别器端到端联合训练。</li><li>量化器 dropout 或多码率设置让不同码本数量下都能保持可听质量。</li><li>训练数据覆盖更宽音频域，因此模型不是只为 speech reconstruction 优化。</li></ul></article>
+          <article class="paper-lab-deep-card"><span>结果分析</span><strong>优势在主观质量，代价是更重的声学前端</strong><ul><li>在高压缩比下保留更自然的音色和高频细节，尤其适合音乐与复杂音频。</li><li>相比只面向语音的 codec，DAC 更像通用离散音频前端。</li><li>但对 speech LM 来说，它的 token 仍偏声学，序列长度和语义可读性不是最优。</li></ul></article>
+        </div>
+      </section>
+
+      <section class="paper-lab-section">
+        <div class="paper-lab-section-head"><span>Core Route</span><h2>DAC 往前多推了什么</h2></div>
+        <div class="paper-lab-grid">
+          <article class="paper-lab-card"><span>01</span><strong>统一音频域</strong><p>目标不只是 speech codec，而是 speech、music、general audio 的共同前端。</p></article>
+          <article class="paper-lab-card"><span>02</span><strong>codebook 使用效率</strong><p>避免 codebook collapse，否则名义码率和有效带宽会脱节。</p></article>
+          <article class="paper-lab-card"><span>03</span><strong>训练配方更生成化</strong><p>判别器、mel loss 和周期归纳偏置共同服务真实听感。</p></article>
+          <article class="paper-lab-card"><span>04</span><strong>更适合上层模型</strong><p>统一且高保真的 token 更容易成为 audio generation 的离散接口。</p></article>
+        </div>
+      </section>
+
+      <section class="paper-lab-section">
+        <div class="paper-lab-section-head"><span>Reading Cut</span><h2>读这页时抓三个判断</h2></div>
+        <div class="paper-lab-cuts">
+          <article class="paper-lab-cut"><span>Cut 01</span><strong>高保真和统一性并重</strong><p>只在单域好听不够，前端还要能服务多域建模。</p></article>
+          <article class="paper-lab-cut"><span>Cut 02</span><strong>码本利用率是硬问题</strong><p>没被使用的 code 等于浪费容量，也会影响表示可泛化性。</p></article>
+          <article class="paper-lab-cut"><span>Cut 03</span><strong>codec 开始像 tokenizer</strong><p>它已经不只是压缩器，而是生成模型输入空间的一部分。</p></article>
+        </div>
+      </section>
+
+      <nav class="paper-lab-next">
+        <a href="/research/encodec/"><span>Prev</span><strong>EnCodec</strong><p>回到工程基线。</p></a>
+        <a href="/research/snac/"><span>Next</span><strong>SNAC</strong><p>继续看多时间尺度 token。</p></a>
+        <a href="/research/mimi/"><span>Bridge</span><strong>Mimi</strong><p>看低帧率语音前端如何合入语义信息。</p></a>
+      </nav>
+    </main>
+
+    <footer class="paper-lab-footer"><span>DAC</span><span>high-fidelity discrete audio codec</span></footer>
+  </div>
+  <script src="/assets/site-chat.js"></script>
+</body>
+</html>

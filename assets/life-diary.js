@@ -1,344 +1,574 @@
-const diaryForm = document.querySelector("#life-diary-form");
-const diaryTitle = document.querySelector("#diary-title");
-const diaryMood = document.querySelector("#diary-mood");
-const diaryTags = document.querySelector("#diary-tags");
-const diaryContent = document.querySelector("#diary-content");
-const diaryList = document.querySelector("#diary-list");
-const diaryStatus = document.querySelector("#diary-status");
-const diaryCount = document.querySelector("#diary-count");
-const diaryReset = document.querySelector("#diary-reset");
-const diarySubmit = document.querySelector("#diary-submit");
-const diaryPhotos = document.querySelector("#diary-photos");
-const photoDrop = document.querySelector("#life-photo-drop");
-const photoPreview = document.querySelector("#life-photo-preview");
-const emojiButtons = document.querySelectorAll("[data-emoji]");
+(function(){
+"use strict";
+const STORAGE_KEY = "berlin2003_life_diary_v1";
+const AUTH_KEY = "berlin2003_ai_auth";
+const API_BASE = "/api/editor/notes";
+const PAGE_PATH = "/life/";
+const CATEGORIES = [
+  { id: "daily", noteId: "block-0-0", label: "日常生活" },
+  { id: "gratitude", noteId: "block-0-1", label: "感恩日记" },
+  { id: "travel", noteId: "block-0-2", label: "旅行记录" },
+  { id: "dream", noteId: "block-0-3", label: "梦境日志" }
+];
 
-let diaryItems = [];
-let editingId = "";
-let currentPhotos = [];
+let state = {
+  category: "daily",
+  connected: false,
+  entries: loadLocal(),
+  selectedMood: "",
+  syncing: false,
+  editingId: null
+};
 
-function setDiaryStatus(text, kind = "") {
-  diaryStatus.textContent = text;
-  diaryStatus.dataset.kind = kind;
+function loadLocal() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+  catch(e) { return {}; }
+}
+function saveLocal() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state.entries));
+}
+function loadAuth() {
+  try { return JSON.parse(sessionStorage.getItem(AUTH_KEY)) || {}; }
+  catch(e) { return {}; }
+}
+function saveAuth(a) { sessionStorage.setItem(AUTH_KEY, JSON.stringify(a)); }
+function clearAuth() { sessionStorage.removeItem(AUTH_KEY); }
+function authHeader() {
+  const a = loadAuth();
+  if (!a.username || !a.password) return {};
+  return { Authorization: "Basic " + btoa(a.username + ":" + a.password) };
 }
 
-async function diaryApi(path, options) {
-  const response = await fetch(path, {
-    headers: {
-      Accept: "application/json",
-      ...(options?.body ? { "Content-Type": "application/json" } : {}),
-      ...(options?.headers || {})
-    },
-    ...options
-  });
-  const data = await response.json().catch(() => ({}));
-  if (!response.ok) {
-    throw new Error(data.error || "请求失败。");
+function currentNoteId() {
+  return CATEGORIES.find(c => c.id === state.category)?.noteId || "block-0-0";
+}
+function currentEntries() {
+  return state.entries[currentNoteId()] || [];
+}
+function setEntries(noteId, entries) {
+  state.entries[noteId] = entries;
+  saveLocal();
+}
+
+function generateId() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+}
+
+function formatDate(iso) {
+  const d = new Date(iso);
+  const now = new Date();
+  const diff = now - d;
+  if (diff < 60000) return "刚刚";
+  if (diff < 3600000) return Math.floor(diff/60000) + " 分钟前";
+  if (diff < 86400000 && d.getDate() === now.getDate()) {
+    return "今天 " + d.toLocaleTimeString("zh-CN", { hour: "2-digit", minute: "2-digit" });
   }
-  return data;
-}
-
-function formatDate(value) {
-  if (!value) {
-    return "刚写下";
+  const yesterday = new Date(now); yesterday.setDate(now.getDate()-1);
+  if (d.getDate() === yesterday.getDate() && d.getMonth() === yesterday.getMonth()) {
+    return "昨天 " + d.toLocaleTimeString("zh-CN", { hour: "2-digit", minute: "2-digit" });
   }
-  return new Intl.DateTimeFormat("zh-CN", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit"
-  }).format(new Date(value));
+  return d.toLocaleDateString("zh-CN", { month: "long", day: "numeric" }) + " " +
+    d.toLocaleTimeString("zh-CN", { hour: "2-digit", minute: "2-digit" });
 }
 
-function tagsFromInput(value) {
-  return String(value || "")
-    .split(/[，,]/)
-    .map((tag) => tag.trim())
-    .filter(Boolean)
-    .slice(0, 8);
+function dateGroup(iso) {
+  const d = new Date(iso);
+  const now = new Date();
+  if (d.toDateString() === now.toDateString()) return "今天";
+  const y = new Date(now); y.setDate(now.getDate()-1);
+  if (d.toDateString() === y.toDateString()) return "昨天";
+  return d.toLocaleDateString("zh-CN", { month: "long", day: "numeric", weekday: "short" });
 }
 
-function insertAtCursor(textarea, value) {
-  const start = textarea.selectionStart || 0;
-  const end = textarea.selectionEnd || 0;
-  const before = textarea.value.slice(0, start);
-  const after = textarea.value.slice(end);
-  textarea.value = `${before}${value}${after}`;
-  textarea.focus();
-  const next = start + value.length;
-  textarea.setSelectionRange(next, next);
+// === SERIALIZATION (entries <-> HTML for API compatibility) ===
+function entriesToContent(entries) {
+  return JSON.stringify(entries);
+}
+function contentToEntries(content) {
+  if (!content) return [];
+  const trimmed = content.trim();
+  if (trimmed.startsWith("[")) {
+    try { return JSON.parse(trimmed); } catch(e) {}
+  }
+  if (trimmed) {
+    return [{ id: generateId(), date: new Date().toISOString(), mood: "", content: trimmed }];
+  }
+  return [];
 }
 
-function renderPhotoPreview() {
-  photoPreview.innerHTML = "";
-  if (!currentPhotos.length) {
-    photoPreview.hidden = true;
+// === RENDER ===
+function renderTimeline() {
+  const timeline = document.getElementById("life-timeline");
+  const entries = currentEntries();
+  if (!entries.length) {
+    timeline.innerHTML = '<div class="life-empty"><span class="life-empty-icon">📖</span><p>还没有日记，点击「写新日记」开始记录吧</p></div>';
     return;
   }
-
-  photoPreview.hidden = false;
-  currentPhotos.forEach((photo) => {
-    const item = document.createElement("figure");
-    item.className = "life-photo-item";
-
-    const image = document.createElement("img");
-    image.src = photo.dataUrl;
-    image.alt = photo.name || "日记照片";
-
-    const remove = document.createElement("button");
-    remove.type = "button";
-    remove.textContent = "移除";
-    remove.addEventListener("click", () => {
-      currentPhotos = currentPhotos.filter((entry) => entry.id !== photo.id);
-      renderPhotoPreview();
-    });
-
-    item.append(image, remove);
-    photoPreview.appendChild(item);
+  let html = "";
+  let lastGroup = "";
+  const sorted = [...entries].sort((a,b) => new Date(b.date) - new Date(a.date));
+  for (const entry of sorted) {
+    const group = dateGroup(entry.date);
+    if (group !== lastGroup) {
+      html += '<div class="life-date-divider"><span>' + group + '</span></div>';
+      lastGroup = group;
+    }
+    html += renderEntry(entry);
+  }
+  timeline.innerHTML = html;
+  timeline.querySelectorAll(".life-entry-delete").forEach(btn => {
+    btn.addEventListener("click", () => deleteEntry(btn.dataset.id));
+  });
+  timeline.querySelectorAll(".life-entry-edit").forEach(btn => {
+    btn.addEventListener("click", () => editEntry(btn.dataset.id));
   });
 }
 
-function canvasToDataUrl(canvas) {
-  return canvas.toDataURL("image/webp", 0.82);
+function renderEntry(entry) {
+  const mood = entry.mood ? '<span class="life-entry-mood">' + moodEmoji(entry.mood) + '</span>' : '';
+  const title = entry.title ? '<h3 class="life-entry-title">' + sanitizeText(entry.title) + '</h3>' : '';
+  return '<article class="life-entry" data-id="' + entry.id + '">' +
+    '<div class="life-entry-head">' +
+      '<span class="life-entry-date">' + mood + formatDate(entry.date) + '</span>' +
+      '<div class="life-entry-actions">' +
+        '<button class="life-entry-action life-entry-edit" data-id="' + entry.id + '" title="编辑">✏️</button>' +
+        '<button class="life-entry-action life-entry-delete" data-id="' + entry.id + '" title="删除">🗑️</button>' +
+      '</div>' +
+    '</div>' +
+    title +
+    '<div class="life-entry-content">' + sanitize(entry.content) + '</div>' +
+  '</article>';
 }
 
-async function compressImage(file) {
-  const dataUrl = await new Promise((resolve, reject) => {
+function moodEmoji(mood) {
+  const map = { happy:"😊", love:"🥰", calm:"😌", sad:"😢", angry:"😤" };
+  return map[mood] || "";
+}
+
+function sanitize(html) {
+  const div = document.createElement("div");
+  div.innerHTML = html || "";
+  div.querySelectorAll("script,style,iframe,object,embed").forEach(el => el.remove());
+  return div.innerHTML;
+}
+
+function updateCounts() {
+  CATEGORIES.forEach(cat => {
+    const el = document.getElementById(cat.id + "-count");
+    const count = (state.entries[cat.noteId] || []).length;
+    if (el) el.textContent = count + " 篇";
+  });
+  updateWidgets();
+  updateEntriesList();
+}
+
+function updateEntriesList() {
+  CATEGORIES.forEach(cat => {
+    const container = document.getElementById(cat.id + "-entries");
+    if (!container) return;
+
+    const entries = state.entries[cat.noteId] || [];
+    if (!entries.length) {
+      container.innerHTML = '<div class="life-entries-empty">暂无日记</div>';
+      return;
+    }
+
+    const sorted = [...entries].sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0, 8);
+    let html = '';
+
+    for (const entry of sorted) {
+      const title = entry.title || extractTitle(entry.content);
+      const dateStr = formatShortDate(entry.date);
+      const mood = entry.mood ? moodEmoji(entry.mood) : '';
+
+      html += '<button type="button" class="life-entry-nav" data-entry-id="' + entry.id + '">' +
+        '<div class="life-entry-nav-head">' +
+          (mood ? '<span class="life-entry-nav-mood">' + mood + '</span>' : '') +
+          '<span class="life-entry-nav-date">' + dateStr + '</span>' +
+        '</div>' +
+        '<div class="life-entry-nav-title">' + sanitizeText(title) + '</div>' +
+      '</button>';
+    }
+
+    container.innerHTML = html;
+
+    container.querySelectorAll(".life-entry-nav").forEach(btn => {
+      btn.addEventListener("click", () => scrollToEntry(btn.dataset.entryId));
+    });
+  });
+}
+
+function sanitizeText(text) {
+  const div = document.createElement("div");
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+function extractTitle(html) {
+  const div = document.createElement("div");
+  div.innerHTML = html;
+  const text = div.textContent.trim();
+  const firstLine = text.split('\n')[0];
+  return firstLine.slice(0, 30) || "无标题";
+}
+
+function extractPreview(html) {
+  const div = document.createElement("div");
+  div.innerHTML = html;
+  const text = div.textContent.trim();
+  const lines = text.split('\n');
+  const preview = lines.length > 1 ? lines.slice(1).join(' ') : '';
+  return preview.slice(0, 40);
+}
+
+function formatShortDate(iso) {
+  const d = new Date(iso);
+  const now = new Date();
+  if (d.toDateString() === now.toDateString()) return "今天";
+  const y = new Date(now); y.setDate(now.getDate()-1);
+  if (d.toDateString() === y.toDateString()) return "昨天";
+  return (d.getMonth()+1) + '/' + d.getDate();
+}
+
+function scrollToEntry(id) {
+  const el = document.querySelector('.life-entry[data-id="' + id + '"]');
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    el.style.animation = 'none';
+    setTimeout(() => {
+      el.style.animation = 'entry-highlight .6s ease';
+    }, 10);
+  }
+}
+
+function updateWidgets() {
+  // Today's date
+  const dateEl = document.getElementById("life-widget-date");
+  if (dateEl) {
+    const now = new Date();
+    dateEl.textContent = now.toLocaleDateString("zh-CN", {
+      month: "long",
+      day: "numeric",
+      weekday: "short"
+    });
+  }
+
+  // Total entries across all categories
+  const totalEl = document.getElementById("life-total-entries");
+  if (totalEl) {
+    const total = Object.values(state.entries).reduce((sum, arr) => sum + arr.length, 0);
+    totalEl.textContent = total;
+  }
+
+  // Streak calculation
+  const streakEl = document.getElementById("life-streak-days");
+  if (streakEl) {
+    const streak = calculateStreak();
+    streakEl.textContent = streak;
+  }
+}
+
+function calculateStreak() {
+  const allEntries = [];
+  Object.values(state.entries).forEach(arr => allEntries.push(...arr));
+  if (!allEntries.length) return 0;
+
+  const dates = allEntries
+    .map(e => new Date(e.date).toDateString())
+    .filter((v, i, a) => a.indexOf(v) === i)
+    .sort((a, b) => new Date(b) - new Date(a));
+
+  let streak = 0;
+  const today = new Date().toDateString();
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayStr = yesterday.toDateString();
+
+  if (dates[0] !== today && dates[0] !== yesterdayStr) return 0;
+
+  for (let i = 0; i < dates.length; i++) {
+    const expected = new Date();
+    expected.setDate(expected.getDate() - i);
+    if (dates[i] === expected.toDateString()) {
+      streak++;
+    } else {
+      break;
+    }
+  }
+  return streak;
+}
+
+function updateSyncBar() {
+  const bar = document.getElementById("life-sync-bar");
+  if (!state.connected) {
+    bar.hidden = true;
+    return;
+  }
+  // Only show if there are local entries that might need syncing
+  const hasLocal = Object.values(state.entries).some(arr => arr && arr.length > 0);
+  bar.hidden = !hasLocal;
+  if (hasLocal) {
+    document.getElementById("life-sync-status").textContent = "有本地草稿，可同步到服务器";
+  }
+}
+
+// === ACTIONS ===
+function showComposer() {
+  const composer = document.getElementById("life-composer");
+  composer.hidden = false;
+  const dateEl = document.getElementById("life-composer-date");
+  dateEl.textContent = new Date().toLocaleDateString("zh-CN", { year:"numeric", month:"long", day:"numeric", weekday:"short" });
+  document.getElementById("life-composer-input").focus();
+  state.selectedMood = "";
+  state.editingId = null;
+  document.querySelectorAll(".life-mood").forEach(m => m.classList.remove("is-selected"));
+}
+
+function hideComposer() {
+  document.getElementById("life-composer").hidden = true;
+  document.getElementById("life-composer-title").value = "";
+  document.getElementById("life-composer-input").innerHTML = "";
+  state.selectedMood = "";
+  state.editingId = null;
+}
+
+function saveEntry() {
+  const titleInput = document.getElementById("life-composer-title");
+  const input = document.getElementById("life-composer-input");
+  const title = titleInput.value.trim();
+  const content = input.innerHTML.trim();
+  if (!content) return;
+
+  const noteId = currentNoteId();
+  let entries = [...currentEntries()];
+
+  if (state.editingId) {
+    // Update existing entry
+    const idx = entries.findIndex(e => e.id === state.editingId);
+    if (idx >= 0) {
+      entries[idx] = {
+        ...entries[idx],
+        title: title,
+        mood: state.selectedMood,
+        content: content
+      };
+    }
+  } else {
+    // Create new entry
+    const entry = {
+      id: generateId(),
+      date: new Date().toISOString(),
+      title: title,
+      mood: state.selectedMood,
+      content: content
+    };
+    entries.push(entry);
+  }
+
+  setEntries(noteId, entries);
+  hideComposer();
+  renderTimeline();
+  updateCounts();
+  updateSyncBar();
+}
+
+function deleteEntry(id) {
+  if (!confirm("确定删除这条日记吗？")) return;
+  const noteId = currentNoteId();
+  const entries = currentEntries().filter(e => e.id !== id);
+  setEntries(noteId, entries);
+  renderTimeline();
+  updateCounts();
+  updateSyncBar();
+}
+
+function editEntry(id) {
+  const entry = currentEntries().find(e => e.id === id);
+  if (!entry) return;
+  state.editingId = id;
+  showComposer();
+  document.getElementById("life-composer-title").value = entry.title || "";
+  document.getElementById("life-composer-input").innerHTML = entry.content;
+  if (entry.mood) {
+    state.selectedMood = entry.mood;
+    document.querySelectorAll(".life-mood").forEach(m => {
+      m.classList.toggle("is-selected", m.dataset.mood === entry.mood);
+    });
+  }
+}
+
+function deleteEntryQuiet(id) {
+  const noteId = currentNoteId();
+  const entries = currentEntries().filter(e => e.id !== id);
+  setEntries(noteId, entries);
+}
+
+// === SYNC ===
+async function connect() {
+  const user = document.getElementById("note-auth-user").value.trim();
+  const pass = document.getElementById("note-auth-pass").value.trim();
+  if (!user || !pass) { setStatus("请输入用户名和密码", "warn"); return; }
+  saveAuth({ username: user, password: pass });
+  setStatus("连接中...", "");
+  try {
+    const res = await fetch(API_BASE + "?pagePath=" + encodeURIComponent(PAGE_PATH), {
+      headers: { Accept: "application/json", ...authHeader() }
+    });
+    if (!res.ok) throw new Error(res.status === 401 ? "密码错误" : "连接失败");
+    const data = await res.json();
+    state.connected = true;
+    if (data.notes) {
+      for (const cat of CATEGORIES) {
+        const remote = data.notes[cat.noteId];
+        if (remote && remote.content) {
+          const remoteEntries = contentToEntries(remote.content);
+          const localEntries = state.entries[cat.noteId] || [];
+          state.entries[cat.noteId] = mergeEntries(localEntries, remoteEntries);
+        }
+      }
+      saveLocal();
+    }
+    setStatus("已连接 ✓", "ok");
+    renderTimeline();
+    updateCounts();
+    updateSyncBar();
+  } catch(e) {
+    state.connected = false;
+    setStatus(e.message, "warn");
+  }
+}
+
+function mergeEntries(local, remote) {
+  const map = new Map();
+  for (const e of remote) map.set(e.id, e);
+  for (const e of local) map.set(e.id, e);
+  return [...map.values()].sort((a,b) => new Date(b.date) - new Date(a.date));
+}
+
+function disconnect() {
+  state.connected = false;
+  clearAuth();
+  document.getElementById("note-auth-pass").value = "";
+  setStatus("已断开", "");
+  updateSyncBar();
+}
+
+async function syncAll() {
+  if (!state.connected || state.syncing) return;
+  state.syncing = true;
+  document.getElementById("life-sync-status").textContent = "同步中...";
+  try {
+    for (const cat of CATEGORIES) {
+      const entries = state.entries[cat.noteId] || [];
+      await fetch(API_BASE, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json", ...authHeader() },
+        body: JSON.stringify({ pagePath: PAGE_PATH, noteId: cat.noteId, label: cat.label, content: entriesToContent(entries) })
+      });
+    }
+    setStatus("同步完成 ✓", "ok");
+    document.getElementById("life-sync-status").textContent = "已同步";
+  } catch(e) {
+    setStatus("同步失败: " + e.message, "warn");
+  } finally {
+    state.syncing = false;
+  }
+}
+
+function setStatus(text, mode) {
+  const el = document.getElementById("note-auth-status");
+  el.textContent = text;
+  el.dataset.mode = mode || "";
+}
+
+// === CATEGORY SWITCH ===
+function switchCategory(catId) {
+  state.category = catId;
+  document.querySelectorAll(".life-nav-item").forEach(btn => {
+    btn.classList.toggle("is-active", btn.dataset.category === catId);
+  });
+  // Show/hide entries lists
+  document.querySelectorAll(".life-nav-entries").forEach(list => {
+    const listCat = list.id.replace("-entries", "");
+    list.hidden = listCat !== catId;
+  });
+  const cat = CATEGORIES.find(c => c.id === catId);
+  document.getElementById("life-category-title").textContent = cat ? cat.label : "";
+  hideComposer();
+  renderTimeline();
+}
+
+// === IMAGE INSERT ===
+function insertImage(file) {
+  return new Promise((resolve) => {
     const reader = new FileReader();
-    reader.onload = () => resolve(String(reader.result || ""));
-    reader.onerror = () => reject(new Error("这张照片没有读出来，换一张试试。"));
+    reader.onload = () => {
+      const img = document.createElement("img");
+      img.src = reader.result;
+      const input = document.getElementById("life-composer-input");
+      input.focus();
+      const sel = window.getSelection();
+      const range = sel.rangeCount ? sel.getRangeAt(0) : document.createRange();
+      if (!input.contains(range.startContainer)) {
+        range.selectNodeContents(input);
+        range.collapse(false);
+      }
+      range.insertNode(img);
+      range.setStartAfter(img);
+      range.collapse(true);
+      sel.removeAllRanges();
+      sel.addRange(range);
+      resolve();
+    };
     reader.readAsDataURL(file);
   });
+}
 
-  const image = await new Promise((resolve, reject) => {
-    const img = new Image();
-    img.onload = () => resolve(img);
-    img.onerror = () => reject(new Error("这张图片暂时认不出来，换个格式试试。"));
-    img.src = dataUrl;
+// === INIT ===
+function init() {
+  document.getElementById("note-auth-connect").addEventListener("click", connect);
+  document.getElementById("note-auth-disconnect").addEventListener("click", disconnect);
+  document.getElementById("note-auth-pass").addEventListener("keydown", e => { if(e.key==="Enter") connect(); });
+  document.getElementById("life-new-entry").addEventListener("click", showComposer);
+  document.getElementById("life-composer-cancel").addEventListener("click", hideComposer);
+  document.getElementById("life-composer-save").addEventListener("click", saveEntry);
+  document.getElementById("life-sync-btn").addEventListener("click", syncAll);
+
+  document.querySelectorAll(".life-mood").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const mood = btn.dataset.mood;
+      document.querySelectorAll(".life-mood").forEach(m => m.classList.remove("is-selected"));
+      if (state.selectedMood === mood) {
+        state.selectedMood = "";
+      } else {
+        state.selectedMood = mood;
+        btn.classList.add("is-selected");
+      }
+    });
   });
 
-  const maxSide = 1400;
-  const scale = Math.min(1, maxSide / Math.max(image.width, image.height));
-  const width = Math.max(1, Math.round(image.width * scale));
-  const height = Math.max(1, Math.round(image.height * scale));
-  const canvas = document.createElement("canvas");
-  canvas.width = width;
-  canvas.height = height;
-  const ctx = canvas.getContext("2d");
-  ctx.drawImage(image, 0, 0, width, height);
-
-  return {
-    id: `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`,
-    name: file.name || "photo.webp",
-    dataUrl: canvasToDataUrl(canvas)
-  };
-}
-
-async function addPhotos(files) {
-  const imageFiles = Array.from(files || []).filter((file) => file.type.startsWith("image/"));
-  if (!imageFiles.length) {
-    return;
-  }
-
-  const slots = Math.max(0, 6 - currentPhotos.length);
-  if (!slots) {
-    setDiaryStatus("这一篇已经放满 6 张照片。", "warn");
-    return;
-  }
-
-  setDiaryStatus("正在把照片收小一点...");
-  const nextPhotos = [];
-  for (const file of imageFiles.slice(0, slots)) {
-    nextPhotos.push(await compressImage(file));
-  }
-  currentPhotos = [...currentPhotos, ...nextPhotos];
-  diaryPhotos.value = "";
-  renderPhotoPreview();
-  setDiaryStatus(`已添加 ${nextPhotos.length} 张照片。`, "ok");
-}
-
-function fillForm(item) {
-  editingId = item.id;
-  diaryTitle.value = item.title || "";
-  diaryMood.value = item.mood || "";
-  diaryTags.value = (item.tags || []).join(", ");
-  diaryContent.value = item.content || "";
-  currentPhotos = Array.isArray(item.photos) ? [...item.photos] : [];
-  renderPhotoPreview();
-  diarySubmit.textContent = "更新这张卡片";
-  diaryReset.hidden = false;
-  diaryContent.focus();
-  setDiaryStatus("这张旧卡片可以继续补几笔。", "editing");
-}
-
-function resetForm() {
-  editingId = "";
-  diaryForm.reset();
-  currentPhotos = [];
-  renderPhotoPreview();
-  diarySubmit.textContent = "收进时间线";
-  diaryReset.hidden = true;
-}
-
-function renderDiary() {
-  diaryCount.textContent = `${diaryItems.length} 条记录`;
-  diaryList.innerHTML = "";
-
-  if (!diaryItems.length) {
-    diaryList.innerHTML = `
-      <article class="life-diary-empty">
-        <span>还没有记录</span>
-        <strong>暂无记录。</strong>
-        <p>新建记录后，内容将按时间顺序归档在这里。</p>
-      </article>
-    `;
-    return;
-  }
-
-  diaryItems.forEach((item) => {
-    const card = document.createElement("article");
-    card.className = "life-diary-card";
-
-    const meta = document.createElement("div");
-    meta.className = "life-diary-card-meta";
-
-    const date = document.createElement("span");
-    date.textContent = formatDate(item.createdAt);
-    meta.appendChild(date);
-
-    if (item.mood) {
-      const mood = document.createElement("span");
-      mood.textContent = item.mood;
-      meta.appendChild(mood);
-    }
-
-    const title = document.createElement("h2");
-    title.textContent = item.title || "没有标题的一天";
-
-    const content = document.createElement("p");
-    content.className = "life-diary-card-content";
-    content.textContent = item.content || "";
-
-    const photos = document.createElement("div");
-    photos.className = "life-diary-card-photos";
-    (item.photos || []).forEach((photo) => {
-      const image = document.createElement("img");
-      image.src = photo.dataUrl;
-      image.alt = photo.name || "日记照片";
-      photos.appendChild(image);
-    });
-
-    const tags = document.createElement("div");
-    tags.className = "life-diary-card-tags";
-    (item.tags || []).forEach((tag) => {
-      const chip = document.createElement("span");
-      chip.textContent = tag;
-      tags.appendChild(chip);
-    });
-
-    const actions = document.createElement("div");
-    actions.className = "life-diary-card-actions";
-
-    const edit = document.createElement("button");
-    edit.type = "button";
-    edit.textContent = "编辑";
-    edit.addEventListener("click", () => fillForm(item));
-
-    const remove = document.createElement("button");
-    remove.type = "button";
-    remove.textContent = "删除";
-    remove.addEventListener("click", async () => {
-      const ok = confirm("确定把这张日记卡片删掉吗？");
-      if (!ok) {
-        return;
-      }
-      await diaryApi(`/api/editor/diary/${encodeURIComponent(item.id)}`, { method: "DELETE" });
-      await loadDiary();
-      if (editingId === item.id) {
-        resetForm();
-      }
-      setDiaryStatus("这张卡片已经从时间线移走。", "ok");
-    });
-
-    actions.append(edit, remove);
-    card.append(meta, title, content);
-    if (item.photos?.length) {
-      card.appendChild(photos);
-    }
-    if (item.tags?.length) {
-      card.appendChild(tags);
-    }
-    card.appendChild(actions);
-    diaryList.appendChild(card);
+  document.querySelectorAll(".life-nav-item").forEach(btn => {
+    btn.addEventListener("click", () => switchCategory(btn.dataset.category));
   });
+
+  document.getElementById("life-composer-add-image").addEventListener("click", () => {
+    document.getElementById("life-composer-image-picker").click();
+  });
+  document.getElementById("life-composer-image-picker").addEventListener("change", async (e) => {
+    for (const file of e.target.files) { if(file.type.startsWith("image/")) await insertImage(file); }
+    e.target.value = "";
+  });
+
+  const auth = loadAuth();
+  if (auth.username) document.getElementById("note-auth-user").value = auth.username;
+  if (auth.password) document.getElementById("note-auth-pass").value = auth.password;
+
+  renderTimeline();
+  updateCounts();
+  updateSyncBar();
 }
 
-async function loadDiary() {
-  setDiaryStatus("正在翻到最近的记录...");
-  const data = await diaryApi("/api/editor/diary");
-  diaryItems = data.items || [];
-  renderDiary();
-  setDiaryStatus("时间线已经打开。", "ok");
-}
-
-diaryForm.addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const payload = {
-    title: diaryTitle.value,
-    mood: diaryMood.value,
-    tags: tagsFromInput(diaryTags.value),
-    content: diaryContent.value,
-    photos: currentPhotos
-  };
-
-  setDiaryStatus(editingId ? "正在更新这张卡片..." : "正在收进时间线...");
-  if (editingId) {
-    await diaryApi(`/api/editor/diary/${encodeURIComponent(editingId)}`, {
-      method: "PUT",
-      body: JSON.stringify(payload)
-    });
-  } else {
-    await diaryApi("/api/editor/diary", {
-      method: "POST",
-      body: JSON.stringify(payload)
-    });
-  }
-
-  resetForm();
-  await loadDiary();
-  setDiaryStatus("已经放好了。", "ok");
-});
-
-diaryReset.addEventListener("click", () => {
-  resetForm();
-  setDiaryStatus("已经回到新日记。");
-});
-
-diaryPhotos.addEventListener("change", () => {
-  addPhotos(diaryPhotos.files).catch((error) => setDiaryStatus(error.message, "warn"));
-});
-
-photoDrop.addEventListener("click", () => diaryPhotos.click());
-photoDrop.addEventListener("dragover", (event) => {
-  event.preventDefault();
-  photoDrop.classList.add("is-dragging");
-});
-photoDrop.addEventListener("dragleave", () => {
-  photoDrop.classList.remove("is-dragging");
-});
-photoDrop.addEventListener("drop", (event) => {
-  event.preventDefault();
-  photoDrop.classList.remove("is-dragging");
-  addPhotos(event.dataTransfer.files).catch((error) => setDiaryStatus(error.message, "warn"));
-});
-
-emojiButtons.forEach((button) => {
-  button.addEventListener("click", () => insertAtCursor(diaryContent, button.dataset.emoji || ""));
-});
-
-renderPhotoPreview();
-
-loadDiary().catch((error) => {
-  setDiaryStatus(error.message, "warn");
-});
+init();
+})();

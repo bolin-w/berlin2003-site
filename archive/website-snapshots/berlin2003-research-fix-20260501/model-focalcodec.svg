@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">FocalCodec model structure</title>
+  <desc id="desc">Redrawn architecture diagram based on the paper structure.</desc>
+  <defs>
+    <linearGradient id="paperBg" x1="0" y1="0" x2="1280" y2="720" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FBFEFF"/>
+      <stop offset="0.62" stop-color="#F0FAFA"/>
+      <stop offset="1" stop-color="#FFF8F3"/>
+    </linearGradient>
+    <filter id="softShadow" x="-15%" y="-25%" width="130%" height="160%">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#0B3C5D" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrowInk" markerWidth="16" markerHeight="16" refX="10" refY="8" orient="auto">
+      <path d="M2 2L12 8L2 14" fill="none" stroke="#07162F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrowTeal" markerWidth="16" markerHeight="16" refX="10" refY="8" orient="auto">
+      <path d="M2 2L12 8L2 14" fill="none" stroke="#0D999D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="16" markerHeight="16" refX="10" refY="8" orient="auto">
+      <path d="M2 2L12 8L2 14" fill="none" stroke="#F26419" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+  <style>
+    .bg{fill:url(#paperBg)}
+    .grid{stroke:#D9EDF7;stroke-width:1;opacity:.75}
+    .title{font:850 34px "Aptos Display","Segoe UI",sans-serif;fill:#07162F}
+    .kicker{font:800 15px "Aptos","Segoe UI",sans-serif;fill:#0D999D;text-transform:uppercase}
+    .footer{font:750 13px "Aptos","Segoe UI",sans-serif;fill:#5A6C84}
+    .node,.mini,.token{fill:#FFFFFF;stroke-width:2;filter:url(#softShadow)}
+    .node.blue,.mini.blue,.token.blue{stroke:#1264E8}
+    .node.teal,.mini.teal,.token.teal{stroke:#0D999D}
+    .node.orange,.mini.orange,.token.orange{stroke:#F26419}
+    .node.ink,.mini.ink,.token.ink{stroke:#07162F}
+    .node-label{font:850 21px "Aptos Display","Segoe UI",sans-serif;fill:#07162F}
+    .node-sub{font:700 14px "Aptos","Segoe UI",sans-serif;fill:#53647D}
+    .mini-label{font:800 13px "Aptos","Segoe UI",sans-serif;fill:#07162F}
+    .token-label{font:850 13px "Aptos","Segoe UI",sans-serif;fill:#07162F}
+    .group{fill:rgba(255,255,255,.62);stroke:#9DB9D3;stroke-width:1.7;stroke-dasharray:8 8}
+    .group-label{font:850 15px "Aptos","Segoe UI",sans-serif;fill:#53647D}
+    .label{font:850 18px "Aptos","Segoe UI",sans-serif;fill:#07162F}
+    .sub{font:700 14px "Aptos","Segoe UI",sans-serif;fill:#53647D}
+    .arrow{fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+    .arrow.ink{stroke:#07162F;marker-end:url(#arrowInk)}
+    .arrow.teal{stroke:#0D999D;marker-end:url(#arrowTeal)}
+    .arrow.orange{stroke:#F26419;marker-end:url(#arrowOrange)}
+    .line{fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+    .line.muted{stroke:#9DB0C5;stroke-dasharray:6 7}
+    .line.orange{stroke:#F26419;stroke-dasharray:7 7}
+    .wave path{fill:none;stroke-width:4;stroke-linecap:round}
+    .wave.teal path{stroke:#0D999D}
+    .wave.blue path{stroke:#1264E8}
+    .wave.orange path{stroke:#F26419}
+  </style>
+  <rect width="1280" height="720" rx="0" class="bg"/>
+  <path d="M80 0V720" class="grid"/><path d="M160 0V720" class="grid"/><path d="M240 0V720" class="grid"/><path d="M320 0V720" class="grid"/><path d="M400 0V720" class="grid"/><path d="M480 0V720" class="grid"/><path d="M560 0V720" class="grid"/><path d="M640 0V720" class="grid"/><path d="M720 0V720" class="grid"/><path d="M800 0V720" class="grid"/><path d="M880 0V720" class="grid"/><path d="M960 0V720" class="grid"/><path d="M1040 0V720" class="grid"/><path d="M1120 0V720" class="grid"/><path d="M1200 0V720" class="grid"/>
+  <path d="M0 80H1280" class="grid"/><path d="M0 160H1280" class="grid"/><path d="M0 240H1280" class="grid"/><path d="M0 320H1280" class="grid"/><path d="M0 400H1280" class="grid"/><path d="M0 480H1280" class="grid"/><path d="M0 560H1280" class="grid"/><path d="M0 640H1280" class="grid"/>
+  <text x="54" y="62" class="title" text-anchor="start">FocalCodec</text>
+  <text x="54" y="94" class="kicker" text-anchor="start">Single-codebook ultra-low bitrate speech codec</text>
+  
+      <g class="wave teal" transform="translate(58 316)">
+    <path d="M0 28 C12 -8 24 64 36 28 C48 -8 60 64 72 28 C84 -8 96 64 108 28"/>
+  </g>
+      <path d="M176 344 L230 344" class="arrow ink"/>
+      <g>
+    <rect x="234" y="296" width="160" height="96" rx="18" class="node blue"/>
+    <text x="314" y="332" class="node-label" text-anchor="middle">Speech Encoder</text>
+    <text x="314" y="354" class="node-sub"><tspan x="314" dy="0">compressed latent</tspan><tspan x="314" dy="20">0.16-0.80 kbps</tspan></text>
+  </g>
+      <path d="M394 344 L454 344" class="arrow ink"/>
+      <g>
+    <rect x="454" y="226" width="278" height="236" rx="28" class="group"/>
+    <text x="478" y="260" class="group-label" text-anchor="start">Focal modulation network</text>
+  </g>
+      <g>
+    <rect x="500" y="284" width="182" height="34" rx="12" class="mini teal"/>
+    <text x="591" y="307" class="mini-label" text-anchor="middle">local speech cues</text>
+  </g>
+      <g>
+    <rect x="500" y="336" width="182" height="34" rx="12" class="mini orange"/>
+    <text x="591" y="359" class="mini-label" text-anchor="middle">global context</text>
+  </g>
+      <g>
+    <rect x="500" y="388" width="182" height="34" rx="12" class="mini blue"/>
+    <text x="591" y="411" class="mini-label" text-anchor="middle">salience focus</text>
+  </g>
+      <path d="M732 344 L792 344" class="arrow ink"/>
+      <g>
+    <rect x="796" y="296" width="170" height="96" rx="18" class="node orange"/>
+    <text x="881" y="332" class="node-label" text-anchor="middle">Single Codebook</text>
+    <text x="881" y="354" class="node-sub"><tspan x="881" dy="0">one discrete stream</tspan><tspan x="881" dy="20">strong bottleneck</tspan></text>
+  </g>
+      <path d="M966 344 L1026 344" class="arrow ink"/>
+      <g>
+    <rect x="1030" y="296" width="160" height="96" rx="18" class="node blue"/>
+    <text x="1110" y="332" class="node-label" text-anchor="middle">Decoder</text>
+    <text x="1110" y="354" class="node-sub"><tspan x="1110" dy="0">speech restore</tspan><tspan x="1110" dy="20">vocoder</tspan></text>
+  </g>
+      <g>
+    <rect x="426" y="118" width="210" height="72" rx="18" class="node orange"/>
+    <text x="531" y="154" class="node-label" text-anchor="middle">Bandwidth Constraint</text>
+    <text x="531" y="176" class="node-sub"><tspan x="531" dy="0">keep intelligibility first</tspan><tspan x="531" dy="20">then naturalness</tspan></text>
+  </g>
+      <path d="M530 226 C532 202 532 190 532 190" class="line orange"/>
+      <g>
+    <rect x="88" y="500" width="178" height="34" rx="12" class="mini orange"/>
+    <text x="177" y="523" class="mini-label" text-anchor="middle">ultra low bitrate</text>
+  </g>
+      <g>
+    <rect x="288" y="500" width="178" height="34" rx="12" class="mini teal"/>
+    <text x="377" y="523" class="mini-label" text-anchor="middle">single-codebook</text>
+  </g>
+      <g>
+    <rect x="488" y="500" width="178" height="34" rx="12" class="mini blue"/>
+    <text x="577" y="523" class="mini-label" text-anchor="middle">speech priority</text>
+  </g>
+    
+  <text x="54" y="676" class="footer" text-anchor="start">REDRAWN MODEL STRUCTURE</text>
+  <text x="1226" y="676" class="footer" text-anchor="end">focal modulation under severe bandwidth</text>
+</svg>

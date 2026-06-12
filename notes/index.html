@@ -4,111 +4,205 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Berlin2003 / 笔记</title>
-  <meta name="description" content="Berlin2003 的阶段笔记页：记录论文阅读、训练判断、部署问题和后续任务。">
-  <meta name="theme-color" content="#f7fbff">
+  <meta name="description" content="记录论文阅读、训练判断、部署问题和后续任务">
+  <meta name="theme-color" content="#07162f">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
-  <link rel="stylesheet" href="/assets/section-lab.css?v=20260505-polish">
+  <link rel="stylesheet" href="/assets/home-tech.css">
+  <link rel="stylesheet" href="/assets/semantic-page.css?v=20260516">
+  <link rel="stylesheet" href="/assets/home-anim.css">
 </head>
-<body class="section-lab-body">
-  <div class="site-shell section-lab-shell">
-    <header class="section-lab-topbar">
-      <a class="section-lab-brand" href="/" aria-label="Berlin2003 首页"><span>Berlin</span><strong>2003</strong></a>
-      <nav class="section-lab-nav" aria-label="主导航">
-        <a href="/research/">研究</a>
-        <a href="/projects/">项目</a>
-        <a href="/anime/">视频库</a>
-        <a href="/contact/">联系</a>
+<body class="home hx-body">
+
+  <div class="hx-bg" aria-hidden="true">
+    <div class="hx-grid"></div>
+    <div class="hx-orb hx-orb-1"></div>
+    <div class="hx-orb hx-orb-2"></div>
+    <div class="hx-orb hx-orb-3"></div>
+    <div class="hx-scanlines"></div>
+    <div class="hx-noise"></div>
+  </div>
+
+  <div class="hx-shell">
+
+    <header class="hx-nav" role="banner">
+      <a class="hx-brand" href="/" aria-label="Berlin2003 首页">
+        <span class="hx-brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 12 L7 12 L9 6 L13 18 L15 9 L17 14 L21 12" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="hx-brand-text">Berlin<strong>2003</strong></span>
+      </a>
+
+      <nav class="hx-nav-links" aria-label="主导航">
+        <a href="/research/"><span>01</span>研究</a>
+        <a href="/projects/"><span>02</span>项目</a>
+        <a href="/notes/" class="is-active"><span>03</span>笔记</a>
+        <a href="/contact/"><span>04</span>联系</a>
       </nav>
+
+      <div class="hx-nav-status" aria-hidden="true">
+        <span class="hx-dot"></span>
+        <span>SYS · ONLINE</span>
+      </div>
     </header>
 
-    <main class="section-lab-main">
-      <section class="section-lab-hero" aria-labelledby="notes-title">
-        <div class="section-lab-copy">
-          <p class="section-lab-kicker">边注与札记</p>
-          <h1 id="notes-title">把来路写在纸边</h1>
-          <p class="section-lab-lead">这里不是正式论文，也不是项目汇报。它保存阅读时的旁批、部署时的折返、页面改版的取舍，以及下一次归来时应先拾起的线索。</p>
-          <div class="section-lab-actions">
-            <a class="section-lab-primary" href="/research/">翻研究案卷</a>
-            <a href="/projects/">看项目行事录</a>
+    <main class="hx-main hx-semantic-main">
+
+      <section class="hx-semantic-hero" aria-labelledby="notes-title">
+        <div class="hx-semantic-hero-main">
+          <div class="hx-kicker">
+            <span class="hx-bracket">[</span>
+            <span class="hx-kicker-tag">SECTION 03</span>
+            <span class="hx-kicker-sep">/</span>
+            <span class="hx-kicker-ver">NOTES</span>
+            <span class="hx-bracket">]</span>
+          </div>
+
+          <h1 id="notes-title" class="hx-title">
+            <span class="hx-title-row">笔记</span>
+          </h1>
+
+          <p class="hx-lead">
+            这里不是正式论文，也不是项目汇报。
+            <mark>它保存阅读时的旁批、部署时的折返、页面改版的取舍，以及下一次归来时应先拾起的线索</mark>。
+          </p>
+
+          <div class="hx-hero-meta hx-semantic-meta">
+            <div class="hx-meta-item">
+              <b>4</b><i>categories</i>
+              <span>note collections</span>
+            </div>
+            <div class="hx-meta-item">
+              <b>Notion</b><i>source</i>
+              <span>imported from workspace</span>
+            </div>
+            <div class="hx-meta-item">
+              <b>Live</b><i>status</i>
+              <span>continuously updated</span>
+            </div>
           </div>
         </div>
-        <figure class="section-lab-visual">
-          <img src="/assets/home-notes.png" alt="Berlin2003 边注与札记视觉图">
-          <figcaption class="section-lab-visual-note">
-            <strong>旁批</strong>
-            <span>留下“当时为何如此判断”，日后重看才不只见成品。</span>
-          </figcaption>
-        </figure>
+
+        <aside class="hx-semantic-aside">
+          <article class="hx-aside-card">
+            <span class="hx-aside-tag">笔记定位</span>
+            <p>留下"当时为何如此判断"，日后重看才不只见成品。记录过程、折返和取舍。</p>
+          </article>
+          <article class="hx-aside-card">
+            <span class="hx-aside-tag">更新节奏</span>
+            <p>笔记页比项目页更新得更快，记录每一步推进的过程与判断。</p>
+          </article>
+        </aside>
       </section>
 
-      <section class="section-lab-grid" style="grid-template-columns:repeat(5,minmax(0,1fr));" aria-label="笔记分类">
-        <a class="section-lab-card" href="/notes/category/?key=reading" style="text-decoration:none;color:inherit;">
-          <span>札记一</span>
-          <strong>论文阅读</strong>
-          <p>去看收在 Notion 里的论文阅读笔记与单篇札记。</p>
-        </a>
-        <a class="section-lab-card" href="/notes/category/?key=model" style="text-decoration:none;color:inherit;">
-          <span>札记二</span>
-          <strong>模型判断</strong>
-          <p>把结构取舍、层级分工和模型判断收成可回查的笔记。</p>
-        </a>
-        <a class="section-lab-card" href="/notes/category/?key=deploy" style="text-decoration:none;color:inherit;">
-          <span>札记三</span>
-          <strong>部署记录</strong>
-          <p>服务器、鉴权、同步、回滚与线上变更都放在这里。</p>
-        </a>
-        <a class="section-lab-card" href="/notes/category/?key=design" style="text-decoration:none;color:inherit;">
-          <span>札记四</span>
-          <strong>页面改版</strong>
-          <p>导航、内容深度、视觉气质和交互改动的来路都归到这里。</p>
-        </a>
-        <a class="section-lab-card" href="/notes/category/?key=projects" style="text-decoration:none;color:inherit;">
-          <span>项目</span>
-          <strong>项目记录</strong>
-          <p>项目推进中的记录、清单和阶段性沉淀单独归档，不并入札记序列。</p>
-        </a>
+      <div class="hx-tag-strip">
+        <span class="hx-tag">Paper Reading</span>
+        <span class="hx-tag">Training Notes</span>
+        <span class="hx-tag">Deploy Records</span>
+        <span class="hx-tag">Redesign Log</span>
+      </div>
+
+      <section class="hx-routes hx-reveal" aria-label="笔记分类">
+        <header class="hx-section-head">
+          <span class="hx-section-tag">[ CATEGORIES ]</span>
+          <h2>笔记分类</h2>
+          <p>四个方向，从论文阅读到模型训练，再到部署记录和页面改版。</p>
+        </header>
+
+        <div class="hx-timeline">
+          <a class="hx-timeline-card" href="/notes/paper/">
+            <div class="hx-timeline-head">
+              <span class="hx-timeline-year">01</span>
+              <div class="hx-timeline-title">
+                <strong>论文阅读</strong>
+                <span class="hx-timeline-cat">Paper Reading</span>
+              </div>
+            </div>
+            <p>记录每篇论文真正改变的部分：结构、目标、量化、实验设置与适用边界。</p>
+            <div class="hx-timeline-tags">
+              <span>Analysis</span>
+              <span>Innovation</span>
+              <span>Boundary</span>
+            </div>
+          </a>
+
+          <a class="hx-timeline-card" href="/notes/model/">
+            <div class="hx-timeline-head">
+              <span class="hx-timeline-year">02</span>
+              <div class="hx-timeline-title">
+                <strong>模型训练</strong>
+                <span class="hx-timeline-cat">Model Training</span>
+              </div>
+            </div>
+            <p>记录训练过程：超参调优、loss 变化、数据配比与 ablation，让每次实验可回溯。</p>
+            <div class="hx-timeline-tags">
+              <span>Hyperparameters</span>
+              <span>Loss Curve</span>
+              <span>Ablation</span>
+            </div>
+          </a>
+
+          <a class="hx-timeline-card" href="/notes/deploy/">
+            <div class="hx-timeline-head">
+              <span class="hx-timeline-year">03</span>
+              <div class="hx-timeline-title">
+                <strong>部署记录</strong>
+                <span class="hx-timeline-cat">Deploy Records</span>
+              </div>
+            </div>
+            <p>记下服务器、Caddy、鉴权、静态资源、同步与回滚路径，免得日后重新摸索。</p>
+            <div class="hx-timeline-tags">
+              <span>Server</span>
+              <span>Caddy</span>
+              <span>Rollback</span>
+            </div>
+          </a>
+
+          <a class="hx-timeline-card" href="/notes/redesign/">
+            <div class="hx-timeline-head">
+              <span class="hx-timeline-year">04</span>
+              <div class="hx-timeline-title">
+                <strong>页面改版</strong>
+                <span class="hx-timeline-cat">Redesign Log</span>
+              </div>
+            </div>
+            <p>每次改版都留下缘由：导航、内容深度、可视化问题或整体气质，而非只写"改过"。</p>
+            <div class="hx-timeline-tags">
+              <span>Navigation</span>
+              <span>Visual</span>
+              <span>UX</span>
+            </div>
+          </a>
+        </div>
       </section>
 
-      <section class="section-lab-grid two" aria-label="最近记录">
-        <article class="section-lab-panel">
-          <p class="section-lab-label">近稿</p>
-          <h2>研究页已有骨架。</h2>
-          <p>semantic 与 acoustic 两条线已经拆成论文精讲，并补了模型解析、创新点、损失函数、训练策略和结果分析。接下来应补真实实验表、音频样例和复现状态。</p>
-          <ul class="section-lab-list">
-            <li>声学页替换为论文结构图图片，降低装饰性 SVG 的干扰。</li>
-            <li>语义页补齐 HuBERT、WavLM、BEST-RQ、SpeechTokenizer 的上下游关系。</li>
-            <li>研究首页负责地图，详情页负责拆解，不把所有信息堆在一屏。</li>
-          </ul>
-        </article>
-        <article class="section-lab-panel">
-          <p class="section-lab-label">续稿</p>
-          <h2>各栏目开始各安其位。</h2>
-          <p>项目、笔记、联系、放映室、日记和工作台不必同 research 一样繁复，但每一页都应知道自己承担什么。</p>
-          <ul class="section-lab-list">
-            <li>项目页负责公开进度。</li>
-            <li>笔记页负责过程和判断。</li>
-            <li>日记页负责私密生活片段。</li>
-          </ul>
-        </article>
+      <section class="hx-next-reading hx-reveal" aria-label="继续阅读">
+        <a class="hx-next-card" href="/research/">
+          <span class="hx-next-label">Related Reading</span>
+          <strong>研究</strong>
+          <p>看完笔记，回到研究地图看完整路线。</p>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
       </section>
-
-      <section id="notion-articles" class="section-lab-main" aria-label="Notion 笔记" hidden></section>
-
-      <nav class="section-lab-links" aria-label="继续浏览">
-        <a class="section-lab-link" href="/research/semantic/"><small>语义</small><strong>语义主线</strong><p>先看“说了什么”如何被保存。</p></a>
-        <a class="section-lab-link" href="/research/acoustic/"><small>声学</small><strong>声学主线</strong><p>再看音色、自然度与细节如何归来。</p></a>
-        <a class="section-lab-link" href="/life/"><small>私记</small><strong>日记</strong><p>把日常片段收进私人日笺。</p></a>
-      </nav>
     </main>
 
-    <footer class="section-lab-footer">
-      <span>边注与札记</span>
-      <span>判断 / 部署 / 改版</span>
+    <footer class="hx-footer" role="contentinfo">
+      <div class="hx-footer-l">
+        <span class="hx-dot"></span>
+        <span>berlin2003.ccwu.cc</span>
+      </div>
+      <div class="hx-footer-m">
+        <span>// process / judgment / iteration</span>
+      </div>
+      <div class="hx-footer-r">
+        <span class="hx-prompt">$ ./notes --live</span>
+      </div>
     </footer>
   </div>
 
-  <script src="/assets/notes-feed.js"></script>
+  <script src="/assets/home-anim.js?v=20260501-a1" defer></script>
   <script src="/assets/site-chat.js"></script>
 </body>
 </html>

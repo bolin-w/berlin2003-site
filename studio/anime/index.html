@@ -3,58 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Berlin2003 / 片库后台</title>
+  <title>Berlin2003 / 视频上传后台</title>
   <meta name="theme-color" content="#f4efe6">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
-  <link rel="stylesheet" href="/assets/section-lab.css?v=20260505-polish">
 </head>
-<body class="section-lab-body anime-lab-body">
-  <div class="site-shell section-lab-shell">
-    <header class="section-lab-topbar">
-      <a class="section-lab-brand" href="/" aria-label="Berlin2003 首页"><span>Berlin</span><strong>2003</strong></a>
-      <nav class="section-lab-nav" aria-label="后台导航">
-        <a href="/anime/">视频库</a>
-        <a href="/studio/">工作台</a>
-        <a href="/life/">生活</a>
-        <a href="/studio-logout/">退出</a>
+<body>
+  <div class="site-shell">
+    <header class="module-top">
+      <nav class="module-nav" aria-label="后台导航">
+        <a class="backlink" href="/">← 首页</a>
+        <a class="backlink" href="/anime/">视频库</a>
+        <a class="backlink" href="/studio/">工作台</a>
       </nav>
+      <span>video admin / private</span>
     </header>
 
-    <main class="section-lab-main">
-      <section class="section-lab-hero">
-        <div class="section-lab-copy">
-          <p class="section-lab-kicker">片架后台</p>
-          <h1>为影像编目</h1>
-          <p class="section-lab-lead">本地完成字幕与压制，服务器只收藏成片、封面与播放地址。这里负责登记、归档与陈列。</p>
-          <div class="section-lab-actions">
-            <a class="section-lab-primary" href="/anime/">打开放映室</a>
-            <a href="/studio/">返回工作台</a>
-          </div>
-        </div>
-        <div class="section-lab-visual anime-screen-visual">
-          <div class="anime-screen-mark">
-            <span></span><span></span><span></span><span></span>
-          </div>
-          <div class="section-lab-visual-note">
-            <strong>本地成片 / 云端归档</strong>
-            <span>字幕、压制在本地完成；后台只收纳已经完成的放映版本。</span>
-          </div>
-        </div>
-      </section>
+    <main class="module-main">
+      <h1>视频上传</h1>
+      <p class="module-intro">先在本地把字幕压进 MP4，再上传到这里。服务器只做存储和播放，不做种子下载、自动字幕或转码。</p>
 
       <section class="anime-admin-status studio-status">
         <span class="status-dot" id="anime-admin-dot"></span>
-        <span id="anime-admin-status">正在确认片库是否在线...</span>
+        <span id="anime-admin-status">正在检查视频服务...</span>
       </section>
 
       <div class="anime-admin-grid video-admin-grid">
         <section class="studio-panel">
-          <h2>新片入架</h2>
+          <h2>上传视频</h2>
           <form class="studio-form" id="video-upload-form">
             <label>
               标题
-              <input name="title" placeholder="片名或集名" required>
+              <input name="title" placeholder="例如：Psych2Go 中文字幕版" required>
             </label>
             <label>
               Slug
@@ -62,36 +42,36 @@
             </label>
             <label>
               简介
-              <textarea name="description" placeholder="版本、字幕、来源或观看备注。"></textarea>
+              <textarea name="description" placeholder="可选，写来源、版本或备注。"></textarea>
             </label>
             <label>
               封面 URL
               <input name="posterUrl" placeholder="可选">
             </label>
             <label>
-              已压好字幕的 MP4
+              已压字幕 MP4
               <input name="file" type="file" accept="video/mp4" required>
             </label>
-            <button class="submit-button" type="submit">收入片架</button>
+            <button class="submit-button" type="submit">上传并发布</button>
           </form>
         </section>
 
         <section class="studio-result">
           <div class="studio-result-head">
-            <h2>架上存片</h2>
-            <button class="copy-button" id="video-refresh" type="button">重整片架</button>
+            <h2>已上传</h2>
+            <button class="copy-button" id="video-refresh" type="button">刷新</button>
           </div>
           <div class="anime-admin-list" id="video-admin-list"></div>
         </section>
       </div>
     </main>
 
-    <footer class="section-lab-footer">
-      <span>片库后台</span>
-      <span>私有访问</span>
+    <footer class="footer">
+      <span>视频后台</span>
+      <span>Basic Auth</span>
     </footer>
   </div>
 
-  <script src="/assets/anime-admin.js?v=20260505-polish"></script>
+  <script src="/assets/anime-admin.js"></script>
 </body>
 </html>

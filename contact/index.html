@@ -4,93 +4,181 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Berlin2003 / 联系</title>
-  <meta name="description" content="Berlin2003 的公开联系入口：GitHub、邮箱、站点地址和适合交流的研究方向。">
-  <meta name="theme-color" content="#f7fbff">
+  <meta name="description" content="联系方式与社交链接">
+  <meta name="theme-color" content="#07162f">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
-  <link rel="stylesheet" href="/assets/section-lab.css?v=20260505-polish">
+  <link rel="stylesheet" href="/assets/home-tech.css">
+  <link rel="stylesheet" href="/assets/semantic-page.css?v=20260516">
+  <link rel="stylesheet" href="/assets/contact-hx.css?v=20260516">
+  <link rel="stylesheet" href="/assets/home-anim.css">
 </head>
-<body class="section-lab-body">
-  <div class="site-shell section-lab-shell">
-    <header class="section-lab-topbar">
-      <a class="section-lab-brand" href="/" aria-label="Berlin2003 首页"><span>Berlin</span><strong>2003</strong></a>
-      <nav class="section-lab-nav" aria-label="主导航">
-        <a href="/research/">研究</a>
-        <a href="/projects/">项目</a>
-        <a href="/notes/">笔记</a>
-        <a href="/anime/">视频库</a>
+<body class="home hx-body">
+
+  <div class="hx-bg" aria-hidden="true">
+    <div class="hx-grid"></div>
+    <div class="hx-orb hx-orb-1"></div>
+    <div class="hx-orb hx-orb-2"></div>
+    <div class="hx-orb hx-orb-3"></div>
+    <div class="hx-scanlines"></div>
+    <div class="hx-noise"></div>
+  </div>
+
+  <div class="hx-shell">
+
+    <header class="hx-nav" role="banner">
+      <a class="hx-brand" href="/" aria-label="Berlin2003 首页">
+        <span class="hx-brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 12 L7 12 L9 6 L13 18 L15 9 L17 14 L21 12" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="hx-brand-text">Berlin<strong>2003</strong></span>
+      </a>
+
+      <nav class="hx-nav-links" aria-label="主导航">
+        <a href="/research/"><span>01</span>研究</a>
+        <a href="/projects/"><span>02</span>项目</a>
+        <a href="/notes/"><span>03</span>笔记</a>
+        <a href="/contact/" class="is-active"><span>04</span>联系</a>
       </nav>
+
+      <div class="hx-nav-status" aria-hidden="true">
+        <span class="hx-dot"></span>
+        <span>SYS · ONLINE</span>
+      </div>
     </header>
 
-    <main class="section-lab-main">
-      <section class="section-lab-hero" aria-labelledby="contact-title">
-        <div class="section-lab-copy">
-          <p class="section-lab-kicker">Contact</p>
-          <h1 id="contact-title">留几条能找到我的路。</h1>
-          <p class="section-lab-lead">如果你想聊语音 tokenizer、神经音频压缩、低码率 codec、论文精读或这个站点本身，可以从这里开始。联系方式保持简单，能到达就够。</p>
-          <div class="section-lab-actions">
-            <a class="section-lab-primary" href="mailto:2632660684@qq.com">发邮件</a>
-            <a href="https://github.com/bolin-w" target="_blank" rel="noreferrer">GitHub 主页</a>
+    <main class="hx-main hx-semantic-main">
+
+      <section class="hx-semantic-hero" aria-labelledby="contact-title">
+        <div class="hx-semantic-hero-main">
+          <div class="hx-kicker">
+            <span class="hx-bracket">[</span>
+            <span class="hx-kicker-tag">SECTION 04</span>
+            <span class="hx-kicker-sep">/</span>
+            <span class="hx-kicker-ver">CONTACT</span>
+            <span class="hx-bracket">]</span>
+          </div>
+
+          <h1 id="contact-title" class="hx-title">
+            <span class="hx-title-row">联系</span>
+          </h1>
+
+          <p class="hx-lead">
+            如果你对语音压缩前端研究感兴趣，或者想讨论相关技术问题，
+            <mark>欢迎通过以下方式联系</mark>。
+          </p>
+
+          <div class="hx-hero-meta hx-semantic-meta">
+            <div class="hx-meta-item">
+              <b>Email</b><i>primary</i>
+              <span>preferred contact method</span>
+            </div>
+            <div class="hx-meta-item">
+              <b>24h</b><i>response</i>
+              <span>typical reply time</span>
+            </div>
+            <div class="hx-meta-item">
+              <b>Open</b><i>status</i>
+              <span>collaboration welcome</span>
+            </div>
           </div>
         </div>
-        <figure class="section-lab-visual">
-          <img src="/assets/home-contact.png" alt="Berlin2003 contact visual">
-          <figcaption class="section-lab-visual-note">
-            <strong>Open channels</strong>
-            <span>站点、仓库、邮箱各走一条路，方便不同事情找到不同入口。</span>
-          </figcaption>
-        </figure>
+
+        <aside class="hx-semantic-aside">
+          <article class="hx-aside-card">
+            <span class="hx-aside-tag">联系方式</span>
+            <p>邮件是最可靠的联系方式，通常会在 24 小时内回复。</p>
+          </article>
+          <article class="hx-aside-card">
+            <span class="hx-aside-tag">合作意向</span>
+            <p>欢迎讨论语音编码、模型压缩、部署优化等相关话题。</p>
+          </article>
+        </aside>
       </section>
 
-      <section class="section-lab-links" aria-label="联系方式">
-        <a class="section-lab-link" href="https://github.com/bolin-w" target="_blank" rel="noreferrer">
-          <small>GitHub</small>
-          <strong>bolin-w</strong>
-          <p>站点源码、公开页面和后续实验项目都会先放这里。</p>
-        </a>
-        <a class="section-lab-link" href="mailto:2632660684@qq.com">
-          <small>Email</small>
-          <strong>2632660684@qq.com</strong>
-          <p>适合发研究交流、页面反馈和需要慢慢说清楚的事。</p>
-        </a>
-        <a class="section-lab-link" href="https://berlin2003.ccwu.cc/">
-          <small>Website</small>
-          <strong>berlin2003.ccwu.cc</strong>
-          <p>回到这个站点本身，继续看研究、日记和放映室。</p>
-        </a>
-      </section>
+      <div class="hx-tag-strip">
+        <span class="hx-tag">Email</span>
+        <span class="hx-tag">Website</span>
+        <span class="hx-tag">GitHub</span>
+        <span class="hx-tag">Collaboration</span>
+      </div>
 
-      <section class="section-lab-grid two" aria-label="交流范围">
-        <article class="section-lab-panel">
-          <p class="section-lab-label">Topics</p>
-          <h2>适合从这里开始的话题</h2>
-          <ul class="section-lab-list">
-            <li>semantic token 与 acoustic token 的分工。</li>
-            <li>SoundStream、EnCodec、SNAC、DAC 等 codec 的结构差异。</li>
-            <li>低码率下音质、可懂度、token rate 和推理成本的权衡。</li>
-            <li>个人研究站点、静态部署、私密日记、工作台和内容管理。</li>
-          </ul>
-        </article>
-        <article class="section-lab-panel">
-          <p class="section-lab-label">Current repository</p>
-          <h2>这个站点已经能被追踪。</h2>
-          <p>网站仓库已经上传到 GitHub，页面优化、部署配置和研究内容都通过 Git 留痕。公开仓库只放源码和可公开配置，不放真实密钥和私密数据。</p>
-          <div class="section-lab-chips">
-            <span class="section-lab-chip">main branch</span>
-            <span class="section-lab-chip">static pages</span>
-            <span class="section-lab-chip">Caddy config</span>
-            <span class="section-lab-chip">research assets</span>
+      <section class="hx-contact-grid hx-reveal" aria-label="联系方式">
+        <a class="hx-contact-card" href="mailto:2632660684@qq.com">
+          <div class="hx-contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
           </div>
-        </article>
+          <div class="hx-contact-info">
+            <span class="hx-contact-label">Email</span>
+            <strong class="hx-contact-value">2632660684@qq.com</strong>
+            <p class="hx-contact-desc">主要联系方式，通常 24 小时内回复</p>
+          </div>
+        </a>
+
+        <a class="hx-contact-card" href="https://berlin2003.ccwu.cc/">
+          <div class="hx-contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="2" y1="12" x2="22" y2="12"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </div>
+          <div class="hx-contact-info">
+            <span class="hx-contact-label">Website</span>
+            <strong class="hx-contact-value">berlin2003.ccwu.cc</strong>
+            <p class="hx-contact-desc">个人站点，记录研究与项目进展</p>
+          </div>
+        </a>
+
+        <div class="hx-contact-card hx-contact-card-disabled">
+          <div class="hx-contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+            </svg>
+          </div>
+          <div class="hx-contact-info">
+            <span class="hx-contact-label">GitHub</span>
+            <strong class="hx-contact-value">待补公开用户名</strong>
+            <p class="hx-contact-desc">代码仓库与开源项目</p>
+          </div>
+        </div>
       </section>
+
+      <section class="hx-next-reading hx-reveal" aria-label="继续浏览">
+        <a class="hx-next-card" href="/research/">
+          <span class="hx-next-tag">[ RESEARCH ]</span>
+          <h3>研究地图</h3>
+          <p>查看语义与声学两条主线的完整研究框架</p>
+        </a>
+        <a class="hx-next-card" href="/projects/">
+          <span class="hx-next-tag">[ PROJECTS ]</span>
+          <h3>项目进展</h3>
+          <p>从研究原型到工程实现的转化记录</p>
+        </a>
+      </section>
+
     </main>
 
-    <footer class="section-lab-footer">
-      <span>Contact</span>
-      <span>github / email / website</span>
+    <footer class="hx-footer" role="contentinfo">
+      <div class="hx-footer-l">
+        <span class="hx-dot"></span>
+        <span>berlin2003.ccwu.cc</span>
+      </div>
+      <div class="hx-footer-m">
+        <span>// get in touch</span>
+      </div>
+      <div class="hx-footer-r">
+        <span class="hx-prompt">$ ./contact --email</span>
+      </div>
     </footer>
   </div>
 
+  <script src="/assets/home-anim.js?v=20260501-a1" defer></script>
   <script src="/assets/site-chat.js"></script>
 </body>
 </html>

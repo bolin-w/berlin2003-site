@@ -4,64 +4,135 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Berlin2003 / 语音编码</title>
-  <meta name="description" content="语音编码算法与模型的部署转化记录。">
-  <meta name="theme-color" content="#f7fbff">
+  <meta name="description" content="语音编码算法与模型的部署转化记录">
+  <meta name="theme-color" content="#07162f">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
-  <link rel="stylesheet" href="/assets/section-lab.css?v=20260515-refine">
+  <link rel="stylesheet" href="/assets/home-tech.css">
+  <link rel="stylesheet" href="/assets/project-page-hx.css?v=20260515">
+  <link rel="stylesheet" href="/assets/home-anim.css">
 </head>
-<body class="section-lab-body">
-  <div class="site-shell section-lab-shell">
-    <header class="section-lab-topbar">
-      <a class="section-lab-brand" href="/" aria-label="Berlin2003 首页"><span>Berlin</span><strong>2003</strong></a>
-      <nav class="section-lab-nav" aria-label="主导航">
-        <a href="/projects/">项目</a>
-        <a href="/research/">研究</a>
-        <a href="/notes/">笔记</a>
-        <a href="/contact/">联系</a>
+<body class="home hx-body">
+
+  <div class="hx-bg" aria-hidden="true">
+    <div class="hx-grid"></div>
+    <div class="hx-orb hx-orb-1"></div>
+    <div class="hx-orb hx-orb-2"></div>
+    <div class="hx-orb hx-orb-3"></div>
+    <div class="hx-scanlines"></div>
+    <div class="hx-noise"></div>
+  </div>
+
+  <div class="hx-shell">
+
+    <header class="hx-nav" role="banner">
+      <a class="hx-brand" href="/" aria-label="Berlin2003 首页">
+        <span class="hx-brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 12 L7 12 L9 6 L13 18 L15 9 L17 14 L21 12" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="hx-brand-text">Berlin<strong>2003</strong></span>
+      </a>
+
+      <nav class="hx-nav-links" aria-label="主导航">
+        <a href="/research/"><span>01</span>研究</a>
+        <a href="/projects/" class="is-active"><span>02</span>项目</a>
+        <a href="/notes/"><span>03</span>笔记</a>
+        <a href="/contact/"><span>04</span>联系</a>
       </nav>
+
+      <div class="hx-nav-status" aria-hidden="true">
+        <span class="hx-dot"></span>
+        <span>SYS · ONLINE</span>
+      </div>
     </header>
 
-    <main class="section-lab-main">
-      <section class="section-lab-hero" aria-labelledby="project-title">
-        <div class="section-lab-copy">
-          <p class="section-lab-kicker"><a href="/projects/" style="color:inherit;text-decoration:none;">← 回到项目</a></p>
-          <h1 id="project-title">语音编码</h1>
-          <p class="section-lab-lead">把语音编码算法和模型做部署转化，从研究原型走向可运行的工程实现。这里记录每一步推进的过程与判断。</p>
-          <div class="section-lab-actions">
-            <a class="section-lab-primary" href="/studio/notion/">导入 Notion 文章</a>
-            <a href="/research/">查看研究案卷</a>
+    <main class="hx-main hx-project-main">
+
+      <nav class="hx-breadcrumb" aria-label="面包屑导航">
+        <a href="/projects/">项目</a>
+        <span class="hx-breadcrumb-sep">▸</span>
+        <span class="hx-breadcrumb-current">语音编码</span>
+      </nav>
+
+      <section class="hx-project-hero" aria-labelledby="project-title">
+        <div class="hx-project-hero-main">
+          <div class="hx-kicker">
+            <span class="hx-bracket">[</span>
+            <span class="hx-kicker-tag">PROJECT 01</span>
+            <span class="hx-kicker-sep">/</span>
+            <span class="hx-kicker-ver">SPEECH CODING</span>
+            <span class="hx-bracket">]</span>
           </div>
-        </div>
-        <figure class="section-lab-visual" style="background:linear-gradient(135deg,rgba(35,111,229,0.12),rgba(24,167,168,0.1));">
-          <div style="display:grid;place-items:center;min-height:430px;padding:40px;text-align:center;">
-            <div>
-              <p style="font-size:4rem;margin:0;line-height:1;">1</p>
-              <p style="margin:12px 0 0;color:var(--section-muted);font-size:1rem;">语音编码方向</p>
+
+          <h1 id="project-title" class="hx-title">
+            <span class="hx-title-row">语音编码</span>
+          </h1>
+
+          <p class="hx-lead">
+            把语音编码算法和模型做部署转化，从研究原型走向可运行的工程实现。
+            <mark>这里记录每一步推进的过程与判断</mark>。
+          </p>
+
+          <div class="hx-hero-meta hx-project-meta">
+            <div class="hx-meta-item">
+              <b id="project-count">—</b><i>articles</i>
+              <span>imported from notion</span>
+            </div>
+            <div class="hx-meta-item">
+              <b>Codec</b><i>domain</i>
+              <span>core focus area</span>
+            </div>
+            <div class="hx-meta-item">
+              <b>Deploy</b><i>direction</i>
+              <span>engineering implementation</span>
             </div>
           </div>
-        </figure>
+        </div>
+
+        <aside class="hx-project-aside">
+          <article class="hx-aside-card">
+            <span class="hx-aside-tag">项目定位</span>
+            <p>从研究原型到可部署实现的完整转化路径，记录算法工程化的每个关键决策点。</p>
+          </article>
+          <article class="hx-aside-card">
+            <span class="hx-aside-tag">技术栈</span>
+            <p>Codec 算法、模型优化、推理加速、系统集成</p>
+          </article>
+        </aside>
       </section>
 
-      <section class="section-lab-stats" aria-label="统计">
-        <div class="section-lab-stat"><strong id="project-count">—</strong><span>已导入文章</span></div>
-        <div class="section-lab-stat"><strong>Codec</strong><span>核心领域</span></div>
-        <div class="section-lab-stat"><strong>Deploy</strong><span>重点方向</span></div>
-      </section>
+      <div class="hx-tag-strip">
+        <span class="hx-tag">Speech Codec</span>
+        <span class="hx-tag">Algorithm Deploy</span>
+        <span class="hx-tag">Model Optimization</span>
+        <span class="hx-tag">Engineering</span>
+      </div>
 
-      <section id="project-articles" data-project="speech-coding" data-match="语音编码,speech coding,codec,编码,部署转化,algorithm" aria-label="项目文章">
-        <div class="section-lab-panel" style="text-align:center;padding:40px 24px;">
-          <p style="color:var(--section-muted);margin:0;">加载中...</p>
+      <section id="project-articles" data-project="speech-coding" data-match="语音编码,speech coding,codec,编码,部署转化,algorithm" class="hx-project-articles hx-reveal" aria-label="项目文章">
+        <div class="hx-loading-state">
+          <span class="hx-dot"></span>
+          <span>Loading articles...</span>
         </div>
       </section>
     </main>
 
-    <footer class="section-lab-footer">
-      <span>语音编码</span>
-      <span>berlin2003.ccwu.cc/projects</span>
+    <footer class="hx-footer" role="contentinfo">
+      <div class="hx-footer-l">
+        <span class="hx-dot"></span>
+        <span>berlin2003.ccwu.cc</span>
+      </div>
+      <div class="hx-footer-m">
+        <span>// from research to production</span>
+      </div>
+      <div class="hx-footer-r">
+        <span class="hx-prompt">$ ./speech-coding --deploy</span>
+      </div>
     </footer>
   </div>
 
+  <script src="/assets/home-anim.js?v=20260501-a1" defer></script>
   <script src="/assets/project-page.js"></script>
   <script src="/assets/site-chat.js"></script>
 </body>

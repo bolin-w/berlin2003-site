@@ -1,0 +1,35 @@
+[Unit]
+Description=Berlin2003 Anime Resource Service
+After=network-online.target postgresql@16-main.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=berlinanime
+Group=berlinanime
+WorkingDirectory=/opt/berlin2003-anime
+EnvironmentFile=/etc/berlin2003-anime.env
+ExecStart=/usr/bin/node /opt/berlin2003-anime/dist/server.js
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectControlGroups=true
+ProtectKernelLogs=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ProtectProc=invisible
+ProcSubset=pid
+RestrictRealtime=true
+RestrictSUIDSGID=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+LockPersonality=true
+SystemCallArchitectures=native
+ReadOnlyPaths=/opt/berlin2003-anime
+ReadWritePaths=/var/lib/berlin2003-anime
+
+[Install]
+WantedBy=multi-user.target

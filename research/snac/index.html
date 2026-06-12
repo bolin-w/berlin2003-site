@@ -1,92 +1,140 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Berlin2003 / SNAC</title>
-  <meta name="description" content="SNAC：用多尺度 neural audio codec 重新组织声学 token 的时间结构。">
-  <meta name="theme-color" content="#f7fbff">
+  <meta name="theme-color" content="#f4efe6">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
-  <link rel="stylesheet" href="/assets/paper-lab.css?v=20260502-acoustic-deep">
 </head>
-<body class="edition-body paper-lab-body acoustic-paper-page">
-  <div class="site-shell paper-lab-shell">
-    <header class="paper-lab-topbar">
-      <a class="paper-lab-brand" href="/"><span>Berlin</span><strong>2003</strong></a>
-      <nav class="paper-lab-nav" aria-label="研究导航">
-        <a href="/research/dac/">上一篇</a>
-        <a href="/research/mimi/">下一篇</a>
-        <a href="/research/acoustic/">声学层</a>
-      </nav>
+<body>
+  <div class="site-shell">
+    <header class="module-top">
+      <a class="backlink" href="/research/acoustic/">← 声学编码器</a>
+      <span>SNAC</span>
     </header>
 
-    <main class="paper-lab-main">
-      <section class="paper-lab-hero">
-        <div class="paper-lab-copy">
-          <p class="paper-lab-kicker">2024 / Multi-Scale Tokens</p>
+    <main class="module-main paper-page">
+      <section class="paper-hero">
+        <div>
+          <p class="paper-kicker">2024 / Multi-Scale Codec</p>
           <h1>SNAC</h1>
-          <p class="paper-lab-lead">SNAC 的重点不只是 codec 更好，而是 token 的时间结构被重新设计：不同量化层工作在不同时间分辨率上，让低码率、长上下文和细节恢复之间的权衡更清楚。</p>
-          <div class="paper-lab-actions">
-            <a class="paper-lab-primary" href="https://arxiv.org/abs/2410.14411" target="_blank" rel="noreferrer">论文原文</a>
-            <a href="https://github.com/hubertsiuzdak/snac" target="_blank" rel="noreferrer">官方代码</a>
-          </div>
+          <p class="paper-summary">SNAC 的核心不是把 codec 再堆更深，而是直接改写离散 token 的时间组织方式。它让不同量化层工作在不同 temporal resolution 上，从一开始就把“怎样让音频 token 更适合长上下文模型”放进结构设计里。</p>
         </div>
 
-        <figure class="paper-lab-figure">
-          <img src="/assets/architecture-snac.png" alt="SNAC architecture diagram">
-          <figcaption>技术结构图：SNAC 把量化层拆到粗粒度、中粒度、细粒度和最细粒度等不同时间分辨率上，形成自粗到细的多尺度 token 流。</figcaption>
-          <div class="paper-lab-source">
-            <a href="https://arxiv.org/abs/2410.14411" target="_blank" rel="noreferrer">arXiv</a>
-            <a href="https://github.com/hubertsiuzdak/snac" target="_blank" rel="noreferrer">GitHub</a>
+        <aside class="paper-side">
+          <div class="paper-side-card">
+            <small>定位</small>
+            <strong>把 codec 问题前移到 token 结构设计</strong>
+          </div>
+          <div class="paper-side-card">
+            <small>图源</small>
+            <strong>官方仓库 README 中的 img/snac.png</strong>
+          </div>
+        </aside>
+      </section>
+
+      <div class="paper-stack">
+        <figure class="paper-figure">
+          <img src="/assets/official-snac.png" alt="SNAC 官方结构图">
+          <figcaption>图源：SNAC 官方仓库。看图时最关键的是中间四条不同长度的 code 序列，它们不是同一帧率的重复堆叠，而是按粗到细的时间尺度分层组织起来的离散表示。</figcaption>
+          <div class="paper-image-actions">
+            <a class="paper-inline-link" href="https://raw.githubusercontent.com/hubertsiuzdak/snac/main/img/snac.png" target="_blank" rel="noreferrer">原图</a>
+            <a class="paper-inline-link" href="https://github.com/hubertsiuzdak/snac" target="_blank" rel="noreferrer">官方仓库</a>
+            <a class="paper-inline-link" href="https://arxiv.org/abs/2410.14411" target="_blank" rel="noreferrer">论文</a>
           </div>
         </figure>
-      </section>
 
-      <section class="paper-lab-metrics">
-        <article><span>Scale</span><strong>多时间尺度</strong><p>不同层用不同时间分辨率，改善长上下文建模。</p></article>
-        <article><span>Bitrate</span><strong>低码率友好</strong><p>粗层先承担大结构，细层再补充局部信息。</p></article>
-        <article><span>Role</span><strong>token 结构设计</strong><p>它把问题从“怎么重建”推进到“token 如何组织”。</p></article>
-      </section>
+        <section class="paper-glance">
+          <article>
+            <span>Token</span>
+            <strong>不同量化层用不同时间分辨率</strong>
+            <p>粗粒度 code 看长时结构，细粒度 code 补局部纹理，层级之间不再共享同一帧率。</p>
+          </article>
+          <article>
+            <span>Bitrate</span>
+            <strong>0.98–2.6 kbps 也能保住结构</strong>
+            <p>它追求的不是只在短窗口里“听起来还行”，而是在更低 token 密度下保住长时间组织。</p>
+          </article>
+          <article>
+            <span>Context</span>
+            <strong>更适合长上下文和音频语言模型</strong>
+            <p>当粗层 token 速率降低后，同样长度的上下文窗口就能覆盖更长的时间范围。</p>
+          </article>
+        </section>
 
-      <section class="paper-lab-deep">
-        <div class="paper-lab-section-head"><span>Paper Deep Dive</span><h2>论文精讲：SNAC 如何把 token 拆成多个时间尺度</h2></div>
-        <div class="paper-lab-deep-grid">
-          <article class="paper-lab-deep-card paper-lab-deep-card-wide"><span>模型解析</span><strong>同一个 codec 内部的分层时间分辨率</strong><ul><li>encoder 先产生 latent，再把残差量化分配到 coarse、mid、fine 等不同时间尺度。</li><li>粗层低帧率，覆盖更长上下文；细层高帧率，补局部音色、瞬态和细节。</li><li>decoder 读取多尺度 token 后逐步恢复音频，相当于把 RVQ 的层级意义显式时间化。</li></ul></article>
-          <article class="paper-lab-deep-card paper-lab-deep-card-wide"><span>创新点</span><strong>标准 RVQ 的“同帧率”假设被打破</strong><ul><li>传统 RVQ 每层通常在相同时间分辨率上工作，SNAC 让不同层承担不同时间粒度。</li><li>粗层 token 更适合长上下文建模，细层 token 更适合重建高频细节。</li><li>这种结构天然更适合 audio language modeling，因为序列长度和信息层级更清楚。</li></ul></article>
-          <article class="paper-lab-deep-card"><span>损失函数</span><strong>目标仍是重建质量，但分工更明确</strong><ul><li>重建损失约束最终 waveform / spectral fidelity。</li><li>对抗或感知类损失用于避免多尺度量化后声音变钝、变糊。</li><li>量化项保证每一层 codebook 可用，避免粗层或细层塌缩成无效 token。</li></ul></article>
-          <article class="paper-lab-deep-card"><span>训练策略</span><strong>让粗细 token 同时学会协作</strong><ul><li>训练时不是单独训练每个尺度，而是端到端让多尺度 token 一起服务最终重建。</li><li>粗层需要保留长期结构，细层需要在不重复粗层信息的情况下补残差。</li><li>关键难点是 bit allocation：不同尺度分配多少信息，直接决定码率和音质。</li></ul></article>
-          <article class="paper-lab-deep-card"><span>结果分析</span><strong>真正提升的是 token 结构可建模性</strong><ul><li>相同或更低码率下，多尺度 token 能减少冗余并保留关键细节。</li><li>对生成模型更友好，因为长结构不用被高帧率 token 淹没。</li><li>短板是系统复杂度更高，下游模型也要理解多尺度 token 的组织方式。</li></ul></article>
-        </div>
-      </section>
+        <section class="paper-section">
+          <div>
+            <div class="paper-section-label">Core Route</div>
+            <p class="paper-section-lede">SNAC 之所以重要，是因为它把问题从“怎样把音频压得更好”前移到了“怎样让离散 token 本身长得更适合被模型读取”。</p>
+          </div>
 
-      <section class="paper-lab-section">
-        <div class="paper-lab-section-head"><span>Core Route</span><h2>SNAC 改的是 token 时间组织</h2></div>
-        <div class="paper-lab-grid">
-          <article class="paper-lab-card"><span>01</span><strong>粗层看长结构</strong><p>低时间分辨率层更适合承载慢变化和长范围信息。</p></article>
-          <article class="paper-lab-card"><span>02</span><strong>细层补局部动态</strong><p>高分辨率层继续承担瞬态、纹理和细节恢复。</p></article>
-          <article class="paper-lab-card"><span>03</span><strong>降低建模负担</strong><p>上层模型不必在所有层面对同样密集的 token。</p></article>
-          <article class="paper-lab-card"><span>04</span><strong>更接近层级前端</strong><p>它让 acoustic token 自身也开始分层，而不是单一密集流。</p></article>
-        </div>
-      </section>
+          <div class="paper-section-body">
+            <article class="paper-card">
+              <h2>为什么同一帧率的 RVQ 不够用了</h2>
+              <p>传统 RVQ 把所有 codebook 都放在同一时间分辨率上，虽然实现直观，但高层结构和长时依赖没有被显式提出来。接到 Transformer 之后，context window 很快就会被高频 token 吃满。</p>
+            </article>
 
-      <section class="paper-lab-section">
-        <div class="paper-lab-section-head"><span>Reading Cut</span><h2>读这页时抓三个判断</h2></div>
-        <div class="paper-lab-cuts">
-          <article class="paper-lab-cut"><span>Cut 01</span><strong>token rate 是系统问题</strong><p>帧率直接影响上层模型长度、延迟和可建模性。</p></article>
-          <article class="paper-lab-cut"><span>Cut 02</span><strong>声学层也需要分层</strong><p>不是只有 semantic / acoustic 两层，acoustic 内部也可以多尺度。</p></article>
-          <article class="paper-lab-cut"><span>Cut 03</span><strong>长上下文要求更稀疏</strong><p>如果 token 太密，后续模型会被序列长度压垮。</p></article>
-        </div>
-      </section>
+            <article class="paper-card">
+              <h2>SNAC 改的不是 codebook 数量，而是时间组织</h2>
+              <p>它仍然使用残差量化，但不同层的 token 长度已经不一样了。粗层更新更慢、覆盖更长时间；细层更新更快、补充局部细节。这让离散表示第一次在时间轴上有了明确层级。</p>
+            </article>
 
-      <nav class="paper-lab-next">
-        <a href="/research/dac/"><span>Prev</span><strong>DAC</strong><p>回到高保真统一前端。</p></a>
-        <a href="/research/mimi/"><span>Next</span><strong>Mimi</strong><p>看低帧率和语义合流。</p></a>
-        <a href="/research/wavtokenizer/"><span>Next</span><strong>WavTokenizer</strong><p>看面向 audio language modeling 的 tokenizer。</p></a>
-      </nav>
+            <article class="paper-card">
+              <h2>为什么这会直接改善长上下文建模</h2>
+              <p>一旦粗粒度 token 的帧率显著下降，同样大小的上下文窗口就能覆盖几分钟级的结构，而不是只够看几秒。对音乐段落、节奏结构、长语音 prosody 来说，这种变化是根本性的。</p>
+            </article>
+
+            <article class="paper-card">
+              <h2>除了多尺度量化，它还做了哪些细节增强</h2>
+              <p>论文里还加入了 noise blocks、depthwise convolutions 和 local windowed attention。这些不是喧宾夺主的卖点，但它们说明作者不是只提概念，而是认真把多尺度 token 方案做成了可运行的 codec。</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="paper-links">
+          <a class="paper-link" href="https://arxiv.org/abs/2410.14411" target="_blank" rel="noreferrer">
+            <span>Source 01</span>
+            <strong>论文原文</strong>
+            <small>SNAC: Multi-Scale Neural Audio Codec，对应这套多时间尺度方案的正式论文。</small>
+          </a>
+          <a class="paper-link" href="https://github.com/hubertsiuzdak/snac" target="_blank" rel="noreferrer">
+            <span>Source 02</span>
+            <strong>官方代码</strong>
+            <small>图源、模型说明和多尺度 code 的使用方式都能在 README 与代码里直接对上。</small>
+          </a>
+        </section>
+
+        <nav class="paper-nav">
+          <a href="/research/acoustic/">
+            <span>Index</span>
+            <strong>声学编码器</strong>
+            <small>回到方向 02 的内部空间。</small>
+          </a>
+          <a href="/research/soundstream/">
+            <span>Prev</span>
+            <strong>SoundStream</strong>
+            <small>回到最早的端到端骨架版本。</small>
+          </a>
+          <a href="/research/encodec/">
+            <span>Prev</span>
+            <strong>EnCodec</strong>
+            <small>看更稳的工程基线如何承上启下。</small>
+          </a>
+          <a href="/research/dac/">
+            <span>Prev</span>
+            <strong>DAC</strong>
+            <small>看统一离散前端怎样先把保真和统一性做上去。</small>
+          </a>
+        </nav>
+      </div>
     </main>
 
-    <footer class="paper-lab-footer"><span>SNAC</span><span>multi-scale neural audio codec</span></footer>
+    <footer class="footer">
+      <span>SNAC</span>
+      <span>berlin2003.ccwu.cc</span>
+    </footer>
   </div>
   <script src="/assets/site-chat.js"></script>
 </body>

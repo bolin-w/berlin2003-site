@@ -4,110 +4,189 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Berlin2003 / 项目</title>
-  <meta name="description" content="Berlin2003 的公开项目页：把语音 tokenizer 研究、网站工程和评估链路整理成可继续推进的工作面板。">
-  <meta name="theme-color" content="#f7fbff">
+  <meta name="description" content="从研究原型到工程实现的完整转化路径">
+  <meta name="theme-color" content="#07162f">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
-  <link rel="stylesheet" href="/assets/section-lab.css?v=20260505-polish">
+  <link rel="stylesheet" href="/assets/home-tech.css">
+  <link rel="stylesheet" href="/assets/semantic-page.css?v=20260516">
+  <link rel="stylesheet" href="/assets/home-anim.css">
 </head>
-<body class="section-lab-body">
-  <div class="site-shell section-lab-shell">
-    <header class="section-lab-topbar">
-      <a class="section-lab-brand" href="/" aria-label="Berlin2003 首页"><span>Berlin</span><strong>2003</strong></a>
-      <nav class="section-lab-nav" aria-label="主导航">
-        <a href="/research/">研究</a>
-        <a href="/notes/">笔记</a>
-        <a href="/anime/">视频库</a>
-        <a href="/contact/">联系</a>
+<body class="home hx-body">
+
+  <div class="hx-bg" aria-hidden="true">
+    <div class="hx-grid"></div>
+    <div class="hx-orb hx-orb-1"></div>
+    <div class="hx-orb hx-orb-2"></div>
+    <div class="hx-orb hx-orb-3"></div>
+    <div class="hx-scanlines"></div>
+    <div class="hx-noise"></div>
+  </div>
+
+  <div class="hx-shell">
+
+    <header class="hx-nav" role="banner">
+      <a class="hx-brand" href="/" aria-label="Berlin2003 首页">
+        <span class="hx-brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 12 L7 12 L9 6 L13 18 L15 9 L17 14 L21 12" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="hx-brand-text">Berlin<strong>2003</strong></span>
+      </a>
+
+      <nav class="hx-nav-links" aria-label="主导航">
+        <a href="/research/"><span>01</span>研究</a>
+        <a href="/projects/" class="is-active"><span>02</span>项目</a>
+        <a href="/notes/"><span>03</span>笔记</a>
+        <a href="/contact/"><span>04</span>联系</a>
       </nav>
+
+      <div class="hx-nav-status" aria-hidden="true">
+        <span class="hx-dot"></span>
+        <span>SYS · ONLINE</span>
+      </div>
     </header>
 
-    <main class="section-lab-main">
-      <section class="section-lab-hero" aria-labelledby="projects-title">
-        <div class="section-lab-copy">
-          <p class="section-lab-kicker">未竟之事</p>
-          <h1 id="projects-title">给想法一处落脚</h1>
-          <p class="section-lab-lead">研究、评估、站点与工具，都暂且陈列在这一页。它们未必已经完成，但各有来路，也各有下一步。</p>
-          <div class="section-lab-actions">
-            <a class="section-lab-primary" href="https://github.com/bolin-w/berlin2003-site" target="_blank" rel="noreferrer">GitHub 仓库</a>
-            <a href="/research/">回到研究案卷</a>
+    <main class="hx-main hx-semantic-main">
+
+      <section class="hx-semantic-hero" aria-labelledby="projects-title">
+        <div class="hx-semantic-hero-main">
+          <div class="hx-kicker">
+            <span class="hx-bracket">[</span>
+            <span class="hx-kicker-tag">SECTION 02</span>
+            <span class="hx-kicker-sep">/</span>
+            <span class="hx-kicker-ver">PROJECTS</span>
+            <span class="hx-bracket">]</span>
+          </div>
+
+          <h1 id="projects-title" class="hx-title">
+            <span class="hx-title-row">项目</span>
+          </h1>
+
+          <p class="hx-lead">
+            从研究原型到工程实现的完整转化路径。
+            <mark>每个项目记录算法部署、系统集成和工程决策的全过程</mark>。
+          </p>
+
+          <div class="hx-hero-meta hx-semantic-meta">
+            <div class="hx-meta-item">
+              <b>3</b><i>projects</i>
+              <span>active directions</span>
+            </div>
+            <div class="hx-meta-item">
+              <b>Deploy</b><i>focus</i>
+              <span>from research to production</span>
+            </div>
+            <div class="hx-meta-item">
+              <b>2023</b><i>→ 2026</i>
+              <span>continuous iteration</span>
+            </div>
           </div>
         </div>
-        <figure class="section-lab-visual">
-          <img src="/assets/home-public.png" alt="Berlin2003 项目行事录视觉图">
-          <figcaption class="section-lab-visual-note">
-            <strong>行事录</strong>
-            <span>不急于包装成作品集，只记录仍会继续生长的工作。</span>
-          </figcaption>
-        </figure>
+
+        <aside class="hx-semantic-aside">
+          <article class="hx-aside-card">
+            <span class="hx-aside-tag">项目定位</span>
+            <p>把研究成果转化成可运行的工程实现，记录每一步的技术选型、架构设计和部署决策。</p>
+          </article>
+          <article class="hx-aside-card">
+            <span class="hx-aside-tag">更新节奏</span>
+            <p>如果想看更细的推进痕迹，笔记页会比项目页更新得更快。</p>
+          </article>
+        </aside>
       </section>
 
-      <section class="section-lab-stats" aria-label="项目状态">
-        <div class="section-lab-stat"><strong>04</strong><span>进行中的线索</span></div>
-        <div class="section-lab-stat"><strong>74</strong><span>纳入版本的文件</span></div>
-        <div class="section-lab-stat"><strong>01</strong><span>公开仓库</span></div>
-        <div class="section-lab-stat"><strong>main</strong><span>部署分支</span></div>
+      <div class="hx-tag-strip">
+        <span class="hx-tag">Algorithm Deploy</span>
+        <span class="hx-tag">System Integration</span>
+        <span class="hx-tag">Engineering</span>
+        <span class="hx-tag">Production Ready</span>
+      </div>
+
+      <section class="hx-routes hx-reveal" aria-label="项目列表">
+        <header class="hx-section-head">
+          <span class="hx-section-tag">[ ACTIVE PROJECTS ]</span>
+          <h2>进行中的项目</h2>
+          <p>三个方向，从语音编码算法到字幕生成管线，再到网站工程本身。</p>
+        </header>
+
+        <div class="hx-timeline">
+          <a class="hx-timeline-card" href="/projects/speech-coding/">
+            <div class="hx-timeline-head">
+              <span class="hx-timeline-year">01</span>
+              <div class="hx-timeline-title">
+                <strong>语音编码</strong>
+                <span class="hx-timeline-cat">Algorithm Deploy</span>
+              </div>
+            </div>
+            <p>把语音编码算法和模型做部署转化，从研究原型走向可运行的工程实现。</p>
+            <div class="hx-timeline-tags">
+              <span>Speech Codec</span>
+              <span>Model Optimization</span>
+              <span>Inference</span>
+            </div>
+          </a>
+
+          <a class="hx-timeline-card" href="/projects/speech-subtitle/">
+            <div class="hx-timeline-head">
+              <span class="hx-timeline-year">02</span>
+              <div class="hx-timeline-title">
+                <strong>语音字幕识别</strong>
+                <span class="hx-timeline-cat">ASR Pipeline</span>
+              </div>
+            </div>
+            <p>用语音识别模型把视频里的语音转成文字，翻译成中文字幕后压入成片。整条链路在本地完成。</p>
+            <div class="hx-timeline-tags">
+              <span>faster-whisper</span>
+              <span>Translation</span>
+              <span>ffmpeg</span>
+            </div>
+          </a>
+
+          <a class="hx-timeline-card" href="/projects/website-design/">
+            <div class="hx-timeline-head">
+              <span class="hx-timeline-year">03</span>
+              <div class="hx-timeline-title">
+                <strong>网站设计</strong>
+                <span class="hx-timeline-cat">Frontend Engineering</span>
+              </div>
+            </div>
+            <p>从页面结构、前端样式到 Caddy 部署与 Notion 集成，记录这个网站具体怎么做出来的每一步。</p>
+            <div class="hx-timeline-tags">
+              <span>Design System</span>
+              <span>Caddy</span>
+              <span>Notion API</span>
+            </div>
+          </a>
+        </div>
       </section>
 
-      <section class="section-lab-grid" aria-label="项目列表">
-        <article class="section-lab-card">
-          <span>案一</span>
-          <strong>Speech Frontend Research Site</strong>
-          <p>把 semantic token、acoustic codec 与桥接方案整理成可反复回看的研究书架，后续补实验复现、音频样例与对照表。</p>
-        </article>
-        <article class="section-lab-card">
-          <span>案二</span>
-          <strong>Low Bitrate Codec Evaluation</strong>
-          <p>为低码率评估立一把更稳的尺：码率、token rate、听感、说话人保持、延迟与训练成本分开审视。</p>
-        </article>
-        <article class="section-lab-card">
-          <span>案三</span>
-          <strong>Personal Site Deployment</strong>
-          <p>静态页面、Caddy 配置、私密工作台与 AI 服务都纳入版本管理，留下可回溯、可重启的站点骨架。</p>
-        </article>
-        <article class="section-lab-card">
-          <span>案四</span>
-          <strong>Local Subtitle Video Library</strong>
-          <p>字幕在本地压入成片，服务器只负责收藏、列架与放映；重点落在上传、权限与观看体验。</p>
-        </article>
-        <article class="section-lab-card">
-          <span>案五</span>
-          <strong>Research Writing System</strong>
-          <p>把论文拆作模型解析、创新点、损失函数、训练策略、结果与局限，使每篇文章都能横向对照。</p>
-        </article>
-        <article class="section-lab-card">
-          <span>案六</span>
-          <strong>Future Demo Slots</strong>
-          <p>预留音频样例、AB 对比、码率滑条与结构图交互，让研究不止可读，也能听见差别。</p>
-        </article>
+      <section class="hx-next-reading hx-reveal" aria-label="继续阅读">
+        <a class="hx-next-card" href="/notes/">
+          <span class="hx-next-label">Related Reading</span>
+          <strong>笔记</strong>
+          <p>查看更细粒度的推进记录和技术笔记。</p>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
       </section>
-
-      <section class="section-lab-panel">
-        <p class="section-lab-label">收录原则</p>
-        <h2>只收仍在生长的事。</h2>
-        <ul class="section-lab-list">
-          <li>有公开仓库、线上页面或真实使用场景的内容优先出现。</li>
-          <li>还没有结果的部分就写成下一步，不伪装成已经完成。</li>
-          <li>每张卡都应该能连回 research、notes、life 或 studio 的实际工作。</li>
-        </ul>
-      </section>
-
-      <section id="project-notion-articles" class="section-lab-main" aria-label="项目 Notion 文章" hidden></section>
-
-      <nav class="section-lab-links" aria-label="继续浏览">
-        <a class="section-lab-link" href="/notes/"><small>续读</small><strong>阶段笔记</strong><p>看取舍与判断如何留下痕迹。</p></a>
-        <a class="section-lab-link" href="/anime/"><small>夜场</small><strong>放映室</strong><p>进入本地字幕视频的放映页。</p></a>
-        <a class="section-lab-link" href="/contact/"><small>入口</small><strong>公开联系</strong><p>找到仓库、邮箱与站点地址。</p></a>
-      </nav>
     </main>
 
-    <footer class="section-lab-footer">
-      <span>项目行事录</span>
-      <span>berlin2003.ccwu.cc</span>
+    <footer class="hx-footer" role="contentinfo">
+      <div class="hx-footer-l">
+        <span class="hx-dot"></span>
+        <span>berlin2003.ccwu.cc</span>
+      </div>
+      <div class="hx-footer-m">
+        <span>// from research to production</span>
+      </div>
+      <div class="hx-footer-r">
+        <span class="hx-prompt">$ ./projects --deploy</span>
+      </div>
     </footer>
   </div>
 
-  <script src="/assets/projects-feed.js?v=20260510"></script>
+  <script src="/assets/home-anim.js?v=20260501-a1" defer></script>
   <script src="/assets/site-chat.js"></script>
 </body>
 </html>

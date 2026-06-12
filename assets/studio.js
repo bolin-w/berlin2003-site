@@ -1,8 +1,8 @@
 const presets = {
-  homepage: "把下面内容改写成网站首页可以直接使用的片段。中文、克制、像真实个人站，不要空话。",
-  module: "把下面内容整理成页面模块。输出：标题、简短引言、3 个小模块，每个模块 1 句话。",
-  notes: "把下面内容整理成工作笔记。像真实记录，不要营销感，不要大而空。",
-  refine: "把下面内容顺一遍，让它更自然、更短，保留原意，不要夸张。"
+  homepage: "把下面内容改写成网站首页可直接使用的文案。要求：中文、克制、不要 AI 腔、不要空话、尽量短。",
+  module: "把下面内容整理成适合网站模块页的结构。输出：标题、简短引言、3个小模块，每个模块 1 句话。",
+  notes: "把下面内容整理成工作笔记。要求：更像真实记录，不要营销感，不要大而空。",
+  refine: "把下面内容润色得更自然、更简洁，保留原意，不要夸张。"
 };
 
 const form = document.querySelector("#studio-form");
@@ -30,12 +30,12 @@ async function checkHealth() {
     });
     const data = await response.json();
     if (response.ok && data.configured) {
-      setStatus("ok", `工作台醒着，默认模型：${data.model}`);
+      setStatus("ok", `已连接，默认模型：${data.model}`);
       return;
     }
-    setStatus("warn", "工作台在，但模型钥匙还没放好。");
+    setStatus("warn", "工作台已上线，但服务器还没配置 OpenAI API Key。");
   } catch (error) {
-    setStatus("warn", "后端连接失败。");
+    setStatus("warn", "无法连接到内容工作台后端。");
   }
 }
 
@@ -48,7 +48,7 @@ presetButtons.forEach((button) => {
 
 copyButton.addEventListener("click", async () => {
   const text = resultBox.textContent.trim();
-  if (!text || text === "处理结果将在这里显示。") {
+  if (!text || text === "输出会显示在这里。") {
     return;
   }
   await navigator.clipboard.writeText(text);
@@ -65,11 +65,11 @@ form.addEventListener("submit", async (event) => {
   const mode = modeInput.value;
 
   if (!content) {
-    setStatus("warn", "请输入原始文本。");
+    setStatus("warn", "先输入要处理的内容。");
     return;
   }
 
-  resultBox.textContent = "正在处理文本...";
+  resultBox.textContent = "正在生成...";
   setStatus("", "处理中...");
 
   try {
@@ -89,16 +89,16 @@ form.addEventListener("submit", async (event) => {
     const data = await response.json();
 
     if (!response.ok) {
-      resultBox.textContent = data.error || "处理失败。";
-      setStatus("warn", "处理失败。");
+      resultBox.textContent = data.error || "请求失败。";
+      setStatus("warn", "生成失败。");
       return;
     }
 
-    resultBox.textContent = data.output || "没有生成可用内容。";
-    setStatus("ok", `处理完成，模型：${data.model}`);
+    resultBox.textContent = data.output || "没有返回内容。";
+    setStatus("ok", `已完成，模型：${data.model}`);
   } catch (error) {
-    resultBox.textContent = "后端连接失败，请稍后重试。";
-    setStatus("warn", "后端连接失败。");
+    resultBox.textContent = "请求失败，请检查网络或后端服务。";
+    setStatus("warn", "无法调用工作台。");
   }
 });
 

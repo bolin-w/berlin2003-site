@@ -1,0 +1,141 @@
+/* ============================================================
+   home-anim.css — hero waveform + pipeline flowlines + reveal
+   ============================================================ */
+
+/* ---------- HERO WAVEFORM / SPECTRUM ---------- */
+.hx-hero { position: relative; }
+
+.hx-wave {
+  position: absolute;
+  inset: auto 0 -10px 0;
+  height: 180px;
+  width: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.85;
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+.hx-wave svg { width: 100%; height: 100%; display: block; overflow: visible; }
+
+.hx-wave-path {
+  fill: none;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 6px currentColor);
+}
+.hx-wave-path-1 { stroke: #4cc9f0; opacity: 0.9; animation: hxWave1 6s ease-in-out infinite; }
+.hx-wave-path-2 { stroke: #9d7bff; opacity: 0.7; animation: hxWave2 8s ease-in-out infinite; }
+.hx-wave-path-3 { stroke: #4ad6c4; opacity: 0.5; animation: hxWave3 10s ease-in-out infinite; }
+
+@keyframes hxWave1 {
+  0%,100% { d: path("M0 90 Q 60 40, 120 90 T 240 90 T 360 90 T 480 90 T 600 90 T 720 90 T 840 90 T 960 90 T 1080 90 T 1200 90"); }
+  50%     { d: path("M0 90 Q 60 130, 120 90 T 240 90 T 360 90 T 480 90 T 600 90 T 720 90 T 840 90 T 960 90 T 1080 90 T 1200 90"); }
+}
+@keyframes hxWave2 {
+  0%,100% { transform: translateY(0) scaleY(0.7); }
+  50%     { transform: translateY(6px) scaleY(1.1); }
+}
+@keyframes hxWave3 {
+  0%,100% { transform: translateY(2px) scaleY(0.5); }
+  50%     { transform: translateY(-4px) scaleY(0.9); }
+}
+.hx-wave-path-2, .hx-wave-path-3 { transform-origin: center; transform-box: fill-box; }
+
+/* spectrum bars at bottom */
+.hx-spectrum {
+  position: absolute;
+  left: 0; right: 0; bottom: -4px;
+  height: 64px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2px;
+  padding: 0 6%;
+  pointer-events: none;
+  z-index: 0;
+  mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent);
+}
+.hx-spectrum span {
+  flex: 1;
+  min-width: 2px;
+  height: 30%;
+  background: linear-gradient(to top, #4cc9f0, #9d7bff 70%, transparent);
+  border-radius: 2px 2px 0 0;
+  opacity: 0.55;
+  transform-origin: bottom;
+  animation: hxBar 1.2s ease-in-out infinite;
+}
+@keyframes hxBar {
+  0%,100% { transform: scaleY(0.25); }
+  50%     { transform: scaleY(1); }
+}
+
+/* keep hero content above the wave */
+.hx-hero-left, .hx-hero-right { position: relative; z-index: 1; }
+
+@media (max-width: 760px) {
+  .hx-wave { height: 120px; }
+  .hx-spectrum { height: 40px; }
+}
+
+/* ---------- PIPELINE FLOWLINES ---------- */
+.hx-pipeline { position: relative; }
+
+.hx-flow {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
+.hx-flow svg { width: 100%; height: 100%; display: block; overflow: visible; }
+
+.hx-flow-line {
+  fill: none;
+  stroke: url(#hxFlowGrad);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 6;
+  opacity: 0.55;
+  animation: hxFlowDash 2s linear infinite;
+}
+@keyframes hxFlowDash {
+  to { stroke-dashoffset: -20; }
+}
+
+.hx-flow-pulse {
+  fill: #4cc9f0;
+  filter: drop-shadow(0 0 8px #4cc9f0);
+}
+
+/* lift stage cards above flow svg */
+.hx-pipeline-grid { position: relative; z-index: 1; }
+
+/* hide old arrows when flow is active */
+.hx-pipeline.has-flow .hx-pipeline-arrow { opacity: 0; visibility: hidden; }
+
+/* ---------- SCROLL REVEAL ---------- */
+.hx-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(.2,.7,.2,1), transform 0.7s cubic-bezier(.2,.7,.2,1);
+  will-change: opacity, transform;
+}
+.hx-reveal.is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+.hx-reveal-delay-1 { transition-delay: 0.08s; }
+.hx-reveal-delay-2 { transition-delay: 0.16s; }
+.hx-reveal-delay-3 { transition-delay: 0.24s; }
+.hx-reveal-delay-4 { transition-delay: 0.32s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hx-reveal { opacity: 1; transform: none; transition: none; }
+  .hx-wave-path-1, .hx-wave-path-2, .hx-wave-path-3,
+  .hx-spectrum span, .hx-flow-line { animation: none; }
+}
+

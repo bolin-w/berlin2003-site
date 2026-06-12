@@ -5,129 +5,305 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Berlin2003 / Research</title>
   <meta name="description" content="Berlin2003 的公开研究地图：语义编码器、声学编码器，以及两层之间的接口判断。">
-  <meta name="theme-color" content="#f7fbff">
+  <meta name="theme-color" content="#07162f">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
-  <link rel="stylesheet" href="/assets/research-lab.css?v=20260501-map">
+  <link rel="stylesheet" href="/assets/home-tech.css">
+  <link rel="stylesheet" href="/assets/research-page.css?v=20260515">
+  <link rel="stylesheet" href="/assets/home-anim.css">
 </head>
-<body class="edition-body research-lab-body">
-  <div class="site-shell research-lab-shell">
-    <header class="research-lab-topbar">
-      <a class="research-lab-brand" href="/" aria-label="Berlin2003 首页">
-        <span>Berlin</span><strong>2003</strong>
+<body class="home hx-body">
+
+  <div class="hx-bg" aria-hidden="true">
+    <div class="hx-grid"></div>
+    <div class="hx-orb hx-orb-1"></div>
+    <div class="hx-orb hx-orb-2"></div>
+    <div class="hx-orb hx-orb-3"></div>
+    <div class="hx-scanlines"></div>
+    <div class="hx-noise"></div>
+  </div>
+
+  <div class="hx-shell">
+
+    <header class="hx-nav" role="banner">
+      <a class="hx-brand" href="/" aria-label="Berlin2003 首页">
+        <span class="hx-brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 12 L7 12 L9 6 L13 18 L15 9 L17 14 L21 12" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="hx-brand-text">Berlin<strong>2003</strong></span>
       </a>
-      <nav class="research-lab-nav" aria-label="研究导航">
-        <a href="/">首页</a>
-        <a href="/research/semantic/">语义</a>
-        <a href="/research/acoustic/">声学</a>
-        <a href="/notes/">笔记</a>
+
+      <nav class="hx-nav-links" aria-label="主导航">
+        <a href="/research/" class="is-active"><span>01</span>研究</a>
+        <a href="/projects/"><span>02</span>项目</a>
+        <a href="/notes/"><span>03</span>笔记</a>
+        <a href="/contact/"><span>04</span>联系</a>
       </nav>
+
+      <div class="hx-nav-status" aria-hidden="true">
+        <span class="hx-dot"></span>
+        <span>SYS · ONLINE</span>
+      </div>
     </header>
 
-    <main class="research-lab-main">
-      <section class="research-lab-hero" aria-labelledby="research-title">
-        <div class="research-lab-copy">
-          <p class="research-lab-kicker">声与义的索引</p>
-          <h1 id="research-title">沿着声音抵达意义</h1>
-          <p class="research-lab-lead">
-            这里收束语音编码的几条脉络：先辨其义，再还其声，最后考察二者之间的桥梁与边界。
+    <main class="hx-main">
+
+      <!-- ============ HERO ============ -->
+      <section class="hx-hero hx-research-hero" aria-labelledby="research-title">
+
+        <div class="hx-wave" aria-hidden="true">
+          <svg viewBox="0 0 1200 180" preserveAspectRatio="none">
+            <path class="hx-wave-path hx-wave-path-3" d="M0 90 Q 80 60, 160 90 T 320 90 T 480 90 T 640 90 T 800 90 T 960 90 T 1120 90 T 1200 90"/>
+            <path class="hx-wave-path hx-wave-path-2" d="M0 90 Q 60 50, 120 90 T 240 90 T 360 90 T 480 90 T 600 90 T 720 90 T 840 90 T 960 90 T 1080 90 T 1200 90"/>
+            <path class="hx-wave-path hx-wave-path-1" d="M0 90 Q 50 30, 100 90 T 200 90 T 300 90 T 400 90 T 500 90 T 600 90 T 700 90 T 800 90 T 900 90 T 1000 90 T 1100 90 T 1200 90"/>
+          </svg>
+        </div>
+        <div class="hx-spectrum" aria-hidden="true"></div>
+
+        <div class="hx-hero-left">
+          <div class="hx-kicker">
+            <span class="hx-bracket">[</span>
+            <span class="hx-kicker-tag">OPEN RESEARCH MAP</span>
+            <span class="hx-kicker-sep">/</span>
+            <span class="hx-kicker-ver">v.2026</span>
+            <span class="hx-bracket">]</span>
+            <span class="hx-kicker-live">● LIVE</span>
+          </div>
+
+          <h1 id="research-title" class="hx-title">
+            <span class="hx-title-row">研究 / <em>Research</em></span>
+          </h1>
+
+          <p class="hx-lead">
+            研究页按三步阅读：先看<mark>语义层如何保住"在说什么"</mark>，
+            再看声学层如何恢复自然度、音色和细节，
+            最后回到接口与部署判断。
           </p>
-          <div class="research-lab-actions" aria-label="快速阅读">
-            <a class="research-lab-primary" href="/research/semantic/">先看语义编码器</a>
-            <a href="/research/acoustic/">再看声学编码器</a>
+
+          <div class="hx-actions">
+            <a class="hx-btn hx-btn-primary" href="/research/semantic/">
+              <span>先看语义编码器</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a class="hx-btn hx-btn-ghost" href="/research/acoustic/">
+              <span>再看声学编码器</span>
+            </a>
+          </div>
+
+          <div class="hx-hero-meta">
+            <div class="hx-meta-item">
+              <b>3</b><i>layers</i>
+              <span>semantic + acoustic + bridge</span>
+            </div>
+            <div class="hx-meta-item">
+              <b>18+</b><i>codecs</i>
+              <span>under review</span>
+            </div>
+            <div class="hx-meta-item">
+              <b>2</b><i>dirs</i>
+              <span>semantic / acoustic</span>
+            </div>
           </div>
         </div>
 
-        <figure class="research-lab-poster">
-          <img src="/assets/research-map.png" alt="Berlin2003 research map with semantic encoder, acoustic encoder, and bridge interface">
-          <figcaption>先辨其义 / 再还其声 / 终归于接口</figcaption>
-        </figure>
-      </section>
-
-      <section class="research-lab-route" aria-label="阅读顺序">
-        <article class="route-semantic">
-          <span>01</span>
-          <h2>语义之骨</h2>
-          <p>在低码率的窄门里，先守住话语的骨架与可懂度。</p>
-        </article>
-        <article class="route-acoustic">
-          <span>02</span>
-          <h2>声学之形</h2>
-          <p>让音色、节奏与细部重新归位，使声音不止可懂，也近于真实。</p>
-        </article>
-        <article class="route-bridge">
-          <span>03</span>
-          <h2>桥与界面</h2>
-          <p>辨明两层如何衔接、各自承担什么，以及如何被审慎评价。</p>
-        </article>
-      </section>
-
-      <section class="research-lab-focus" aria-label="研究方向入口">
-        <a class="research-lab-panel panel-semantic" href="/research/semantic/">
-          <img src="/assets/research-semantic.png" alt="Semantic encoder visual explanation">
-          <div>
-            <span>方向一</span>
-            <strong>语义编码器</strong>
-            <p>在压缩之中保存话语的主干：说了什么、意图何在、哪些信息不可遗失。</p>
-          </div>
-        </a>
-
-        <a class="research-lab-panel panel-acoustic" href="/research/acoustic/">
-          <img src="/assets/research-acoustic.png" alt="Acoustic encoder visual explanation">
-          <div>
-            <span>方向二</span>
-            <strong>声学编码器</strong>
-            <p>追索 neural codec 与 acoustic tokenizer 如何重塑自然度、音色与微小纹理。</p>
-          </div>
-        </a>
-      </section>
-
-      <section class="research-lab-brief" aria-label="研究判断">
-        <div class="research-lab-section-head">
-          <span>判断</span>
-          <h2>三件必须反复追问的事</h2>
-        </div>
-        <div class="research-lab-questions">
-          <article>
-            <span>Q1</span>
-            <strong>低码率时先守住什么？</strong>
-            <p>先守住内容与可懂度，避免压缩率胜利而语义先行断裂。</p>
-          </article>
-          <article>
-            <span>Q2</span>
-            <strong>声音的质感如何归来？</strong>
-            <p>把自然度、音色与细节作为声学层独立而严肃的目标。</p>
-          </article>
-          <article>
-            <span>Q3</span>
-            <strong>接口怎样才算清楚？</strong>
-            <p>用明确分工与可复查指标，判断两层是否真正接上。</p>
-          </article>
+        <div class="hx-hero-right">
+          <figure class="hx-poster">
+            <div class="hx-poster-frame" aria-hidden="true">
+              <span class="hx-corner hx-corner-tl"></span>
+              <span class="hx-corner hx-corner-tr"></span>
+              <span class="hx-corner hx-corner-bl"></span>
+              <span class="hx-corner hx-corner-br"></span>
+            </div>
+            <div class="hx-poster-hud" aria-hidden="true">
+              <span class="hx-hud-tag">MAP · RESEARCH</span>
+              <span class="hx-hud-tag hx-hud-tag-r">LAYER · 03</span>
+            </div>
+            <img src="/assets/research-map.png" alt="Berlin2003 research map with semantic encoder, acoustic encoder, and bridge interface">
+            <div class="hx-poster-scan" aria-hidden="true"></div>
+            <figcaption>
+              <span>// SEMANTIC FIRST · ACOUSTIC NEXT · INTERFACE LAST</span>
+            </figcaption>
+          </figure>
         </div>
       </section>
 
-      <section class="research-lab-library" aria-label="模型阅读入口">
-        <div class="research-lab-section-head">
-          <span>案卷</span>
-          <h2>继续翻阅具体模型</h2>
+      <!-- ============ READING PATH ============ -->
+      <section class="hx-pipeline hx-reveal" aria-label="阅读顺序">
+        <header class="hx-section-head">
+          <span class="hx-section-tag">[ READING PATH · 01 ]</span>
+          <h2>三步阅读 / Three-step reading</h2>
+          <p>从含义到声学，再到接口判断 —— 每一层独立，可以分开训练、分开评估。</p>
+        </header>
+
+        <div class="hx-pipeline-grid">
+          <article class="hx-stage">
+            <header class="hx-stage-head">
+              <span class="hx-stage-num">01</span>
+              <span class="hx-stage-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M6 12h12M8 17h8" stroke-linecap="round"/><circle cx="4" cy="7" r="1.2" fill="currentColor" stroke="none"/><circle cx="6" cy="12" r="1.2" fill="currentColor" stroke="none"/><circle cx="8" cy="17" r="1.2" fill="currentColor" stroke="none"/></svg>
+              </span>
+            </header>
+            <h3>Semantic Encoder</h3>
+            <p>稳定高层内容，低码率下优先保存可懂度和核心信息。</p>
+            <span class="hx-stage-tag">// language layer</span>
+          </article>
+
+          <span class="hx-pipeline-arrow" aria-hidden="true">→</span>
+
+          <article class="hx-stage hx-stage-2">
+            <header class="hx-stage-head">
+              <span class="hx-stage-num">02</span>
+              <span class="hx-stage-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 12c2 0 2-6 4-6s2 12 4 12 2-9 4-9 2 5 4 5 2-2 2-2"/></svg>
+              </span>
+            </header>
+            <h3>Acoustic Encoder</h3>
+            <p>恢复自然度、音色、节奏和微小细节，让语音更像真实语音。</p>
+            <span class="hx-stage-tag">// signal layer</span>
+          </article>
+
+          <span class="hx-pipeline-arrow" aria-hidden="true">→</span>
+
+          <article class="hx-stage hx-stage-3">
+            <header class="hx-stage-head">
+              <span class="hx-stage-num">03</span>
+              <span class="hx-stage-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="7" height="7" rx="1"/><rect x="14" y="13" width="7" height="7" rx="1"/><path d="M10 7h4v6"/></svg>
+              </span>
+            </header>
+            <h3>Bridge / Interface</h3>
+            <p>检查两层怎么对齐、谁负责什么，以及上线前如何评价。</p>
+            <span class="hx-stage-tag">// interface layer</span>
+          </article>
         </div>
-        <div class="research-lab-links">
-          <a href="/research/hubert/"><span>Semantic</span><strong>HuBERT</strong></a>
-          <a href="/research/speechtokenizer/"><span>Bridge</span><strong>SpeechTokenizer</strong></a>
-          <a href="/research/soundstream/"><span>Acoustic</span><strong>SoundStream</strong></a>
-          <a href="/research/dac/"><span>Codec</span><strong>DAC</strong></a>
-          <a href="/research/encodec/"><span>Codec</span><strong>EnCodec</strong></a>
-          <a href="/research/mimi/"><span>Codec</span><strong>Mimi</strong></a>
+      </section>
+
+      <!-- ============ RESEARCH DIRECTIONS ============ -->
+      <section class="hx-research-dirs hx-reveal" aria-label="研究方向">
+        <header class="hx-section-head">
+          <span class="hx-section-tag">[ DIRECTIONS · 02 ]</span>
+          <h2>研究方向入口</h2>
+        </header>
+
+        <div class="hx-dirs-grid">
+          <a class="hx-dir-card" href="/research/semantic/">
+            <div class="hx-dir-visual">
+              <img src="/assets/research-semantic.png" alt="Semantic encoder visual explanation">
+              <div class="hx-dir-overlay">
+                <span class="hx-dir-num">01</span>
+              </div>
+            </div>
+            <div class="hx-dir-content">
+              <span class="hx-dir-tag">Direction 01</span>
+              <h3>语义编码器</h3>
+              <p>低码率下尽可能保留最有价值的内容：说了什么、意图是什么、哪些信息不能丢。</p>
+              <span class="hx-dir-arrow">→</span>
+            </div>
+          </a>
+
+          <a class="hx-dir-card" href="/research/acoustic/">
+            <div class="hx-dir-visual">
+              <img src="/assets/research-acoustic.png" alt="Acoustic encoder visual explanation">
+              <div class="hx-dir-overlay">
+                <span class="hx-dir-num">02</span>
+              </div>
+            </div>
+            <div class="hx-dir-content">
+              <span class="hx-dir-tag">Direction 02</span>
+              <h3>声学编码器</h3>
+              <p>单独看 neural codec 和 acoustic tokenizer，围绕自然度、音色和细节恢复继续展开。</p>
+              <span class="hx-dir-arrow">→</span>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- ============ KEY QUESTIONS ============ -->
+      <section class="hx-questions hx-reveal" aria-label="核心问题">
+        <header class="hx-section-head">
+          <span class="hx-section-tag">[ JUDGMENT · 03 ]</span>
+          <h2>这页回答三个问题</h2>
+        </header>
+
+        <div class="hx-questions-grid">
+          <article class="hx-question">
+            <span class="hx-q-num">Q1</span>
+            <h3>低码率时先保什么？</h3>
+            <p>先保内容和可懂度，避免只追求压缩率导致语义断裂。</p>
+          </article>
+          <article class="hx-question">
+            <span class="hx-q-num">Q2</span>
+            <h3>声音质感怎么补？</h3>
+            <p>把自然度、音色和细节作为声学层的独立工程目标。</p>
+          </article>
+          <article class="hx-question">
+            <span class="hx-q-num">Q3</span>
+            <h3>接口如何判断？</h3>
+            <p>用清晰分工和可复查指标，决定两层如何连接。</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ============ MODEL LIBRARY ============ -->
+      <section class="hx-library hx-reveal" aria-label="模型库">
+        <header class="hx-section-head">
+          <span class="hx-section-tag">[ READING · 04 ]</span>
+          <h2>继续读具体模型</h2>
+        </header>
+
+        <div class="hx-library-grid">
+          <a class="hx-lib-link" href="/research/hubert/">
+            <span class="hx-lib-cat">Semantic</span>
+            <strong>HuBERT</strong>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="hx-lib-link" href="/research/speechtokenizer/">
+            <span class="hx-lib-cat">Bridge</span>
+            <strong>SpeechTokenizer</strong>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="hx-lib-link" href="/research/soundstream/">
+            <span class="hx-lib-cat">Acoustic</span>
+            <strong>SoundStream</strong>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6-6 6"/></svg>
+          </a>
+          <a class="hx-lib-link" href="/research/dac/">
+            <span class="hx-lib-cat">Codec</span>
+            <strong>DAC</strong>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="hx-lib-link" href="/research/encodec/">
+            <span class="hx-lib-cat">Codec</span>
+            <strong>EnCodec</strong>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="hx-lib-link" href="/research/mimi/">
+            <span class="hx-lib-cat">Codec</span>
+            <strong>Mimi</strong>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
         </div>
       </section>
     </main>
 
-    <footer class="research-lab-footer">
-      <span>研究案卷</span>
-      <span>语义在前 / 声学随后</span>
+    <footer class="hx-footer" role="contentinfo">
+      <div class="hx-footer-l">
+        <span class="hx-dot"></span>
+        <span>berlin2003.ccwu.cc</span>
+      </div>
+      <div class="hx-footer-m">
+        <span>// semantic first / acoustic next</span>
+      </div>
+      <div class="hx-footer-r">
+        <span class="hx-prompt">$ ./research --map 2026</span>
+      </div>
     </footer>
   </div>
 
+  <script src="/assets/home-anim.js?v=20260501-a1" defer></script>
+  <script src="/assets/research-anim.js?v=20260515" defer></script>
   <script src="/assets/site-chat.js"></script>
 </body>
 </html>

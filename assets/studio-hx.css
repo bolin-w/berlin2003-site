@@ -1,0 +1,17 @@
+/* studio-hx.css — admin panel styles */
+.hx-studio-tools{padding:60px 0}
+.hx-studio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:24px}
+.hx-studio-card{display:flex;flex-direction:column;gap:16px;padding:28px 24px;background:rgba(255,255,255,.02);border:1px solid rgba(157,123,255,.15);border-radius:10px;text-decoration:none;transition:all .3s cubic-bezier(.2,.7,.2,1);position:relative;overflow:hidden}
+.hx-studio-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:0;background:linear-gradient(to bottom,#9d7bff,#4cc9f0);transition:height .4s cubic-bezier(.2,.7,.2,1)}
+.hx-studio-card:hover::before{height:100%}
+.hx-studio-card:hover{border-color:rgba(157,123,255,.4);background:rgba(157,123,255,.04);transform:translateY(-2px)}
+.hx-studio-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:rgba(157,123,255,.08);border:1px solid rgba(157,123,255,.2);border-radius:8px;color:#9d7bff;transition:all .3s ease}
+.hx-studio-card:hover .hx-studio-icon{background:rgba(157,123,255,.15);border-color:rgba(157,123,255,.4);transform:scale(1.05)}
+.hx-studio-icon svg{width:24px;height:24px}
+.hx-studio-card h3{font-family:'Space Grotesk',system-ui,sans-serif;font-size:18px;font-weight:700;color:#eaf1ff;margin:0;line-height:1.3}
+.hx-studio-card p{font-size:14px;line-height:1.6;color:rgba(220,230,250,.7);margin:0}
+.hx-studio-actions{padding:40px 0 100px;display:flex;gap:16px}
+.hx-studio-action{display:inline-flex;align-items:center;gap:12px;padding:14px 24px;background:rgba(255,114,77,.08);border:1px solid rgba(255,114,77,.2);border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:#ff724d;text-decoration:none;transition:all .3s ease}
+.hx-studio-action:hover{background:rgba(255,114,77,.15);border-color:rgba(255,114,77,.4);transform:translateX(4px)}
+.hx-studio-action svg{width:18px;height:18px}
+@media (max-width:640px){.hx-studio-grid{grid-template-columns:1fr}.hx-studio-actions{flex-direction:column}}

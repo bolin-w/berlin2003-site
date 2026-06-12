@@ -1,93 +1,208 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Berlin2003 / Mimi</title>
-  <meta name="description" content="Mimi：低帧率、流式语音 codec，把 semantic information 与 acoustic information 合到同一前端。">
-  <meta name="theme-color" content="#f7fbff">
+  <meta name="description" content="Mimi: 从离散 unit 发现走向 masked prediction 主线的关键版本">
+  <meta name="theme-color" content="#07162f">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
-  <link rel="stylesheet" href="/assets/paper-lab.css?v=20260502-acoustic-deep">
+  <link rel="stylesheet" href="/assets/home-tech.css">
+  <link rel="stylesheet" href="/assets/model-page.css?v=20260515">
+  <link rel="stylesheet" href="/assets/home-anim.css">
 </head>
-<body class="edition-body paper-lab-body acoustic-paper-page">
-  <div class="site-shell paper-lab-shell">
-    <header class="paper-lab-topbar">
-      <a class="paper-lab-brand" href="/"><span>Berlin</span><strong>2003</strong></a>
-      <nav class="paper-lab-nav" aria-label="研究导航">
-        <a href="/research/snac/">上一篇</a>
-        <a href="/research/wavtokenizer/">下一篇</a>
-        <a href="/research/acoustic/">声学层</a>
+<body class="home hx-body">
+
+  <div class="hx-bg" aria-hidden="true">
+    <div class="hx-grid"></div>
+    <div class="hx-orb hx-orb-1"></div>
+    <div class="hx-orb hx-orb-2"></div>
+    <div class="hx-orb hx-orb-3"></div>
+    <div class="hx-scanlines"></div>
+    <div class="hx-noise"></div>
+  </div>
+
+  <div class="hx-shell">
+
+    <header class="hx-nav" role="banner">
+      <a class="hx-brand" href="/" aria-label="Berlin2003 首页">
+        <span class="hx-brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 12 L7 12 L9 6 L13 18 L15 9 L17 14 L21 12" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="hx-brand-text">Berlin<strong>2003</strong></span>
+      </a>
+
+      <nav class="hx-nav-links" aria-label="主导航">
+        <a href="/research/" class="is-active"><span>01</span>研究</a>
+        <a href="/projects/"><span>02</span>项目</a>
+        <a href="/notes/"><span>03</span>笔记</a>
+        <a href="/contact/"><span>04</span>联系</a>
       </nav>
+
+      <div class="hx-nav-status" aria-hidden="true">
+        <span class="hx-dot"></span>
+        <span>SYS · ONLINE</span>
+      </div>
     </header>
 
-    <main class="paper-lab-main">
-      <section class="paper-lab-hero">
-        <div class="paper-lab-copy">
-          <p class="paper-lab-kicker">2024 / Low Frame Rate Codec</p>
-          <h1>Mimi</h1>
-          <p class="paper-lab-lead">Mimi 已经明显越过传统 codec 边界：它追求低帧率、流式、低码率，同时让 token 同时承载 semantic information 和 acoustic information，是语义层与声学层开始合流的代表。</p>
-          <div class="paper-lab-actions">
-            <a class="paper-lab-primary" href="https://arxiv.org/abs/2410.00037" target="_blank" rel="noreferrer">论文原文</a>
-            <a href="https://github.com/kyutai-labs/moshi" target="_blank" rel="noreferrer">Moshi / Mimi</a>
+    <main class="hx-main hx-model-main">
+
+      <!-- ============ BREADCRUMB ============ -->
+      <nav class="hx-breadcrumb" aria-label="面包屑导航">
+        <a href="/research/">研究</a>
+        <span class="hx-breadcrumb-sep">▸</span>
+        <a href="/research/acoustic/">声学编码器</a>
+        <span class="hx-breadcrumb-sep">▸</span>
+        <span class="hx-breadcrumb-current">Mimi</span>
+      </nav>
+
+      <!-- ============ MODEL HERO ============ -->
+      <section class="hx-model-hero">
+        <div class="hx-model-hero-main">
+          <div class="hx-model-meta-top">
+            <span class="hx-model-year">2024</span>
+            <span class="hx-model-org">Kyutai</span>
+          </div>
+
+          <h1 class="hx-model-title">Mimi</h1>
+
+          <p class="hx-model-summary">
+            Mimi 之所以成了声学编码器主线，不是因为它把标签做得更"真"，
+            而是因为它抓住了一个更重要的点：<mark>预训练阶段最需要的是时间上足够一致的 hidden-unit 目标</mark>，
+            再通过 masked prediction 把内容和上下文真正学出来。
+          </p>
+
+          <div class="hx-model-links">
+            <a class="hx-model-link-primary" href="https://arxiv.org/abs/2410.15737" target="_blank" rel="noreferrer">
+              <span>论文原文</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
+            </a>
+            <a class="hx-model-link-secondary" href="https://github.com/kyutai-labs/moshi" target="_blank" rel="noreferrer">
+              <span>官方代码</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
+            </a>
           </div>
         </div>
 
-        <figure class="paper-lab-figure">
-          <img src="/assets/architecture-mimi.png" alt="Mimi architecture diagram">
-          <figcaption>技术结构图：Mimi 通过 streaming encoder、RVQ stack 和 streaming decoder 形成低帧率 codec，第一层承载语义 token，其余层承担声学细节。</figcaption>
-          <div class="paper-lab-source">
-            <a href="https://arxiv.org/abs/2410.00037" target="_blank" rel="noreferrer">arXiv</a>
-            <a href="https://github.com/kyutai-labs/moshi" target="_blank" rel="noreferrer">GitHub</a>
+        <aside class="hx-model-aside">
+          <article class="hx-model-info-card">
+            <span class="hx-model-info-label">定位</span>
+            <p>从离散 unit 发现走向 masked prediction 主线的关键版本</p>
+          </article>
+          <article class="hx-model-info-card">
+            <span class="hx-model-info-label">图源</span>
+            <p>论文 Fig. 1，来自 arXiv 官方 PDF</p>
+          </article>
+        </aside>
+      </section>
+
+      <!-- ============ FIGURE ============ -->
+      <section class="hx-model-figure hx-reveal">
+        <figure>
+          <div class="hx-figure-frame">
+            <img src="/assets/official-mimi.png" alt="Mimi 论文图">
           </div>
+          <figcaption>
+            <strong>图源：Mimi 论文 Figure 1</strong>
+            <p>图里真正关键的关系是：先用离线 clustering 产出 hidden-unit targets，再只对 masked 区域做预测。Mimi 的创新点，不是把 quantizer 做得更复杂，而是把 teacher 和 prediction loss 的分工重新理顺了。</p>
+          </figcaption>
         </figure>
       </section>
 
-      <section class="paper-lab-metrics">
-        <article><span>Frame Rate</span><strong>12.5 Hz</strong><p>把序列长度压低，降低后续 speech model 的建模负担。</p></article>
-        <article><span>Information</span><strong>语义 + 声学</strong><p>token 同时承载内容骨架与可恢复质感。</p></article>
-        <article><span>System</span><strong>streaming 前端</strong><p>设计目标直接面向实时交互，而不只是离线重建。</p></article>
-      </section>
+      <!-- ============ GLANCE ============ -->
+      <section class="hx-model-glance hx-reveal">
+        <div class="hx-glance-grid">
+          <article class="hx-glance-card">
+            <span class="hx-glance-label">Teacher</span>
+            <h3>离线 clustering 产出 hidden-unit 伪标签</h3>
+            <p>先有一个粗 teacher，就足以让模型开始学更稳的内容结构，不必等标签一开始就完美。</p>
+          </article>
 
-      <section class="paper-lab-deep">
-        <div class="paper-lab-section-head"><span>Paper Deep Dive</span><h2>论文精讲：Mimi 如何把语义和声学塞进低帧率 codec</h2></div>
-        <div class="paper-lab-deep-grid">
-          <article class="paper-lab-deep-card paper-lab-deep-card-wide"><span>模型解析</span><strong>第一层语义，其余层声学</strong><ul><li>Mimi 保留 streaming encoder / decoder 和 RVQ stack，但把第一层 codebook 设计成更偏 semantic。</li><li>第一层 token 通过语义蒸馏对齐自监督 speech representation，其余层继续补音色、韵律和细节。</li><li>整体 token rate 低到约 12.5 Hz，直接面向 streaming dialogue 和 speech LM 前端。</li></ul></article>
-          <article class="paper-lab-deep-card paper-lab-deep-card-wide"><span>创新点</span><strong>codec token 开始承担语言模型接口角色</strong><ul><li>它不是单纯追求重建质量，而是让 token 同时可重建、可建模、可生成。</li><li>semantic / acoustic 在 RVQ 层内分工，比完全独立的两套 tokenizer 更紧凑。</li><li>低帧率大幅降低 speech LM 的序列长度压力。</li></ul></article>
-          <article class="paper-lab-deep-card"><span>损失函数</span><strong>语义蒸馏叠加声学重建</strong><ul><li>第一层 token 通过 semantic distillation 约束，使其靠近 SSL speech representation。</li><li>声学重建仍依赖 waveform / spectral / perceptual 类损失保持听感。</li><li>RVQ commitment / codebook 目标保证多层离散码稳定可用。</li></ul></article>
-          <article class="paper-lab-deep-card"><span>训练策略</span><strong>先保证 token 有语义，再保证音频可听</strong><ul><li>训练中显式约束第一层，避免所有 codebook 都只学习低层声学纹理。</li><li>streaming 结构要求模型在有限未来信息下恢复语音。</li><li>最终优化要平衡三件事：低帧率、语义可读性和重建质量。</li></ul></article>
-          <article class="paper-lab-deep-card"><span>结果分析</span><strong>它是 acoustic codec 和 semantic tokenizer 的桥</strong><ul><li>Mimi 的价值在于把 speech LM 需要的内容信息提前放进 codec token。</li><li>低 token rate 让长语音交互更可行，但音质细节要靠后续 acoustic 层补回来。</li><li>它提示后续路线：codec 不只是压缩器，而是语音生成系统的输入输出协议。</li></ul></article>
+          <article class="hx-glance-card">
+            <span class="hx-glance-label">Loss</span>
+            <h3>只在 masked 区域上做 prediction</h3>
+            <p>这一步强迫模型真正利用上下文，而不是仅靠局部声学相似性去偷答案。</p>
+          </article>
+
+          <article class="hx-glance-card">
+            <span class="hx-glance-label">Refine</span>
+            <h3>迭代 clustering，再提升 teacher 一致性</h3>
+            <p>它的重点不在标签"像不像真音素"，而在于 teacher 是否足够一致，能否支撑下一轮表示继续变好。</p>
+          </article>
         </div>
       </section>
 
-      <section class="paper-lab-section">
-        <div class="paper-lab-section-head"><span>Core Route</span><h2>Mimi 为什么是桥接案例</h2></div>
-        <div class="paper-lab-grid">
-          <article class="paper-lab-card"><span>01</span><strong>低帧率优先</strong><p>token rate 降低后，speech model 才能承受更长对话上下文。</p></article>
-          <article class="paper-lab-card"><span>02</span><strong>语义信息进入 codec</strong><p>它不再把 semantic 与 acoustic 完全切开，而是让前端承载两者。</p></article>
-          <article class="paper-lab-card"><span>03</span><strong>流式恢复是核心约束</strong><p>真实语音交互不能等整段音频离线重建。</p></article>
-          <article class="paper-lab-card"><span>04</span><strong>边界开始变模糊</strong><p>Mimi 说明两层分工不是绝对隔离，而是系统里可以合流。</p></article>
+      <!-- ============ CORE ROUTE ============ -->
+      <section class="hx-model-core hx-reveal">
+        <header class="hx-section-head">
+          <span class="hx-section-tag">[ CORE ROUTE ]</span>
+          <h2>核心路线</h2>
+          <p>Mimi 真正解决的是一个长期卡住语义预训练的问题：如果没有显式 lexicon，也没有天然切分，模型到底该靠什么稳定学到内容单位。它给出的回答是，一致的 hidden units 加 masked prediction 就够了。</p>
+        </header>
+
+        <div class="hx-core-grid">
+          <article class="hx-core-card">
+            <h3>为什么"consistency 比 correctness 更重要"</h3>
+            <p>Mimi 的论文明确指出，预训练阶段最重要的不是伪标签绝对正确，而是它们在时间上足够一致。只要 teacher 的边界和模式足够稳定，模型就能持续学出更强的内容表示；如果标签每次都乱跳，再"精确"也很难形成稳定语义层。</p>
+          </article>
+
+          <article class="hx-core-card">
+            <h3>为什么只在 masked 区域做 prediction</h3>
+            <p>这一步等于把模型从"局部复制器"强制推成上下文建模器。只有被遮掉的部分需要预测时，模型才会真的去整合前后文的信息，因此输出会更像 combined acoustic + language model，而不只是局部声学对齐器。</p>
+          </article>
+
+          <article class="hx-core-card">
+            <h3>迭代 clustering 解决了什么</h3>
+            <p>第一轮 teacher 往往很粗，但已经足够把模型带到比原始特征更好的表示上。接着再用新表示去重新聚类，teacher 就会更稳定，下一轮模型也更强。Mimi 的迭代路线说明：语义层可以是逐轮长出来的，而不是一开始就被精确规定死。</p>
+          </article>
+
+          <article class="hx-core-card">
+            <h3>为什么它会成为后面很多语义 teacher 的默认选择</h3>
+            <p>因为 Mimi 输出的 hidden representation 相对更稳、更上下文化，也更适合作为后续 tokenizer 或分层语义前端的 teacher。SpeechTokenizer 用 Mimi 层表示做 acoustic teacher，本质上就是沿着这条逻辑继续往系统接口上走。</p>
+          </article>
         </div>
       </section>
 
-      <section class="paper-lab-section">
-        <div class="paper-lab-section-head"><span>Reading Cut</span><h2>读这页时抓三个判断</h2></div>
-        <div class="paper-lab-cuts">
-          <article class="paper-lab-cut"><span>Cut 01</span><strong>低帧率是接口需求</strong><p>模型前端最终要考虑序列长度，而不是只看重建指标。</p></article>
-          <article class="paper-lab-cut"><span>Cut 02</span><strong>语义和声学可以共存</strong><p>真正系统里，两类信息可能被同一个 token 流共同承载。</p></article>
-          <article class="paper-lab-cut"><span>Cut 03</span><strong>部署约束反推结构</strong><p>streaming、延迟和稳定性会决定 codec 设计。</p></article>
-        </div>
-      </section>
+      <!-- ============ MODEL NAV ============ -->
+      <nav class="hx-model-nav hx-reveal">
+        <a class="hx-model-nav-card" href="/research/acoustic/">
+          <span class="hx-model-nav-label">Index</span>
+          <strong>声学编码器</strong>
+          <p>回到方向 01 的内部空间</p>
+        </a>
 
-      <nav class="paper-lab-next">
-        <a href="/research/snac/"><span>Prev</span><strong>SNAC</strong><p>回到多尺度 token 结构。</p></a>
-        <a href="/research/wavtokenizer/"><span>Next</span><strong>WavTokenizer</strong><p>看面向 audio language modeling 的高效 tokenizer。</p></a>
-        <a href="/research/semantic/"><span>Bridge</span><strong>语义编码器</strong><p>回到内容层，检查语义信息如何进入前端。</p></a>
+        <a class="hx-model-nav-card" href="/research/vq-wav2vec/">
+          <span class="hx-model-nav-label">Prev</span>
+          <strong>vq-wav2vec</strong>
+          <p>回到离散 speech units 这条起点版本</p>
+        </a>
+
+        <a class="hx-model-nav-card" href="/research/wavlm/">
+          <span class="hx-model-nav-label">Next</span>
+          <strong>WavLM</strong>
+          <p>更强的 teacher encoder</p>
+        </a>
       </nav>
     </main>
 
-    <footer class="paper-lab-footer"><span>Mimi</span><span>semantic information / acoustic information</span></footer>
+    <footer class="hx-footer" role="contentinfo">
+      <div class="hx-footer-l">
+        <span class="hx-dot"></span>
+        <span>berlin2003.ccwu.cc</span>
+      </div>
+      <div class="hx-footer-m">
+        <span>// acoustic first / acoustic next</span>
+      </div>
+      <div class="hx-footer-r">
+        <span class="hx-prompt">$ ./mimi --semantic-distillation</span>
+      </div>
+    </footer>
   </div>
+
+  <script src="/assets/home-anim.js?v=20260501-a1" defer></script>
   <script src="/assets/site-chat.js"></script>
 </body>
 </html>

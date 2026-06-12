@@ -5,55 +5,109 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Berlin2003 / 笔记分类</title>
   <meta name="description" content="Berlin2003 的笔记分类页，按札记与项目记录查看导入文章。">
-  <meta name="theme-color" content="#f7fbff">
+  <meta name="theme-color" content="#07162f">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
-  <link rel="stylesheet" href="/assets/section-lab.css?v=20260505-polish">
+  <link rel="stylesheet" href="/assets/home-tech.css">
+  <link rel="stylesheet" href="/assets/project-page-hx.css?v=20260612">
+  <link rel="stylesheet" href="/assets/notion-article.css?v=20260612">
+  <link rel="stylesheet" href="/assets/home-anim.css">
 </head>
-<body class="section-lab-body">
-  <div class="site-shell section-lab-shell">
-    <header class="section-lab-topbar">
-      <a class="section-lab-brand" href="/" aria-label="Berlin2003 首页"><span>Berlin</span><strong>2003</strong></a>
-      <nav class="section-lab-nav" aria-label="笔记导航">
-        <a href="/notes/">笔记</a>
-        <a href="/research/">研究</a>
-        <a href="/projects/">项目</a>
-        <a href="/contact/">联系</a>
+<body class="home hx-body">
+  <div class="hx-bg" aria-hidden="true">
+    <div class="hx-grid"></div>
+    <div class="hx-orb hx-orb-1"></div>
+    <div class="hx-orb hx-orb-2"></div>
+    <div class="hx-orb hx-orb-3"></div>
+    <div class="hx-scanlines"></div>
+    <div class="hx-noise"></div>
+  </div>
+
+  <div class="hx-shell">
+    <header class="hx-nav" role="banner">
+      <a class="hx-brand" href="/" aria-label="Berlin2003 首页">
+        <span class="hx-brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 12 L7 12 L9 6 L13 18 L15 9 L17 14 L21 12" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="hx-brand-text">Berlin<strong>2003</strong></span>
+      </a>
+      <nav class="hx-nav-links" aria-label="笔记导航">
+        <a href="/research/"><span>01</span>研究</a>
+        <a href="/projects/"><span>02</span>项目</a>
+        <a href="/notes/" class="is-active"><span>03</span>笔记</a>
+        <a href="/contact/"><span>04</span>联系</a>
       </nav>
+      <div class="hx-nav-status" aria-hidden="true">
+        <span class="hx-dot"></span>
+        <span>SYS · ONLINE</span>
+      </div>
     </header>
 
-    <main class="section-lab-main">
-      <section class="section-lab-hero" aria-labelledby="category-title">
-        <div class="section-lab-copy">
-          <p class="section-lab-kicker" id="category-kicker">札记</p>
-          <h1 id="category-title">加载中...</h1>
-          <p class="section-lab-lead" id="category-lead">正在整理这一类笔记的文章。</p>
-          <div class="section-lab-actions">
-            <a class="section-lab-primary" href="/notes/">返回笔记首页</a>
-            <a href="/studio/notion/">前往导入</a>
+    <main class="hx-main hx-project-main">
+      <nav class="hx-breadcrumb" aria-label="面包屑导航">
+        <a href="/notes/">笔记</a>
+        <span class="hx-breadcrumb-sep">▸</span>
+        <span class="hx-breadcrumb-current" id="category-footer">分类</span>
+      </nav>
+
+      <section class="hx-project-hero notion-category-hero" aria-labelledby="category-title">
+        <div class="hx-project-hero-main">
+          <div class="hx-kicker">
+            <span class="hx-bracket">[</span>
+            <span class="hx-kicker-tag" id="category-kicker">NOTES</span>
+            <span class="hx-kicker-sep">/</span>
+            <span class="hx-kicker-ver">CATEGORY</span>
+            <span class="hx-bracket">]</span>
+          </div>
+          <h1 id="category-title" class="hx-title">
+            <span class="hx-title-row">加载中...</span>
+          </h1>
+          <p class="hx-lead" id="category-lead">正在整理这一类笔记的文章。</p>
+          <div class="hx-actions">
+            <a class="hx-btn hx-btn-primary" href="/notes/"><span>返回笔记首页</span></a>
+            <a class="hx-btn hx-btn-ghost" href="/studio/notion/"><span>前往导入</span></a>
           </div>
         </div>
-        <figure class="section-lab-visual">
-          <img src="/assets/home-notes.png" alt="Berlin2003 笔记分类视觉图">
-          <figcaption class="section-lab-visual-note">
-            <strong id="category-figure-title">札记分类</strong>
-            <span id="category-figure-copy">把同一路线的记录单独收拢，阅读时不再打散。</span>
-          </figcaption>
-        </figure>
+
+        <aside class="hx-project-aside">
+          <article class="hx-aside-card">
+            <span class="hx-aside-tag">分类定位</span>
+            <p id="category-figure-copy">把同一路线的记录单独收拢，阅读时不再打散。</p>
+          </article>
+          <article class="hx-aside-card">
+            <span class="hx-aside-tag">当前视图</span>
+            <p><span id="category-label">分类文章</span>，按导入时间排序显示。</p>
+          </article>
+        </aside>
       </section>
 
-      <section class="section-lab-panel">
-        <p class="section-lab-label" id="category-label">分类文章</p>
-        <h2 id="category-heading">文章列表</h2>
-        <div id="category-list" class="section-lab-grid two" style="margin-top:18px;">
-          <p style="color:var(--section-muted);margin:0;">加载中...</p>
+      <section class="hx-project-articles hx-reveal" aria-label="分类文章">
+        <header class="hx-section-head">
+          <span class="hx-section-tag">[ LIST · 01 ]</span>
+          <h2 id="category-heading">文章列表</h2>
+        </header>
+        <div id="category-articles" class="hx-articles-grid notion-category-grid">
+          <div class="hx-loading-state">
+            <span class="hx-dot"></span>
+            <span>Loading articles...</span>
+          </div>
         </div>
       </section>
     </main>
 
-    <footer class="section-lab-footer">
-      <span id="category-footer">笔记分类</span>
-      <span>berlin2003.ccwu.cc</span>
+    <footer class="hx-footer" role="contentinfo">
+      <div class="hx-footer-l">
+        <span class="hx-dot"></span>
+        <span id="category-footer-copy">笔记分类</span>
+      </div>
+      <div class="hx-footer-m">
+        <span>// note category / filtered reading</span>
+      </div>
+      <div class="hx-footer-r">
+        <span class="hx-prompt">$ ./notes --category</span>
+      </div>
     </footer>
   </div>
 

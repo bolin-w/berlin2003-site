@@ -10,148 +10,23 @@
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
   <link rel="stylesheet" href="/assets/home-tech.css">
-  <link rel="stylesheet" href="/assets/project-page-hx.css?v=20260525-notes">
+  <link rel="stylesheet" href="/assets/project-page-hx.css?v=20260516">
   <link rel="stylesheet" href="/assets/home-anim.css">
 </head>
-<body class="home hx-body hx-notes-page">
-  <div class="hx-bg" aria-hidden="true">
-    <div class="hx-grid"></div>
-    <div class="hx-orb hx-orb-1"></div>
-    <div class="hx-orb hx-orb-2"></div>
-    <div class="hx-orb hx-orb-3"></div>
-    <div class="hx-scanlines"></div>
-    <div class="hx-noise"></div>
-  </div>
+<body class="home hx-body">
+  <div class="hx-bg" aria-hidden="true"><div class="hx-grid"></div><div class="hx-orb hx-orb-1"></div><div class="hx-orb hx-orb-2"></div><div class="hx-orb hx-orb-3"></div><div class="hx-scanlines"></div><div class="hx-noise"></div></div>
   <div class="hx-shell">
-    <header class="hx-nav" role="banner">
-      <a class="hx-brand" href="/" aria-label="Berlin2003 首页">
-        <span class="hx-brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M3 12 L7 12 L9 6 L13 18 L15 9 L17 14 L21 12" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-        <span class="hx-brand-text">Berlin<strong>2003</strong></span>
-      </a>
-      <nav class="hx-nav-links" aria-label="主导航">
-        <a href="/research/"><span>01</span>研究</a>
-        <a href="/projects/"><span>02</span>项目</a>
-        <a href="/notes/" class="is-active"><span>03</span>笔记</a>
-        <a href="/contact/"><span>04</span>联系</a>
-      </nav>
-      <div class="hx-nav-status" aria-hidden="true">
-        <span class="hx-dot"></span>
-        <span>SYS · ONLINE</span>
-      </div>
-    </header>
-
+    <header class="hx-nav" role="banner"><a class="hx-brand" href="/" aria-label="Berlin2003 首页"><span class="hx-brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12 L7 12 L9 6 L13 18 L15 9 L17 14 L21 12" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="hx-brand-text">Berlin<strong>2003</strong></span></a><nav class="hx-nav-links" aria-label="主导航"><a href="/research/"><span>01</span>研究</a><a href="/projects/"><span>02</span>项目</a><a href="/notes/" class="is-active"><span>03</span>笔记</a><a href="/contact/"><span>04</span>联系</a></nav><div class="hx-nav-status" aria-hidden="true"><span class="hx-dot"></span><span>SYS · ONLINE</span></div></header>
     <main class="hx-main hx-project-main">
-      <nav class="hx-breadcrumb" aria-label="面包屑导航">
-        <a href="/notes/">笔记</a>
-        <span class="hx-breadcrumb-sep">▸</span>
-        <span class="hx-breadcrumb-current">模型训练</span>
-      </nav>
-
-      <section class="hx-project-hero" aria-labelledby="cat-title">
-        <div class="hx-project-hero-main">
-          <div class="hx-kicker">
-            <span class="hx-bracket">[</span>
-            <span class="hx-kicker-tag">札记二</span>
-            <span class="hx-kicker-sep">/</span>
-            <span class="hx-kicker-ver">模型训练</span>
-            <span class="hx-bracket">]</span>
-          </div>
-
-          <h1 id="cat-title" class="hx-title">
-            <span class="hx-title-row">模型训练</span>
-          </h1>
-
-          <p class="hx-lead">
-            把训练过程写清楚，留下
-            <mark>超参选择、loss 变化、数据配比、ablation 与异常现象</mark>的判断依据。
-          </p>
-
-          <div class="hx-hero-meta hx-project-meta">
-            <div class="hx-meta-item">
-              <b id="article-count">-</b><i>篇</i>
-              <span>已归档文章</span>
-            </div>
-            <div class="hx-meta-item">
-              <b>训练</b><i>重点</i>
-              <span>参数与曲线回溯</span>
-            </div>
-            <div class="hx-meta-item">
-              <b>持续</b><i>更新</i>
-              <span>同步实验过程</span>
-            </div>
-          </div>
-        </div>
-
-        <aside class="hx-project-aside">
-          <article class="hx-aside-card">
-            <span class="hx-aside-tag">记录方式</span>
-            <p>保留每次训练里真正影响结果的因素，方便以后做复现、对照和参数迁移。</p>
-          </article>
-          <article class="hx-aside-card">
-            <span class="hx-aside-tag">关注重点</span>
-            <p>重点记训练稳定性、收敛变化、数据组合与不同设置下的表现差异。</p>
-          </article>
-        </aside>
-      </section>
-
-      <div class="hx-tag-strip" aria-label="模型训练标签">
-        <span class="hx-tag">超参数</span>
-        <span class="hx-tag">Loss 曲线</span>
-        <span class="hx-tag">数据配比</span>
-        <span class="hx-tag">Ablation</span>
-      </div>
-
-      <section class="hx-notes-mosaic" aria-label="模型训练导览">
-        <article class="hx-notes-panel hx-notes-panel-wide">
-          <span class="hx-notes-panel-kicker">TRAINING MAP</span>
-          <h2>把每次实验中的变化点单独捞出来看</h2>
-          <p>记录参数、数据、曲线和异常表现之间的关系，让后续复现和对照不再靠回忆。</p>
-        </article>
-        <article class="hx-notes-panel">
-          <span class="hx-notes-panel-kicker">FOCUS 01</span>
-          <strong>参数选择</strong>
-          <p>学习率、batch size、warmup 和 scheduler 的联动影响。</p>
-        </article>
-        <article class="hx-notes-panel">
-          <span class="hx-notes-panel-kicker">FOCUS 02</span>
-          <strong>收敛表现</strong>
-          <p>loss 曲线波动、过拟合迹象和稳定性问题都单独留痕。</p>
-        </article>
-        <article class="hx-notes-panel">
-          <span class="hx-notes-panel-kicker">FOCUS 03</span>
-          <strong>对照实验</strong>
-          <p>ablation、数据配比变化和不同设置下的最终表现差异。</p>
-        </article>
-      </section>
-
-      <section id="category-articles" class="hx-project-articles hx-reveal" aria-label="模型训练文章">
-        <div class="hx-loading-state">
-          <span class="hx-dot"></span>
-          <span>正在整理这一组笔记...</span>
-        </div>
-      </section>
+      <nav class="hx-breadcrumb" aria-label="面包屑导航"><a href="/notes/">笔记</a><span class="hx-breadcrumb-sep">▸</span><span class="hx-breadcrumb-current">模型训练</span></nav>
+      <section class="hx-project-hero" aria-labelledby="cat-title"><div class="hx-project-hero-main"><div class="hx-kicker"><span class="hx-bracket">[</span><span class="hx-kicker-tag">NOTES 02</span><span class="hx-kicker-sep">/</span><span class="hx-kicker-ver">MODEL TRAINING</span><span class="hx-bracket">]</span></div><h1 id="cat-title" class="hx-title"><span class="hx-title-row">模型训练</span></h1><p class="hx-lead">记录训练过程：<mark>超参调优、loss 变化、数据配比与 ablation，让每次实验可回溯</mark>。</p><div class="hx-hero-meta hx-project-meta"><div class="hx-meta-item"><b id="article-count">—</b><i>articles</i><span>training notes</span></div><div class="hx-meta-item"><b>Tuning</b><i>focus</i><span>hyperparameters & loss</span></div><div class="hx-meta-item"><b>Live</b><i>status</i><span>continuously updated</span></div></div></div><aside class="hx-project-aside"><article class="hx-aside-card"><span class="hx-aside-tag">记录重点</span><p>超参选择依据、loss 曲线变化、数据配比策略和 ablation 实验结果。</p></article><article class="hx-aside-card"><span class="hx-aside-tag">可回溯性</span><p>每次实验都记录完整配置，方便日后复现和对比。</p></article></aside></section>
+      <div class="hx-tag-strip"><span class="hx-tag">Hyperparameters</span><span class="hx-tag">Loss Curve</span><span class="hx-tag">Data Mix</span><span class="hx-tag">Ablation</span></div>
+      <section id="category-articles" class="hx-project-articles hx-reveal" aria-label="模型训练文章"><div class="hx-loading-state"><span class="hx-dot"></span><span>Loading articles...</span></div></section>
     </main>
-
-    <footer class="hx-footer" role="contentinfo">
-      <div class="hx-footer-l">
-        <span class="hx-dot"></span>
-        <span>berlin2003.ccwu.cc</span>
-      </div>
-      <div class="hx-footer-m">
-        <span>// notes / model training</span>
-      </div>
-      <div class="hx-footer-r">
-        <span class="hx-prompt">$ ./notes --category model</span>
-      </div>
-    </footer>
+    <footer class="hx-footer" role="contentinfo"><div class="hx-footer-l"><span class="hx-dot"></span><span>berlin2003.ccwu.cc</span></div><div class="hx-footer-m"><span>// model training notes</span></div><div class="hx-footer-r"><span class="hx-prompt">$ ./notes --category model</span></div></footer>
   </div>
-
   <script src="/assets/home-anim.js?v=20260501-a1" defer></script>
-  <script src="/assets/notes-category.js?v=20260525-notes"></script>
+  <script src="/assets/notes-category.js"></script>
   <script src="/assets/site-chat.js"></script>
 </body>
 </html>
