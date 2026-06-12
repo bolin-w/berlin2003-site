@@ -29,6 +29,3 @@ pnpm-debug.log*
 # Local editor and OS state
 .idea/
 .vscode/
-
-# Local codex deploy scratch
-.codex-revert-sync/
