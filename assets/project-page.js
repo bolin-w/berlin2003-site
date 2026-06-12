@@ -1,6 +1,7 @@
 const container = document.querySelector("#project-articles");
 if (!container) throw new Error("missing #project-articles");
 
+const categoryKey = (container.dataset.category || "").trim();
 const matchKeys = (container.dataset.match || "")
   .split(",")
   .map((s) => s.trim().toLowerCase())
@@ -24,6 +25,14 @@ function escapeHtml(value) {
 
 function render(articles) {
   const items = (articles || []).filter((a) => {
+    if (categoryKey && a.module === "项目" && a.category === categoryKey) {
+      return true;
+    }
+
+    if (categoryKey && a.module === "项目") {
+      return false;
+    }
+
     const haystack = [
       a.category,
       a.title,
@@ -80,7 +89,10 @@ function render(articles) {
 
 async function load() {
   try {
-    const res = await fetch("/api/notion/articles?public=true");
+    const query = categoryKey
+      ? `/api/notion/articles?public=true&module=${encodeURIComponent("项目")}&category=${encodeURIComponent(categoryKey)}`
+      : "/api/notion/articles?public=true";
+    const res = await fetch(query);
     const data = await res.json();
     render(res.ok ? data.articles : []);
   } catch {

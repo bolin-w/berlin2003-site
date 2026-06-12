@@ -15,7 +15,7 @@ const NOTION_API_BASE = "https://api.notion.com/v1";
 const ARTICLES_STORE_DIR = process.env.NOTES_STORE_DIR || "/var/lib/berlin2003-ai";
 const ARTICLES_STORE_FILE = path.join(ARTICLES_STORE_DIR, "notion-articles.json");
 const MODULE_MAP = {
-  "项目": [],
+  "项目": ["语音编码", "语音字幕识别", "网站设计"],
   "笔记": ["论文阅读", "模型训练", "部署记录", "页面改版"]
 };
 const ALL_MODULES = Object.keys(MODULE_MAP);

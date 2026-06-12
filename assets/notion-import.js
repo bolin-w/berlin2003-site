@@ -10,7 +10,12 @@ const statusText = document.querySelector("#import-status-text");
 const articlesList = document.querySelector("#articles-list");
 const refreshBtn = document.querySelector("#refresh-articles");
 
+const PROJECT_CATEGORIES = ["语音编码", "语音字幕识别", "网站设计"];
 const NOTE_CATEGORIES = ["论文阅读", "模型训练", "部署记录", "页面改版"];
+const CATEGORY_MAP = {
+  项目: PROJECT_CATEGORIES,
+  笔记: NOTE_CATEGORIES,
+};
 
 function setStatus(kind, text) {
   statusDot.className = "status-dot";
@@ -24,7 +29,12 @@ function setStatus(kind, text) {
 
 function updateCategoryVisibility() {
   const mod = moduleInput.value;
-  if (mod === "笔记") {
+  const categories = CATEGORY_MAP[mod] || [];
+  categoryInput.innerHTML = categories
+    .map((category) => `<option value="${category}">${category}</option>`)
+    .join("");
+
+  if (categories.length > 0) {
     categoryLabel.style.display = "";
   } else {
     categoryLabel.style.display = "none";
@@ -74,21 +84,24 @@ function renderArticles(articles) {
   }
 
   const groups = {};
-  // Project articles
-  groups["项目"] = [];
-  // Note articles grouped by sub-category
+  for (const cat of PROJECT_CATEGORIES) {
+    groups["项目 · " + cat] = [];
+  }
   for (const cat of NOTE_CATEGORIES) {
     groups["笔记 · " + cat] = [];
   }
 
   for (const a of articles) {
-    if (a.module === "项目") {
-      groups["项目"].push(a);
+    if (a.module === "项目" && a.category && PROJECT_CATEGORIES.includes(a.category)) {
+      groups["项目 · " + a.category].push(a);
     } else if (a.category && NOTE_CATEGORIES.includes(a.category)) {
       groups["笔记 · " + a.category].push(a);
+    } else if (a.module === "项目") {
+      if (!groups["项目 · 未分类"]) groups["项目 · 未分类"] = [];
+      groups["项目 · 未分类"].push(a);
     } else {
-      // fallback for unmigrated
-      groups["项目"].push(a);
+      if (!groups["笔记 · 未分类"]) groups["笔记 · 未分类"] = [];
+      groups["笔记 · 未分类"].push(a);
     }
   }
 
@@ -165,7 +178,7 @@ importForm.addEventListener("submit", async (event) => {
 
   const url = urlInput.value.trim();
   const mod = moduleInput.value;
-  const category = mod === "笔记" ? categoryInput.value : null;
+  const category = categoryInput.value || null;
   const isPublic = publicInput.value === "true";
 
   if (!url) {
